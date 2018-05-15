@@ -1,0 +1,77 @@
+  <!--引入公共样式-->
+    <link rel="stylesheet" href="../../../vendor/normalize.css/calendar.css"/>
+    <link rel="stylesheet" href="../../../vendor/normalize.css/base.css">
+    <link rel="stylesheet" href="../../../vendor/normalize.css/bdd_register.css">
+    <link rel="stylesheet" href="../../../vendor/normalize.css/bdd-home.css">
+    <link rel="stylesheet" href="../../../vendor/normalize.css/bdd-footer.css">
+    <style>
+        button{
+           border:none;
+            outline:none;
+            color: #cea63f;
+            font-size: 16px;
+            background: white;
+
+        }
+    </style>
+
+
+<!--头部-->
+<div class="bdd_login_content">
+    <div class="bdd_login_banner">
+        <div class="bdd_login_banner_left">
+            <div class="bdd_login_banner_header">
+                <div class="bdd_logoin_banner_border">
+                    <div class="bdd_logoin_banner_bor_l"><a href="index.html#/login">登录</a></div>
+                    <div class="bdd_logoin_banner_bor_r"><a href="index.html#/register">注册</a></div>
+                </div>
+                <form name="registerForm" novalidate ng-submit="ctrl.register(registerForm.$valid)">
+                    <div class="bdd_logoin_banner_conter">
+                        <div class="form-group">
+                            <input class="bdd_logoin_placeholder" name="invitationPhone" ng-model="ctrl.invitationPhone" type="text"
+                                   placeholder="输入手机号" required ng-pattern="ctrl.mobileRegx"/>
+                            <span class="error" ng-show="registerForm.$submitted && registerForm.invitationPhone.$error.required">*手机号不能为空</span>
+                            <span class="error" ng-show="registerForm.$submitted && registerForm.invitationPhone.$error.pattern">*手机号不合法</span>
+                        </div>
+                        <div class="bdd_logoin_hr"></div>
+                        <div class="bdd_logoin_mi">
+                            <div  class="bdd_logoin_mi_l"><div style="float: left"></div>
+                                <input class="bdd_logoin_placeholder" name="invitationCode" ng-model="ctrl.invitationCode" type="text"
+                                       maxlength="6" placeholder="验证码" required ng-pattern="ctrl.codeRegx">
+                                <span class="error" ng-show="registerForm.$submitted && registerForm.invitationCode.$error.required">*验证码不能为空</span>
+                                <span class="error" ng-show="registerForm.$submitted && registerForm.invitationCode.$error.pattern">*验证码不合法</span>
+                            </div>
+                            <button  class="button gettestcode col-40" ng-click="ctrl.sendVerCode()" ng-bind="ctrl.description" ng-disabled="ctrl.isDisable"/>
+                        </div>
+                        <div class="bdd_logoin_hr_span"></div>
+                        <div class="form-group">
+                            <input style="margin-top:28px;color: #ccbebe" class="bdd_logoin_placeholder" name="userpass" ng-model="ctrl.userpass" type="password"
+                                   placeholder="设置密码" required ng-pattern="ctrl.pwdRegx" >
+                            <span class="error" ng-show="registerForm.$submitted && registerForm.userpass.$error.required">*密码不能为空</span>
+                            <span class="error" ng-show="registerForm.$submitted && registerForm.userpass.$error.pattern">*密码不合法</span>
+                        </div>
+                        <div style="background-color: #ccbebe" class="bdd_logoin_hr"></div>
+                        <input class="bdd_login_buttom" type="submit" value="注册"/>
+                        <div class="bdd_login_pic">
+                            <div class="bdd_login_pic_left">点击注册即同意<span style="color: #cea63f"><a ui-sref="UserProtocol">《标大大用户协议》</a></span></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="bdd_login_banner_right">
+            <div class="bdd_login_banner_right_conter">
+                <div class="bdd_login_banner_right_text">大数据时代的精益求精</div>
+                <div style="margin-top: 10px;" class="bdd_login_banner_right_text">让您与数据随心沟通</div>
+                <div class="bdd_login_banner_logo">
+                    <div class="bdd_login_banner_logo_text"><img src="../../../vendor/images/login_logo.png" alt=""></div>
+                    <div class="bdd_login_banner_logo_text_br"></div>
+                    <div class="bdd_login_banner_logo_text_span">
+                        <div class="bdd_login_banner_logo_list">专注-建筑工程</div>
+                        <div style="margin-top:-2px;" class="bdd_login_banner_logo_li">招投标大数据分析</div></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

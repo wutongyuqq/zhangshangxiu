@@ -1,0 +1,116 @@
+<!--引入公共样式-->
+<link rel="stylesheet" href="../../../vendor/normalize.css/calendar.css"/>
+<link rel="stylesheet" href="../../../vendor/normalize.css/base.css">
+<link rel="stylesheet" href="../../../vendor/normalize.css/bdd_forgetpd.css">
+<link rel="stylesheet" href="../../../vendor/normalize.css/bdd-home.css">
+<!--<link rel="stylesheet" href="../../../vendor/normalize.css/bdd-footer.css">-->
+<style>
+    button {
+        border: none;
+        outline: none;
+        color: #cea63f;
+        font-size: 16px;
+        background: white;
+
+    }
+</style>
+<!--绑定手机号-->
+<!--
+<div class="bdd_binding_content">
+    <div class="bdd_binding_content_conter">
+        <div class="bdd_binding_content_conter_header">忘记密码</div>
+        <form name="forgetForm" novalidate ng-submit="ctrl.forget(forgetForm.$valid)">
+            <div class="bdd_binding_content_plone">
+                <div class="form-group">
+                    <input class="bdd_logoin_placeholder" name="invitationPhone" ng-model="ctrl.invitationPhone"
+                           type="text"
+                           placeholder="输入手机号" required ng-pattern="ctrl.mobileRegx"/>
+                    <span class="error" ng-show="forgetForm.$submitted && forgetForm.invitationPhone.$error.required">*手机号不能为空</span>
+                    <span class="error" ng-show="forgetForm.$submitted && forgetForm.invitationPhone.$error.pattern">*手机号不合法</span>
+                </div>
+                <div class="bdd_logoin_hr"></div>
+                <div class="bdd_logoin_mi">
+                    <div class="bdd_logoin_mi_l">
+                        <div style="float: left"></div>
+                        <input class="bdd_logoin_placeholder" name="invitationCode" ng-model="ctrl.invitationCode"
+                               type="text" maxlength="6"
+                               placeholder="验证码" required ng-pattern="ctrl.codeRegx">
+                        <span class="error"
+                              ng-show="forgetForm.$submitted && forgetForm.invitationCode.$error.required">*验证码不能为空</span>
+                        <span class="error" ng-show="forgetForm.$submitted && forgetForm.invitationCode.$error.pattern">*验证码不合法</span>
+                    </div>
+                    <button class="button" ng-click="ctrl.sendVerCode()" ng-bind="ctrl.description"
+                            ng-disabled="ctrl.isDisable"/>
+                </div>
+                <div class="bdd_logoin_hr_span"></div>
+                <div class="form-group">
+                    <input style="margin-top:28px;color: #ccbebe" class="bdd_logoin_placeholder" name="userpass"
+                           ng-model="ctrl.userpass" type="password"
+                           placeholder="设置密码" required ng-pattern="ctrl.pwdRegx">
+                    <span class="error"
+                          ng-show="forgetForm.$submitted && forgetForm.userpass.$error.required">*密码不能为空</span>
+                    <span class="error"
+                          ng-show="forgetForm.$submitted && forgetForm.userpass.$error.pattern">*密码不合法</span>
+                </div>
+                <div style="background-color: #ccbebe" class="bdd_logoin_hr"></div>
+                <input class="bdd_login_buttom" type="submit" value="找回密码"/>
+                <div class="bdd_login_pic">
+                    &lt;!&ndash;<div class="bdd_login_pic_left">点击确认即同意<span style="color: #cea63f">《标大大用户协议》</span></div>&ndash;&gt;
+                </div>
+            </div>
+        </form>
+    </div>
+</div>-->
+
+
+<!--头部-->
+<div class="bdd_login_content">
+    <div style="width: 500px; height: 460px" class="bdd_login_banner">
+        <div class="bdd_binding_content_conter">
+            <div class="bdd_login_banner_header">
+                <div class="bdd_binding_content_conter_header">忘记密码</div>
+                <form name="forgetForm" novalidate ng-submit="ctrl.forget(forgetForm.$valid)">
+                    <div class="bdd_binding_content_plone">
+                        <div class="form-group">
+                            <input class="bdd_logoin_placeholder" name="invitationPhone" ng-model="ctrl.invitationPhone"
+                                   type="text"
+                                   placeholder="输入手机号" required ng-pattern="ctrl.mobileRegx"/>
+                            <span class="error" ng-show="forgetForm.$submitted && forgetForm.invitationPhone.$error.required">*手机号不能为空</span>
+                            <span class="error" ng-show="forgetForm.$submitted && forgetForm.invitationPhone.$error.pattern">*手机号不合法</span>
+                        </div>
+                        <div class="bdd_logoin_hr"></div>
+                        <div class="bdd_logoin_mi">
+                            <div class="bdd_logoin_mi_l">
+                                <div style="float: left"></div>
+                                <input class="bdd_logoin_placeholder" name="invitationCode" ng-model="ctrl.invitationCode"
+                                       type="text" maxlength="6"
+                                       placeholder="验证码" required ng-pattern="ctrl.codeRegx">
+                        <span class="error"
+                              ng-show="forgetForm.$submitted && forgetForm.invitationCode.$error.required">*验证码不能为空</span>
+                                <span class="error" ng-show="forgetForm.$submitted && forgetForm.invitationCode.$error.pattern">*验证码不合法</span>
+                            </div>
+                            <button class="button" ng-click="ctrl.sendVerCode()" ng-bind="ctrl.description"
+                                    ng-disabled="ctrl.isDisable"/>
+                        </div>
+                        <div class="bdd_logoin_hr_span"></div>
+                        <div class="form-group">
+                            <input style="margin-top:28px;color: #ccbebe" class="bdd_logoin_placeholder" name="userpass"
+                                   ng-model="ctrl.userpass" type="password"
+                                   placeholder="设置密码" required ng-pattern="ctrl.pwdRegx">
+                    <span class="error"
+                          ng-show="forgetForm.$submitted && forgetForm.userpass.$error.required">*密码不能为空</span>
+                    <span class="error"
+                          ng-show="forgetForm.$submitted && forgetForm.userpass.$error.pattern">*密码不合法</span>
+                        </div>
+                        <div style="background-color: #ccbebe" class="bdd_logoin_hr"></div>
+                        <input class="bdd_login_buttom" type="submit" value="找回密码"/>
+                        <!--<div class="bdd_login_pic">
+                           <div class="bdd_login_pic_left">点击确认即同意<span style="color: #cea63f">《标大大用户协议》</span></div>
+                        </div>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div style="padding-left: 55px;">© 2017 思利他, Inc. All rights reserved  . 湘ICP备17019911号-1</div>
+    </div>
+</div>

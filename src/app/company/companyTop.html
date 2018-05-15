@@ -1,0 +1,63 @@
+
+<div class="bdd_trends_contont">
+    <div class="bdd_trends_border">
+        <!--内容-->
+        <div class="bdd_homepage_header">
+            <div class="bdd_homepage_header_left">
+                <img src="../../../vendor/images/qx_title.png" alt="">
+                <div class="bdd_homepage_header_qin">热门企业画像</div>
+                <div class="bdd_homepage_header_qi">
+                    <a href="#/company"><span style="font-size: 16px;color: #ccbebe">&nbsp;&nbsp;更多</span></a>
+                    <span><img style="vertical-align: middle" src="../../../vendor/images/icon_arrow_right.png" alt=""></span>
+                </div>
+            </div>
+            <div class="bdd_homepage_header_right">
+                <img src="../../../vendor/images/qx_title.png" alt="">
+                <div class="bdd_homepage_header_qin">热门人员榜</div>
+                <div class="bdd_homepage_header_qi">
+                    <a href="#/person"><span style="font-size: 16px;color: #ccbebe">&nbsp;&nbsp;更多</span></a>
+                    <span><img style="vertical-align: middle" src="../../../vendor/images/icon_arrow_right.png" alt=""></span></div>
+            </div>
+        </div>
+        <!--内容-->
+        <div class="bdd_per_content">
+            <div class="bdd_per_conter_left_a">
+                <div class="bdd_per_content_left" ng-repeat="company in ctrl.companyList">
+                    <div class="bdd_pers_content_boder">
+                        <div class="bdd_pers_conter_border_left">
+                            <div class="bdd_pers_left_aide">
+                                <img ng-if="!company.logo"src="../../../vendor/images/logo_default_48px.png" alt="">
+                                <img ng-if="company.logo"  style="width: 48px;height: 48px;" src="{{company.logo}}" alt="">
+                            </div>
+                        </div>
+                        <div class="bdd_pers_conter_border_right">
+                            <a href="#/companydetail?comId={{company.comId}}">
+                                <div class="bdd_pers_conter_spans" ng-bind="company.comName"></div>
+                            </a>
+                            <div  class="bdd_pers_conter_aide"><span ng-bind="company.subsist|limitTo:2"></span></div>
+                        </div>
+                        <div class="bdd_pers_top_boder">
+                            <div class="bdd_pers_top_boder_left">法定代表人：<span ng-bind="company.legalPerson"></span></div>
+                            <div class="bdd_pers_top_boder_left">注册资本：<span ng-bind="company.regisCapital"></span></div>
+                        </div>
+                        <div class="bdd_pers_top_boder_ad">
+                            <div class="bdd_pers_ad">地址：<span ng-bind="company.comAddress"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bdd_per_conter_left_b">
+                <div class="bdd_per_content_right" ng-repeat="person in ctrl.personList">
+                    <div class="bdd_per_content_left_news" ng-bind="person.name"></div>
+                    <div class="bdd_per_content_left_data" ng-bind="person.validDate"></div>
+                    <div class="bdd_per_border">
+                        <div class="bdd_per_content_text">注册类别：<span ng-bind="person.category"></span></div>
+                        <div class="bdd_per_content_text">专业：<span ng-bind="person.major"></span></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

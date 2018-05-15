@@ -1,0 +1,140 @@
+<style>
+    /*广告*/
+    .bdd_adver {
+        width: 100%;
+        margin-top: 150px;
+    }
+
+    .bdd_adver_header {
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+    .bdd_text_z {
+        width: 900px;
+        font-size: 18px;
+        color: #2e2e2e;
+        height: 33px;
+        font-family: Arial;
+        padding-top: 8px;
+    }
+
+    .bdd_text_y {
+        padding-top: 16px;
+        font-size: 14px;
+        color: #ccbebe;
+        height: 64px;
+    }
+
+    .bdd_text_p {
+        width: 800px;
+        height: 30px;
+        font-size: 16px;
+        margin-top: -21px;
+        color: #ccbebe;
+
+    }
+
+    .bdd_text_invite {
+        width: 80px;
+        height: 25px;
+        font-size: 14px;
+        font-family: Arial;
+        color: #ef873a;
+        background-color: #fdefe3;
+        text-align: center;
+        padding-top: 4px;
+        float: left;
+    }
+
+    .bdd_text_pading {
+        margin-left: 10px;
+        background-color: #e3e6f7;
+        color: #3676f0;
+    }
+
+    .bdd_win_conter {
+        width: 1200px;
+        height: 166px;
+        background-color: white;
+        padding: 30px 0px 20px 20px;
+        margin-top: 10px;
+
+    }
+
+    .bdd_text_riqi {
+        font-size: 14px;
+        color: #ccbebe;
+        float: right;
+        margin-right: 300px;
+    }
+
+    .text-inline {
+        display: inline-block;
+    }
+
+    .tender-say-div {
+        min-width: 800px;
+        min-height: 800px;
+        overflow: hidden;
+    }
+
+    .bdd_text_first {
+        background-color: #fdefe3;
+        color: #ef873a;
+    }
+
+</style>
+
+<!--公告-->
+
+<div class="tender-say-div" ng-controller="TenderSayCtrl">
+    <div class="bdd_adver">
+        <div class="bdd_adver_header" style="margin-top: 40px">
+            <div class="" ng-if="(showType==0||showType==2)&&dataArraySize!=0">
+                <div class="bdd_win_conter" ng-repeat="item in tenderArrayData"
+                     style="margin-top:10px">
+                    <a ng-click="toTenderDetail(item.id,item.type)">
+                        <div class="bdd_text_z">{{item.title}}</div>
+
+                        <div class="bdd_text_y" ng-if="item.type==0">资质要求：<span>{{item.certificate ? item.certificate:'详见原文'}}</span></div>
+                        <div class="bdd_text_p" ng-if="item.type==0">评标办法：<span>{{item.pbMode ? item.pbMode:'详见原文'}}</span></div>
+                        <div class="bdd_text_y" ng-if="item.type==2">中标企业：<span>{{item.oneName}}</span></div>
+                        <div class="bdd_text_p" ng-if="item.type==2">项目金额：<span>{{item.projSum?(item.projSum+'万元'):''}}</span></div>
+
+                        <div class="text-inline bdd_text_invite bdd_text_pading bdd_text_first">{{item.noticeType}}
+                        </div>
+                        <div class="text-inline bdd_text_invite bdd_text_pading">{{item.projectType}}</div>
+                        <div class="bdd_text_riqi">{{item.opendate}}</div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <div style="margin: 0 auto;width: 100%;text-align: center" ng-if="(showType==0||showType==2)&&dataArraySize==0">
+                <img src="../../../vendor/images/kym_icon_nothing.png"/>
+                <div>没有找到符合条件的公告</div>
+
+            </div>
+
+            <div style="margin: 0 auto;width: 100%;text-align: center" class="" ng-if="(showType==1||showType==3)&&fileDataArraySize==0">
+                <img src="../../../vendor/images/kym_icon_nothing.png"/>
+                <div>没有找到符合条件的招标文件</div>
+
+            </div>
+
+            <div class="bdd_win_conter" ng-if="(showType==1||showType==3)&&fileDataArraySize!=0" style="margin-top: 0px">
+                <div ng-show="fileDataArraySize!=0">可供下载的资源有:{{fileSize}}个</div>
+                <br/>
+
+                <div class="bdd_text_m" ng-repeat="item in fileDataArr">下载地址：<a href="{{item.url}}">{{item.title}}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

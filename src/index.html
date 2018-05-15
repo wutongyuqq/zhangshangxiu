@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WEBAPP">
+<head>
+    <meta charset="UTF-8">
+    <title ng-bind="title"></title>
+    <!--移动端设置viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.css">
+
+
+
+
+    <title>掌上修</title>
+</head>
+
+<body  class="container-fluid" ng-controller="IndexCtrl as ctrl">
+
+<ui-view class="ui_view_min_high"> </ui-view>
+
+<script>
+    window.rootSrc = '/src/';
+</script>
+<script src="../vendor/js/jquery.js"></script>
+<script src="../vendor/js/base.js"></script>
+<script src="../vendor/angular/angular.min.js"></script>
+<script src="../vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="../vendor/angular/angular-touch/angular-touch.js"></script>
+<script src="../vendor/angular/oclazyload/ocLazyLoad.js"></script>
+<script src="../vendor/angular/ng-infinite-scroll.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../vendor/ui-bootstrap-tpls-2.5.0.min.js"></script>
+
+<script src="./app/app.js"></script>
+<script src="./app/config.router.js"></script>
+<script src="./app/config.lazyload.js"></script>
+<script src="./app/utils.js"></script>
+<script src="index.js"></script>
+<script type="text/javascript" src="../vendor/js/ionic.bundle.min.js"></script>
+
+
+
+</body>
+</html>

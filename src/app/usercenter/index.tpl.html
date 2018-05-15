@@ -1,0 +1,287 @@
+<style>
+
+    /*常用*/
+    .bdd_used_boder {
+        width: 1200px;
+        height: 500px;
+        margin: 0 auto;
+        margin-top: 110px;
+    }
+
+    .bdd_used_boder_si {
+        width: 290px;
+        height: 150px;
+        background-color: white;
+        float: left;
+        margin-left: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #cea63f;
+        font-family: "微软雅黑", sans-serif;
+        text-align: center;
+        padding-top: 62px;
+
+    }
+
+    /*行业链接*/
+    .bdd_catenation {
+        width: 1200px;
+        height: 100px;
+        margin: 0 auto;
+     
+    }
+
+    .bdd_catention_zheng {
+        width: 10px;
+        height: 10px;
+        background-color: #cea63f;
+        float: left;
+        margin-top: 8px;
+        margin-left: 10px;
+
+    }
+
+    .bdd_catenation_cat {
+        float: left;
+        padding-left: 8px;
+        font-size: 18px;
+        color: #4d3a3a;
+
+    }
+
+    /*地区*/
+    .bdd_area {
+        width: 100%;
+        height: 135px;
+        background-color: white;
+        margin-top: -60px;
+    }
+
+    .bdd_area_boder {
+        width: 1200px;
+        height: 150px;
+        margin: 0 auto;
+
+    }
+
+    .bdd_area_boder_text {
+        float: left;
+    }
+
+    .bdd_area_boder_left {
+        float: left;
+        width: 1000px;
+        height: 60px;
+
+    }
+
+    .bdd_area_boder_right {
+        float: right;
+        width: 198px;
+        height: 150px;
+        margin-top: 33px;
+
+    }
+
+    .bdd_pic {
+        background: url("../../../vendor/images/nav_icon_arrow_down.png");
+        width: 20px;
+        height: 20px;
+        float: left;
+        margin-top: 47px;
+        background-color: #cea63f;
+    }
+
+    .bdd_area_boder_text {
+        font-size: 16px;
+    }
+
+    .bdd_area_boder_text {
+        padding-left: 50px;
+        margin-top: 10px;
+    }
+
+    .bdd_area_boder_span {
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: 30px;
+        padding-left: 10px;
+    }
+
+    .bdd_area_aode {
+        width: 900px;
+        height: 80px;
+        margin-top: 30px;
+    }
+
+    /*下面列表*/
+    .bdd_area_conter {
+        width: 100%;
+        margin-bottom: 20px;
+        overflow: hidden;
+
+    }
+
+    .bdd_area_conter_border {
+        width: 1200px;
+        min-height: 1000px;
+        margin: 0px auto;
+
+    }
+
+    .bdd_area_conter_border_text {
+        width: 290px;
+        height: 140px;
+        background-color: white;
+        float: left;
+        margin: 0px 10px 10px 0px;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #4d3a3a;
+        text-align: center;
+        padding-top: 35px;
+
+    }
+
+    .bdd_area_list {
+        padding-top: 45px;
+    }
+
+    .bdd_area_usercenter_a:hover {
+        background-color: #cea63f;
+        color: white;
+    }
+
+    .bdd_comp_span_a {
+        display: inline-block;
+    }
+
+    .text-inline {
+        display: inline-block;
+    }
+
+    .bdd_dev_area_pro_a {
+        width: 1200px;
+        margin-left: 80px;
+        font-size: 16px;
+        padding-left: 10px;
+    }
+
+    .bdd_dev_area_pro_t {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left:15px;
+    }
+
+    .bdd_dev_city_a {
+        margin-left:90px;
+        width: 840px;
+    }
+
+    .bdd_area_a {
+        margin: 0 auto;
+
+    }
+
+    .bdd_area_conter_border_a {
+        width: 1200px;
+        min-height: 120px;
+        margin: 0px auto;
+    }
+
+    .bdd_comp_span_all_a {
+        display: inline-block;
+        text-align: center;
+        font-size: 14px;
+        margin-left: 33px;
+        margin-top: 2px;
+        letter-spacing: 2px;
+    }
+
+    .span-cursor {
+        cursor: default;
+    }
+
+    .bdd_usercenter_b {
+        min-height: 1000px;
+        padding-bottom: 100px;
+    }
+</style>
+
+<div class="bdd_usercenter_b">
+
+    <!--常用-->
+    <div class="bdd_used_boder">
+
+        <div ng-repeat="commonLink in ctrl.commonLinkList">
+            <a class="bdd_used_boder_si bdd_area_usercenter_a"
+               href="{{commonLink.customUrl}}">{{commonLink.customName}}</a>
+        </div>
+
+        <!--<div class="bdd_used_boder_si">评标计算</div>-->
+    </div>
+    <!--行业链接-->
+    <div class="bdd_catenation">
+        <div class="bdd_catention_zheng"></div>
+        <div class="bdd_catenation_cat">行业链接</div>
+    </div>
+
+    <div class="bdd_area_conter" style="background-color: white">
+        <div class="bdd_area_conter_border_a">
+
+            <div class="bdd_area_a" style="background-color: white;margin: 0 auto">
+                <div class="bdd_area_boder_a">
+                    <div class="bdd_area_boder_left_a">
+                        <div style="font-size: 15px;" class="text-inline bdd_area_boder_span_a">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区:</div>
+                        <div class="text-inline bdd_area_aode_a">
+                            <a style="font-size: 15px;" class="{{ctrl.province==''?'bdd_comp_span_all span-cursor span-yellow':'bdd_comp_span_all span-cursor'}}" ng-click="ctrl.allArea()">全部</a>
+
+                            <div style="font-size:15px;margin-left:15px" class="bdd_comp_span" ng-repeat="area in ctrl.areaList">
+                                <a class="{{ctrl.province==area.name?' span-cursor span-yellow':'span-cursor'}}" ng-bind="area.name|areaLimit"
+                                   ng-click="ctrl.clickProvince(area)"></a>
+                            </div>
+                        </div>
+                        <div class="text-inline bdd_area_boder_right_a" style="padding-left: 20px">
+                            <a class="span-cursor" id="to-pro-more"
+                               ng-click="ctrl.moreProvince(ctrl.morePro)">
+                                <div style="font-size:15px;" class="to_more" ng-show="!ctrl.morePro">更多</div>
+                                <div style="font-size:15px;" class="to_more to_bottom" ng-show="!ctrl.morePro"></div>
+                                <div style="font-size:15px;" class="to_more" ng-show="ctrl.morePro">收起</div>
+                                <div style="font-size:15px;" class="to_more to_top" ng-show="ctrl.morePro"></div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div id="more-pro" class="bdd_dev_area_pro_a" ng-show="ctrl.morePro">
+                    <div style="font-size:15px;" class="bdd_comp_span_a bdd_dev_area_pro_t" ng-repeat="area in ctrl.areaList2">
+                        <a class="{{ctrl.province==area.name?' span-cursor span-yellow':'span-cursor'}}" ng-bind="area.name|limitTo:2"
+                           ng-click="ctrl.clickProvince(area)"></a>
+                    </div>
+                </div>
+
+                <div id="bdd_dev_city" class="bdd_dev_city_a" ng-show="ctrl.isCity" style="margin-top: 10px">
+                    <div style="padding-left: 15px;font-size:15px;" class="bdd_comp_span_c" >
+                        <a class="{{ctrl.city==''?'span-yellow span-cursor':'span-cursor'}}" ng-click="ctrl.cancleEmCity()">全部</a>
+                    </div>
+                    <div style="padding-left: 15px;font-size:15px;" class="bdd_comp_span_c" ng-repeat="city in ctrl.cityList" ng-if="city">
+                        <a class="{{ctrl.city==city?'span-yellow span-cursor':'span-cursor'}}" ng-bind="city" ng-click="ctrl.clickCity(city)"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bdd_area_conter">
+        <div class="bdd_area_conter_border">
+
+            <a href="{{link.linkUrl}}" class="bdd_area_conter_border_text bdd_area_list"
+               ng-repeat="link in ctrl.linkList">
+                {{link.linkName}}
+            </a>
+        </div>
+    </div>
+
+</div>

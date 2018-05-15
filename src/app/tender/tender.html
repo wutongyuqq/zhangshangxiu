@@ -1,0 +1,208 @@
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
+<style>
+
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
+        display: block;
+    }
+    .title-color {
+        color: #3ca2dd;
+    }
+    .bar_second_pink{
+        width: 100%;
+        margin-top: 44px;
+        height: 1rem;
+        background-color: #aa89bd;
+        vertical-align: middle;
+        line-height: 1rem;
+    }
+    .container-fluid{
+        padding: 0 0;
+        margin: 0 0;
+    }
+    .color-white{
+        color: white;
+        display: inline-block;
+        margin-top: auto;
+        margin-bottom: auto;
+        line-height: 100%;
+
+    }
+    .bar-white-home{
+        margin-left: 2rem;
+
+    }
+    .bar-white-card{
+        margin-left: 5rem;
+    }
+    .border-color{
+        width: 9rem;
+        height: 1rem;
+        background-color: #eeeeee;
+        text-align: left;
+        margin: 0 auto;
+        border-left: 2px solid #b5d2e5;
+        border-right: 2px solid #b5d2e5;
+        border-bottom:  1px solid #99a5ac;
+
+
+    }
+    .border-center{
+        margin-top: 0.5rem;
+        width: 100%;
+        text-align: center;
+
+    }
+    .text-inline{
+        display: inline-block;
+    }
+    .border-first{
+         border-top: 2px solid #b5d2e5;
+     }
+    .border-last{
+        border-bottom: 2px solid #b5d2e5;
+    }
+    .text-left{
+        width: 3.5rem;
+        height: 100%;
+        border-right: 4px solid #9aa6ab;
+        vertical-align: top;
+        padding-top: 0.25rem;
+        margin: 0 auto;
+        text-align: right;
+        padding-right: 0.25rem;
+    }
+    .text-right{
+        height: 100%;
+        vertical-align: top;
+        padding-top: 0.15rem;
+
+    }
+    .edit-img{
+        width: 20px;
+        height: 20px;
+        margin-left: 4.5rem;
+    }
+    .select-img{
+        width: 1.0rem;
+        height: 1.0rem;
+    }
+    .select-item{
+        width: 33%;
+        float: left;
+        margin-top: 0.3rem;
+    }
+    .select_pro{
+        text-align: center;
+        margin-top: 0.3rem;
+        background-color: #f8fbf8;
+        overflow: hidden;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        color: #1296db;
+        font-weight: 700;
+    }
+    .select-text{
+        padding-top: 0.15rem;
+    }
+    .color-white-img{
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+</style>
+<div ng-controller="tenderIndex">
+    <div class="bar bar-header bar-light bar-light-div">
+         <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <h1 class="title"><span class="title-color">车辆接待</span></h1>
+    </div>
+    <div class="bar_second_pink">
+        <img class="color-white color-white-img" src="../../../vendor/images/zsx/car_person.png">
+        <div class="color-white bar-white-home">王总</div>
+        <img  class="color-white color-white-img" src="../../../vendor/images/zsx/car_yellow.png">
+        <div class="color-white bar-white-card">闽A23A97</div>
+    </div>
+    <div class="border-center">
+        <div class="border-color border-first">
+            <div class="text-inline text-left">公里数</div>
+            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+        </div>
+        <div class="border-color">
+            <div class="text-inline text-left">车架号</div>
+            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+
+        </div>
+        <div class="border-color">
+            <div class="text-inline text-left">车型</div>
+            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+
+        </div>
+        <div class="border-color">
+            <div class="text-inline text-left">期望提车时间</div>
+            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/right_btn.png"/></div>
+
+        </div>
+        <div class="border-color">
+            <div class="text-inline text-left">故障描述</div>
+            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+
+        </div>
+        <div class="border-color">
+            <div class="text-inline text-left">介绍人</div>
+            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+
+        </div>
+        <div class="border-color border-last">
+            <div class="text-inline text-left">备注</div>
+            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+
+        </div>
+    </div>
+
+    <div class="select_pro">
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/select_pro.png"/>
+            <div class="select-text">项目选择</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/car_door.png"/>
+            <div class="select-text">钣金喷漆</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/check_plan.png"/>
+            <div class="select-text">车辆检查</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/tc_work.png"/>
+            <div class="select-text">套餐业务</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/you_ticket.png"/>
+            <div class="select-text">优惠券</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/history.png"/>
+            <div class="select-text">历史记录</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/work_order.png"/>
+            <div class="select-text">工单汇总</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/cancle_reciver.png"/>
+            <div class="select-text">取消接车</div>
+
+        </div>
+
+
+
+
+    </div>
+</div>

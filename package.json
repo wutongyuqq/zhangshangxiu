@@ -1,0 +1,5 @@
+{
+  "scripts":{
+"start":"json-mock-kuitos -s / --proxy-host 121.43.148.193 --proxy-port 5555"
+  }
+}

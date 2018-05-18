@@ -1,22 +1,397 @@
-<script type="text/ng-template" id="modal.html">
-    <div>
-        <div class="modal-header">
-            <h3 class="modal-title" align="center">
-                标题信息
-            </h3>
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
+<style>
+
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
+        display: block;
+    }
+
+    .title-color {
+        color: #3ca2dd;
+    }
+
+    .bar_second_pink {
+        width: 100%;
+        margin-top: 44px;
+        height: 1rem;
+        background-color: #aa89bd;
+        vertical-align: middle;
+        line-height: 1rem;
+    }
+
+    .container-fluid {
+        padding: 0 0;
+        margin: 0 0;
+    }
+
+    .color-white {
+        color: white;
+        display: inline-block;
+        margin-top: 0.3rem;
+        margin-bottom: auto;
+        line-height: 100%;
+        vertical-align: top;
+
+    }
+
+    .bar-white-home {
+        margin-left: 0.1rem;
+        margin-top: 0.32rem;
+
+    }
+
+    .bar-white-card {
+        margin-left: 0.2rem;
+        margin-top: 0.32rem;
+    }
+
+    .text-inline {
+        display: inline-block;
+    }
+
+    .color-white-img {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    .color-white-img-home {
+        margin-left: 1rem;
+    }
+
+    .color-white-img-card {
+        margin-left: 4.5rem;
+    }
+
+    .home_tab_div_left_color {
+        background-color: #ff9db4;
+        color: #ffffff;
+    }
+
+    .home_tab_div_right_color {
+        background-color: #a4a3a3;
+        color: #333333;
+    }
+
+    .home_tab_div_left {
+        padding: 0 0;
+        width: 49%;
+        margin-left: -3px;
+        height: 100%;
+        line-height: 1rem;
+
+        text-align: center;
+        vertical-align: middle;
+
+        border: none;
+    }
+
+    .home_tab_div_right {
+
+        margin-left: -3px;
+        width: 49.9%;
+        height: 100%;
+        line-height: 1rem;
+        vertical-align: middle;
+
+        text-align: center;
+
+        border: none;
+    }
+
+    .home_tab_div {
+        padding: 0 0;
+        width: 100%;
+        height: 1rem;
+        margin-top: 0.55rem;
+        text-align: center;
+
+    }
+
+    .text_inline {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .form-control-a {
+        width: 6rem;
+        background: url("../../../vendor/images/zsx/back_bottom_red.png");
+        text-indent: 6px;
+    }
+
+    .bts-magin-a {
+
+        width: 100%;
+        margin: 20px auto 0px auto;
+        text-align: center;
+    }
+
+    .btn-search {
+
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+    }
+
+    .confirm-nav-btn {
+        width: 100%;
+        background-color: #89c997;
+        padding: 5px 10px;
+        color: white;
+    }
+
+    .confirm-a {
+        vertical-align: middle;
+    }
+
+    .confirm-div {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+        display: block;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        background-color: white;
+    }
+
+    .wb_btn_img {
+        width: 0.6rem;
+        height: 0.6rem;
+
+    }
+
+    .wb_second_line {
+        margin-top: 0.1rem;
+        text-align: center;
+    }
+
+    .wb_second_line_qw {
+        padding-left: 3.5rem;
+    }
+
+    .content-list-div {
+        width: 100%;
+    }
+
+    .content-list-div-a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .content-list-div-table {
+
+        width: 100%;
+        margin-top: 2px;
+
+    }
+
+    .img-minus {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    .tb_content_a {
+        background-color: #7ff7fb;
+        height: 1rem;
+    }
+
+    .tb_content_b {
+
+        background-color: #eeeeee;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        vertical-align: middle;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .tb_content_c {
+        padding-top: 0.45rem;
+        height: 2rem;
+        background-color: #fdfcfd;
+        vertical-align: middle;
+    }
+
+    .tb_content_b > td {
+        text-align: center;
+        padding-top: 0.6rem;
+    }
+
+    .tb_content_c > td {
+        text-align: center;
+        padding-top: 0.6rem;
+    }
+
+    .tb_content_a > td {
+        text-align: center;
+        padding-top: 0.2rem;
+    }
+    .tb_content_a{
+        vertical-align: middle;
+        padding-top: 0.15rem;
+    }
+
+    .tb_content_td_a {
+        padding-left: 0.2rem;
+    }
+    .input-white-back{
+        background-color: white;
+        border: none;
+    }
+    input[type=text]{
+        display: inline-block;
+        height: 0.7rem;
+        line-height: 0.7rem;
+    }
+    .input-white-back-right{
+        background-color: white;
+        border: none;
+        width: 6rem;
+    }
+    .green-btn-back{
+        background-color: #89c997;
+        padding:0.05rem 0.25rem;
+        color:white;
+    }
+    .tb_content_b{
+        padding-top: 0.5rem;
+
+    }
+.tb_content_b_a{
+    margin-top: 0.1rem;
+    text-align: left;
+    margin-left: 1rem;
+}
+    .tb_text_label{
+        width: 2.2rem;
+        text-align: right;
+    }
+    .tb_content_mg{
+        margin-top: 0.2rem;
+    }
+    .tb_content_a_ss{
+        margin-left: -0.6rem;
+    }
+</style>
+<div ng-controller="WinBidCtrl">
+    <div class="bar bar-header bar-light bar-light-div">
+        <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <h1 class="title"><span class="title-color">工单(NO:201805132201)</span></h1>
+    </div>
+    <div class="bar_second_pink">
+        <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
+
+        <div class="color-white bar-white-home">王总</div>
+        <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
+
+        <div class="color-white bar-white-card">闽A23A97</div>
+    </div>
+    <div class="wb_second_line">
+        <div class="text_inline">已收预约款:￥0.0</div>
+        <div class="text_inline wb_second_line_qw">未分配：￥0.0</div>
+
+
+    </div>
+    <div class="wb_second_line tb_content_a">
+
+        <div class="text_inline tb_content_a_ss">实收总计:￥0.5</div>
+        <div class="text_inline wb_second_line_qw">结算方式：内结</div>
+
+    </div>
+    <div class="tb_content_b">
+
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">现金:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+            <div class="text-inline green-btn-back">全额支付</div>
         </div>
-        <div class="modal-body">
-            <div align="center">
-                模态框内容
-            </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">银行卡:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+            <div class="text-inline green-btn-back">全额支付</div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">
-                确认
-            </button>
-            <button class="btn btn-warning" ng-click="cancel()">
-                退出
-            </button>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">银行账户:</div>
+            <input  class="text-inline input-white-back-right" type="text"/>
+
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">费率:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+            <div class="text-inline">%</div>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">银行转账:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+            <div class="text-inline green-btn-back">全额支付</div>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">银行账户:</div>
+            <input  class="text-inline input-white-back-right" type="text"/>
+        </div>
+
+
+    </div>
+
+
+    <div class="tb_content_b tb_content_mg">
+
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">挂账对象:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">挂账账期:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">微信:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+            <div class="text-inline green-btn-back">全额支付</div>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">费率:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">支付宝:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+            <div class="text-inline green-btn-back">全额支付</div>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">费率:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">获得积分:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+        </div>
+
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">累计积分:￥</div>
+            <input  class="text-inline input-white-back" type="text"/>
+        </div>
+
+
+
+    </div>
+
+
+    <div class="confirm-div">
+        <div class="confirm-a confirm-nav-btn">
+            收银完成
         </div>
     </div>
-</script>
+
+
+
+
+
+
+
+
+
+</div>

@@ -1,361 +1,438 @@
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
 <style>
-    .bdd_adver_header {
-        overflow: hidden;
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
     }
 
-    .bdd_company_body {
-        margin-top: 180px;
+    .title-color {
+        color: #3ca2dd;
     }
 
-    .text-inline {
+    .container-fluid {
+        padding: 0 0;
+        margin: 0 0;
+    }
+
+    .item-input-a {
+        width: 90%;
+    }
+
+    .bts-magin {
+
+        width: 80%;
+        margin: 60px auto 0px auto;
+    }
+
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
+    }
+
+    .form-control-a {
+        width: 95%;
+        background: url("../../../vendor/images/zsx/back_bottom_red.png");
+        text-indent: 6px;
+    }
+
+    .input-label-a {
+        width: 30%;
+    }
+
+    .input-left-div {
+        padding-left: 1.3rem;
+    }
+
+    .home_tab_div {
+        padding: 0 0;
+        width: 100%;
+        height: 1rem;
+        margin-top: 0.55rem;
+
+    }
+
+    .text_inline {
         display: inline-block;
-        color: #666;
-        font-size: 14px;
-        margin-left: 10px;
-        letter-spacing: 1px;
-
     }
 
-    .text-inline-first {
-        margin-left: 78px;
+    .home_tab_div_left {
+        padding: 0 0;
+        width: 49%;
+        height: 100%;
+        line-height: 1rem;
+
+        text-align: center;
+        vertical-align: middle;
+
+        border: none;
     }
 
-    .bdd-pb-more {
-        cursor: default;
+    .home_tab_div_right {
+
+        margin-left: -3px;
+        width: 49%;
+        height: 100%;
+        line-height: 1rem;
+        vertical-align: middle;
+
+        text-align: center;
+
+        border: none;
     }
 
-    .text-inline-second {
+    .back-line-red {
+        width: 100%;
+        height: 3px;
         margin-top: 20px;
-        padding-left: 38px;
+        background-color: #ff9db4;
     }
 
-    .bdd_un_active {
-        border-bottom: 2px solid #cea63f;
+    .btn-search {
+        background-color: #ff9db4;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        border-radius: 3px;
     }
 
-    .bdd_announcement_mess {
-        padding-left: 20px;
-        margin-left: 100px;
-
+    .home_tab_div_left_color {
+        background-color: #ff9db4;
+        color: #ffffff;
     }
 
-    .bdd_announcement_left {
-        cursor: default;
+    .home_tab_div_right_color {
+        background-color: #a4a3a3;
+        color: #333333;
     }
 
-    .bdd_announcement {
-        background: #ffffff;
+    .btn_inline {
+        width: 100%;
     }
 
-    .text-inline-more {
-        border-bottom: 1px solid #ccc;
-
+    .btn_width_div {
+        width: 100%;
+        height: 2.2rem;
+        margin-top: 0.8rem;
     }
 
-    .text-inline-more {
-        padding: 1px 2px;
-        border: 1px solid #ccc;
-
+    .btn_gz_left {
+        width: 49%;
+        text-align: center;
     }
 
-    .span-cursor-a {
-        width: 200px;
-        text-align: left;
+    .btn_jc_right {
+        width: 49%;
+        text-align: center;
     }
 
-    .bdd-pb-more-c {
-        width: 980px;
-        padding-left: 22px;
+    .btn_a {
+        padding: 0.4rem 1.5rem;
+        background-color: #89c997;
+        border-radius: 5px;
+        color: #ffffff;
     }
 
-    .bdd_content_h {
-        margin-top: 10px;
+    .btn_b {
+        padding: 0.4rem 1.5rem;
+        background-color: #89c997;
+        border-radius: 5px;
+        color: #ffffff;
     }
 
-    .bdd_content_k {
-        margin-top: 0px;
+    .span_card {
+        position: relative;
+        text-decoration: none;
+        color: #1296db;
     }
 
-    .bdd_text_vib_a {
-        margin-top: 10px;
-    }
-    .bdd_content-inline{
-        display: inline-block;
-        width:1020px;
-    }
-    .bdd_tender_inline{
-        display: inline-block;
-    }
-    .dropdown-div-border{
-        margin-left: 5px;
-    }
-    .dropdown-div-more{
-        margin-left: 20px;
-    }
-    .bdd_tender_a{
-        width:1060px;
-    }
-    .bdd_comp_span_m{
-        margin-left: 0px;
-    }
-    .bdd_dev_area_pro_a{
-        width: 1120px;
-    }
-    .bdd_company_body{
-        margin-top: 60px;
-    }
-    .bdd_area_header_select_line{
-        background-color:#F5F3F3;
+    .span_card_list {
+        position: fixed;
+        left: 0rem;
+        top: 5.5rem;
         z-index: 1009;
+        width: 10.8rem;
     }
+
+    .home_ul {
+
+        width: 10.8rem;
+        overflow: auto;
+        padding: 0.5rem;
+        background-color: #eeeeee;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .home_li {
+        float: left;
+        margin-top: 0.2rem;
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+
+    .home_li_a {
+        width: 1.2rem;
+        height: 1.2rem;
+        color: white;
+        text-align: center;
+        padding: 0.3rem;
+        background-color: #89c997;
+    }
+
+    a:link, a:visited, a:hover {
+        color: #1296db;
+        text-decoration: none;
+    }
+
+    .modal-dialog {
+        margin-top: 4rem;
+        border: none;
+    }
+
+    .modal {
+        background-color: transparent;
+        border: none;
+    }
+    .modal-header{
+        background-color: #333333;
+        color:white;
+        border: none;
+    }
+    .modal-title{
+        color:white;
+    }
+    .btn-primary{
+        background-color: #89c997;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-color:#89c997 ;
+    }
+    .btn-warning{
+        background-color: #89c997;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-color:#89c997;
+        margin-left: 1rem;
+    }
+    .modal-footer{
+        text-align: center;
+        background-color: #abadab;
+        border: none;
+
+    }
+    .modal-content{
+        border: none;
+    }
+    .card_ul{
+        position: fixed;
+        top:5.2rem;
+        background-color: #f4f1f1;
+        width: 5rem;
+        left:3.3rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        z-index: 1010;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        max-height: 7rem;
+        color: #7d7e7d;
+        overflow: scroll;
+
+    }
+
 </style>
 
-<!-- 原样式-->
-
-<!--筛选框-->
-
-<!--end-->
-
-<div class="bdd_company_body">
-    <div  class="bg-color">
-        <div class="bg-color-c">
-            <div style="padding-top: 100px" class="bdd_comp_f">
-                <div class="bdd_dev_area bdd_dev_area_txt">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区:</div>
-                <div class="bdd_dev_area bdd_dev_area_pro bdd_dev_area_pro_a">
-                    <div class="bdd_tender_inline bdd_tender_a">
-                        <a class="{{$ctrl.province==''?'bdd_comp_span_all span-cursor span-yellow':'bdd_comp_span_all span-cursor'}}" ng-click="$ctrl.cancelArea()">全部</a>
-
-                        <div class="bdd_comp_span" ng-repeat="area in $ctrl.areaList">
-                            <a class="{{$ctrl.province==area.name?' span-cursor span-yellow':'span-cursor'}}" ng-bind="area.name|areaLimit"
-                               ng-click="$ctrl.clickProvince(area)"></a>
-                        </div>
-                    </div>
-                    <div class="bdd_comp_span bdd_comp_span_m">
-                        <a class="span-cursor" id="to-pro-more"
-                           ng-click="$ctrl.moreProvince($ctrl.morePro)">
-                            <div class="to_more" ng-show="!$ctrl.morePro">更多</div>
-                            <div class="to_more to_bottom" ng-show="!$ctrl.morePro"></div>
-                            <div class="to_more" ng-show="$ctrl.morePro">收起</div>
-                            <div class="to_more to_top" ng-show="$ctrl.morePro"></div>
-                        </a>
-                    </div>
-                </div>
-                <div id="more-pro" class="bdd_dev_area_pro_m" ng-show="$ctrl.morePro">
-                    <div class="bdd_comp_span bdd_dev_area_pro_t" ng-repeat="area in $ctrl.areaList2">
-                        <a class="{{$ctrl.province==area.name?' span-cursor span-yellow':'span-cursor'}}" ng-bind="area.name|areaLimit"
-                           ng-click="$ctrl.clickProvince(area)"></a>
-                    </div>
-
-                </div>
-                <div id="bdd_dev_city" class="bdd_dev_city" ng-show="$ctrl.isCity">
-                    <div class="bdd_comp_span_c"><a class="{{$ctrl.city==''?'span-yellow span-cursor':'span-cursor'}}" ng-click="$ctrl.cancleEmCity()">全部</a>
-                    </div>
-                    <div class="bdd_comp_span_c" ng-repeat="city in $ctrl.cityList" ng-if="city">
-                        <a class="{{$ctrl.city==city?'span-yellow span-cursor':'span-cursor'}}" ng-click="$ctrl.clickCity(city)" ng-bind="city"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="bdd_area_header_select_line"></div>
-
-                <!--筛选框-->
-                <div class="bdd_area_li bdd_letter_li_ti">
-                    <div class="bdd_area_header_select_li">
-                        <div class="bdd_area_left">
-                            <div class="bdd_content_h">资质要求：</div>
-                            <div class="bdd_content_n bdd_content-inline">
-                                <div class="{{$ctrl.qual1==''?'bdd_tender_inline bdd_content_m span-yellow':'bdd_tender_inline bdd_content_m'}}" ng-click="$ctrl.cancelQUal()">全部</div>
-                                <div class="bdd_tender_inline dropdown dropdown-div dropdown-div-border"
-                                     ng-repeat="qual in $ctrl.companyQualList">
-                                    <a role="button" data-toggle="dropdown" class="btn btn-white btn-white-a"
-                                       data-target="#"
-                                       href="javascript:;"><span class="{{$ctrl.qual1==qual?'span-yellow':''}}" ng-click="$ctrl.clickQual1(qual)" >{{qual.name}}</span> <span
-                                            class="caret"></span></a>
-                                    <ul class="dropdown-menu multi-level bdd_drop_scroll" role="menu"
-                                        aria-labelledby="dropdownMenu">
-                                        <li class="dropdown-submenu dropdown-yellow-li" ng-repeat="qual2 in qual.list">
-                                            <a class="dropdown-yellow" href="javascript:;" data-index="2"
-                                               ng-bind="qual2.name"
-                                               ng-mouseenter="$ctrl.touchStart($event,qual2,qual)"
-                                               ng-click="$ctrl.clickQual2(qual2,qual)"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-                            <div class="dropdown  dropdown-div dropdown-div-more">
-                                <a id="more_select_zz" role="button" data-toggle="dropdown"
-                                   class="btn btn-white btn-white-a" data-target="#"
-                                   href="javascript:;" ng-click="$ctrl.moreSelectZz($ctrl.moreZz)">
-                                    <div class="to_more" ng-show="!$ctrl.moreZz">更多</div>
-                                    <div class="to_more to_bottom" ng-show="!$ctrl.moreZz"></div>
-                                    <div class="to_more" ng-show="$ctrl.moreZz">收起</div>
-                                    <div class="to_more to_top" ng-show="$ctrl.moreZz"></div>
-                                </a>
-
-                            </div>
-
-                        </div>
-                        <div id="more-select-zz" class="drop-margin" ng-show="$ctrl.moreZz">
-                            <div class="dropdown dropdown-div dropdown-div-border dropdown-div-border2"
-                                 ng-repeat="qual in $ctrl.companyQualList2">
-                                <a role="button" data-toggle="dropdown" class="btn btn-white btn-white-a"
-                                   data-target="#"
-                                   href="javascript:;"><span
-                                        ng-click="$ctrl.clickQual1(qual)" class="{{$ctrl.qual1==qual?'span-yellow':''}}">{{qual.name}}</span> <span
-                                        class="caret"></span></a>
-                                <ul class="dropdown-menu  multi-level bdd_drop_scroll" role="menu"
-                                    aria-labelledby="dropdownMenu">
-                                    <li class="dropdown-submenu dropdown-yellow-li" ng-repeat="qual2 in qual.list">
-                                        <a href="javascript:;" data-index="2" ng-bind="qual2.name"
-                                           ng-mouseenter="$ctrl.touchStart($event,qual2,qual)"
-                                           ng-click="$ctrl.clickQual2(qual2,qual)"></a>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bdd_area_header_select_li">
-                    <div class="bdd_area_header_select_line2"></div>
-                    <div class="bdd_area_left">
-                        <!--<div class="bdd_area_content bdd_content_h">注册资金：</div>
-                        <div class="bdd_area_content bdd_content_q"><input class="bdd_select  bdd_font"
-                                                                           placeholder="最低价"
-                                                                           type="text"
-                                                                           ng-model="$ctrl.minPrice" maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')"><span
-                                style="color:#ccc">&nbsp;&nbsp;&nbsp;&nbsp;—</span>
-                        </div>
-                        <div class="bdd_area_content bdd_text_vib"><input class="bdd_select bdd_font" placeholder="最高价"
-                                                                          type="text"
-                                                                          ng-model="$ctrl.maxPrice" maxlength="9" onkeyup="value=value.replace(/[^\d]/g,'')"></div>
-                        <div class="bdd_area_content bdd_text_vib"><input class="bdd_button_val" type="button"
-                                                                          value="确认"
-                                                                          ng-click="$ctrl.clickPrice()">&nbsp;<span
-                                class="bdd_font_span" ng-click="$ctrl.canclePrice()">&nbsp;&nbsp;&nbsp;&nbsp;清空</span>
-                        </div>-->
-                        <div class="bdd_dev_area bdd_dev_area_txt">注册资金：</div>
-                        <div class="bdd_dev_area bdd_dev_area_pro">
-                            <a class="{{$ctrl.priceArea==''?'bdd_comp_span_all span-cursor span-yellow':'bdd_comp_span_all span-cursor'}}" ng-click="$ctrl.canclePrice();">不限</a>
-
-                            <div class="bdd_comp_span">
-                                <a class="{{$ctrl.priceArea=='0-500万'?'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickCapital(0,500)">0-500万</a>
-                            </div>
-                            <div class="bdd_comp_span">
-                                <a class="{{$ctrl.priceArea=='500-1000万'?'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickCapital(500,1000)">500-1000万</a>
-                            </div>
-                            <div class="bdd_comp_span">
-                                <a class="{{$ctrl.priceArea=='1000-5000万'?'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickCapital(1000,5000)">1000-5000万</a>
-                            </div>
-                            <div class="bdd_comp_span">
-                                <a class="{{$ctrl.priceArea=='5000-10000万'?'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickCapital(5000,10000)">5000-10000万</a>
-                            </div>
-                            <div class="bdd_comp_span">
-                                <a class="{{$ctrl.priceArea=='10000万以上'?'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickCapital(10000,null)">10000万以上</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-
-
-                <div class="bdd_side_left_did">
-                    <div class="bdd_side_conter_do">
-                        <div class="bdd_area_left">
-                            <div class="bdd_area_content bdd_content_h bdd_content_t">已筛选条件：</div>
-                            <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.province">
-                                <div class="bdd_select bdd_font  bdd_font_color">
-                                    {{$ctrl.province}}&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                        ng-click="$ctrl.cancelArea()">×</span></div>
-                            </div>
-                            <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.city">
-                                <div class="bdd_select bdd_font  bdd_font_color">
-                                    {{$ctrl.city}}&nbsp;&nbsp;&nbsp;&nbsp;<span ng-click="$ctrl.cancleEmCity()">×</span>
-                                </div>
-                            </div>
-                            <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.qual1">
-                                <div class="bdd_select bdd_font  bdd_font_color">
-                                    {{$ctrl.qual1.name}}&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                        ng-click="$ctrl.cancelQUal()">×</span>
-                                </div>
-                            </div>
-                            <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.qual2">
-                                <div class="bdd_select bdd_font  bdd_font_color">
-                                    {{$ctrl.qual2.name}}&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                        ng-click="$ctrl.cancleEmQTwo()">×</span>
-                                </div>
-                            </div>
-                            <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.qual3">
-                                <div class="bdd_select bdd_font  bdd_font_color">
-                                    {{$ctrl.qual3.name}}&nbsp;&nbsp;&nbsp;&nbsp;<span ng-click="$ctrl.cancleEmQThree()">×</span>
-                                </div>
-                            </div>
-                            <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.priceArea">
-                                <div class="bdd_select bdd_font  bdd_font_color">
-                                    {{$ctrl.priceArea}}&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                        ng-click="$ctrl.canclePrice()">×</span></div>
-                            </div>
-                            <div class="bdd_area_content bdd_text_vib bdd_text_vib_a">
-                                <a  href="javascript:void(0)" ng-click="$ctrl.cancelFilter()" style="text-decoration: none"><span>&nbsp;&nbsp;&nbsp;&nbsp;清空</span></a>
-                            </div>
-
-                            <div class="bdd_side_news_val">
-                                <div class="bdd_side_rihgt">综合排序</div>
-                                <div class="bdd_side_rihgt_r">共找到 <span style="color:#cea63f" ng-bind="$ctrl.totalCount"></span> 家企业
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+<div ng-controller="HomeCtrl">
+    <div class="bar bar-header bar-light bar-light-div">
+        <!--  <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>-->
+        <h1 class="title"><span class="title-color">车辆接待</span></h1>
+    </div>
+    <div class="col-lg-6 bts-magin">
+        <div class="input-group">
+            <input type="text" class="form-control-a" placeholder="姓名/卡号/手机号">
+            <span class="input-group-btn">
+        <button class="btn-search" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
+      </span>
         </div>
+        <!-- /input-group -->
+    </div>
+    <!-- /.col-lg-6 -->
 
-
-    <div class="bdd_adver">
-        <div id="bdd_adver_header" class="bdd_adver_header" infinite-scroll='$ctrl.nextPage()'
-             infinite-scroll-disabled='$ctrl.busy' infinite-scroll-distance='1'>
-            <div class="bdd_win_conter_a bdd_win_conter_list" ng-repeat="company in $ctrl.companyList">
-                <div class="bdd_win_conter_left">
-                    <img ng-if="!company.logo"src="../../../vendor/images/logo_default.png" alt="">
-                    <img ng-if="company.logo"  style="width: 110px;height: 110px;" src="{{company.logo}}" alt="">
-                </div>
-                <div class="bdd_win_conter_conter">
-                    <a href="#/companydetail?comId={{company.comId}}">
-                        <div class="bdd_win_conter_header" ng-bind="company.comName"></div>
-                    </a>
-
-                    <div class="bdd_win_conter_d">
-                        <span class="bdd_win_conter_span" ng-bind="company.subsist|limitTo:2"></span>
-                    </div>
-                    <br>
-
-                    <div style="margin-top:-2px" class="bdd_hold_top">法定代表人：<span ng-bind="company.legalPerson"></span>
-                    </div>
-                    <div class="bdd_hold_top bdd_hold_list">注册资本：<span ng-bind="company.regisCapital"></span></div>
-                    <!--<div class="bdd_hold_top bdd_hold_text">注册时间：<span ng-bind="company.certDate"></span></div>-->
-                    <br>
-
-                    <div class="bdd_hold_top bdd_hold_top_addr">地址：<span ng-bind="company.regisAddress"></span></div>
-                </div>
-                <div class="bdd_win_conter_right"></div>
-            </div>
+    <div class="home_tab_div {{showMore==0?'home_tab_div_right_color':'home_tab_div_left_color'}}">
+        <div class="text_inline home_tab_div_left {{showMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+             ng-click="showMoreView(0)">基本信息
+        </div>
+        <div class="text_inline home_tab_div_right  {{showMore==0?'home_tab_div_right_color':'home_tab_div_left_color'}}"
+             ng-click="showMoreView(1)">更多信息
         </div>
 
     </div>
+    <div ng-show="showMore==0" class="input-left-div">
+        <any class="item-input" style="overflow: visible">
+            <span class="input-label input-label-a">车辆
+                &nbsp;&nbsp;&nbsp;
+                <a class="span_card text_inline" ng-click="showCardMore(showCard)">{{proName?proName:'闽'}}</a>
+                <div ng-show="showCard" class="span_card_list text_inline">
+                    <ul class="home_ul">
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('闽')">闽</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('京')">京</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('津')">津</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('沪')">沪</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('渝')">渝</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('蒙')">蒙</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('新')">新</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('藏')">藏</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('宁')">宁</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('桂')">桂</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('港')">港</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('澳')">澳</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黑')">黑</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('吉')">吉</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('辽')">辽</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('晋')">晋</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('冀')">冀</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('青')">青</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鲁')">鲁</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('豫')">豫</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('苏')">苏</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('皖')">皖</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('浙')">浙</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('湘')">湘</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鄂')">鄂</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('粤')">粤</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('琼')">琼</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('甘')">甘</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('陕')">陕</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黔')">黔</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('滇')">滇</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('川')">川</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('临')">临</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('警')">警</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('测')">测</a></li>
+                    </ul>
+                </div>
+            </span>
+            <div class="text_inline">
+                <input placeholder="输入" type="text" ng-model="carInfo.cardName" ng-blur="showCardList=false" ng-focus="showCardList=true"/>
+                <ul class="card_ul"  ng-show="showCardList">
+                    <li ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</li>
+
+
+                </ul>
+            </div>
+        </any>
+        <any class="item-input">
+            <span class="input-label input-label-a">车架号</span>
+            <input placeholder="输入" ng-model="carInfo.cjhm" type="text"/>
+        </any>
+        <any class="item-input">
+            <span class="input-label input-label-a">公里数</span>
+            <input placeholder="输入" ng-model="carInfo.gls" type="text">
+        </any>
+        <any class="item-input">
+            <span class="input-label input-label-a">报修人</span>
+            <input placeholder="输入" ng-model="carInfo.linkman" type="text">
+        </any>
+
+    </div>
+
+
+    <div ng-show="showMore==1" class="input-left-div">
+        <any class="item-input">
+            <span class="input-label input-label-a">推荐人</span>
+            <input placeholder="输入" ng-model="carInfo.custom5" type="text">
+        </any>
+        <any class="item-input">
+            <span class="input-label input-label-a">故障描述</span>
+            <input placeholder="输入" ng-model="carInfo.gzms"  type="text">
+        </any>
+        <any class="item-input">
+            <span class="input-label input-label-a">钥匙牌号</span>
+            <input placeholder="输入" ng-model="carInfo.ysph"  type="text">
+        </any>
+        <any class="item-input">
+            <span class="input-label input-label-a">备注</span>
+            <input placeholder="输入" ng-model="carInfo.ywtx" type="text">
+        </any>
+
+    </div>
+
+
+    <div class="back-line-red">
+    </div>
+    <div class="btn_width_div">
+        <div class="text_inline btn_gz_left">
+            <button class="btn_a" ui-sref="CompanyDetail">关注</button>
+        </div>
+        <div class="text_inline btn_jc_right">
+            <button class="btn_b" ng-click="uploadCardInfo(carInfo)">接车</button>
+        </div>
+
+    </div>
+
+    <div class="tabs tabs-icon-top">
+        <a class="tab-item" href="../../../vendor/images/zsx/recever_hand_blue.png">
+            <div>
+                <img style="width: 22px;height: 22px;margin-top: 5px;"
+                     src="../../../vendor/images/zsx/recever_hand_blue.png"/>
+
+                <div>车辆接待</div>
+            </div>
+
+        </a>
+        <a class="tab-item">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/factory_gray.png"/>
+
+            <div>车间管理</div>
+
+        </a>
+        <a class="tab-item">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/condition_gray.png"/>
+
+            <div>整厂概况</div>
+
+        </a>
+        <a class="tab-item">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/msg_gray.png"/>
+
+            <div>信息中心</div>
+
+        </a>
+
+        <a class="tab-item">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/setting_gray.png"/>
+
+            <div>设置</div>
+
+        </a>
+    </div>
+
 </div>
 
-<div id="bdd_second_menu"
-     style="width: 150px;overflow:hidden;background-color: white;position: absolute;padding-left: 10px;">
-    <div style="width: 150px;height: 25px;" ng-repeat="item in $ctrl.zzList" ng-click="$ctrl.clickQual3(item,$ctrl.zzTwo,$ctrl.zzOne)">
-        <a class="a-point" ng-bind="item.name"></a>
+
+<script type="text/ng-template" id="modal.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                该车辆已进场
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="text-align: left;margin-left: 2rem">
+
+                <div><span>接待人员：</span><span>张三</span></div>
+                <div><span>进厂时间：</span><span>2018-05-08</span></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">
+                进入该车
+            </button>
+            <button class="btn btn-warning" ng-click="cancel()" style="margin-left: 2rem">
+                返回接车
+            </button>
+        </div>
     </div>
-</div>
+</script>

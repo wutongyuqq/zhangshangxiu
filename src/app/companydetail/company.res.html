@@ -1,274 +1,434 @@
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
 <style>
-
-    .bdd_adver_header {
-        overflow: hidden;
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
     }
 
-    .bdd_company_body {
-        margin-top: 180px;
+    .title-color {
+        color: #3ca2dd;
     }
 
-    .text-inline {
+    .container-fluid {
+        padding: 0 0;
+        margin: 0 0;
+    }
+
+    .item-input-a {
+        width: 90%;
+    }
+
+    .bts-magin {
+
+        width: 80%;
+        margin: 60px auto 0px auto;
+    }
+
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
+    }
+
+    .form-control-a {
+        width: 95%;
+        background: url("../../../vendor/images/zsx/back_bottom_red.png");
+        text-indent: 6px;
+    }
+
+    .input-label-a {
+        width: 30%;
+    }
+
+    .input-left-div {
+        padding-left: 1.3rem;
+    }
+
+    .home_tab_div {
+        padding: 0 0;
+        width: 100%;
+        height: 1rem;
+        margin-top: 0.55rem;
+
+    }
+
+    .text_inline {
         display: inline-block;
-        color: #666;
-        font-size: 14px;
-        margin-left: 10px;
-        letter-spacing: 1px;
-
     }
 
-    .text-inline-first {
-        margin-left: 78px;
+    .home_tab_div_left {
+        padding: 0 0;
+        width: 49%;
+        height: 100%;
+        line-height: 1rem;
+
+        text-align: center;
+        vertical-align: middle;
+
+        border: none;
     }
 
-    .bdd-pb-more {
-        cursor: default;
+    .home_tab_div_right {
+
+        margin-left: -3px;
+        width: 49%;
+        height: 100%;
+        line-height: 1rem;
+        vertical-align: middle;
+
+        text-align: center;
+
+        border: none;
     }
 
-    .text-inline-second {
+    .back-line-red {
+        width: 100%;
+        height: 3px;
         margin-top: 20px;
-        padding-left: 38px;
+        background-color: #ff9db4;
     }
 
-    .bdd_un_active {
-        border-bottom: 2px solid #cea63f;
+    .btn-search {
+        background-color: #ff9db4;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        border-radius: 3px;
     }
 
-    .bdd_announcement_mess {
-        padding-left: 20px;
-        margin-left: 100px;
-
+    .home_tab_div_left_color {
+        background-color: #ff9db4;
+        color: #ffffff;
     }
 
-    .bdd_announcement_left {
-        cursor: default;
+    .home_tab_div_right_color {
+        background-color: #a4a3a3;
+        color: #333333;
     }
 
-    .bdd_announcement {
-        background: #ffffff;
+    .btn_inline {
+        width: 100%;
     }
 
-    .text-inline-more {
-        border-bottom: 1px solid #ccc;
-
+    .btn_width_div {
+        width: 100%;
+        height: 2.2rem;
+        margin-top: 0.8rem;
     }
 
-    .text-inline-more {
-        padding: 1px 2px;
-        border: 1px solid #ccc;
-
+    .btn_gz_left {
+        width: 49%;
+        text-align: center;
     }
 
-    .span-cursor-a {
-        width: 200px;
-        text-align: left;
+    .btn_jc_right {
+        width: 49%;
+        text-align: center;
     }
 
-    .bdd-pb-more-c {
-        width: 980px;
-        padding-left: 22px;
+    .btn_a {
+        padding: 0.4rem 1.5rem;
+        background-color: #89c997;
+        border-radius: 5px;
+        color: #ffffff;
     }
 
-    .bdd_content_h {
-        margin-top: 10px;
+    .btn_b {
+        padding: 0.4rem 1.5rem;
+        background-color: #89c997;
+        border-radius: 5px;
+        color: #ffffff;
     }
 
-    .bdd_content_k {
-        margin-top: 0px;
+    .span_card {
+        position: relative;
+        text-decoration: none;
+        color: #1296db;
     }
 
-    .bdd_text_vib_a {
-        margin-top: 10px;
-    }
-
-    .bdd_content-inline {
-        display: inline-block;
-        width: 1020px;
-    }
-
-    .bdd_tender_inline {
-        display: inline-block;
-    }
-
-    .dropdown-div-border {
-        margin-left: 5px;
-    }
-
-    .dropdown-div-more {
-        margin-left: 20px;
-    }
-
-    .bdd_tender_a {
-        width: 1060px;
-    }
-
-    .bdd_comp_span_m {
-        margin-left: 0px;
-    }
-
-    .bdd_dev_area_pro_a {
-        width: 1120px;
-    }
-
-    .bdd_company_body {
-        margin-top: 60px;
-    }
-
-    .bdd_area_header_select_line {
-        background-color: #F5F3F3;
+    .span_card_list {
+        position: fixed;
+        left: 0rem;
+        top: 5.5rem;
         z-index: 1009;
+        width: 10.8rem;
     }
 
-    .current_menu_active_a_1, .current_menu_active_a_3, .current_menu_active_a_4, .current_menu_active_a_5 {
+    .home_ul {
+
+        width: 10.8rem;
+        overflow: auto;
+        padding: 0.5rem;
+        background-color: #eeeeee;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .home_li {
+        float: left;
+        margin-top: 0.2rem;
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+
+    .home_li_a {
+        width: 1.2rem;
+        height: 1.2rem;
         color: white;
-        border-bottom: none;
+        text-align: center;
+        padding: 0.3rem;
+        background-color: #89c997;
+    }
+
+    a:link, a:visited, a:hover {
+        color: #1296db;
+        text-decoration: none;
+    }
+
+    .modal-dialog {
+        margin-top: 4rem;
+        border: none;
+    }
+
+    .modal {
+        background-color: transparent;
+        border: none;
+    }
+
+    .modal-header {
+        background-color: #333333;
+        color: white;
+        border: none;
+    }
+
+    .modal-title {
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #89c997;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-color: #89c997;
+    }
+
+    .btn-warning {
+        background-color: #89c997;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-color: #89c997;
+        margin-left: 1rem;
+    }
+
+    .modal-footer {
+        text-align: center;
+        background-color: #abadab;
+        border: none;
 
     }
 
-    .current_menu_active_a_3 {
-        color: #cea63f;
-        border-bottom: 3px solid #cea63f;
+    .modal-content {
+        border: none;
     }
 
-    .bdd_win_b {
-        height: 140px;
+    .card_ul {
+        position: fixed;
+        top: 5.2rem;
+        background-color: #f4f1f1;
+        width: 5rem;
+        left: 3.3rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        z-index: 1010;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        max-height: 7rem;
+        color: #7d7e7d;
+        overflow: scroll;
+
     }
 
-    .bdd_win_txt_a {
-        color: #4d3a3a;
-        font-size: 18px;
-        font-weight: 700;
-        padding-top: 20px;
+    .choose_statu {
+
     }
 
-    .bdd_win_conter_b {
-        width: 1200px;
-        height: 140px;
-        margin-top: 10px;
-        border-right: 5px;
-        background-color: white;
-        padding-left: 20px;
+    .red-back {
+        width: 100%;
+        background-color: #fdd6d6;
+        padding: 0 0.5rem;
+        line-height: 1.1rem;
+        height: 1.1rem;
     }
+
+    .select-statu {
+        width: 4rem;
+        height: 0.8rem;
+        border: none;
+
+    }
+    .select-statu>option{
+        border: none;
+    }
+
+    .select-time {
+        width: 4rem;
+        height: 0.8rem;
+        margin-left: 1.2rem;
+
+    }
+
+    .pg_div_header {
+        height: 1.2rem;
+        line-height: 1.2rem;
+        display: block;
+        background-color: #e1f1ff;
+        padding: 0 1rem;
+    }
+
+    .float_left {
+        float: left;
+    }
+
+    .float_right {
+        float: right;
+    }
+
+    .car_img {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+    .pg_div_content {
+        background-color: #ece8e8;
+        height: 3rem;
+        padding: 0.3rem 0.6rem;
+        overflow: hidden;
+
+    }
+
+    .text-aign-left {
+        text-align: left;
+        margin-left: 1rem;
+        color: #333333;
+        font-weight: 500;
+
+    }
+
+    .text-left-b {
+        height: 0.6rem;
+    }
+
+    .pg-line {
+        width: 100%;
+        margin-top: 0.05rem;
+    }
+    .pg_div_header{
+        font-size: 14px;
+        font-weight: 600;
+    }
+
 </style>
 
-<!-- 原样式-->
-
-<!--筛选框-->
-
-<!--end-->
-
-<div class="bdd_company_body">
-    <div class="bg-color">
-        <div class="bg-color-c">
-            <div style="padding-top: 100px" class="bdd_comp_f">
-                <div class="bdd_dev_area bdd_dev_area_txt">项目地区:</div>
-                <div class="bdd_dev_area bdd_dev_area_pro bdd_dev_area_pro_a">
-                    <div class="bdd_tender_inline bdd_tender_a">
-                        <a class="{{$ctrl.province == null ? 'bdd_comp_span_all span-cursor span-yellow':'bdd_comp_span_all span-cursor'}}"
-                           ng-click="$ctrl.cancelArea()">全部</a>
-
-                        <div class="bdd_comp_span" ng-repeat="area in $ctrl.areaList">
-                            <a class="{{$ctrl.province == area.name ? 'span-cursor span-yellow':'span-cursor'}}"
-                               ng-bind="area.name|areaLimit"
-                               ng-click="$ctrl.clickProvince(area)"></a>
-                        </div>
-                    </div>
-                    <div class="bdd_comp_span bdd_comp_span_m">
-                        <a class="span-cursor" id="to-pro-more"
-                           ng-click="$ctrl.moreProvince($ctrl.morePro)">
-                            <div class="to_more" ng-show="!$ctrl.morePro">更多</div>
-                            <div class="to_more to_bottom" ng-show="!$ctrl.morePro"></div>
-                            <div class="to_more" ng-show="$ctrl.morePro">收起</div>
-                            <div class="to_more to_top" ng-show="$ctrl.morePro"></div>
-                        </a>
-                    </div>
-                </div>
-                <div id="more-pro" class="bdd_dev_area_pro_m" ng-show="$ctrl.morePro">
-                    <div class="bdd_comp_span bdd_dev_area_pro_t" ng-repeat="area in $ctrl.areaList2">
-                        <a class="{{$ctrl.province == area.name ? 'span-cursor span-yellow':'span-cursor'}}"
-                           ng-bind="area.name|areaLimit"
-                           ng-click="$ctrl.clickProvince(area)"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="bdd_area_header_select_line"></div>
-            <div class="bdd_comp_f">
-                <div class="bdd_dev_area bdd_dev_area_txt">项目类别:</div>
-                <div class="bdd_dev_area bdd_dev_area_pro bdd_dev_area_pro_a">
-                    <div class="bdd_tender_inline bdd_tender_a">
-                        <a class="{{$ctrl.showProType == null ? 'bdd_comp_span_all span-cursor span-yellow':'bdd_comp_span_all span-cursor'}}">全部</a>
-                        <!--<a class="bdd_comp_span_all span-cursor span-yellow">全部</a>-->
-                        <div class="bdd_comp_span">
-                            <!--<a class="{{$ctrl.province==area.name?' span-cursor span-yellow':'span-cursor'}}"-->
-                               <!--ng-bind="area.name|areaLimit"-->
-                               <!--ng-click="$ctrl.clickProvince(area)"></a>-->
-                            <a class="{{$ctrl.showProType=='市政工程'? 'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickProType('市政工程')">市政工程</a>
-                            <a class="{{$ctrl.showProType=='房屋建筑'? 'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickProType('房屋建筑')">房屋建筑</a>
-                            <a class="{{$ctrl.showProType=='其他'? 'span-cursor span-yellow':'span-cursor'}}" ng-click="$ctrl.clickProType('其他')">其他</a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bdd_area_header_select_line"></div>
-            <div class="bdd_side_left_did">
-                <div class="bdd_side_conter_do">
-                    <div class="bdd_area_left">
-                        <div class="bdd_area_content bdd_content_h bdd_content_t">已筛选条件：</div>
-                        <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.province">
-                            <div class="bdd_select bdd_font  bdd_font_color">
-                                {{$ctrl.province}}&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                    ng-click="$ctrl.cancelArea()">×</span></div>
-                        </div>
-                        <div class="bdd_area_content bdd_text_vib bdd_text_vib_a" ng-if="$ctrl.showProType">
-                            <div class="bdd_select bdd_font  bdd_font_color">
-                                {{$ctrl.showProType}}&nbsp;&nbsp;&nbsp;&nbsp;<span ng-click="$ctrl.cancleProType()">×</span>
-                            </div>
-                        </div>
-                        <div class="bdd_area_content bdd_text_vib bdd_text_vib_a">
-                            <a href="javascript:void(0)" ng-click="$ctrl.cancelFilter()"
-                               style="text-decoration: none"><span>&nbsp;&nbsp;&nbsp;&nbsp;清空</span></a>
-                        </div>
-
-                        <div class="bdd_side_news_val">
-                            <div class="bdd_side_rihgt">综合排序</div>
-                            <div class="bdd_side_rihgt_r">共找到 <span style="color:#cea63f"
-                                                                    ng-bind="$ctrl.totalCount"></span> 家企业
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+<div ng-controller="CompanyResCtrl">
+    <div class="bar bar-header bar-light bar-light-div">
+          <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <h1 class="title"><span class="title-color">在厂车辆</span></h1>
     </div>
+    <div class="col-lg-6 bts-magin">
+        <div class="input-group">
+            <input type="text" class="form-control-a" placeholder="输入车牌">
+            <span class="input-group-btn">
+        <button class="btn-search" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
+      </span>
+        </div>
+        <!-- /input-group -->
+    </div>
+    <!-- /.col-lg-6 -->
+    <div class="red-back">
+        <select class="text_inline select-statu">
+            <option>估价中</option>
+            <option>待派工</option>
+            <option>待修</option>
+            <option>维修中</option>
+            <option>待结算</option>
+            <option>待交车</option>
+        </select>
 
 
-    <div class="bdd_adver">
-        <div id="bdd_adver_header" class="bdd_adver_header" infinite-scroll='$ctrl.nextPage()'
-             infinite-scroll-disabled='{{$ctrl.busy}}' infinite-scroll-distance='1'>
-            <div class="bdd_win_conter_b bdd_win_conter_list bdd_win_b" ng-repeat="project in $ctrl.projectList">
-                <div class="bdd_win_txt_a">{{project.proName}}</div>
-                <div style="overflow: hidden;color: #ccbebe;font-size: 16px;margin-top:13px;">
-                    <div style="float: left">建设单位：{{project.proOrg}}</div>
-                    <div style="float: left;margin-left: 40px;">项目地区：{{project.province}}- {{project.proWhere}}</div>
-                </div>
-                <div style="color: #d65588;font-size: 14px;background-color: #ffe5f0;width: 80px;text-align: center;margin-top: 15px;">
-                    {{project.proType}}
-                </div>
-
-
+        <select class="text_inline select-time">
+            <option selected="selected">选择时间</option>
+        </select>
+    </div>
+    <div class="pg-line">
+        <div class="pg_div_header">
+            <div class="float_left">车牌：闽A2C93P</div>
+            <div class="float_right">状态：待派工</div>
+        </div>
+        <div class="pg_div_content">
+            <div class="float_left"><img class="car_img" src="../../../vendor/images/zsx/car_img.jpg"/></div>
+            <div class="float_left text-aign-left">
+                <div class="text-left-b">车架号：BD201908091090</div>
+                <div class="text-left-b">进厂时间：2018-05-17</div>
+                <div class="text-left-b">接待人员：黄秋生</div>
+                <div class="text-left-b">车型：北京现代</div>
             </div>
 
-
-            <div id="bdd_second_menu"
-                 style="width: 150px;overflow:hidden;background-color: white;position: absolute;padding-left: 10px;">
-                <div style="width: 150px;height: 25px;" ng-repeat="item in $ctrl.zzList"
-                     ng-click="$ctrl.clickQual3(item,$ctrl.zzTwo,$ctrl.zzOne)">
-                    <a class="a-point" ng-bind="item.name"></a>
-                </div>
-            </div>
         </div>
     </div>
+
+
+    <div class="pg-line">
+        <div class="pg_div_header">
+            <div class="float_left">车牌：闽A2C93P</div>
+            <div class="float_right">状态：待派工</div>
+        </div>
+        <div class="pg_div_content">
+            <div class="float_left"><img class="car_img" src="../../../vendor/images/zsx/car_img.jpg"/></div>
+            <div class="float_left text-aign-left">
+                <div class="text-left-b">车架号：BD201908091090</div>
+                <div class="text-left-b">进厂时间：2018-05-17</div>
+                <div class="text-left-b">接待人员：黄秋生</div>
+                <div class="text-left-b">车型：北京现代</div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="pg-line">
+        <div class="pg_div_header">
+            <div class="float_left">车牌：闽A2C93P</div>
+            <div class="float_right">状态：待派工</div>
+        </div>
+        <div class="pg_div_content">
+            <div class="float_left"><img class="car_img" src="../../../vendor/images/zsx/car_img.jpg"/></div>
+            <div class="float_left text-aign-left">
+                <div class="text-left-b">车架号：BD201908091090</div>
+                <div class="text-left-b">进厂时间：2018-05-17</div>
+                <div class="text-left-b">接待人员：黄秋生</div>
+                <div class="text-left-b">车型：北京现代</div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="pg-line">
+        <div class="pg_div_header">
+            <div class="float_left">车牌：闽A2C93P</div>
+            <div class="float_right">状态：待派工</div>
+        </div>
+        <div class="pg_div_content">
+            <div class="float_left"><img class="car_img" src="../../../vendor/images/zsx/car_img.jpg"/></div>
+            <div class="float_left text-aign-left">
+                <div class="text-left-b">车架号：BD201908091090</div>
+                <div class="text-left-b">进厂时间：2018-05-17</div>
+                <div class="text-left-b">接待人员：黄秋生</div>
+                <div class="text-left-b">车型：北京现代</div>
+            </div>
+
+        </div>
+    </div>
+
 </div>

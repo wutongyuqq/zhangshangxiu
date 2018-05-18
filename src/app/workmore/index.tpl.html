@@ -1,123 +1,192 @@
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    .title-color {
+        color: #3ca2dd;
+    }
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
+    }
+    .container-fluid {
+        padding: 0 0;
+        margin: 0 0;
+    }
+    .text_inline {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    a:link, a:visited, a:hover {
+        color: #1296db;
+        text-decoration: none;
+    }
     body{
-        background-color: #F8F8F8;
+        background-color: #f7f8f8;
     }
-    .bdd_trends_contont{
+    .title-a{
+        padding-top: 80px;
+        text-align: center;
+        min-height: 100%;
         width: 100%;
-        margin-bottom:140px;
+
 
     }
-    .bdd_trends_border{
-        width: 1200px;
-        margin:  0 auto;
-    }
-    .bdd_trends_pic{
-        width: 1200px;
-        height: 500px;
-        margin:  0 auto;
-        margin-top: 110px;
-    }
-    .bdd_trends_header{
-        width: 1200px;
-        margin: 0 auto;
-        opacity: 0.8;
-    }
-    .bdd_trends_header_title{
-        font-size: 18px;
-        color: #4d3a3a;
-        line-height:80px;
-        margin-left: 30px;
-    }
-
-    .bdd_trends_header_hr{
-        width:80px;
-        height: 2px;
-        background-color: #4d3a3a;
-    }
-    /*下拉框*/
-    .bdd_trends_conter_pic{
-        width: 1200px;
-        height: 160px;
-        background-color: white;
-        margin-top:10px;
-    }
-    .bdd_trends_conter_pic_left{
-        width: 140px;
-        height: 140px;
-        float: left;
-        background-color:#ccbebe;
-        margin-top:10px;
-        margin-left:10px;
-        border-radius: 5px;
+    .txt-width{
+        width: 30%;
+        text-align: center;
 
     }
-    .bdd_trends_conter_pic_right{
-        width: 1010px;
-        height: 140px;
-        float: left;
-        margin-left:20px;
-        margin-top:30px;
+    .text-second-a{
+        font-size: 22px;
+        color: #4a4a4a;
+        text-shadow:3px 3px 5px orange,-3px 3px 5px green;
+    }
+    .text-second-b{
+        margin-top: 0.5rem;
+        font-size: 22px;
+    }
+    .content-b-num{
+        margin-top: 0.5rem;
+        font-size: 22px;
 
     }
-    .bdd_trends_conter_pic_top{
-        font-size: 18px;
-        color: #4d3a3a;
-        padding-top:10px;
-    }
-    .bdd_trends_conter_pic_news{
-        font-size: 16px;
-        color: #ccbebe;
-        padding-top:20px;
-    }
-    .bdd_trends_header_bot{
-        width: 74px;
-        padding-bottom: 5px;
-        border-bottom: 3px solid #4d3a3a;
+    .content-b{
+        width: 10.8rem;
+        color:white;
+        margin-top: 0.5rem;
+        text-align: center;
+        overflow: hidden;
+        padding-bottom: 1rem;
 
     }
-    .bdd_trends_header_title{
+    .content-b-a{
+        width:26%;
+        height: 4rem;
+        background-color: #aaaaaa;
+        text-align: center;
 
         display: inline-block;
+        margin-left: 0.15rem;
+        margin-right: 0.15rem;
+        vertical-align: middle;
+        padding-top: 1.2rem;
+        margin-top: 0.3rem;
+        border:1px solid #333333;
+        box-shadow: 10px 10px 5px #888888;
+    }
+    .content-b-num{
+        color:white;
+        text-shadow:3px 3px 5px #f56253,-3px 3px 5px green;
+    }
+    .content-b-txt{
+        font-size: 18px;
+        text-shadow:3px 3px 5px #f56253,-3px 3px 5px green;
+    }
+    .reset-pwd-img{
+        width: 0.7rem;
+        height: 0.7rem;
+    }
+    .content-txt-magin{
+        margin-top: 45px;
+    }
+    .content-txt-a{
+        width: 100%;
+        padding-top: 0.5rem;
+        background-color: #e7fadf;
+        padding-bottom: 0.5rem;
+    }
+    .content-txt-b{
+        width: 100%;
+        padding-top: 0.5rem;
+        background-color: #fbeefd;
+        padding-bottom: 0.5rem;
+    }
+    .right-btn-a{
+        float: right;
+        display: block;
+        margin-right: 0.5rem;
+    }
+    .left-btn-a{
+        margin-left: 0.6rem;
+    }
+    .left-btn-b{
+
+        margin-left: 0.6rem;
     }
 </style>
 
-<div class="bdd_trends_contont">
-    <div class="bdd_trends_border">
+<div ng-controller="WorkMoreCtrl">
+    <div class="bar bar-header bar-light bar-light-div">
+        <!--<button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>-->
+        <h1 class="title"><span class="title-color">设置</span></h1>
+    </div>
 
-        <!--轮播图-->
-        <div class="jd_banner">
-            <div class="all" id='box'>
-                <div class="screen">
-                    <ul>
-                        <!--<li ng-repeat="item in $ctrl.imageArr"><a><img src="{{item.imagesrc}}" width="1200" height="500"/></a></li>-->
-                    </ul>
-                    <ol style="display: none"><!--<li ng-repeat="item in $ctrl.imageArr">{{$index+1}}--></li></ol>
-                </div>
-                <div id="arr"><span  id="left">&lt;</span><span id="right">&gt;</span></div>
-            </div>
-        </div>
-
-
-
-        <div class="bdd_trends_header">
-            <div class="bdd_trends_header_title {{ctrl.isCompany?'bdd_trends_header_bot':''}}" ng-click="ctrl.toDiffMsg('0')">行业资讯 </div>
-
-            <div class="bdd_trends_header_title bdd_trends_hrader_tex {{ctrl.isCompany?'':'bdd_trends_header_bot'}}" ng-click="ctrl.toDiffMsg('1')">平台公示</div>
-        </div>
-        <div id="bdd_adver_header" class="bdd_adver_header" infinite-scroll='ctrl.nextPage()'
-             infinite-scroll-disabled='ctrl.busy' infinite-scroll-distance='1'>
-            <div  class="bdd_trends_conter_pic" ng-repeat="item in ctrl.dataArray">
-                <a ng-click="ctrl.toDetail(item.id)">
-                <div class="bdd_trends_conter_pic_left"><img src="../../../vendor/images/dt_icon_defa1.png" alt=""></div>
-                <div style="border-radius: 10px" class="bdd_trends_conter_pic_right">
-                    <div class="bdd_trends_conter_pic_top">{{item.title}}</div>
-                    <div class="bdd_trends_conter_pic_news">{{item.contentDescribe}}</div>
-                    <div style="text-align: right;margin-top: -20px;font-size: 14px" class="bdd_trends_conter_pic_news">{{item.time}}</div>
-                </div>
-                </a>
-            </div>
-        </div>
+    <div class="content-txt-a content-txt-magin">
+        <div class="text_inline left-btn-a"><img class="reset-pwd-img" src="../../../vendor/images/zsx/reset-pwd.png"/></div>
+        <div class="text_inline left-btn-b">修改密码</div>
+        <div class="text_inline right-btn-a"><img  class="reset-pwd-img" src="../../../vendor/images/zsx/right_btn.png"></div>
+        
+    </div>
+    <div class="content-txt-b">
+        <div class="text_inline left-btn-a"><img class="reset-pwd-img" src="../../../vendor/images/zsx/contact-us.png"/></div>
+        <div class="text_inline left-btn-b">联系我们</div>
+        <div class="text_inline right-btn-a"><img  class="reset-pwd-img" src="../../../vendor/images/zsx/right_btn.png"></div>
 
     </div>
 
+    <div class="content-txt-a">
+        <div class="text_inline left-btn-a"><img class="reset-pwd-img" src="../../../vendor/images/zsx/check-update.png"/></div>
+        <div class="text_inline left-btn-b">检查更新</div>
+        <div class="text_inline right-btn-a"><img  class="reset-pwd-img" src="../../../vendor/images/zsx/right_btn.png"></div>
+
+    </div>
+
+    <div class="content-txt-b" ng-click="exitLogin()">
+        <div class="text_inline left-btn-a"><img class="reset-pwd-img" src="../../../vendor/images/zsx/quit-btn.png"/></div>
+        <div class="text_inline left-btn-b">退出登录</div>
+        <div class="text_inline right-btn-a"><img  class="reset-pwd-img" src="../../../vendor/images/zsx/right_btn.png"></div>
+
+    </div>
+
+
+    <div class="tabs tabs-icon-top">
+        <a class="tab-item" ui-sref="home">
+            <div>
+                <img style="width: 22px;height: 22px;margin-top: 5px;"
+                     src="../../../vendor/images/zsx/recever_hand_gray.png"/>
+
+                <div style="color: #515151">车辆接待</div>
+            </div>
+
+        </a>
+        <a class="tab-item">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/factory_gray.png"/>
+
+            <div>车间管理</div>
+
+        </a>
+        <a class="tab-item" ui-sref="CompanyTop">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/condition_gray.png"/>
+
+            <div style="color: #515151">整厂概况</div>
+
+        </a>
+        <a class="tab-item">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/msg_gray.png"/>
+
+            <div>信息中心</div>
+
+        </a>
+
+        <a class="tab-item">
+            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/setting_blue.png"/>
+
+            <div style="color: #1296db">设置</div>
+
+        </a>
+    </div>
 </div>

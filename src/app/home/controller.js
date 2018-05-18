@@ -156,6 +156,25 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
         $scope.showCardList = false;
 
     }
+    var params = {
+        db:"mycon1",
+        function:"sp_fun_get_oprater_right",
+        operater_code:"superuser"
+    };
+    $http({
+        method: 'post',
+        url: '/restful/pro',
+        dataType: "json",
+        data: angular.toJson(params),
+    }).success(function (data, status, headers, config) {
+        console.log(data);
+        var state = data.state;
+        if (state == 'true') {
+            console.log(data.msg);
+
+        }
+    });
+
 //{"mc":"浙G3G821","cz":"浙G3G821","mobile":"","phone":"","vipnumber":"","customer_id":"A2018N00008","linkman":"","custom5":"","cx":"","cjhm":"","fdjhm":"","ns_date":"","openid":""},
 //车牌号码、        车主名称、      手机号码、   送修人电话、 会员卡号、    客户编码、                     送修人、  推荐人客户编码、车型、  车架号、  发动机号、  年审日期、   微信openid
 }]);

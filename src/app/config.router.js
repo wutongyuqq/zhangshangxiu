@@ -146,7 +146,7 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
             }]
         }
     }).state('TendList', {
-        url: '/TendList/:id',
+        url: '/TendList',
         templateUrl: window.rootSrc + 'app/tender/tender_list.html',
         title:'标大大-标讯',
         controller: 'TendListCtrl as ctrl',

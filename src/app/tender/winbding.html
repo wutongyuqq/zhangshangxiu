@@ -158,6 +158,7 @@
         bottom: 0;
         left: 0;
         display: block;
+        background-color: white;
     }
 
     .wb_btn_img {
@@ -274,10 +275,10 @@
 
     <div class="home_tab_div">
         <div class="text_inline home_tab_div_left {{showSelectMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
-             ng-click="showMoreView(0)">快捷业务
+             ng-click="showMoreView(0)">项目
         </div>
         <div class="text_inline home_tab_div_right  {{showSelectMore==1?'home_tab_div_left_color':'home_tab_div_right_color'}}"
-             ng-click="showMoreView(1)">常规项目
+             ng-click="showMoreView(1)">配件
         </div>
 
     </div>
@@ -474,7 +475,7 @@
 
     <div class="confirm-div"  ng-show="showSelectMore==1">
 
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn" ng-click="toPjkSelect()">
             配件库
         </div>
 

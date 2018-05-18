@@ -4,5 +4,8 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
     $scope.toProjectSelect=function(){
         $state.go("TenderDtail");
     }
+    $scope.toHistoryRecord=function(){
+        $state.go("TendListDetail");
+    }
 }]);
 

@@ -1,140 +1,510 @@
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
 <style>
-    /*广告*/
-    .bdd_adver {
-        width: 100%;
-        margin-top: 150px;
+
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
+        display: block;
     }
 
-    .bdd_adver_header {
-        width: 1200px;
-        margin: 0 auto;
+    .title-color {
+        color: #3ca2dd;
     }
 
-    .bdd_text_z {
-        width: 900px;
-        font-size: 18px;
-        color: #2e2e2e;
-        height: 33px;
-        font-family: Arial;
-        padding-top: 8px;
+    .container-fluid {
+        padding: 0 0;
+        margin: 0 0;
     }
 
-    .bdd_text_y {
-        padding-top: 16px;
-        font-size: 14px;
-        color: #ccbebe;
-        height: 64px;
-    }
-
-    .bdd_text_p {
-        width: 800px;
-        height: 30px;
-        font-size: 16px;
-        margin-top: -21px;
-        color: #ccbebe;
+    .color-white {
+        color: white;
+        display: inline-block;
+        margin-top: 0.3rem;
+        margin-bottom: auto;
+        line-height: 100%;
+        vertical-align: top;
 
     }
 
-    .bdd_text_invite {
-        width: 80px;
-        height: 25px;
-        font-size: 14px;
-        font-family: Arial;
-        color: #ef873a;
-        background-color: #fdefe3;
-        text-align: center;
-        padding-top: 4px;
-        float: left;
-    }
-
-    .bdd_text_pading {
-        margin-left: 10px;
-        background-color: #e3e6f7;
-        color: #3676f0;
-    }
-
-    .bdd_win_conter {
-        width: 1200px;
-        height: 166px;
-        background-color: white;
-        padding: 30px 0px 20px 20px;
-        margin-top: 10px;
+    .bar-white-home {
+        margin-left: 0.1rem;
+        margin-top: 0.32rem;
 
     }
 
-    .bdd_text_riqi {
-        font-size: 14px;
-        color: #ccbebe;
-        float: right;
-        margin-right: 300px;
+    .bar-white-card {
+        margin-left: 0.2rem;
+        margin-top: 0.32rem;
     }
 
     .text-inline {
         display: inline-block;
+        vertical-align: middle;
     }
 
-    .tender-say-div {
-        min-width: 800px;
-        min-height: 800px;
-        overflow: hidden;
+    .color-white-img {
+        width: 0.5rem;
+        height: 0.5rem;
     }
 
-    .bdd_text_first {
-        background-color: #fdefe3;
-        color: #ef873a;
+    .color-white-img-home {
+        margin-left: 1rem;
     }
 
+    .color-white-img-card {
+        margin-left: 4.5rem;
+    }
+
+    .home_tab_div_left_color {
+        background-color: #ff9db4;
+        color: #ffffff;
+    }
+
+    .home_tab_div_right_color {
+        background-color: #a4a3a3;
+        color: #333333;
+    }
+
+    .home_tab_div_left {
+        padding: 0 0;
+        width: 28%;
+        height: 100%;
+        line-height: 1rem;
+        border-top-left-radius: 0.1rem;
+        border-top-right-radius: 0.1rem;
+        text-align: center;
+        vertical-align: middle;
+
+        border: none;
+    }
+
+    .home_tab_div_right {
+
+        margin-left: 0.1rem;
+        width: 28%;
+        height: 100%;
+        line-height: 1rem;
+        vertical-align: middle;
+        border-top-left-radius: 0.1rem;
+        border-top-right-radius: 0.1rem;
+        text-align: center;
+
+        border: none;
+    }
+
+    .home_tab_div {
+        padding: 0 0;
+        width: 100%;
+        height: 1rem;
+        margin-top: 52px;
+        text-align: center;
+        border-bottom: 2px solid #ff9db4;
+
+    }
+
+    .text_inline {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .form-control-a {
+        width: 95%;
+        background: url("../../../vendor/images/zsx/back_bottom_red.png");
+        text-indent: 6px;
+    }
+
+    .bts-magin {
+
+        width: 60%;
+        margin: 10px auto 0px auto;
+        text-align: center;
+
+    }
+
+    .btn-search {
+        background-color: #ff9db4;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+    }
+
+    .confirm-nav-btn {
+        width: 3rem;
+        background-color: #89c997;
+        padding: 5px 10px;
+        color: white;
+        border-radius: 5px;
+        margin-left: 0.2rem;
+        margin-top: 0.5rem;
+    }
+
+    .confirm-a {
+        vertical-align: middle;
+    }
+
+    .confirm-div {
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        position: fixed;
+        padding-bottom: 0.5rem;
+        bottom: 0;
+        left: 0;
+        display: block;
+    }
+
+    .wb_btn_img {
+        width: 0.6rem;
+        height: 0.6rem;
+
+    }
+
+    .wb_second_line {
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+
+    .wb_second_line_qw {
+        margin-left: 1rem;
+    }
+
+    .content-list-div {
+        width: 100%;
+    }
+
+    .content-list-div-a {
+        width: 100%;
+        text-align: left;
+        padding-left: 1rem;
+        background-color: #ebccd1;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+        color: #333333;
+        font-weight: 600;
+    }
+
+    .content-list-div-b {
+        width: 100%;
+        text-align: left;
+        padding-left: 1rem;
+        background-color: #eeeeee;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+        color: #333333;
+        font-weight: 600;
+    }
+
+    .content-list-div-table {
+
+        width: 100%;
+        margin-top: 2px;
+
+    }
+
+    .img-minus {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    .tb_content_a {
+        background-color: #7ff7fb;
+        height: 1rem;
+    }
+
+    .tb_content_b {
+
+        background-color: #eeeeee;
+        height: 2rem;
+        vertical-align: middle;
+        text-align: center;
+
+    }
+
+    .tb_content_c {
+        padding-top: 0.45rem;
+        height: 2rem;
+        background-color: #fdfcfd;
+        vertical-align: middle;
+    }
+
+    .tb_content_b > td {
+        text-align: center;
+        padding-top: 0.6rem;
+    }
+
+    .tb_content_c > td {
+        text-align: center;
+        padding-top: 0.6rem;
+    }
+
+    .tb_content_a > td {
+        text-align: center;
+        padding-top: 0.2rem;
+    }
+
+    .tb_content_td_a {
+        padding-left: 0.2rem;
+    }
+
+    .select-all {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    .serch_resualt_tip {
+        width: 100%;
+        text-align: center;
+        color: #3ca2dd;
+    }
+
+    .select-res-small {
+        font-size: 10px;
+        margin-left: 0.3rem;
+    }
+
+    .select-all-res {
+        margin-left: 0.3rem;
+    }
+
+    .position-left {
+        text-align: left;
+        margin-left: 0.5rem;
+    }
+
+    .position-left > div {
+        line-height: 0.7rem;
+        height: 0.7rem;
+        color: #333333;
+    }
+
+    .content-list-div-a-res {
+        margin-top: 0.2rem;
+    }
+    .temp-pj-white-back{
+
+        background-color: white;
+        border: none;
+        height: 0.6rem;
+        width: 7rem;
+    }
+    .content-list-div-tmp{
+        text-align: center;
+
+    }
+    .temp-pj-div{
+        width: 90%;
+        background-color:#ebccd1;
+        padding-top: 0.3rem;
+        padding-bottom: 1rem;
+        text-align: center;
+        margin: 0.5rem auto;
+        border-radius: 0.3rem;
+    }
+    .text-pj-line{
+        margin-top: 0.5rem;
+    }
 </style>
+<div ng-controller="TenderSayCtrl">
+    <div class="bar bar-header bar-light bar-light-div">
+        <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <h1 class="title"><span class="title-color">配件选择</span></h1>
+    </div>
 
-<!--公告-->
+    <div class="home_tab_div">
+        <div class="text_inline home_tab_div_left {{showSelectMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+             ng-click="showMoreView(0)">所有配件
+        </div>
+        <div class="text_inline home_tab_div_right  {{showSelectMore==1?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+             ng-click="showMoreView(1)">临时配件
+        </div>
+        <div class="text_inline home_tab_div_right  {{showSelectMore==2?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+             ng-click="showMoreView(2)">自带配件
+        </div>
 
-<div class="tender-say-div" ng-controller="TenderSayCtrl">
-    <div class="bdd_adver">
-        <div class="bdd_adver_header" style="margin-top: 40px">
-            <div class="" ng-if="(showType==0||showType==2)&&dataArraySize!=0">
-                <div class="bdd_win_conter" ng-repeat="item in tenderArrayData"
-                     style="margin-top:10px">
-                    <a ng-click="toTenderDetail(item.id,item.type)">
-                        <div class="bdd_text_z">{{item.title}}</div>
+    </div>
 
-                        <div class="bdd_text_y" ng-if="item.type==0">资质要求：<span>{{item.certificate ? item.certificate:'详见原文'}}</span></div>
-                        <div class="bdd_text_p" ng-if="item.type==0">评标办法：<span>{{item.pbMode ? item.pbMode:'详见原文'}}</span></div>
-                        <div class="bdd_text_y" ng-if="item.type==2">中标企业：<span>{{item.oneName}}</span></div>
-                        <div class="bdd_text_p" ng-if="item.type==2">项目金额：<span>{{item.projSum?(item.projSum+'万元'):''}}</span></div>
 
-                        <div class="text-inline bdd_text_invite bdd_text_pading bdd_text_first">{{item.noticeType}}
-                        </div>
-                        <div class="text-inline bdd_text_invite bdd_text_pading">{{item.projectType}}</div>
-                        <div class="bdd_text_riqi">{{item.opendate}}</div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                    </a>
-                </div>
+    <!-- 所有配件-->
+
+    <div class="content-list-div" ng-show="showSelectMore==0">
+
+        <div class="col-lg-6 bts-magin">
+            <div class="input-group">
+                <input type="text" class="form-control-a" placeholder="输入配件名称">
+                <span class="input-group-btn">
+        <button class="btn-search" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
+      </span>
+            </div>
+            <!-- /input-group -->
+        </div>
+        <!-- /.col-lg-6 -->
+
+
+        <div class="serch_resualt_tip">
+            <div class="text-inline select-all-div">
+                <img class="text-inline select-all" src="../../../vendor/images/zsx/select-blue-true.png">
+                <div class="text-inline ">全选/取消全选</div>
+            </div>
+            <div class="text-inline select-res-small">搜索到5条结果</div>
+            <div class="text-inline select-all-res">
+                <img class="text-inline select-all" src="../../../vendor/images/zsx/select-blue-true.png">
+                <div class="text-inline">在结果中搜索</div>
             </div>
 
 
+        </div>
 
 
-            <div style="margin: 0 auto;width: 100%;text-align: center" ng-if="(showType==0||showType==2)&&dataArraySize==0">
-                <img src="../../../vendor/images/kym_icon_nothing.png"/>
-                <div>没有找到符合条件的公告</div>
-
+        <div class="text_inline content-list-div-a content-list-div-a-res">
+            <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
             </div>
-
-            <div style="margin: 0 auto;width: 100%;text-align: center" class="" ng-if="(showType==1||showType==3)&&fileDataArraySize==0">
-                <img src="../../../vendor/images/kym_icon_nothing.png"/>
-                <div>没有找到符合条件的招标文件</div>
-
+            <div class="text-inline position-left">
+                <div>名称：轮胎</div>
+                <div>仓库：1号仓</div>
+                <div>销售价：￥300</div>
             </div>
-
-            <div class="bdd_win_conter" ng-if="(showType==1||showType==3)&&fileDataArraySize!=0" style="margin-top: 0px">
-                <div ng-show="fileDataArraySize!=0">可供下载的资源有:{{fileSize}}个</div>
-                <br/>
-
-                <div class="bdd_text_m" ng-repeat="item in fileDataArr">下载地址：<a href="{{item.url}}">{{item.title}}</a>
-                </div>
+            <div class="text-inline position-left">
+                <div>规格：60*60</div>
+                <div>库存量：101个</div>
+                <div>配件型号：米其林LT0098</div>
             </div>
 
         </div>
+        <div class="text_inline content-list-div-b">
+            <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
+            </div>
+            <div class="text-inline position-left">
+                <div>名称：轮胎</div>
+                <div>仓库：1号仓</div>
+                <div>销售价：￥300</div>
+            </div>
+            <div class="text-inline position-left">
+                <div>规格：60*60</div>
+                <div>库存量：101个</div>
+                <div>配件型号：米其林LT0098</div>
+            </div>
+
+        </div>
+
+        <div class="text_inline content-list-div-a">
+            <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
+            </div>
+            <div class="text-inline position-left">
+                <div>名称：轮胎</div>
+                <div>仓库：1号仓</div>
+                <div>销售价：￥300</div>
+            </div>
+            <div class="text-inline position-left">
+                <div>规格：60*60</div>
+                <div>库存量：101个</div>
+                <div>配件型号：米其林LT0098</div>
+            </div>
+
+        </div>
+
+        <div class="text_inline content-list-div-b">
+            <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
+            </div>
+            <div class="text-inline position-left">
+                <div>名称：轮胎</div>
+                <div>仓库：1号仓</div>
+                <div>销售价：￥300</div>
+            </div>
+            <div class="text-inline position-left">
+                <div>规格：60*60</div>
+                <div>库存量：101个</div>
+                <div>配件型号：米其林LT0098</div>
+            </div>
+
+        </div>
+
+
     </div>
+
+
+
+
+
+    <!-- 临时配件-->
+    <div class="content-list-div content-list-div-tmp" ng-show="showSelectMore==1">
+        <div class="temp-pj-div">
+            <div class="text-pj-line">
+                <div class="text-inline">名称：</div>
+                <input class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">进价：</div>
+                <input class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">销价：</div>
+                <input class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">数量：</div>
+                <input class="text-inline temp-pj-white-back"/>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- 自带配件-->
+    <div class="content-list-div content-list-div-tmp" ng-show="showSelectMore==2">
+        <div class="temp-pj-div">
+            <div class="text-pj-line">
+                <div class="text-inline">名称：</div>
+                <input class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">数量：</div>
+                <input class="text-inline temp-pj-white-back"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="confirm-div" ng-show="showSelectMore==0">
+        <div class="text-inline confirm-a confirm-nav-btn">
+            新增配件
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            确定
+        </div>
+
+    </div>
+
+
+
+    <div class="confirm-div" ng-show="showSelectMore==1">
+        <div class="text-inline confirm-a confirm-nav-btn">
+            再加一个
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            确定
+        </div>
+
+    </div>
+
+
+
+
+    <div class="confirm-div" ng-show="showSelectMore==2">
+        <div class="text-inline confirm-a confirm-nav-btn">
+            再加一个
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            确定
+        </div>
+
+    </div>
+
 
 </div>

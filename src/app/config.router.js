@@ -122,7 +122,7 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                 }]
             }
         }).state('TenderSay', {
-        url: '/tenderSay/:id/:type',
+        url: '/tenderSay',
         templateUrl: window.rootSrc + 'app/tender/tenderSay.html',
         title:'标大大-标讯',
         controller: 'TenderSayCtrl as ctrl',

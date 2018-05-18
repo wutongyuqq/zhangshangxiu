@@ -154,6 +154,7 @@
         text-align: center;
         margin-top: 1rem;
         position: fixed;
+        padding-bottom: 0.5rem;
         bottom: 0;
         left: 0;
         display: block;
@@ -281,7 +282,11 @@
 
     </div>
 
-    <div class="content-list-div">
+
+
+    <!-- 项目-->
+
+    <div class="content-list-div" ng-show="showSelectMore==0">
         <div class="text_inline content-list-div-a">
             <table class="content-list-div-table">
 
@@ -339,7 +344,19 @@
 
         </div>
         <div class="text_inline content-list-div-a">
+            <table class="content-list-div-table">
+                <tr class="tb_content_a">
+                    <td>总应收</td>
+                    <td></td>
+                    <td>总计：￥900</td>
+                </tr>
+                <tr class="tb_content_c">
+                    <td>备注</td>
+                    <td></td>
+                    <td>-0.0</td>
+                </tr>
 
+            </table>
 
         </div>
 
@@ -347,7 +364,7 @@
     </div>
 
 
-    <div class="confirm-div">
+    <div class="confirm-div"  ng-show="showSelectMore==0">
         <div class="text-inline confirm-a confirm-nav-btn">
             钣金喷漆
         </div>
@@ -367,4 +384,108 @@
             结&#12288;算
         </div>
     </div>
+
+
+
+
+
+<!-- 配件-->
+    <div class="content-list-div" ng-show="showSelectMore==1">
+        <div class="text_inline content-list-div-a">
+            <table class="content-list-div-table">
+
+                <tr class="tb_content_a">
+                    <td></td>
+                    <td>配件名称</td>
+                    <td>规格</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>合计</td>
+                    <td></td>
+                </tr>
+                <tr class="tb_content_b">
+                    <td class="tb_content_td_a">1</td>
+                    <td>轮胎</td>
+                    <td>60*60</td>
+                    <td>1</td>
+                    <td>300</td>
+                    <td>300</td>
+                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                </tr>
+                <tr class="tb_content_c">
+                    <td class="tb_content_td_a">2</td>
+                    <td>轮胎</td>
+                    <td>60*60</td>
+                    <td>1</td>
+                    <td>300</td>
+                    <td>300</td>
+                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                </tr>
+                <tr class="tb_content_b">
+                    <td class="tb_content_td_a">3</td>
+                    <td>轮胎</td>
+                    <td>60*60</td>
+                    <td>1</td>
+                    <td>300</td>
+                    <td>300</td>
+                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div class="text_inline content-list-div-a">
+            <table class="content-list-div-table">
+                <tr class="tb_content_a">
+                    <td>配件</td>
+                    <td></td>
+                    <td>总计：￥900</td>
+                </tr>
+                <tr class="tb_content_c">
+                    <td>配件打折</td>
+                    <td></td>
+                    <td>-0.0</td>
+                </tr>
+
+            </table>
+
+
+        </div>
+        <div class="text_inline content-list-div-a">
+            <table class="content-list-div-table">
+                <tr class="tb_content_a">
+                    <td>总应收</td>
+                    <td></td>
+                    <td>总计：￥900</td>
+                </tr>
+                <tr class="tb_content_c">
+                    <td>备注</td>
+                    <td></td>
+                    <td>-0.0</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="confirm-div"  ng-show="showSelectMore==1">
+
+        <div class="text-inline confirm-a confirm-nav-btn">
+            配件库
+        </div>
+
+        <div class="text-inline confirm-a confirm-nav-btn">
+            本车首页
+        </div>
+
+        <div class="text-inline confirm-a confirm-nav-btn">
+            结&#12288;算
+        </div>
+    </div>
+
+
 </div>

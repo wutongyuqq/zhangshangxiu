@@ -28,3 +28,15 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
         $scope.showMore = 2;
     }
 }]);
+app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location", function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location) {
+    var selt = this;
+    $scope.showMore = 0;
+    $scope.showSelectMore = 0;
+    $scope.showMoreView = function (showMore) {
+        $scope.showMore = showMore;
+        $scope.showSelectMore = showMore;
+    }
+    $scope.showDetailPro = function () {
+        $scope.showMore = 2;
+    }
+}]);

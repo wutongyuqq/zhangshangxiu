@@ -46,15 +46,9 @@
         margin-top: 0.32rem;
     }
 
-
-
-
     .text-inline {
         display: inline-block;
     }
-
-
-
 
     .color-white-img {
         width: 0.5rem;
@@ -92,7 +86,6 @@
         border: none;
     }
 
-
     .home_tab_div_right {
 
         margin-left: -3px;
@@ -105,9 +98,6 @@
 
         border: none;
     }
-
-
-
 
     .home_tab_div {
         padding: 0 0;
@@ -122,9 +112,6 @@
         display: inline-block;
         vertical-align: middle;
     }
-
-
-
 
     .form-control-a {
         width: 6rem;
@@ -148,57 +135,72 @@
         border-radius: 3px;
     }
 
-    .confirm-nav-btn{
-        width:3rem;
+    .confirm-nav-btn {
+        width: 3rem;
         background-color: #89c997;
         padding: 5px 10px;
-        color:white;
+        color: white;
         border-radius: 5px;
         margin-left: 0.2rem;
         margin-top: 0.5rem;
     }
-    .confirm-a{
+
+    .confirm-a {
         vertical-align: middle;
     }
-    .confirm-div{
+
+    .confirm-div {
         width: 100%;
         text-align: center;
         margin-top: 1rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        display: block;
     }
-.wb_btn_img{
-    width: 0.6rem;
-    height: 0.6rem;
 
-}
-    .wb_second_line{
+    .wb_btn_img {
+        width: 0.6rem;
+        height: 0.6rem;
+
+    }
+
+    .wb_second_line {
         margin-top: 0.5rem;
         text-align: center;
     }
-    .wb_second_line_qw{
+
+    .wb_second_line_qw {
         margin-left: 1rem;
     }
-    .content-list-div{
+
+    .content-list-div {
         width: 100%;
     }
-    .content-list-div-a{
+
+    .content-list-div-a {
         width: 100%;
         text-align: center;
     }
-    .content-list-div-table{
+
+    .content-list-div-table {
 
         width: 100%;
         margin-top: 2px;
 
     }
-    .img-minus{
+
+    .img-minus {
         width: 0.5rem;
         height: 0.5rem;
     }
-    .tb_content_a{
+
+    .tb_content_a {
         background-color: #7ff7fb;
         height: 1rem;
     }
-    .tb_content_b{
+
+    .tb_content_b {
 
         background-color: #eeeeee;
         height: 2rem;
@@ -206,25 +208,30 @@
         text-align: center;
         vertical-align: middle;
     }
-    .tb_content_c{
+
+    .tb_content_c {
         padding-top: 0.45rem;
         height: 2rem;
         background-color: #fdfcfd;
         vertical-align: middle;
     }
-    .tb_content_b>td{
+
+    .tb_content_b > td {
         text-align: center;
         padding-top: 0.6rem;
     }
-    .tb_content_c>td{
+
+    .tb_content_c > td {
         text-align: center;
         padding-top: 0.6rem;
     }
-    .tb_content_a>td{
+
+    .tb_content_a > td {
         text-align: center;
         padding-top: 0.2rem;
     }
-    .tb_content_td_a{
+
+    .tb_content_td_a {
         padding-left: 0.2rem;
     }
 </style>
@@ -243,7 +250,7 @@
     </div>
     <div class="wb_second_line">
         <div class="text_inline">公里数:8000</div>
-        <div class="text_inline">  <img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png"/></div>
+        <div class="text_inline"><img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png"/></div>
         <div class="text_inline wb_second_line_qw">期望提车时间：2018-05-16</div>
         <div class="text_inline"><img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png"/></div>
 
@@ -251,12 +258,11 @@
     </div>
 
 
-
     <div class="bts-magin-a">
         <div class="input-group-a">
             <div class="text_inline">故障描述：</div>
             <div class="text_inline">
-                <input class="form-control-a" type="text"  placeholder="请输入"/>
+                <input class="form-control-a" type="text" placeholder="请输入"/>
             </div>
             <img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png">
 
@@ -279,46 +285,66 @@
         <div class="text_inline content-list-div-a">
             <table class="content-list-div-table">
 
-                <tr class="tb_content_a"><td></td><td>项目名称</td><td>性质</td><td>修理费</td><td>优惠</td><td></td></tr>
-                <tr class="tb_content_b"><td class="tb_content_td_a">1</td><td>轿车洗车</td><td>人工</td><td>￥25.0</td><td>0.0</td><td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td></tr>
-                <tr class="tb_content_c"><td class="tb_content_td_a">2</td><td>轿车洗车</td><td>人工</td><td>￥25.0</td><td>0.0</td><td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td></tr>
-                <tr class="tb_content_b"><td class="tb_content_td_a">3</td><td>轿车洗车</td><td>人工</td><td>￥25.0</td><td>0.0</td><td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td></tr>
+                <tr class="tb_content_a">
+                    <td></td>
+                    <td>项目名称</td>
+                    <td>性质</td>
+                    <td>修理费</td>
+                    <td>优惠</td>
+                    <td></td>
+                </tr>
+                <tr class="tb_content_b">
+                    <td class="tb_content_td_a">1</td>
+                    <td>轿车洗车</td>
+                    <td>人工</td>
+                    <td>￥25.0</td>
+                    <td>0.0</td>
+                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                </tr>
+                <tr class="tb_content_c">
+                    <td class="tb_content_td_a">2</td>
+                    <td>轿车洗车</td>
+                    <td>人工</td>
+                    <td>￥25.0</td>
+                    <td>0.0</td>
+                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                </tr>
+                <tr class="tb_content_b">
+                    <td class="tb_content_td_a">3</td>
+                    <td>轿车洗车</td>
+                    <td>人工</td>
+                    <td>￥25.0</td>
+                    <td>0.0</td>
+                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                </tr>
 
             </table>
 
         </div>
         <div class="text_inline content-list-div-a">
             <table class="content-list-div-table">
-                <tr class="tb_content_a"><td>工时：￥75.0</td><td>材料：￥0.0</td><td>总计：￥75.0</td></tr>
-                <tr class="tb_content_b"><td>工时打折</td><td></td><td>-0.0</td></tr>
+                <tr class="tb_content_a">
+                    <td>工时：￥75.0</td>
+                    <td>材料：￥0.0</td>
+                    <td>总计：￥75.0</td>
+                </tr>
+                <tr class="tb_content_c">
+                    <td>工时打折</td>
+                    <td></td>
+                    <td>-0.0</td>
+                </tr>
 
             </table>
-
 
 
         </div>
         <div class="text_inline content-list-div-a">
-            <table class="content-list-div-table">
-                <tr class="tb_content_a"><td>工时：￥75.0</td><td></td><td>总计：￥75.0</td></tr>
-                <tr class="tb_content_b"><td>工时打折</td><td></td><td>-0.0</td></tr>
-
-            </table>
-
 
 
         </div>
 
 
     </div>
-
-
-
-
-
-
-
-
-
 
 
     <div class="confirm-div">
@@ -338,7 +364,7 @@
             派&#12288;工
         </div>
         <div class="text-inline confirm-a confirm-nav-btn">
-           结&#12288;算
+            结&#12288;算
         </div>
     </div>
 </div>

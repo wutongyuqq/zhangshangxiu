@@ -9,6 +9,9 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     $scope.showDetailPro = function () {
         $scope.showMore = 2;
     }
+    $scope.toGdListPage=function(){
+        $state.go("Winbding");
+    }
 }]);
 
 

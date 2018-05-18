@@ -221,9 +221,23 @@
         border-radius: 3px;
     }
     .food_car_img{
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1.8rem;
+        height: 1.8rem;
 
+    }
+    .confirm-nav-btn{
+        background-color: #89c997;
+        padding: 5px 20px;
+        color:white;
+        border-radius: 5px;
+    }
+    .confirm-a{
+        vertical-align: middle;
+    }
+    .confirm-div{
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
     }
 
 </style>
@@ -243,10 +257,10 @@
 
 
     <div class="home_tab_div">
-        <div class="text_inline_a home_tab_div_left {{showMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+        <div class="text_inline home_tab_div_left {{showSelectMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
              ng-click="showMoreView(0)">快捷业务
         </div>
-        <div class="text_inline_a home_tab_div_right  {{showMore==0?'home_tab_div_right_color':'home_tab_div_left_color'}}"
+        <div class="text_inline home_tab_div_right  {{showSelectMore==1?'home_tab_div_left_color':'home_tab_div_right_color'}}"
              ng-click="showMoreView(1)">常规项目
         </div>
 
@@ -265,8 +279,59 @@
     <!-- /.col-lg-6 -->
 
 
-    <div class="select_pro">
+    <div class="select_pro" ng-show="showMore==0">
+        <div class="select-item select_one" ng-click="showDetailPro()">
+            <img class="select-img" src="../../../vendor/images/zsx/select_pro.png"/>
+
+            <div class="select-text">洗车</div>
+
+        </div>
         <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/car_door.png"/>
+
+            <div class="select-text">美容</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/check_plan.png"/>
+
+            <div class="select-text">装潢</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/tc_work.png"/>
+
+            <div class="select-text">维修</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/you_ticket.png"/>
+
+            <div class="select-text">轮胎</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/history.png"/>
+
+            <div class="select-text">钣金</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/work_order.png"/>
+
+            <div class="select-text">打蜡</div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/cancle_reciver.png"/>
+
+            <div class="select-text">镀膜</div>
+
+        </div>
+    </div>
+
+    <div class="select_pro" ng-show="showMore==1">
+        <div class="select-item select_one" ng-click="showDetailPro()">
             <img class="select-img" src="../../../vendor/images/zsx/select_pro.png"/>
 
             <div class="select-text">洗车</div>
@@ -316,15 +381,68 @@
         </div>
     </div>
 
+
+
+
+
+
+
+    <div class="select_pro" ng-show="showMore==2">
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
+
+            <div class="select-text">轿车洗车<br/><span>￥25.0</span></div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
+
+            <div class="select-text">SUV洗车<br/><span>￥25.0</span></div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
+
+            <div class="select-text">机修洗车<br/><span>￥25.0</span></div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
+
+            <div class="select-text">精致洗车<br/><span>￥25.0</span></div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
+
+            <div class="select-text">脚垫水洗<br/><span>￥25.0</span></div>
+
+        </div>
+        <div class="select-item select_one">
+            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
+
+            <div class="select-text">办卡洗车<br/><span>￥25.0</span></div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
     <div class="confirm-div">
 
-    <div class="text-inline confirm-nav-btn">
+    <div class="text-inline confirm-a confirm-nav-btn">
         确认至导航
 
     </div>
-        <img class="food_car_img" src="../../../vendor/images/zsx/car_food.png"/>
+        <img class="text-inline confirm-a food_car_img" src="../../../vendor/images/zsx/car_food.png"/>
 
-        <div class="text-inline confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn">
             确认至工单
 
         </div>

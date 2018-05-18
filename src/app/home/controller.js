@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', '$anchorScroll', "$location", "utils", "locals","$modal",function ($http, $log, $scope, $document, userTemp, $anchorScroll, $location, utils, locals,$modal) {
+app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', '$anchorScroll', "$location", "utils", "locals","$modal","$state",function ($http, $log, $scope, $document, userTemp, $anchorScroll, $location, utils, locals,$modal,$state) {
     var selt = this;
     $scope.showCardList = false;
     var carInfo = new Object();
@@ -121,10 +121,11 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
             data: jsonStr,
         }).success(function (data, status, headers, config) {
             var state = data.state;
-            if (state == 'ok') {
+            /*if (state == 'ok') {
+                $state.go("Tender");
 
-
-            }
+            }*/
+            $state.go("Tender");
         }).error(function(data){
                 console.log("3333");
             });

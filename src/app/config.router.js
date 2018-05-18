@@ -134,7 +134,7 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
             }]
         }
     }).state('TenderDtail', {
-        url: '/tenderDetail/:id',
+        url: '/tenderDetail',
         templateUrl: window.rootSrc + 'app/tender/index.tpl.html',
         title:'标大大-标讯',
         controller: 'tenderDetailCtrl as ctrl',
@@ -182,7 +182,7 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
             }]
         }
     }).state('Winbding', {
-        url: '/winbding/:id',
+        url: '/winbding',
         templateUrl: window.rootSrc + 'app/tender/winbding.html',
         controller: 'WinbdingCtrl as ctrl',
         title:'标大大-标讯',

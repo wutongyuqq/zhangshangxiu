@@ -1,287 +1,350 @@
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
 <style>
 
-    /*常用*/
-    .bdd_used_boder {
-        width: 1200px;
-        height: 500px;
-        margin: 0 auto;
-        margin-top: 110px;
-    }
-
-    .bdd_used_boder_si {
-        width: 290px;
-        height: 150px;
-        background-color: white;
-        float: left;
-        margin-left: 10px;
-        margin-top: 10px;
-        border-radius: 5px;
-        font-size: 16px;
-        color: #cea63f;
-        font-family: "微软雅黑", sans-serif;
-        text-align: center;
-        padding-top: 62px;
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
 
     }
 
-    /*行业链接*/
-    .bdd_catenation {
-        width: 1200px;
-        height: 100px;
-        margin: 0 auto;
-     
+    .title-color {
+        color: #3ca2dd;
     }
 
-    .bdd_catention_zheng {
-        width: 10px;
-        height: 10px;
-        background-color: #cea63f;
-        float: left;
-        margin-top: 8px;
-        margin-left: 10px;
-
-    }
-
-    .bdd_catenation_cat {
-        float: left;
-        padding-left: 8px;
-        font-size: 18px;
-        color: #4d3a3a;
-
-    }
-
-    /*地区*/
-    .bdd_area {
+    .bar_second_pink {
         width: 100%;
-        height: 135px;
-        background-color: white;
-        margin-top: -60px;
+        margin-top: 44px;
+        height: 1rem;
+        background-color: #aa89bd;
+        vertical-align: middle;
+        line-height: 1rem;
     }
 
-    .bdd_area_boder {
-        width: 1200px;
-        height: 150px;
-        margin: 0 auto;
-
+    .container-fluid {
+        padding: 0 0;
+        margin: 0 0;
     }
 
-    .bdd_area_boder_text {
-        float: left;
-    }
-
-    .bdd_area_boder_left {
-        float: left;
-        width: 1000px;
-        height: 60px;
-
-    }
-
-    .bdd_area_boder_right {
-        float: right;
-        width: 198px;
-        height: 150px;
-        margin-top: 33px;
-
-    }
-
-    .bdd_pic {
-        background: url("../../../vendor/images/nav_icon_arrow_down.png");
-        width: 20px;
-        height: 20px;
-        float: left;
-        margin-top: 47px;
-        background-color: #cea63f;
-    }
-
-    .bdd_area_boder_text {
-        font-size: 16px;
-    }
-
-    .bdd_area_boder_text {
-        padding-left: 50px;
-        margin-top: 10px;
-    }
-
-    .bdd_area_boder_span {
-        font-size: 16px;
-        font-weight: 700;
-        margin-top: 30px;
-        padding-left: 10px;
-    }
-
-    .bdd_area_aode {
-        width: 900px;
-        height: 80px;
-        margin-top: 30px;
-    }
-
-    /*下面列表*/
-    .bdd_area_conter {
-        width: 100%;
-        margin-bottom: 20px;
-        overflow: hidden;
-
-    }
-
-    .bdd_area_conter_border {
-        width: 1200px;
-        min-height: 1000px;
-        margin: 0px auto;
-
-    }
-
-    .bdd_area_conter_border_text {
-        width: 290px;
-        height: 140px;
-        background-color: white;
-        float: left;
-        margin: 0px 10px 10px 0px;
-        border-radius: 5px;
-        font-size: 16px;
-        color: #4d3a3a;
-        text-align: center;
-        padding-top: 35px;
-
-    }
-
-    .bdd_area_list {
-        padding-top: 45px;
-    }
-
-    .bdd_area_usercenter_a:hover {
-        background-color: #cea63f;
+    .color-white {
         color: white;
+        display: inline-block;
+        margin-top: 0.3rem;
+        margin-bottom: auto;
+        line-height: 100%;
+        vertical-align: top;
+
     }
 
-    .bdd_comp_span_a {
-        display: inline-block;
+    .bar-white-home {
+        margin-left: 0.1rem;
+        margin-top: 0.32rem;
+
     }
+
+    .bar-white-card {
+        margin-left: 0.2rem;
+        margin-top: 0.32rem;
+    }
+
+
+
 
     .text-inline {
         display: inline-block;
     }
 
-    .bdd_dev_area_pro_a {
-        width: 1200px;
-        margin-left: 80px;
-        font-size: 16px;
-        padding-left: 10px;
+
+
+
+    .color-white-img {
+        width: 0.5rem;
+        height: 0.5rem;
     }
 
-    .bdd_dev_area_pro_t {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left:15px;
+    .color-white-img-home {
+        margin-left: 1rem;
     }
 
-    .bdd_dev_city_a {
-        margin-left:90px;
-        width: 840px;
+    .color-white-img-card {
+        margin-left: 4.5rem;
     }
 
-    .bdd_area_a {
-        margin: 0 auto;
-
+    .home_tab_div_left_color {
+        background-color: #ff9db4;
+        color: #ffffff;
     }
 
-    .bdd_area_conter_border_a {
-        width: 1200px;
-        min-height: 120px;
-        margin: 0px auto;
+    .home_tab_div_right_color {
+        background-color: #a4a3a3;
+        color: #333333;
     }
 
-    .bdd_comp_span_all_a {
-        display: inline-block;
+    .home_tab_div_left {
+        padding: 0 0;
+        width: 49%;
+        margin-left: -3px;
+        height: 100%;
+        line-height: 1rem;
+
         text-align: center;
-        font-size: 14px;
-        margin-left: 33px;
+        vertical-align: middle;
+
+        border: none;
+    }
+
+
+    .home_tab_div_right {
+
+        margin-left: -3px;
+        width: 49.9%;
+        height: 100%;
+        line-height: 1rem;
+        vertical-align: middle;
+
+        text-align: center;
+
+        border: none;
+    }
+
+
+
+
+    .home_tab_div {
+        padding: 0 0;
+        width: 100%;
+        height: 1rem;
+        margin-top: 0.55rem;
+        text-align: center;
+
+    }
+
+    .text_inline {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+
+
+
+    .form-control-a {
+        width: 6rem;
+        background: url("../../../vendor/images/zsx/back_bottom_red.png");
+        text-indent: 6px;
+    }
+
+    .bts-magin-a {
+
+        width: 100%;
+        margin: 20px auto 0px auto;
+        text-align: center;
+    }
+
+    .btn-search {
+
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+    }
+
+    .confirm-nav-btn{
+        width:3rem;
+        background-color: #89c997;
+        padding: 5px 10px;
+        color:white;
+        border-radius: 5px;
+        margin-left: 0.2rem;
+        margin-top: 0.5rem;
+    }
+    .confirm-a{
+        vertical-align: middle;
+    }
+    .confirm-div{
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
+    }
+    .wb_btn_img{
+        width: 0.6rem;
+        height: 0.6rem;
+
+    }
+    .wb_second_line{
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+    .wb_second_line_qw{
+        margin-left: 1rem;
+    }
+    .content-list-div{
+        width: 100%;
+    }
+    .content-list-div-a{
+        width: 100%;
+        text-align: center;
+    }
+    .content-list-div-table{
+
+        width: 100%;
         margin-top: 2px;
-        letter-spacing: 2px;
-    }
 
-    .span-cursor {
-        cursor: default;
     }
+    .img-minus{
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+    .tb_content_a{
+        background-color: #7ff7fb;
+        height: 1rem;
+    }
+    .tb_content_b{
 
-    .bdd_usercenter_b {
-        min-height: 1000px;
-        padding-bottom: 100px;
+        background-color: #eeeeee;
+        height: 2rem;
+        vertical-align: middle;
+        text-align: center;
+    }
+    .tb_content_c{
+        padding-top: 0.45rem;
+        height: 2rem;
+        background-color: #fdfcfd;
+        vertical-align: middle;
+    }
+    .tb_content_b>td{
+        text-align: center;
+        padding-top: 0.6rem;
+    }
+    .tb_content_c>td{
+        text-align: center;
+        padding-top: 0.6rem;
+    }
+    .tb_content_a>td{
+        text-align: center;
+        padding-top: 0.2rem;
+    }
+    .tb_content_td_a{
+        padding-left: 0.2rem;
     }
 </style>
-
-<div class="bdd_usercenter_b">
-
-    <!--常用-->
-    <div class="bdd_used_boder">
-
-        <div ng-repeat="commonLink in ctrl.commonLinkList">
-            <a class="bdd_used_boder_si bdd_area_usercenter_a"
-               href="{{commonLink.customUrl}}">{{commonLink.customName}}</a>
-        </div>
-
-        <!--<div class="bdd_used_boder_si">评标计算</div>-->
+<div ng-controller="WinbdingCtrl">
+    <div class="bar bar-header bar-light bar-light-div">
+        <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <h1 class="title"><span class="title-color">工单(NO:201805132201)</span></h1>
     </div>
-    <!--行业链接-->
-    <div class="bdd_catenation">
-        <div class="bdd_catention_zheng"></div>
-        <div class="bdd_catenation_cat">行业链接</div>
+    <div class="bar_second_pink">
+        <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
+
+        <div class="color-white bar-white-home">王总</div>
+        <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
+
+        <div class="color-white bar-white-card">闽A23A97</div>
+    </div>
+    <div class="wb_second_line">
+        <div class="text_inline">公里数:8000</div>
+        <div class="text_inline">  <img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png"/></div>
+        <div class="text_inline wb_second_line_qw">期望提车时间：2018-05-16</div>
+        <div class="text_inline"><img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png"/></div>
+
+
     </div>
 
-    <div class="bdd_area_conter" style="background-color: white">
-        <div class="bdd_area_conter_border_a">
-
-            <div class="bdd_area_a" style="background-color: white;margin: 0 auto">
-                <div class="bdd_area_boder_a">
-                    <div class="bdd_area_boder_left_a">
-                        <div style="font-size: 15px;" class="text-inline bdd_area_boder_span_a">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区:</div>
-                        <div class="text-inline bdd_area_aode_a">
-                            <a style="font-size: 15px;" class="{{ctrl.province==''?'bdd_comp_span_all span-cursor span-yellow':'bdd_comp_span_all span-cursor'}}" ng-click="ctrl.allArea()">全部</a>
-
-                            <div style="font-size:15px;margin-left:15px" class="bdd_comp_span" ng-repeat="area in ctrl.areaList">
-                                <a class="{{ctrl.province==area.name?' span-cursor span-yellow':'span-cursor'}}" ng-bind="area.name|areaLimit"
-                                   ng-click="ctrl.clickProvince(area)"></a>
-                            </div>
-                        </div>
-                        <div class="text-inline bdd_area_boder_right_a" style="padding-left: 20px">
-                            <a class="span-cursor" id="to-pro-more"
-                               ng-click="ctrl.moreProvince(ctrl.morePro)">
-                                <div style="font-size:15px;" class="to_more" ng-show="!ctrl.morePro">更多</div>
-                                <div style="font-size:15px;" class="to_more to_bottom" ng-show="!ctrl.morePro"></div>
-                                <div style="font-size:15px;" class="to_more" ng-show="ctrl.morePro">收起</div>
-                                <div style="font-size:15px;" class="to_more to_top" ng-show="ctrl.morePro"></div>
-                            </a>
-                        </div>
-                    </div>
 
 
-                </div>
-                <div id="more-pro" class="bdd_dev_area_pro_a" ng-show="ctrl.morePro">
-                    <div style="font-size:15px;" class="bdd_comp_span_a bdd_dev_area_pro_t" ng-repeat="area in ctrl.areaList2">
-                        <a class="{{ctrl.province==area.name?' span-cursor span-yellow':'span-cursor'}}" ng-bind="area.name|limitTo:2"
-                           ng-click="ctrl.clickProvince(area)"></a>
-                    </div>
-                </div>
-
-                <div id="bdd_dev_city" class="bdd_dev_city_a" ng-show="ctrl.isCity" style="margin-top: 10px">
-                    <div style="padding-left: 15px;font-size:15px;" class="bdd_comp_span_c" >
-                        <a class="{{ctrl.city==''?'span-yellow span-cursor':'span-cursor'}}" ng-click="ctrl.cancleEmCity()">全部</a>
-                    </div>
-                    <div style="padding-left: 15px;font-size:15px;" class="bdd_comp_span_c" ng-repeat="city in ctrl.cityList" ng-if="city">
-                        <a class="{{ctrl.city==city?'span-yellow span-cursor':'span-cursor'}}" ng-bind="city" ng-click="ctrl.clickCity(city)"></a>
-                    </div>
-                </div>
+    <div class="bts-magin-a">
+        <div class="input-group-a">
+            <div class="text_inline">故障描述：</div>
+            <div class="text_inline">
+                <input class="form-control-a" type="text"  placeholder="请输入"/>
             </div>
+            <img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png">
+
         </div>
+        <!-- /input-group -->
+    </div>
+    <!-- /.col-lg-6 -->
+
+    <div class="home_tab_div">
+        <div class="text_inline home_tab_div_left {{showSelectMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+             ng-click="showMoreView(0)">快捷业务
+        </div>
+        <div class="text_inline home_tab_div_right  {{showSelectMore==1?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+             ng-click="showMoreView(1)">常规项目
+        </div>
+
     </div>
 
-    <div class="bdd_area_conter">
-        <div class="bdd_area_conter_border">
 
-            <a href="{{link.linkUrl}}" class="bdd_area_conter_border_text bdd_area_list"
-               ng-repeat="link in ctrl.linkList">
-                {{link.linkName}}
-            </a>
+    <ion-view title="Home" hide-nav-bar="true">
+        <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 4rem">
+            <div class="content-list-div">
+                <div class="text_inline content-list-div-a">
+                    <table class="content-list-div-table">
+
+                        <tr class="tb_content_a"><td></td><td>项目名称</td><td>性质</td><td>修理费</td><td>优惠</td><td></td></tr>
+                        <tr class="tb_content_b"><td class="tb_content_td_a">1</td><td>轿车洗车</td><td>人工</td><td>￥25.0</td><td>0.0</td><td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td></tr>
+                        <tr class="tb_content_c"><td class="tb_content_td_a">2</td><td>轿车洗车</td><td>人工</td><td>￥25.0</td><td>0.0</td><td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td></tr>
+                        <tr class="tb_content_b"><td class="tb_content_td_a">3</td><td>轿车洗车</td><td>人工</td><td>￥25.0</td><td>0.0</td><td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td></tr>
+
+                    </table>
+
+                </div>
+                <div class="text_inline content-list-div-a">
+                    <table class="content-list-div-table">
+                        <tr class="tb_content_a"><td>工时：￥75.0</td><td>材料：￥0.0</td><td>总计：￥75.0</td></tr>
+                        <tr class="tb_content_b"><td>工时打折</td><td></td><td>-0.0</td></tr>
+
+                    </table>
+
+
+
+                </div>
+                <div class="text_inline content-list-div-a">
+                    <table class="content-list-div-table">
+                        <tr class="tb_content_a"><td>总应收</td><td></td><td>￥75.0</td></tr>
+                        <tr class="tb_content_b"><td>备注</td><td></td><td>0.0</td></tr>
+
+                    </table>
+
+
+
+                </div>
+
+
+            </div>
+
+        </ion-scroll>
+    </ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="confirm-div">
+        <div class="text-inline confirm-a confirm-nav-btn">
+            钣金喷漆
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            项目库
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            临时项目
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            本车首页
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            派&#12288;工
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            结&#12288;算
         </div>
     </div>
-
 </div>

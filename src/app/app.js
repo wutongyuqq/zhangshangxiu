@@ -11,7 +11,8 @@ var app = angular.module('WEBAPP', [
     'ngTouch',
     'oc.lazyLoad',
     'app.utils',
-    'infinite-scroll'
+    'infinite-scroll',
+    'ionic'
 ]);
 
 app.factory('locals',['$window',function($window){

@@ -144,6 +144,32 @@
     input[type=text]{
         height: 0.7rem;
     }
+    .claim_input{
+        border: none;
+        width: 100%;
+        background: none;
+        text-align: right;
+        padding-right: 0.95rem;
+    }
+    input[readonly]{
+        background-color: transparent;
+    }
+    input[disabled], input[readonly]:not(.cloned-text-input), select[disabled], select[readonly], textarea[disabled], textarea[readonly]:not(.cloned-text-input) {
+        background-color: transparent;
+    }
+
+    .icon-user{
+        float:right;
+        z-index:1009;
+        margin-top: 8px;
+        margin-left: 2rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        background-image: url(../../../vendor/images/zsx/right_btn.png); /*引入图片图片*/
+        background-repeat: no-repeat; /*设置图片不重复*/
+        background-position: 10px 10px; /*图片显示的位置*/
+
+    }
 </style>
 <div ng-controller="tenderIndex">
     <div class="bar bar-header bar-light bar-light-div">
@@ -172,7 +198,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left">期望提车时间</div>
-            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/right_btn.png"/></div>
+            <div class="text-inline text-right">   <input class="claim_input" type="text" ng-model="queryBean.start_date" id="start_date" placeholder="选择起始日期" readonly="readonly"/></div>
 
         </div>
         <div class="border-color">
@@ -239,3 +265,16 @@
 
     </div>
 </div>
+
+
+<script>
+
+    var calendar = new LCalendar();
+    calendar.init({
+        'trigger': '#start_date', //标签id
+        'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+        'minDate': (new Date().getFullYear()-40) + '-' + 1 + '-' + 1, //最小日期
+        'maxDate': (new Date().getFullYear()+20) + '-' + 12 + '-' + 31 //最大日期
+    });
+
+</script>

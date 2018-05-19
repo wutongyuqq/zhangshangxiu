@@ -1,16 +1,13 @@
 <link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
 <style>
-
     .bar-light-div {
         background-size: 0px;
         border-bottom: 1px solid #1296db;
         display: block;
     }
-
     .title-color {
         color: #3ca2dd;
     }
-
     .bar_second_pink {
         width: 100%;
         margin-top: 44px;
@@ -19,12 +16,10 @@
         vertical-align: middle;
         line-height: 1rem;
     }
-
     .container-fluid {
         padding: 0 0;
         margin: 0 0;
     }
-
     .color-white {
         color: white;
         display: inline-block;
@@ -32,73 +27,55 @@
         margin-bottom: auto;
         line-height: 100%;
         vertical-align: top;
-
     }
-
     .bar-white-home {
         margin-left: 0.1rem;
         margin-top: 0.32rem;
-
     }
-
     .bar-white-card {
         margin-left: 0.2rem;
         margin-top: 0.32rem;
     }
-
     .text-inline {
         display: inline-block;
     }
-
     .color-white-img {
         width: 0.5rem;
         height: 0.5rem;
     }
-
     .color-white-img-home {
         margin-left: 1rem;
     }
-
     .color-white-img-card {
         margin-left: 4.5rem;
     }
-
     .home_tab_div_left_color {
         background-color: #ff9db4;
         color: #ffffff;
     }
-
     .home_tab_div_right_color {
         background-color: #a4a3a3;
         color: #333333;
     }
-
     .home_tab_div_left {
         padding: 0 0;
         width: 49%;
         margin-left: -3px;
         height: 100%;
         line-height: 1rem;
-
         text-align: center;
         vertical-align: middle;
-
         border: none;
     }
-
     .home_tab_div_right {
-
         margin-left: -3px;
         width: 49.9%;
         height: 100%;
         line-height: 1rem;
         vertical-align: middle;
-
         text-align: center;
-
         border: none;
     }
-
     .home_tab_div {
         padding: 0 0;
         width: 100%;
@@ -107,34 +84,27 @@
         text-align: center;
 
     }
-
     .text_inline {
         display: inline-block;
         vertical-align: middle;
     }
-
     .form-control-a {
         width: 6rem;
         background: url("../../../vendor/images/zsx/back_bottom_red.png");
         text-indent: 6px;
     }
-
     .bts-magin-a {
-
         width: 100%;
         margin: 20px auto 0px auto;
         text-align: center;
     }
-
     .btn-search {
-
         padding-left: 10px;
         padding-right: 10px;
         padding-top: 5px;
         padding-bottom: 3px;
         border-radius: 3px;
     }
-
     .confirm-nav-btn {
         width: 3rem;
         background-color: #89c997;
@@ -144,11 +114,9 @@
         margin-left: 0.2rem;
         margin-top: 0.5rem;
     }
-
     .confirm-a {
         vertical-align: middle;
     }
-
     .confirm-div {
         width: 100%;
         text-align: center;
@@ -160,38 +128,31 @@
         display: block;
         background-color: white;
     }
-
     .wb_btn_img {
         width: 0.6rem;
         height: 0.6rem;
 
     }
-
     .wb_second_line {
         margin-top: 0.5rem;
         text-align: center;
     }
-
     .wb_second_line_qw {
         margin-left: 1rem;
     }
-
     .content-list-div {
         width: 100%;
     }
-
     .content-list-div-a {
         width: 100%;
         text-align: center;
     }
-
     .content-list-div-table {
 
         width: 100%;
         margin-top: 2px;
 
     }
-
     .img-minus {
         width: 0.5rem;
         height: 0.5rem;
@@ -201,7 +162,6 @@
         background-color: #7ff7fb;
         height: 1rem;
     }
-
     .tb_content_b {
 
         background-color: #eeeeee;
@@ -210,44 +170,37 @@
         text-align: center;
         vertical-align: middle;
     }
-
     .tb_content_c {
         padding-top: 0.45rem;
         height: 2rem;
         background-color: #fdfcfd;
         vertical-align: middle;
     }
-
     .tb_content_b > td {
         text-align: center;
         padding-top: 0.6rem;
     }
-
     .tb_content_c > td {
         text-align: center;
         padding-top: 0.6rem;
     }
-
     .tb_content_a > td {
         text-align: center;
         padding-top: 0.2rem;
     }
-
     .tb_content_td_a {
         padding-left: 0.2rem;
     }
 </style>
 <div ng-controller="WinbdingCtrl">
     <div class="bar bar-header bar-light bar-light-div">
-        <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
-        <h1 class="title"><span class="title-color">工单(NO:201805132201)</span></h1>
+        <button  ng-click="goBack()" class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <h1 class="title"><span class="title-color">工单(NO:{{carInfo.customer_id}})</span></h1>
     </div>
     <div class="bar_second_pink">
         <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
-
         <div class="color-white bar-white-home">王总</div>
         <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
-
         <div class="color-white bar-white-card">闽A23A97</div>
     </div>
     <div class="wb_second_line">
@@ -255,11 +208,7 @@
         <div class="text_inline"><img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png"/></div>
         <div class="text_inline wb_second_line_qw">期望提车时间：2018-05-16</div>
         <div class="text_inline"><img class="text_inline wb_btn_img" src="../../../vendor/images/zsx/edit.png"/></div>
-
-
     </div>
-
-
     <div class="bts-magin-a">
         <div class="input-group-a">
             <div class="text_inline">故障描述：</div>
@@ -272,7 +221,6 @@
         <!-- /input-group -->
     </div>
     <!-- /.col-lg-6 -->
-
     <div class="home_tab_div">
         <div class="text_inline home_tab_div_left {{showSelectMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
              ng-click="showMoreView(0)">项目
@@ -282,11 +230,7 @@
         </div>
 
     </div>
-
-
-
     <!-- 项目-->
-
     <div class="content-list-div" ng-show="showSelectMore==0">
         <div class="text_inline content-list-div-a">
             <table class="content-list-div-table">
@@ -369,7 +313,7 @@
         <div class="text-inline confirm-a confirm-nav-btn">
             钣金喷漆
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn" ng-click="toProjectFactory()">
             项目库
         </div>
         <div class="text-inline confirm-a confirm-nav-btn">
@@ -487,6 +431,10 @@
             结&#12288;算
         </div>
     </div>
+    <div ng-show="showAllPro" class="div-all-page">
 
+
+
+    </div>
 
 </div>

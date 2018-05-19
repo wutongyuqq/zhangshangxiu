@@ -147,7 +147,7 @@
 </style>
 <div ng-controller="tenderIndex">
     <div class="bar bar-header bar-light bar-light-div">
-         <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+         <button class="button-clear" onClick="javascript :history.back(-1);"><img src="../../../vendor/images/zsx/back_blue.png"></button>
         <h1 class="title"><span class="title-color">业务导航</span></h1>
     </div>
     <div class="bar_second_pink">
@@ -182,7 +182,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left">介绍人</div>
-            <div class="text-inline text-right"><span ng-show="!isShowJsr">{{carInfo.gzms}}</span><input ng-show="isShowJsr"  ng-model="carInfo.gzms"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowJsr,6)" class="edit-img-a" src="{{isShowJsr?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
+            <div class="text-inline text-right"><span ng-show="!isShowJsr">{{carInfo.jsr}}</span><input ng-show="isShowJsr"  ng-model="carInfo.gzms"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowJsr,6)" class="edit-img-a" src="{{isShowJsr?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
 
         </div>
         <div class="border-color border-last">

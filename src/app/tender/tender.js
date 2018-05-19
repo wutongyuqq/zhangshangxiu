@@ -35,10 +35,9 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
         }else if(num==7){
             $scope.isShowBz=!isShowItem;
         }
-        if(isShowItem){
+        if(!isShowItem){
             return;
         }
-
         var carInfo = $scope.carInfo;
         var params =
         {   db:"mycon1",
@@ -51,7 +50,7 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
             cx:carInfo.cx,
             cjhm:carInfo.cjhm,
             fdjhm:carInfo.fdjhm,
-            ns_date: carInfo.ns_date,
+            ns_date:"2018-05-19 00:00:00",
             customer_id:carInfo.customer_id
         };
         var jsonStr = angular.toJson(params);
@@ -59,7 +58,7 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: jsonStr,
+            data: jsonStr
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
@@ -70,8 +69,6 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
         }).error(function(data){
             ionicToast.show("服务异常");
         });
-
-
     }
 }]);
 

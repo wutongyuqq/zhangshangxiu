@@ -271,7 +271,7 @@
     </div>
     <div ng-show="showMore==0" class="input-left-div">
         <any class="item-input" style="overflow: visible">
-            <span class="input-label input-label-a">车辆
+            <span class="input-label input-label-a">车牌
                 &nbsp;&nbsp;&nbsp;
                 <a class="span_card text_inline" ng-click="showCardMore(showCard)">{{proName?proName:'闽'}}</a>
                 <div ng-show="showCard" class="span_card_list text_inline">
@@ -315,25 +315,27 @@
                 </div>
             </span>
             <div class="text_inline">
-            <input placeholder="输入" type="text" ng-model="carInfo.cardName" ng-blur="showCardList=false" ng-focus="showCardList=true"/>
+            <input placeholder="必填" type="text" ng-model="carInfo.cardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
                 <ul class="card_ul"  ng-show="showCardList">
                     <li ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</li>
-
-
                 </ul>
             </div>
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">车架号</span>
-            <input placeholder="输入" ng-model="carInfo.cjhm" type="text"/>
+            <input placeholder="输入" ng-model="carInfo.cjhm" type="text"  ng-pattern="/^[0-9a-zA-Z]+$/"/>
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">公里数</span>
             <input placeholder="输入" ng-model="carInfo.gls" type="text">
         </any>
         <any class="item-input">
-            <span class="input-label input-label-a">报修人</span>
-            <input placeholder="输入" ng-model="carInfo.linkman" type="text">
+            <span class="input-label input-label-a">送修人</span>
+            <input placeholder="必填" ng-model="carInfo.linkman" type="text">
+        </any>
+        <any class="item-input">
+            <span class="input-label input-label-a">手机号</span>
+            <input type="number" placeholder="必填" ng-model="carInfo.phone"/>
         </any>
 
     </div>

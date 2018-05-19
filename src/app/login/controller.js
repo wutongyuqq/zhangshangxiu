@@ -1,6 +1,17 @@
-app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', '$state', function ($http, $log, $scope, $document, userTemp, $state) {
+app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', '$state','locals', function ($http, $log, $scope, $document, userTemp, $state,locals) {
     var selt = this;
+    var user = locals.getObject("user");
+    if(user!=null){
+        user.factoryName = locals.getObject("user").factoryName;
+        user.userName = locals.getObject("user").userName;
+        user.password = locals.getObject("user").password;
+    }else{
+        user.factoryName = "";
+        user.userName =  "";
+        user.password =  "";
+    }
 
+    $scope.user = user;
     /**
      * 登录
      */
@@ -8,8 +19,8 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
         var params = {
             db: "sjsoft_SQL",
             function: "sp_fun_check_service_validity",
-            data_source: "首佳软件ASA",
-            operater_code: "superuser"
+            data_source: user.factoryName,
+            operater_code: user.userName
         };
         $http({
             method: 'post',
@@ -46,8 +57,8 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
         var params = {
             db: "mycon1",
             function: "sp_fun_check_user_state",
-            operater_code: "superuser",
-            operater_ip: "192.168.0.101"
+            operater_code: user.userName,
+            operater_ip: returnCitySN.cip
         };
         $http({
             method: 'post',
@@ -71,9 +82,9 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
         var params = {
             db: "mycon1",
             function: "sp_fun_check_user_state_login",
-            operater_code: "superuser",
-            operater_ip: "192.168.0.101",
-            password: "123456"
+            operater_code: user.userName,
+            operater_ip: returnCitySN.cip,
+            password: user.password
         };
         $http({
             method: 'post',
@@ -82,6 +93,7 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
             data: angular.toJson(params),
         }).success(function (data, status, headers, config) {
             var state = data.state;
+            locals.setObject("user",user);
             if(state=='true'){
                 $state.go("home");
             }

@@ -1,5 +1,11 @@
-app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', '$anchorScroll', "$location", "utils", "locals","$modal","$state",function ($http, $log, $scope, $document, userTemp, $anchorScroll, $location, utils, locals,$modal,$state) {
+app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchorScroll', "$location", "utils", "locals","$modal","$state","ionicToast",function ($http, $scope, $document, userTemp, $anchorScroll, $location, utils, locals,$modal,$state,ionicToast) {
     var selt = this;
+    var user = locals.getObject("user");
+    if(user==null||user.userName==null){
+        $state.go("Login");
+    }
+    var userName = user.userName;
+
     $scope.showCardList = false;
     var carInfo = new Object();
     carInfo.company_code="";
@@ -36,9 +42,10 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
         console.log('222');
     }
 
-    $scope.$watch('carInfo.cardName', function () {
-        var cardName = $scope.carInfo.cardName;
-        if (cardName != "") {
+    $scope.showCardListData = function () {
+        $scope.showCardList = true;
+
+
             var previous_xh = locals.get("previous_xh", "0");
             var params = {
                 db: "mycon1",
@@ -59,10 +66,24 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
 
                 }
             });
-        }
-    });
+
+    };
 
     $scope.uploadCardInfo = function (upLoadInfo) {
+        if(upLoadInfo.cardName==null||upLoadInfo.cardName==""){
+            ionicToast.show('车牌必填', 'middle',false, 1000);
+            return;
+        }
+        if(upLoadInfo.linkman==null||upLoadInfo.linkman==""){
+            ionicToast.show('报修人必填', 'middle',false, 1000);
+            return;
+        }
+        if(upLoadInfo.phone==null||upLoadInfo.phone==""){
+            ionicToast.show('手机号必填', 'middle',false, 1000);
+            return;
+        }
+
+
         var now = new Date();
         var year = now.getFullYear();
         var month =(now.getMonth() + 1).toString();
@@ -96,14 +117,14 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
             plate_number:upLoadInfo.cardName,
             cz:upLoadInfo.cz,
             mobile:upLoadInfo.mobile,
-            phone: upLoadInfo.phone,
+            phone: upLoadInfo.phone+'',
             linkman:upLoadInfo.linkman,
             custom5: upLoadInfo.custom5,
             cx:upLoadInfo.cx,
             cjhm:upLoadInfo.cjhm,
             fdjhm:upLoadInfo.fdjhm,
             ns_date:dateTime,
-            oprater_code:"superuser",
+            oprater_code:userName,
             xllb:"保养",
             jclc:"5000",
             ywg_date:dateTime,
@@ -121,18 +142,19 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
             data: jsonStr,
         }).success(function (data, status, headers, config) {
             var state = data.state;
-            /*if (state == 'ok') {
+            if (state == 'ok') {
+                locals.setObject("carInfo",upLoadInfo);
                 $state.go("Tender");
-
-            }*/
-            $state.go("Tender");
+            }else {
+                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+            }
         }).error(function(data){
-                console.log("3333");
+            ionicToast.show("服务异常");
             });
     }
 
-    var data = "通过modal传递的数据";
-    $scope.openModal = function() {
+
+    $scope.openModal = function(data) {
         var modalInstance = $modal.open({
             templateUrl : 'modal.html',//script标签中定义的id
             controller : 'modalCtrl',//modal对应的Controller
@@ -149,6 +171,7 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
 
     $scope.showCardName = function(item){
         carInfo = item;
+        carInfo.phone = item.phone?Number(item.phone):"";
         carInfo.company_code=item.customer_id;
         carInfo.cx=item.mc;
         carInfo.cardName=item.mc;
@@ -159,7 +182,7 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
     var params = {
         db:"mycon1",
         function:"sp_fun_get_oprater_right",
-        operater_code:"superuser"
+        operater_code:userName
     };
     $http({
         method: 'post',
@@ -169,11 +192,15 @@ app.controller('HomeCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', 
     }).success(function (data, status, headers, config) {
         console.log(data);
         var state = data.state;
-        if (state == 'true') {
-            console.log(data.msg);
+        if (state == 'ok') {
+            var dataArr = data.data;
+            for(var i=0;i<dataArr.length;i++){
+                var item = dataArr[i];
+                locals.setObject(item.menu_right,item);
+            }
 
         }
-    });
+    })
 
 //{"mc":"浙G3G821","cz":"浙G3G821","mobile":"","phone":"","vipnumber":"","customer_id":"A2018N00008","linkman":"","custom5":"","cx":"","cjhm":"","fdjhm":"","ns_date":"","openid":""},
 //车牌号码、        车主名称、      手机号码、   送修人电话、 会员卡号、    客户编码、                     送修人、  推荐人客户编码、车型、  车架号、  发动机号、  年审日期、   微信openid

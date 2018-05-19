@@ -59,8 +59,10 @@
     }
     .text-inline{
         display: inline-block;
+        vertical-align: middle;
     }
     .border-first{
+
          border-top: 2px solid #b5d2e5;
      }
     .border-last{
@@ -77,8 +79,9 @@
         padding-right: 0.25rem;
     }
     .text-right{
+        width: 5rem;
         height: 100%;
-        vertical-align: top;
+        vertical-align: middle;
         padding-top: 0.15rem;
 
     }
@@ -87,6 +90,7 @@
         height: 0.5rem;
         margin-left: 4.5rem;
     }
+
     .select-img{
         width: 1.0rem;
         height: 1.0rem;
@@ -119,6 +123,27 @@
     .color-white-img-card{
         margin-left: 4.5rem;
     }
+    .text-gray{
+        color: #707070;
+    }
+    .text-input-a{
+        border: none;
+        width: 4rem;
+        float: left;
+        display: block;
+    }
+    .edit-img-a{
+        width: 0.5rem;
+        height: 0.5rem;
+        float: right;
+        display: block;
+        margin-top: 0.1rem;
+        margin-left: 0.4rem;
+
+    }
+    input[type=text]{
+        height: 0.7rem;
+    }
 </style>
 <div ng-controller="tenderIndex">
     <div class="bar bar-header bar-light bar-light-div">
@@ -127,23 +152,22 @@
     </div>
     <div class="bar_second_pink">
         <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
-        <div class="color-white bar-white-home">王总</div>
+        <div class="color-white bar-white-home">{{carInfo.cz}}</div>
         <img  class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
-        <div class="color-white bar-white-card">闽A23A97</div>
+        <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
     </div>
     <div class="border-center">
         <div class="border-color border-first">
             <div class="text-inline text-left">公里数</div>
-            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+            <div class="text-inline text-right"><span ng-show="!isShowGls">{{carInfo.gls}}</span><input ng-show="isShowGls" ng-model="carInfo.gls"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowGls,1)" class="edit-img-a" src="{{isShowGls?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
         </div>
         <div class="border-color">
             <div class="text-inline text-left">车架号</div>
-            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
-
+            <div class="text-inline text-right"><span ng-show="!isShowCjh">{{carInfo.cjhm}}</span><input ng-show="isShowCjh" ng-model="carInfo.cjhm" type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowCjh,2)" class="edit-img-a" src="{{isShowCjh?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
         </div>
         <div class="border-color">
             <div class="text-inline text-left">车型</div>
-            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+            <div class="text-inline text-right"><span ng-show="!isShowCx">{{carInfo.cx}}</span><input ng-show="isShowCx"   ng-model="carInfo.cx" type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowCx,3)" class="edit-img-a" src="{{isShowCx?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
 
         </div>
         <div class="border-color">
@@ -153,30 +177,30 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left">故障描述</div>
-            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+            <div class="text-inline text-right"><span ng-show="!isShowGzms">{{carInfo.gzms}}</span><input ng-show="isShowGzms"  ng-model="carInfo.gzms"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowGzms,5)" class="edit-img-a" src="{{isShowGzms?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
 
         </div>
         <div class="border-color">
             <div class="text-inline text-left">介绍人</div>
-            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+            <div class="text-inline text-right"><span ng-show="!isShowJsr">{{carInfo.gzms}}</span><input ng-show="isShowJsr"  ng-model="carInfo.gzms"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowJsr,6)" class="edit-img-a" src="{{isShowJsr?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
 
         </div>
         <div class="border-color border-last">
             <div class="text-inline text-left">备注</div>
-            <div class="text-inline text-right"><img class="edit-img" src="../../../vendor/images/zsx/edit.png"/></div>
+            <div class="text-inline text-right"><span ng-show="!isShowBz">{{carInfo.ywtx}}</span><input ng-show="isShowBz"  ng-model="carInfo.ywtx"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowBz,7)" class="edit-img-a" src="{{isShowBz?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
 
         </div>
     </div>
 
     <div class="select_pro">
         <div class="select-item select_one" ng-click="toProjectSelect()">
-            <img class="select-img" src="../../../vendor/images/zsx/select_pro.png"/>
-            <div class="select-text">项目选择</div>
+            <img class="select-img" src="{{projectPer.new=='1'?'../../../vendor/images/zsx/select_pro.png':'../../../vendor/images/zsx/select_gray.png'}}"/>
+            <div class="select-text {{projectPer.new=='1'?'':'text-gray'}}">项目选择</div>
 
         </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/car_door.png"/>
-            <div class="select-text">钣金喷漆</div>
+        <div class="select-item select_one"  ng-click="toBjSelect()">
+            <img class="select-img" src="{{projectPer.new=='1'?'../../../vendor/images/zsx/car_door.png':'../../../vendor/images/zsx/car_gray.png'}}"/>
+            <div class="select-text {{projectPer.new=='1'?'':'text-gray'}}">钣金喷漆</div>
 
         </div>
         <div class="select-item select_one">

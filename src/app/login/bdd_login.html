@@ -68,23 +68,28 @@
     }
 </style>
 
+<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
 <div class="login_back_img" ng-controller="LoginCtrl">
    
     <div class="login_back_gray">
         <div class="login-div">
         <div class="login-color-div">
-            <div class="login-color"><span class="text-inline">厂&#12288;名：</span><input type="text" placeholder="修理厂名称/分店名称" class="text-inline login-input_a login_factory_name"/></div>
+            <div class="login-color"><span class="text-inline">厂&#12288;名：</span>
+                <input type="text" ng-model="user.factoryName" placeholder="修理厂名称/分店名称" class="text-inline login-input_a login_factory_name"/></div>
         </div>
         <div class="login-color-div">
-            <div class="login-color"><span class="text-inline">用户名：</span><input type="text" class="text-inline login-input_a login_username"/></div>
+            <div class="login-color"><span class="text-inline">用户名：</span>
+                <input type="text"  ng-model="user.userName" class="text-inline login-input_a login_username"/></div>
 
         </div>
         <div class="login-color-div">
-            <div class="login-color"><span class="text-inline">密&#12288;码：</span><input type="password" class="text-inline login-input_a login_password"/></div>
+            <div class="login-color"><span class="text-inline">密&#12288;码：</span>
+                <input type="password" ng-model="user.password" class="text-inline login-input_a login_password"/></div>
 
         </div>
             <div class="btn-login-div">
-            <button type="button" class="btn btn-login" ng-click="checkDate()">登录</button>
+            <button type="button" class="btn btn-login" ng-click="checkDate(user)">登录</button>
             </div>
         </div>
 

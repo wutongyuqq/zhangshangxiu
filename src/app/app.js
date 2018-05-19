@@ -12,7 +12,8 @@ var app = angular.module('WEBAPP', [
     'oc.lazyLoad',
     'app.utils',
     'infinite-scroll',
-    'ionic'
+    'ionic',
+    'ionic-toast'
 ]);
 
 app.factory('locals',['$window',function($window){

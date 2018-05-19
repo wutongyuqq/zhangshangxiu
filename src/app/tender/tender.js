@@ -17,7 +17,62 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
     $scope.toBjSelect=function(){
         ionicToast.show('没有权限', 'middle',false, 1000);
     }
+    var kjProList = [];
+    var postFlag ="0";
 
+
+    var postNum = 0;
+    $scope.getIconData = function() {
+        postNum++;
+        if(postFlag=="end"){
+            return;
+        }
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_down_maintenance_project",
+            previous_xh: postFlag
+        };
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            postFlag = data.Previous_xh;
+            var imageArr = [
+                '../../../vendor/images/zsx/select_pro.png',
+                '../../../vendor/images/zsx/car_door.png',
+                '../../../vendor/images/zsx/check_plan.png',
+                '../../../vendor/images/zsx/tc_work.png',
+                '../../../vendor/images/zsx/you_ticket.png',
+                '../../../vendor/images/zsx/history.png',
+                '../../../vendor/images/zsx/work_order.png',
+                '../../../vendor/images/zsx/cancle_reciver.png',
+                '../../../vendor/images/zsx/fold_img.png'
+            ];
+            if (state == 'ok' && postFlag != "end") {
+                var dataList = data.data;
+
+                var k = 0;
+                for (var i = 0; i < dataList.length; i++) {
+                    var item = dataList[i];
+                    if (item.tybz == "0" && item.is_quick_project == "是") {
+                        if (k < 8&&postNum==1) {
+                            item.imgUrl = imageArr[k];
+                        } else {
+                            item.imgUrl = '../../../vendor/images/zsx/fold_img.png';
+                        }
+                        kjProList.push(item);
+                        k++;
+                    }
+                }
+                $scope.getIconData();
+            }
+        })
+    }
+    $scope.getIconData();
     $scope.updateCarInfo=function(isShowItem,num){
 
         if(num==1){

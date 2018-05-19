@@ -1,4 +1,4 @@
-app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals','userTemp', '$anchorScroll',"$location",function($http, $scope,$state,locals,userTemp,$anchorScroll,$location) {
+app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals','userTemp', '$anchorScroll',"$location","ionicToast",function($http, $scope,$state,locals,userTemp,$anchorScroll,$location,ionicToast) {
 
     $scope.exitLogin = function(){
         var params = {
@@ -18,11 +18,16 @@ app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals','userTemp', '
             var endDateStr = data.service_end_date;
             if (state == 'true') {
                 console.log(data.msg);
+                $state.go("Login");
 
             }
         });
     }
 
+    $scope.checkVersion=function(){
+        ionicToast.show('当前已经是最新版本', 'middle',false, 1000);
+
+    }
 
 
 }]);

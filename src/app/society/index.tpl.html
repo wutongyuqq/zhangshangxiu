@@ -1,247 +1,279 @@
+<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
 <style>
 
-    /*个人中心*/
-    body{
-        background-color: #F8F8F8;
+    .bar-light-div {
+        background-size: 0px;
+        border-bottom: 1px solid #1296db;
+        display: block;
     }
-    .bdd_perso_nav_header{
-        width: 1200px;
-        height:1200px;
+    .title-color {
+        color: #3ca2dd;
+    }
+    .bar_second_pink{
+        width: 100%;
+        margin-top: 44px;
+        height: 1rem;
+        background-color: #aa89bd;
+        vertical-align: middle;
+        line-height: 1rem;
+    }
+    .container-fluid{
+        padding: 0 0;
+        margin: 0 0;
+    }
+    .color-white{
+        color: white;
+        display: inline-block;
+        margin-top: 0.3rem;
+        margin-bottom: auto;
+        line-height: 100%;
+        vertical-align: top;
+
+    }
+    .bar-white-home{
+        margin-left: 0.1rem;
+        margin-top: 0.32rem;
+
+    }
+    .bar-white-card{
+        margin-left: 0.2rem;
+        margin-top: 0.32rem;
+    }
+    .border-color{
+
+        height: 1rem;
+        background-color: #eeeeee;
+        text-align: left;
         margin: 0 auto;
+        border-left: 2px solid #b5d2e5;
+        border-right: 2px solid #b5d2e5;
+        border-bottom:  1px solid #99a5ac;
+
 
     }
-    .bdd_perso_nav_news{
-        width: 1200px;
-        height: 340px;
-        background-color: white;
-        margin:200px auto 0 auto;
+    .border-center{
+        margin-top: 0.5rem;
+        width: 100%;
+        text-align: center;
 
     }
-    .bdd_perso_left{
-        width: 110px;
-        height: 100px;
+    .text-inline{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .border-first{
+
+        border-top: 2px solid #b5d2e5;
+    }
+    .border-last{
+        border-bottom: 2px solid #b5d2e5;
+    }
+    .text-left{
+        width: 3.5rem;
+        height: 100%;
+        vertical-align: top;
+        padding-top: 0.25rem;
+        margin: 0 auto;
+        text-align: right;
+        padding-right: 0.25rem;
+    }
+    .text-right{
+        width: 5rem;
+        height: 100%;
+        vertical-align: middle;
+        padding-top: 0.15rem;
+
+    }
+    .edit-img{
+        width: 0.5rem;
+        height: 0.5rem;
+        margin-left: 4.5rem;
+    }
+
+    .select-img{
+        width: 1.0rem;
+        height: 1.0rem;
+    }
+    .select-item{
+        width: 33%;
         float: left;
-        background-color:#F8F8F8;
-        margin:50px 0 0 50px;
+        margin-top: 0.3rem;
     }
-    .bdd_perso_nav_head{
-        width: 1200px;
-        height: 800px;
+    .select_pro{
+        text-align: center;
+        margin-top: 0.3rem;
+        background-color: #f8fbf8;
         overflow: hidden;
-    }
-    .bdd_perso_right{
-        margin-top:53px;
-        margin-left:200px;
-    }
-    .bdd_perso_color{
-        font-size: 18px;
-        color: #4d3a3a;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        color: #1296db;
         font-weight: 700;
     }
-    .bdd_perso_tel{
-        font-size: 16px;
-        color: #4d3a3a;
-        margin-top:7px;
+    .select-text{
+        padding-top: 0.15rem;
     }
-    .bdd_perso_span{
-        margin-top:20px;
+    .color-white-img{
+        width: 0.5rem;
+        height: 0.5rem;
     }
-    /*活跃度*/
-    .bdd_vitality{
-        width:1200px;
-        height:100px;
-        margin: 0 auto;
-        margin-top:100px;
+    .color-white-img-home{
+        margin-left: 0.5rem;
+    }
+    .color-white-img-card{
+        margin-left: 2.5rem;
+    }
+    .text-gray{
+        color: #707070;
+    }
+    .text-input-a{
+        border: none;
+        width: 4rem;
+        float: left;
+        display: block;
+    }
+    .edit-img-a{
+        width: 0.5rem;
+        height: 0.5rem;
+        float: right;
+        display: block;
+        margin-top: 0.1rem;
+        margin-left: 0.4rem;
 
     }
-    .bdd_vitality_list{
-        width:300px;
-        height: 100px;
-        float: left;
-        text-align: center;
+    input[type=text]{
+        height: 0.7rem;
     }
-    .bdd_vitality_size{
-        font-size: 24px;
-        color: #acb76c;
+    .block_color_b{
+        color: white;
+        margin-left:0.2rem;
+        font-size: 12px;
     }
-    .bdd_vitality_si{
-        font-size: 16px;
-        color: #4d3a3a;
-        margin-top:10px;
-    }
-    /*资料*/
-    .bdd_vitality_zi{
-        width: 1200px;
-        height: 550px;
-        margin-top:80px;
-    }
-    .bdd_vitality_left{
-        float: left;
-        width: 280px;
-        height: 550px;
-        background-color: white;
-    }
-    .bdd_vitality_right{
-        float: left;
-        width: 900px;
-        height: 550px;
-        margin-left:19px;
-        background-color: white;
-        overflow: hidden;
-    }
-    .bdd_vita_list{
-        width: 280px;
-        height: 60px;
-        text-align: center;
-        padding-top:20px;
+    .bar_conter_a{
+        width: 100%;
+        height: 1rem;
+        background-color:#7FF7FB;
+        margin-top: 0.2rem;
         font-size: 18px;
-        color: #ffffff;
+        color:#4d3a3a;
+        padding-top: 0.25rem;
+        padding-left:1rem;
     }
-    .bdd_vitality_right_header{
-        width: 900px;
-        height: 80px;
+    .bar_conter_p{
+        width: 12rem;
+        height: 1rem;
+        background-color:#DBDBDB;
+        padding-left: 2rem;
+        padding-right:1rem;
+        line-height: 1rem;
     }
-    .bdd_vita_span{
-        width:65px;
-        height:3px;
-        background-color: #cea63f;
-        margin-top:15px;
-    }
-    .bdd_vitality_right_hrader_li{
-        font-size: 16px;
-        color: #4d3a3a;
-    }
-    .bdd_vita_top{
+    .bar_conter_y{
         float: left;
-        padding:20px 0 0 50px;
+        width:33%;
     }
-    .bdd_vita_right{
+    .bar_conter_d{
         float: left;
-        padding:20px 0 0 40px;
+        width: 60%;
     }
-    .bdd_vitality_conter{
-        width:900px;
-        height:200px;
-
+   .bar_conter_q{
+       width:7%;
+       float: right;
+       color: white;
+   }
+    .bar_conter_p_color{
+      background-color: #FFDBDB;
     }
-    .bdd_vitality_conter_span {
-        margin: 0 auto;
-    }
-    .bdd_vita_span_list{
-        width: 95px;
-    }
-    /*下方微信 扣扣*/
-    .bdd_vita_side{
-        width: 900px;
-        height: 300px;
-
-    }
-    .bdd_vita_footer_title_text{
-        width: 100px;
-        height: 30px;
-        background-color: #cea63f;
-        border-radius: 5px;
-        color: #ffffff;
-        font-size: 16px;
-        text-align: center;
-        padding-top:3px;
-        float: left;
-        margin-left:80px;
-
-    }
-    .bdd_vita_side_weixin{
-        font-size: 16px;
-        color: #4d3a3a;
-        float: left;
-
-    }
-    .bdd_vita_img{
-        vertical-align: middle;
-        margin-left:39px;
-    }
-    .bdd_vita_side_header{
-        width: 900px;
-        height: 50px;
-        margin-top:50PX;
-    }
-    .bdd_vitality_hr{
-        border-bottom: 1px solid #ccc;
-        opacity: 0.5;
-        padding-top:60px;
-
-    }
-    .bdd_perso_nav_header_top{
-        margin-top: 100px;
+   .bdd_sumit{
+       width:100%;
+       height: 1rem;
+       line-height: 1rem;
+       background-color: #31b0d5;
+       text-align: center;
+       color: white;
+       font-size: 18px;
+        margin-top:0.1rem;
+       
+   }
+    .action-sheet_i{
+        width: 100%;
+        margin-bottom: 2rem;
     }
 </style>
-
-<!--nav-->
-<div  class="bdd_perso_nav_header bdd_perso_nav_header_top">
-    <div  class="bdd_perso_nav_news">
-        <div class="bdd_perso_nav_head">
-            <div class="bdd_perso_left"></div>
-            <div class="bdd_perso_right">
-                <div class="bdd_perso_anv_li bdd_perso_color">希希</div>
-                <div class="bdd_perso_anv_li bdd_perso_tel bdd_perso_span">0716-7770058</div>
-                <div class="bdd_perso_anv_li bdd_perso_tel">湖南耀邦建设有限公司</div>
-            </div>
-            <div class="bdd_vitality">
-                <div class="bdd_vitality_list">
-                    <div class="bdd_vitality_size">100</div>
-                    <div class="bdd_vitality_si">活跃度</div>
-                </div>
-                <div class="bdd_vitality_list">
-                    <div class="bdd_vitality_size">100</div>
-                    <div class="bdd_vitality_si">购买记录</div>
-                </div>
-                <div class="bdd_vitality_list">
-                    <div class="bdd_vitality_size">100</div>
-                    <div class="bdd_vitality_si">我的关注</div>
-                </div>
-                <div class="bdd_vitality_list">
-                    <div class="bdd_vitality_size">100</div>
-                    <div class="bdd_vitality_si">我的关注</div>
-                </div>
-
-            </div>
-        </div>
-
+<div ng-controller="SocietyCtrl">
+    <div class="bar bar-header bar-light bar-light-div">
+        <button class="button-clear" onClick="javascript :history.back(-1);"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <h1 class="title"><span class="title-color">车主信息</span></h1>
     </div>
-    <!--个人资料-->
-    <div class="bdd_vitality_zi">
-        <div class="bdd_vitality_left">
-            <li style="background-color: #212121;" class="bdd_vita_list"><a style="color: white" href="#">个人资料</a></li>
-            <li class="bdd_vita_list"><a href="#">我的资质</a></li>
-            <li class="bdd_vita_list"><a href="#">我的行程</a></li>
-            <li class="bdd_vita_list" ><a href="#">我的定制</a></li>
-            <li class="bdd_vita_list"><a href="#">分析报告</a></li>
-            <li class="bdd_vita_list"><a href="#">金融服务</a></li>
-            <li class="bdd_vita_list"><a href="#">消息通知</a></li>
-            <li class="bdd_vita_list"><a href="#">帮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;助</a></li>
-            <li class="bdd_vita_list"><a href="#">意见反馈</a></li>
-
-        </div>
-        <div class="bdd_vitality_right">
-            <div class="bdd_vitality_right_header">
-                <div class="bdd_vitality_right_hrader_li bdd_vita_right" >账户信息</div>
-
-                <div class="bdd_vitality_right_hrader_li bdd_vita_top">社交账户授权<div class="bdd_vita_span bdd_vita_span_list"></div></div>
-                <div class="bdd_vitality_hr"></div>
-            </div>
-            <div class="bdd_vita_side">
-                <div class="bdd_vita_side_header">
-                    <div class="bdd_vita_side_weixin"><img class="bdd_vita_img" src="../../../vendor/images/wode_grzl_wechat.png" alt=""><span style="padding-left: 10px;">微信</span></div>
-                    <div class="bdd_vita_footer_title_text"><a style="color: white" href="#">绑定</a></div>
-                </div>
-                <div class="bdd_vita_side_header">
-                    <div class="bdd_vita_side_weixin"><img class="bdd_vita_img" src="../../../vendor/images/wode_grzl__qq.png" alt=""><span style="padding-left: 10px;">QQ</span></div>
-                    <div class="bdd_vita_footer_title_text"><a style="color: white" href="#">绑定</a></div>
-                </div>
-                <div class="bdd_vita_side_header">
-                    <div class="bdd_vita_side_weixin"><img class="bdd_vita_img" src="../../../vendor/images/zb_icon_weibo.png" alt=""><span style="padding-left: 10px;">微博</span></div>
-                    <div class="bdd_vita_footer_title_text"><a style="color: white" href="#">解绑</a></div>
-                </div>
-            </div>
-        </div>
+    <div class="bar_second_pink">
+        <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
+        <div class="color-white bar-white-home">车主：王总</div>
+        <img  class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png"><span class="block_color_b">车牌号：闽A2A93p</span>
     </div>
+</div>
+<!--类容-->
+<div class="action-sheet_i">
+ <div class="bar_conter_a">车辆信息</div>
+ <div class="bar_conter_p">
+     <div class="bar_conter_y">客户信息</div>
+     <div class="bar_conter_d">王总</div>
+     <div class="bar_conter_q">></div>
+ </div>
+<div class="bar_conter_p bar_conter_p_color">
+    <div class="bar_conter_y">联系电话</div>
+    <div class="bar_conter_d">15388978575</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p ">
+    <div class="bar_conter_y">送修人手机</div>
+    <div class="bar_conter_d">15899556566</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p bar_conter_p_color">
+    <div class="bar_conter_y">客户生日</div>
+    <div class="bar_conter_d">4-19</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p ">
+    <div class="bar_conter_y">联系地址</div>
+    <div class="bar_conter_d">湖南长沙</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p bar_conter_p_color">
+    <div class="bar_conter_y">身份证号</div>
+    <div class="bar_conter_d">421081199110012300</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p ">
+    <div class="bar_conter_y">送修人</div>
+    <div class="bar_conter_d">李总</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p bar_conter_p_color">
+    <div class="bar_conter_y">客户来源</div>
+    <div class="bar_conter_d">网络</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_a">驾驶证信息</div>
+<div class="bar_conter_p">
+    <div class="bar_conter_y">驾驶证号</div>
+    <div class="bar_conter_d">421081199110012300</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p bar_conter_p_color">
+    <div class="bar_conter_y">驾照年检时间</div>
+    <div class="bar_conter_d">2018-5-5</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_p ">
+    <div class="bar_conter_y">初次领证时间</div>
+    <div class="bar_conter_d">2015-2-2</div>
+    <div class="bar_conter_q">></div>
+</div>
+<div class="bar_conter_a">会员卡</div>
+<div class="bar_conter_p">
+    <div class="bar_conter_y">是否为会员</div>
+    <div class="bar_conter_d">否</div>
+    <div class="bar_conter_q">></div>
+</div>
+ <div class="bdd_sumit">提交</div>
+
 </div>

@@ -57,10 +57,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
         if (state == 'ok') {
             locals.setObject("carInfo",upLoadInfo);
         }else {
-            ionicToast.show("´íÎó£º"+data.msg?data.msg:"", 'middle',false, 1000);
+            ionicToast.show("é”™è¯¯ï¼š"+data.msg?data.msg:"", 'middle',false, 1000);
         }
     }).error(function(data){
-        ionicToast.show("·şÎñÒì³£");
+        ionicToast.show("æœåŠ¡å¼‚å¸¸");
     });
     $scope.toProjectFactory = function(){
         var params =
@@ -80,10 +80,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
             if (state == 'ok') {
                 // locals.setObject("carInfo",upLoadInfo);
             }else {
-                ionicToast.show("´íÎó£º"+data.msg?data.msg:"", 'middle',false, 1000);
+                ionicToast.show("é”™è¯¯ï¼š"+data.msg?data.msg:"", 'middle',false, 1000);
             }
         }).error(function(data){
-            ionicToast.show("·şÎñÒì³£");
+            ionicToast.show("æœåŠ¡å¼‚å¸¸");
         });
 
     }

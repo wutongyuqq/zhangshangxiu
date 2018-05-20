@@ -280,112 +280,24 @@
 
 
     <div class="select_pro" ng-show="showMore==0">
-        <div class="select-item select_one" ng-click="showDetailPro()">
-            <img class="select-img" src="../../../vendor/images/zsx/select_pro.png"/>
+        <div class="select-item select_one" ng-repeat="item in firstIconArr" ng-click="showDetailPro()">
+            <img class="select-img" src="{{item.imageurl?('../../../vendor/images/zsx/'+item.imageurl):'../../../vendor/images/zsx/fold_img.png'}}"/>
 
-            <div class="select-text">洗车</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/car_door.png"/>
-
-            <div class="select-text">美容</div>
+            <div class="select-text">{{item.wxgz}}</div>
 
         </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/check_plan.png"/>
 
-            <div class="select-text">装潢</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/tc_work.png"/>
-
-            <div class="select-text">维修</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/you_ticket.png"/>
-
-            <div class="select-text">轮胎</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/history.png"/>
-
-            <div class="select-text">钣金</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/work_order.png"/>
-
-            <div class="select-text">打蜡</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/cancle_reciver.png"/>
-
-            <div class="select-text">镀膜</div>
-
-        </div>
     </div>
 
     <div class="select_pro" ng-show="showMore==1">
-        <div class="select-item select_one" ng-click="showDetailPro()">
-            <img class="select-img" src="../../../vendor/images/zsx/select_pro.png"/>
+        <div class="select-item select_one" ng-repeat="item in firstIconArr" ng-click="showDetailPro()">
+            <img class="select-img" src="{{item.imageurl?('../../../vendor/images/zsx/'+item.imageurl):'../../../vendor/images/zsx/fold_img.png'}}"/>
 
-            <div class="select-text">洗车</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/car_door.png"/>
-
-            <div class="select-text">美容</div>
+            <div class="select-text">{{item.wxgz}}</div>
 
         </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/check_plan.png"/>
 
-            <div class="select-text">装潢</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/tc_work.png"/>
-
-            <div class="select-text">维修</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/you_ticket.png"/>
-
-            <div class="select-text">轮胎</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/history.png"/>
-
-            <div class="select-text">钣金</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/work_order.png"/>
-
-            <div class="select-text">保养</div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/cancle_reciver.png"/>
-
-            <div class="select-text">喷漆</div>
-
-        </div>
     </div>
-
-
-
-
-
-
 
     <div class="select_pro" ng-show="showMore==2">
         <div class="select-item select_one">

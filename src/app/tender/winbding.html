@@ -167,7 +167,7 @@
         background-color: #eeeeee;
         height: 2rem;
         vertical-align: middle;
-        text-align: center;
+        text-align: left;
         vertical-align: middle;
     }
     .tb_content_c {
@@ -244,12 +244,12 @@
                     <td></td>
                 </tr>
                 <tr class="tb_content_b" ng-repeat="item in repairDataList">
-                    <td class="tb_content_td_a">{{$index}}</td>
+                    <td class="tb_content_td_a">{{$index+1}}</td>
+                    <td>{{item.xlxm}}</td>
                     <td>{{item.wxgz}}</td>
-                    <td>{{item.wxgz}}</td>
-                    <td>￥25.0</td>
-                    <td>0.0</td>
-                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                    <td>{{item.xlf}}</td>
+                    <td>{{item.zk}}</td>
+                    <td><img ng-click="deleteItem($index)" class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
                 </tr>
 
 
@@ -259,14 +259,14 @@
         <div class="text_inline content-list-div-a">
             <table class="content-list-div-table">
                 <tr class="tb_content_a">
-                    <td>工时：￥75.0</td>
-                    <td>材料：￥0.0</td>
-                    <td>总计：￥75.0</td>
+                    <td>工时：{{xlfTotal}}</td>
+                    <td></td>
+                    <td>总计：{{xlfTotal}}</td>
                 </tr>
                 <tr class="tb_content_c">
                     <td>工时打折</td>
                     <td></td>
-                    <td>-0.0</td>
+                    <td>{{numZk}}</td>
                 </tr>
 
             </table>
@@ -278,12 +278,12 @@
                 <tr class="tb_content_a">
                     <td>总应收</td>
                     <td></td>
-                    <td>总计：￥900</td>
+                    <td>总计：￥{{xlfTotal}}</td>
                 </tr>
                 <tr class="tb_content_c">
                     <td>备注</td>
                     <td></td>
-                    <td>-0.0</td>
+                    <td>{{numZk}}</td>
                 </tr>
 
             </table>

@@ -12,6 +12,11 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     $scope.toGdListPage=function(){
         $state.go("Winbding");
     }
+
+
+
+
+
 }]);
 
 
@@ -40,28 +45,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
         return;
     }
     $scope.carInfo = carInfo;
-    var params =
-    {
-        db:"mycon1",
-        function:"sp_fun_down_repair_list_main",
-        jsd_id:jsdId
-    };
-    var jsonStr = angular.toJson(params);
-    $http({
-        method: 'post',
-        url: '/restful/pro',
-        dataType: "json",
-        data: jsonStr
-    }).success(function (data, status, headers, config) {
-        var state = data.state;
-        if (state == 'ok') {
-            locals.setObject("carInfo",upLoadInfo);
-        }else {
-            ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
-        }
-    }).error(function(data){
-        ionicToast.show("服务异常");
-    });
+
     $scope.toProjectFactory = function(){
         var params =
         {
@@ -102,6 +86,8 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
             jsd_id:"A1802260001"
         }
         var jsonStr = angular.toJson(params);
+        $scope.xlfTotal=0;
+        $scope.numZk = 0;
         $http({
             method: 'post',
             url: '/restful/pro',
@@ -110,8 +96,19 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-                // locals.setObject("carInfo",upLoadInfo);
+                // locals.setObject("carInfdata.datao",upLoadInfo);
+                var repairDataList = data.data;
                 $scope.repairDataList = data.data;
+                var numMoney = 0;
+                var numZk= 0;
+                for(var i=0;i<repairDataList.length;i++){
+                    var item = repairDataList[i];
+                    numMoney += Number(item.xlf);
+                    numZk+=Number(item.zk);
+                }
+                $scope.xlfTotal = numMoney;
+                $scope.numZk = numZk;
+
             }else {
                 ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
             }
@@ -123,6 +120,34 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
 
     $scope.getRepairListData();
 
+
+    $scope.deleteItem=function(index){
+        var params = {
+        db:"mycon1",
+        function:"sp_fun_delete_maintenance_project_detail",
+        jsd_id:"A1802260001",
+        xh:"1"
+        }
+        var jsonStr = angular.toJson(params);
+        $scope.xlfTotal=0;
+        $scope.numZk = 0;
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                $scope.repairDataList.splice(index, 1);
+
+            }else {
+                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+            }
+        }).error(function(data){
+            ionicToast.show("服务异常");
+        });
+    }
 }]);
 
 //{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 

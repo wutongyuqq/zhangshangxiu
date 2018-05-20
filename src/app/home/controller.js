@@ -42,31 +42,43 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
         console.log('222');
     }
 
+
+
+    var previous_xh = "0";
+    var allCardDataList  = [];
+    $scope.cardDataList = [];
+    $scope.getCardListData = function(){
+        if(previous_xh=="end"){
+            $scope.cardDataList = allCardDataList;
+            return;
+        }
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_down_plate_number",
+            company_code: "A",
+            previous_xh: previous_xh
+        };
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: angular.toJson(params),
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            previous_xh = data.Previous_xh;
+            if (state == 'ok') {
+                locals.set("previous_xh", "2");
+                allCardDataList = allCardDataList.concat(data.data);
+            }
+            $scope.getCardListData();
+        });
+
+
+    }
+
+    $scope.getCardListData();
     $scope.showCardListData = function () {
         $scope.showCardList = true;
-
-
-            var previous_xh = locals.get("previous_xh", "0");
-            var params = {
-                db: "mycon1",
-                function: "sp_fun_down_plate_number",
-                company_code: "A",
-                previous_xh: previous_xh
-            };
-            $http({
-                method: 'post',
-                url: '/restful/pro',
-                dataType: "json",
-                data: angular.toJson(params),
-            }).success(function (data, status, headers, config) {
-                var state = data.state;
-                if (state == 'ok') {
-                    locals.set("previous_xh", "2");
-                    $scope.cardDataList = data.data;
-
-                }
-            });
-
     };
 
     $scope.uploadCardInfo = function (upLoadInfo) {

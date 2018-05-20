@@ -202,8 +202,80 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
         }
     })
 
-//{"mc":"浙G3G821","cz":"浙G3G821","mobile":"","phone":"","vipnumber":"","customer_id":"A2018N00008","linkman":"","custom5":"","cx":"","cjhm":"","fdjhm":"","ns_date":"","openid":""},
-//车牌号码、        车主名称、      手机号码、   送修人电话、 会员卡号、    客户编码、                     送修人、  推荐人客户编码、车型、  车架号、  发动机号、  年审日期、   微信openid
+//获取项目一级页面配置
+
+    $scope.getFirstPageData=function(){
+
+        var params={
+            db:"mycon1",
+            function:"sp_fun_down_maintenance_category"
+        }
+
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if(state=="ok"){
+                var firstIconArr = data.data;
+                $scope.firstIconArr = firstIconArr;
+                locals.setObject("firstIconArr",firstIconArr);
+            }
+        });
+    }
+    if(locals.getObject("firstIconArr")==null||locals.getObject("firstIconArr").length==0){
+        $scope.getFirstPageData();
+    }
+
+//获取项目二级页面配置
+    var kjProList = [];
+    var chgProList = [];
+    var postFlag = "0";
+
+    $scope.getIconData = function () {
+        if (postFlag == "end") {
+            locals.setObject("kjProList",kjProList);
+            locals.setObject("chgProList",chgProList);
+            return;
+        }
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_down_maintenance_project",
+            previous_xh: postFlag
+        };
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            postFlag = data.Previous_xh;
+            if (state == 'ok' && postFlag != "end") {
+                var dataList = data.data;
+                for (var i = 0; i < dataList.length; i++) {
+                    var item = dataList[i];
+                    if (item.tybz=="0"&&item.wxgz!=null&&item.wxgz!='') {
+                        if (item.is_quick_project == "是") {
+                            kjProList.push(item);
+                        }else if(item.is_quick_project == "否"){
+                            chgProList.push(item);
+                        }
+                    }
+                }
+                $scope.getIconData();
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常");
+        });
+    }
+    //if(locals.getObject("kjProList")==null||locals.getObject("chgProList")==null||locals.getObject("kjProList").length==0||locals.getObject("chgProList").length==0){
+        $scope.getIconData();
+    //}
 }]);
 
 

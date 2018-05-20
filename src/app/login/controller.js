@@ -20,7 +20,7 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
             db: "sjsoft_SQL",
             function: "sp_fun_check_service_validity",
             data_source: user.factoryName,
-            operater_code: user.userName
+            operater_code: user.userNamew
         };
         $http({
             method: 'post',

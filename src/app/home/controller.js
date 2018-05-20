@@ -236,7 +236,7 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
     var postFlag = "0";
 
     $scope.getIconData = function () {
-        if (postFlag == "end") {
+        if (postFlag == "122") {
             locals.setObject("kjProList",kjProList);
             locals.setObject("chgProList",chgProList);
             return;
@@ -273,9 +273,9 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
             ionicToast.show("服务异常");
         });
     }
-    //if(locals.getObject("kjProList")==null||locals.getObject("chgProList")==null||locals.getObject("kjProList").length==0||locals.getObject("chgProList").length==0){
+    if(locals.getObject("kjProList")==null||locals.getObject("chgProList")==null||locals.getObject("kjProList").length==0||locals.getObject("chgProList").length==0){
         $scope.getIconData();
-    //}
+    }
 }]);
 
 

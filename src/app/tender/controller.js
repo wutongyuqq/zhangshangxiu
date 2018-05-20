@@ -57,10 +57,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
         if (state == 'ok') {
             locals.setObject("carInfo",upLoadInfo);
         }else {
-            ionicToast.show("����"+data.msg?data.msg:"", 'middle',false, 1000);
+            ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
         }
     }).error(function(data){
-        ionicToast.show("�����쳣");
+        ionicToast.show("服务异常");
     });
     $scope.toProjectFactory = function(){
         var params =
@@ -80,10 +80,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
             if (state == 'ok') {
                 // locals.setObject("carInfo",upLoadInfo);
             }else {
-                ionicToast.show("����"+data.msg?data.msg:"", 'middle',false, 1000);
+                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
             }
         }).error(function(data){
-            ionicToast.show("�����쳣");
+            ionicToast.show("服务异常");
         });
 
     }
@@ -151,10 +151,10 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             $scope.data=data.data;
             // locals.setObject("carInfo",upLoadInfo);
         }else {
-            ionicToast.show("����"+data.msg?data.msg:"", 'middle',false, 1000);
+            ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
         }
     }).error(function(data){
-        ionicToast.show("�����쳣");
+        ionicToast.show("服务异常");
     });
 
 
@@ -204,10 +204,10 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', 'utils', '$stateParams'
             $scope.data=data.data;
             // locals.setObject("carInfo",upLoadInfo);
         }else {
-            ionicToast.show("����"+data.msg?data.msg:"", 'middle',false, 1000);
+            ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
         }
     }).error(function(data){
-        ionicToast.show("�����쳣");
+        ionicToast.show("服务异常");
     });
 
 

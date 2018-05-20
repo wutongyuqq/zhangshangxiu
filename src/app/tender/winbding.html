@@ -243,30 +243,15 @@
                     <td>优惠</td>
                     <td></td>
                 </tr>
-                <tr class="tb_content_b">
-                    <td class="tb_content_td_a">1</td>
-                    <td>轿车洗车</td>
-                    <td>人工</td>
+                <tr class="tb_content_b" ng-repeat="item in repairDataList">
+                    <td class="tb_content_td_a">{{$index}}</td>
+                    <td>{{item.wxgz}}</td>
+                    <td>{{item.wxgz}}</td>
                     <td>￥25.0</td>
                     <td>0.0</td>
                     <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
                 </tr>
-                <tr class="tb_content_c">
-                    <td class="tb_content_td_a">2</td>
-                    <td>轿车洗车</td>
-                    <td>人工</td>
-                    <td>￥25.0</td>
-                    <td>0.0</td>
-                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
-                </tr>
-                <tr class="tb_content_b">
-                    <td class="tb_content_td_a">3</td>
-                    <td>轿车洗车</td>
-                    <td>人工</td>
-                    <td>￥25.0</td>
-                    <td>0.0</td>
-                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
-                </tr>
+
 
             </table>
 

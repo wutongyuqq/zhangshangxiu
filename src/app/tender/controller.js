@@ -57,10 +57,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
         if (state == 'ok') {
             locals.setObject("carInfo",upLoadInfo);
         }else {
-            ionicToast.show("´íÎó£º"+data.msg?data.msg:"", 'middle',false, 1000);
+            ionicToast.show("ï¿½ï¿½ï¿½ï¿½"+data.msg?data.msg:"", 'middle',false, 1000);
         }
     }).error(function(data){
-        ionicToast.show("·þÎñÒì³£");
+        ionicToast.show("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£");
     });
     $scope.toProjectFactory = function(){
         var params =
@@ -80,19 +80,50 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
             if (state == 'ok') {
                 // locals.setObject("carInfo",upLoadInfo);
             }else {
-                ionicToast.show("´íÎó£º"+data.msg?data.msg:"", 'middle',false, 1000);
+                ionicToast.show("ï¿½ï¿½ï¿½ï¿½"+data.msg?data.msg:"", 'middle',false, 1000);
             }
         }).error(function(data){
-            ionicToast.show("·þÎñÒì³£");
+            ionicToast.show("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£");
         });
 
     }
 
 }]);
+
+//{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 
 app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location", function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location) {
     var selt = this;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    var params={
+        db:"mycon1",
+        function:"sp_fun_down_stock",
+        comp_code:"A",
+        pjbm:"",
+        cd:"",
+        ck:""
+    }
+    $http({
+        method: 'post',
+        url: '/restful/pro',
+        dataType: "json",
+        data: angular.toJson(params)
+    }).success(function (data, status, headers, config) {
+        console.log("data   "+angular.toJson(data));
+        
+        var state = data.state;
+        if (state == 'ok') {
+            $scope.data=data.data;
+            // locals.setObject("carInfo",upLoadInfo);
+        }else {
+            ionicToast.show("ï¿½ï¿½ï¿½ï¿½"+data.msg?data.msg:"", 'middle',false, 1000);
+        }
+    }).error(function(data){
+        ionicToast.show("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£");
+    });
+
+
+
     $scope.showMoreView = function (showMore) {
         $scope.showMore = showMore;
         $scope.showSelectMore = showMore;
@@ -120,6 +151,31 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', 'utils', '$stateParams'
     var selt = this;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+
+    var params={db:"mycon1",
+    function:"sp_fun_get_fault_info",
+    customer_id:"A2018N00008",
+    days:"2018-04-17 00:00:00"}
+    $http({
+        method: 'post',
+        url: '/restful/pro',
+        dataType: "json",
+        data: angular.toJson(params)
+    }).success(function (data, status, headers, config) {
+        console.log("data   "+angular.toJson(data));
+        
+        var state = data.state;
+        if (state == 'ok') {
+            $scope.data=data.data;
+            // locals.setObject("carInfo",upLoadInfo);
+        }else {
+            ionicToast.show("ï¿½ï¿½ï¿½ï¿½"+data.msg?data.msg:"", 'middle',false, 1000);
+        }
+    }).error(function(data){
+        ionicToast.show("ï¿½ï¿½ï¿½ï¿½ï¿½ì³£");
+    });
+
+
     $scope.showMoreView = function (showMore) {
         $scope.showMore = showMore;
         $scope.showSelectMore = showMore;

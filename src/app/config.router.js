@@ -157,7 +157,7 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                 ]);
             }]
         }
-    }).state('TendListDetail', {
+    }).state('TendListDetailCtrl', {
         url: '/TendListDetail',
         templateUrl: window.rootSrc + 'app/tender/tender_list_detail.html',
         title:'标大大-标讯',

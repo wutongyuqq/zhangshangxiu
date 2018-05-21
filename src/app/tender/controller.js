@@ -277,6 +277,7 @@ app.controller('TendListCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
     }
 
     $scope.pgDataList=[];
+    //获取派工列表
     $scope.getPgListData=function(){
         var params= {
             db: "mycon1",

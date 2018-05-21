@@ -1,5 +1,6 @@
-app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location", function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location) {
+app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location","locals","ionicToast", function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location,locals,ionicToast) {
     var selt = this;
+    $scope.firstIconArr = locals.getObject("firstIconArr");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
     $scope.showMoreView = function (showMore) {
@@ -10,13 +11,37 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
         $scope.showMore = 2;
     }
     $scope.toGdListPage=function(){
-        $state.go("Winbding");
+        var params = {
+            db:"mycon1",
+            function:"sp_fun_upload_maintenance_project_detail",
+            jsd_id:"A1802260001",
+            xlxm:"普通洗车",
+            xlf:"20.00",
+            zk:"0.00",
+            wxgz:"洗车",
+            pgzje:"5.00",
+            pgzgs:"1.00",
+            xh:"0"
+        }
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                $state.go("Winbding");
+                // locals.setObject("carInfo",upLoadInfo);
+            }else {
+                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+            }
+        }).error(function(data){
+            ionicToast.show("服务异常");
+        });
+
     }
-
-
-
-
-
 }]);
 
 

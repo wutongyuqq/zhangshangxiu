@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', '$state','locals', function ($http, $log, $scope, $document, userTemp, $state,locals) {
+app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp', '$state','locals',"ionicToast", function ($http, $log, $scope, $document, userTemp, $state,locals,ionicToast) {
     var selt = this;
     var user = locals.getObject("user");
     if(user!=null){
@@ -20,7 +20,7 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
             db: "sjsoft_SQL",
             function: "sp_fun_check_service_validity",
             data_source: user.factoryName,
-            operater_code: user.userNamew
+            operater_code: user.userName
         };
         $http({
             method: 'post',
@@ -36,12 +36,12 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
                 var nowDate = new Date();
 
                 if (endDate < nowDate) {
-                    alert("服务有效期限已经过了，请联系首佳软件进行续费。 过期时间：" + (endDate.length > 10 ? endDate.substr(0, 10) : endDate));
+                    ionicToast.show("服务有效期限已经过了，请联系首佳软件进行续费。 过期时间：" + (endDate.length > 10 ? endDate.substr(0, 10) : endDate), 'middle',false, 1000);
                 } else {
                     $scope.checkOtherService();
                 }
             } else {
-                alert(data.msg ? date.msg : "服务异常");
+                ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 1000);
             }
 
 
@@ -93,7 +93,9 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
             data: angular.toJson(params),
         }).success(function (data, status, headers, config) {
             var state = data.state;
+            user.company_code = data.comp_code;
             locals.setObject("user",user);
+
             if(state=='true'){
                 $state.go("home");
             }

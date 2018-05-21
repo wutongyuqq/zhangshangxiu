@@ -198,7 +198,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left">期望提车时间</div>
-            <div class="text-inline text-right">   <input class="claim_input" type="text" ng-model="queryBean.start_date" id="start_date" placeholder="选择起始日期" readonly="readonly"/></div>
+            <div class="text-inline text-right">   <input ng-change="updateCarInfo(isShowGzms,4)" class="claim_input" type="text" ng-model="queryBean.start_date" id="start_date" placeholder="选择起始日期" readonly="readonly"/></div>
 
         </div>
         <div class="border-color">
@@ -208,7 +208,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left">介绍人</div>
-            <div class="text-inline text-right"><span ng-show="!isShowJsr">{{carInfo.jsr}}</span><input ng-show="isShowJsr"  ng-model="carInfo.gzms"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowJsr,6)" class="edit-img-a" src="{{isShowJsr?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
+            <div class="text-inline text-right"><span ng-show="!isShowJsr">{{carInfo.jsr}}</span><input ng-show="isShowJsr"  ng-model="carInfo.jsr"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowJsr,6)" class="edit-img-a" src="{{isShowJsr?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
 
         </div>
         <div class="border-color border-last">

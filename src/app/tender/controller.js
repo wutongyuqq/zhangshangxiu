@@ -10,6 +10,49 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     $scope.showDetailPro = function () {
         $scope.showMore = 2;
     }
+
+
+
+
+
+
+    $scope.getFirstPageData=function(){
+
+        var params={
+            db:"mycon1",
+            function:"sp_fun_down_maintenance_category"
+        }
+
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if(state=="ok"){
+                var firstIconArr = data.data;
+                $scope.firstIconArr = firstIconArr;
+                locals.setObject("firstIconArr",firstIconArr);
+            }
+        }).error(function(data){
+            console.log(data);
+        });
+    }
+
+    var firstIconArr = null;
+
+    if(firstIconArr==null||firstIconArr.length==0){
+
+        $scope.getFirstPageData();
+
+    }else{
+        $scope.firstIconArr = locals.getObject("firstIconArr");
+    }
+
+
+
     $scope.toGdListPage=function(){
         var params = {
             db:"mycon1",

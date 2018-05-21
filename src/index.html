@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title ng-bind="title"></title>
     <!--移动端设置viewport-->
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name=”viewport” content=”width=width, initial-scale=1, maximum-scale=1″>
 
     <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../vendor/css/ionic-toast.css">
@@ -23,6 +23,20 @@
 
 <script>
     window.rootSrc = '/src/';
+
+    if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+        var version = parseFloat(RegExp.$1);
+        if(version>2.3){
+            var phoneScale = parseInt(window.screen.width)/640;
+            document.write('<meta name="viewport" content="width=640, minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+        }else{
+            document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+        }
+    }else{
+        document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+    }
+
+
 </script>
 <script src="../vendor/js/jquery.js"></script>
 <script src="../vendor/js/base.js"></script>

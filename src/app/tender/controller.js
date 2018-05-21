@@ -54,10 +54,12 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
 
 
     $scope.toGdListPage=function(){
+        var jsd_id = locals.get("jsd_id");
         var params = {
+
             db:"mycon1",
             function:"sp_fun_upload_maintenance_project_detail",
-            jsd_id:"A1802260001",
+            jsd_id:jsd_id,
             xlxm:"普通洗车",
             xlf:"20.00",
             zk:"0.00",
@@ -262,7 +264,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 }]);
 
 
-app.controller('TendListCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location", function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location) {
+app.controller('TendListCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location", "ionicToast",function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location,ionicToast) {
     var selt = this;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
@@ -273,6 +275,39 @@ app.controller('TendListCtrl', ['$http', '$scope', 'utils', '$stateParams', '$st
     $scope.showDetailPro = function () {
         $scope.showMore = 2;
     }
+
+    $scope.pgDataList=[];
+    $scope.getPgListData=function(){
+        var params= {
+            db: "mycon1",
+            function: "sp_fun_down_jsdmx_xlxm_assign",
+            jsd_id: "A1802260001"
+        }
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            console.log("data   "+angular.toJson(data));
+
+
+            var state = data.state;
+            if (state == 'ok') {
+                $scope.pgDataList=data.data;
+                // locals.setObject("carInfo",upLoadInfo);
+            }else {
+                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+            }
+        }).error(function(data){
+            ionicToast.show("服务异常");
+        });
+
+
+    }
+
+    $scope.getPgListData();
 }]);
 
 app.controller('TendListDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location", function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location) {

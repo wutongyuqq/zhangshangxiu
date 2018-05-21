@@ -242,7 +242,7 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-                locals.setObject("jsd_id",data.jsd_id);
+                locals.set("jsd_id",data.jsd_id);
                 $state.go("Tender");
 
             }else {

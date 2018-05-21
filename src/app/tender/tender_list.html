@@ -201,7 +201,7 @@
     <!-- 项目-->
 
     <div class="content-list-div">
-        <div class="text_inline content-list-div-a content-list-div-a-res">
+        <div class="text_inline content-list-div-a content-list-div-a-res" ng-repeat="item in pgDataList">
             <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
             </div>
             <div class="text-inline position-left">
@@ -211,10 +211,10 @@
                 <div>派工金额</div>
             </div>
             <div class="text-inline position-left-b">
-                <div>维修中</div>
+                <div></div>
                 <div>张三</div>
                 <div>指派给未领工</div>
-                <div>￥12.00元</div>
+                <div><span>￥</span>{{item.pgje}}</div>
             </div>
             <div class="text-inline text-inline-c"><img class="select-all" src="../../../vendor/images/zsx/right_btn.png"/></div>
 

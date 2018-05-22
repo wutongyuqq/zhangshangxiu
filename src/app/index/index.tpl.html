@@ -1,79 +1,38 @@
-<!-- 模版中对外只能提供一个(也许可能多个，看版本) 元素节点 ，所以需要用一个容器包起来，这里使用了一个 DIV 标签把其他标签包起来了 -->
-<div>
-	<ol class="breadcrumb">
-		<li class="active">Index</li>
-		<li><a ui-sref="About">About</a></li>
-		<li><a ui-sref="Company">企信</a></li>
-	</ol>
+<link href="../../../vendor/css/ioinc.min.css" rel="stylesheet">
+<style>
+	.item-input-margin{
+		margin-top: 55px;
+	}
 
-	<div class="jumbotron">
-		<!-- 使用ng-bind 比 使用 {{ $ctrl.title }} 更好，方式JS没加载完成时页面会把 {{ ... }} 这个语法显示出来 -->
-		<h3 ng-bind="$ctrl.title"></h3>
-		<p ng-bind="$ctrl.content"></p>
-		<p ng-bind="$ctrl.company.comName"></p>
-		<p ng-bind="$ctrl.company.orgCode"></p>
-		<p ng-bind="$ctrl.company.regisAddress"></p>
-		<p ng-bind="$ctrl.company.comAddress"></p>
-		<p ng-bind="$ctrl.company.subsist"></p>
-		<p ng-bind="$ctrl.company.comRange"></p>
+</style>
 
-	</div>
-	<div>
-
-		<table class="table table-striped">
-			<caption>列表分页测试demo</caption>
-			<thead>
-			<tr>
-				<th>ID</th>
-				<th>名称</th>
-				<th>code</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr ng-repeat="test in $ctrl.testList">
-				<td ng-bind="test.comId"></td>
-				<td ng-bind="test.comName" ng-click="$ctrl.getTest(test.comId)"></td>
-				<td ng-bind="test.orgCode"></td>
-			</tr>
-			</tbody>
-		</table>
-		<ul uib-pagination total-items="$ctrl.totalCount" ng-model="$ctrl.pageNo" ng-change="$ctrl.pageChanged()"
-			items-per-page="$ctrl.pageSize" max-size="$ctrl.maxSize" class="pagination-sm"
-			boundary-links="true" force-ellipses="true"></ul>
-
-		</div>
-
-
-	<div>
-
-		<button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
-		<button type="button" class="btn btn-default" ng-click="$ctrl.open('lg')">Large modal</button>
-		<button type="button" class="btn btn-default" ng-click="$ctrl.open('sm')">Small modal</button>
-		<div ng-show="$ctrl.selected">Selection from a modal: {{ $ctrl.selected }}</div>
-		<div class="modal-parent">
-		</div>
-
-
-
-
-
-	</div>
+<div class="bar bar-header bar-light">
+	<h1 class="title">车辆接待</h1>
 </div>
-<script type="text/ng-template" id="myModalContent.html">
-	<div class="modal-header">
-		<h3 class="modal-title" id="modal-title">I'm a modal!</h3>
-	</div>
-	<div class="modal-body" id="modal-body">
-		<ul>
-			<li ng-repeat="item in $ctrl.items">
-				<a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
-			</li>
-		</ul>
-		Selected: <b>{{ $ctrl.selected.item }}</b>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-		<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-	</div>
 
-</script>
+<ion-content>
+
+	<!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
+	<label class="item item-input item-input-margin">
+		<input placeholder="输入用户名" type="text" ng-model="searchName"/><button ng-click="searchData(searchName)">搜索</button>
+	</label>
+	<ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+
+		<ion-item ng-repeat="item in carListData"
+				  item="item" ng-click="toHomePage(item)"
+				  class="item-remove-animate">
+			<div class="card">
+				<div class="item item-text-wrap">
+					<div><span>车牌:</span><span>{{item.mc}}</span></div>
+					<div><span>车主:</span><span>{{item.cz}}</span></div>
+					<div><span>手机号:</span><span>{{item.mobile}}</span></div>
+					<div><span>车牌:</span><span>{{item.mc}}</span></div>
+					<div><span>车型:</span><span>{{item.cx}}</span></div>
+				</div>
+			</div>
+			<ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+		</ion-item>
+
+	</ion-list>
+
+</ion-content>

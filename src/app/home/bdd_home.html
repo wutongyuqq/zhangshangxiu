@@ -244,14 +244,14 @@
 
 </style>
 
-<div ng-controller="HomeCtrl">
+<div>
     <div class="bar bar-header bar-light bar-light-div">
         <!--  <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>-->
         <h1 class="title"><span class="title-color">车辆接待</span></h1>
     </div>
     <div class="col-lg-6 bts-magin">
         <div class="input-group">
-            <input type="text" class="form-control-a" placeholder="姓名/卡号/手机号">
+            <input type="text" ng-focus="toSelectPage()" class="form-control-a" placeholder="姓名/卡号/手机号">
       <span class="input-group-btn">
         <button class="btn-search" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
       </span>
@@ -424,8 +424,8 @@
         <div class="modal-body">
             <div style="text-align: left;margin-left: 2rem">
 
-                <div><span>接待人员：</span><span>张三</span></div>
-                <div><span>进厂时间：</span><span>2018-05-08</span></div>
+                <div><span>接待人员：</span><span>{{data.jcr}}</span></div>
+                <div><span>进厂时间：</span><span>{{data.jc_date}}</span></div>
             </div>
         </div>
         <div class="modal-footer">

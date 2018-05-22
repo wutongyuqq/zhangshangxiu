@@ -192,7 +192,7 @@
         padding-left: 0.2rem;
     }
 </style>
-<div ng-controller="WinbdingCtrl">
+<div>
     <div class="bar bar-header bar-light bar-light-div">
         <button  ng-click="goBack()" class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
         <h1 class="title"><span class="title-color">工单(NO:{{carInfo.customer_id}})</span></h1>
@@ -249,7 +249,7 @@
                     <td>{{item.wxgz}}</td>
                     <td>{{item.xlf}}</td>
                     <td>{{item.zk}}</td>
-                    <td><img ng-click="deleteItem($index)" class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                    <td><img ng-click="deleteItem($index,item)" class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
                 </tr>
 
 
@@ -333,33 +333,16 @@
                     <td>合计</td>
                     <td></td>
                 </tr>
-                <tr class="tb_content_b">
-                    <td class="tb_content_td_a">1</td>
-                    <td>轮胎</td>
-                    <td>60*60</td>
+                <tr class="tb_content_b" ng-repeat="item in pjDataList">
+                    <td class="tb_content_td_a">{{$index+1}}</td>
+                    <td>{{item.pjmc}}</td>
+                    <td>{{item.pjbm}}</td>
                     <td>1</td>
                     <td>300</td>
                     <td>300</td>
                     <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
                 </tr>
-                <tr class="tb_content_c">
-                    <td class="tb_content_td_a">2</td>
-                    <td>轮胎</td>
-                    <td>60*60</td>
-                    <td>1</td>
-                    <td>300</td>
-                    <td>300</td>
-                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
-                </tr>
-                <tr class="tb_content_b">
-                    <td class="tb_content_td_a">3</td>
-                    <td>轮胎</td>
-                    <td>60*60</td>
-                    <td>1</td>
-                    <td>300</td>
-                    <td>300</td>
-                    <td><img class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
-                </tr>
+
 
             </table>
 
@@ -423,3 +406,30 @@
     </div>
 
 </div>
+
+
+
+
+<script type="text/ng-template" id="modal2.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                确认
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="text-align: left;margin-left: 2rem">
+
+                <div><span>确定删除</span><span>{{data.wxgz}}</span></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()" >
+                取消
+            </button>
+            <button class="btn btn-warning" ng-click="ok()" style="margin-left: 2rem">
+               确定
+            </button>
+        </div>
+    </div>
+</script>

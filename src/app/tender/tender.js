@@ -12,7 +12,7 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
         }
     }
     $scope.toHistoryRecord = function () {
-        $state.go("TendListDetail");
+        $state.go("TendListDetailCtrl");
     }
 
 
@@ -44,37 +44,71 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
         if (!isShowItem) {
             return;
         }
-        var carInfo = $scope.carInfo;
-        var params =
-        {
-            db: "mycon1",
-            function: "sp_fun_update_customer_info",
-            cz: carInfo.cz,
-            mobile: carInfo.mobile,
-            phone: carInfo.phone,
-            linkman: carInfo.linkman,
-            custom5: carInfo.custom5,
-            cx: carInfo.cx,
-            cjhm: carInfo.cjhm,
-            fdjhm: carInfo.fdjhm,
-            customer_id: carInfo.customer_id
-        };
-        var jsonStr = angular.toJson(params);
-        $http({
-            method: 'post',
-            url: '/restful/pro',
-            dataType: "json",
-            data: jsonStr
-        }).success(function (data, status, headers, config) {
-            var state = data.state;
-            if (state == 'ok') {
-                locals.setObject("carInfo", carInfo);
-            } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
-            }
-        }).error(function (data) {
-            ionicToast.show("服务异常");
-        });
+
+        if(num!=5){
+
+            var carInfo = $scope.carInfo;
+            var params =
+            {
+                db: "mycon1",
+                function: "sp_fun_update_customer_info",
+                cz: carInfo.cz,
+                mobile: carInfo.mobile,
+                phone: carInfo.phone,
+                linkman: carInfo.linkman,
+                custom5: carInfo.custom5,
+                cx: carInfo.cx,
+                cjhm: carInfo.cjhm,
+                fdjhm: carInfo.fdjhm,
+                customer_id: carInfo.customer_id
+            };
+            var jsonStr = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    locals.setObject("carInfo", carInfo);
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                }
+            }).error(function (data) {
+                ionicToast.show("服务异常");
+            });
+
+
+        }else{
+            var carInfo = $scope.carInfo;
+            var params = {
+                db:"mycon1",
+                function:"sp_fun_update_fault_info",
+                customer_id:carInfo.customer_id,
+                car_fault:"漏机油",
+                days:"2018-04-17 00:00:00"
+            };
+            var jsonStr = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                }
+            }).error(function (data) {
+                ionicToast.show("服务异常");
+            });
+        }
+
     }
+
+
 }]);
 

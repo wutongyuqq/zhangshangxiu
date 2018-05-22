@@ -241,7 +241,7 @@
     }
 
 </style>
-<div ng-controller="tenderDetailCtrl">
+<div>
     <div class="bar bar-header bar-light bar-light-div">
         <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
         <h1 class="title"><span class="title-color">项目选择</span></h1>
@@ -280,7 +280,7 @@
 
 
     <div class="select_pro" ng-show="showMore==0">
-        <div class="select-item select_one" ng-repeat="item in firstIconArr" ng-click="showDetailPro()">
+        <div class="select-item select_one" ng-repeat="item in firstIconArr" ng-click="showDetailImgPro(0,item.wxgz)">
             <img class="select-img" src="{{item.imageurl?('../../../vendor/images/zsx/'+item.imageurl):'../../../vendor/images/zsx/fold_img.png'}}"/>
 
             <div class="select-text">{{item.wxgz}}</div>
@@ -290,7 +290,7 @@
     </div>
 
     <div class="select_pro" ng-show="showMore==1">
-        <div class="select-item select_one" ng-repeat="item in firstIconArr" ng-click="showDetailPro()">
+        <div class="select-item select_one" ng-repeat="item in firstIconArr" ng-click="showDetailImgPro(1,item.wxgz)">
             <img class="select-img" src="{{item.imageurl?('../../../vendor/images/zsx/'+item.imageurl):'../../../vendor/images/zsx/fold_img.png'}}"/>
 
             <div class="select-text">{{item.wxgz}}</div>
@@ -300,42 +300,13 @@
     </div>
 
     <div class="select_pro" ng-show="showMore==2">
-        <div class="select-item select_one">
+        <div class="select-item select_one" ng-repeat="item in sencondPageData">
             <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
 
-            <div class="select-text">轿车洗车<br/><span>￥25.0</span></div>
+            <div class="select-text">{{item.mc}}<br/><span>￥</span><span>{{item.xlf}}</span></div>
 
         </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
 
-            <div class="select-text">SUV洗车<br/><span>￥25.0</span></div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
-
-            <div class="select-text">机修洗车<br/><span>￥25.0</span></div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
-
-            <div class="select-text">精致洗车<br/><span>￥25.0</span></div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
-
-            <div class="select-text">脚垫水洗<br/><span>￥25.0</span></div>
-
-        </div>
-        <div class="select-item select_one">
-            <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
-
-            <div class="select-text">办卡洗车<br/><span>￥25.0</span></div>
-
-        </div>
 
     </div>
 

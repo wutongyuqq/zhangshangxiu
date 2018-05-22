@@ -1,5 +1,6 @@
-app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchorScroll', "$location", "utils", "locals","$modal","$state","ionicToast",function ($http, $scope, $document, userTemp, $anchorScroll, $location, utils, locals,$modal,$state,ionicToast) {
+app.controller('HomeCtrl', ['$http', '$scope', '$anchorScroll', "$location", "utils", "locals","$modal","$state","ionicToast",function ($http, $scope,  $anchorScroll, $location, utils, locals,$modal,$state,ionicToast) {
     var selt = this;
+    var postNum=0;
     var user = locals.getObject("user");
     if(user==null||user.userName==null){
         $state.go("Login");
@@ -25,6 +26,9 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
     carInfo.ysph="";
     carInfo.ywtx="";
     $scope.carInfo = carInfo;
+    if(locals.getObject("selectCarInfo")!=null){
+        $scope.carInfo = locals.getObject("selectCarInfo");
+    }
     $scope.showMore = 0;
     $scope.showCard = false;
     $scope.showMoreView = function (showMore) {
@@ -81,6 +85,9 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
         $scope.showCardList = true;
     };
 
+    $scope.toSelectPage=function(){
+        $state.go("Register");
+    }
 
     $scope.getDateTime = function(){
         var now = new Date();
@@ -202,13 +209,40 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
 
     }
 
-
-
-
     $scope.uploadCarToServer=function(upLoadInfo){
+        var params = {
+            db:"mycon1",
+            function:"sp_fun_check_repair_list_cp",
+            customer_id:"A2018N00008"
+        }
+        var jsonStr = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr,
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                   //车辆已进厂
+                    data.upLoadInfo = upLoadInfo;
+                    $scope.openModal(data);
+                }else {
+                    //车辆未进厂
+                    $scope.insertCarInfo(upLoadInfo);
+                }
+            }).error(function(data){
+                ionicToast.show("服务异常");
+            });
+
+        }
+
+
+
+
+    $scope.insertCarInfo = function(upLoadInfo){
 
         var dateTime=$scope.getDateTime();
-
         var params = {
             db:"mycon1",
             function:"sp_fun_upload_repair_list_main",
@@ -252,44 +286,6 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
             ionicToast.show("服务异常");
         });
 
-
-
-
-
-    }
-
-    $scope.insertCarInfo = function(upLoadInfo){
-        var params= {
-            "db":"mycon1",
-            "function":"sp_fun_update_customer_info",
-            "cz":upLoadInfo.cz,
-            "mobile":upLoadInfo.mobile,
-            "phone":upLoadInfo.phone,
-            "linkman":upLoadInfo.linkman,
-            "custom5":upLoadInfo.custom5,
-            "cx":upLoadInfo.cx,
-            "cjhm":upLoadInfo.cjhm,
-            "fdjhm":upLoadInfo.fdjhm,
-            "ns_date":upLoadInfo.ns_date,
-            "customer_id":upLoadInfo.customer_id,
-        }
-
-        var jsonStr = angular.toJson(params);
-        $http({
-            method: 'post',
-            url: '/restful/pro',
-            dataType: "json",
-            data: jsonStr,
-        }).success(function (data, status, headers, config) {
-            var state = data.state;
-            if (state == 'ok') {
-                $state.go("Tender");
-            }else {
-                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
-            }
-        }).error(function(data){
-            ionicToast.show("服务异常");
-        });
 
     }
     $scope.openModal = function(data) {
@@ -365,9 +361,9 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
             }
         });
     }
-    if(locals.getObject("firstIconArr")==null||locals.getObject("firstIconArr").length==0){
+    //if(locals.getObject("firstIconArr")==null||locals.getObject("firstIconArr").length==0){
         $scope.getFirstPageData();
-    }
+  // }
 
 //获取项目二级页面配置
     var kjProList = [];
@@ -375,7 +371,7 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
     var postFlag = "0";
 
     $scope.getIconData = function () {
-        if (postFlag == "122") {
+        if (postFlag == "end") {
             locals.setObject("kjProList",kjProList);
             locals.setObject("chgProList",chgProList);
             return;
@@ -392,6 +388,7 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
             dataType: "json",
             data: jsonStr
         }).success(function (data, status, headers, config) {
+            console.log(data);
             var state = data.state;
             postFlag = data.Previous_xh;
             if (state == 'ok' && postFlag != "end") {
@@ -430,14 +427,19 @@ app.controller('HomeCtrl', ['$http', '$scope', '$document', 'userTemp', '$anchor
     }
 }]);
 
-
 //模态框对应的Controller
-app.controller('modalCtrl', function($scope, $modalInstance, data) {
+app.controller('modalCtrl', function($scope,$state, $modalInstance,locals,data) {
     $scope.data= data;
 
     //在这里处理要进行的操作
     $scope.ok = function() {
         $modalInstance.close();
+        var carInfo = locals.getObject("carInfo");
+        carInfo.jsd_id = data.jsd_id;
+        locals.setObject("carInfo",carInfo);
+        locals.set("jsd_id",data.jsd_id);
+        $state.go("Winbding");
+
     };
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');

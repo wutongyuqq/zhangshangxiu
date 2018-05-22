@@ -151,6 +151,8 @@
 
         width: 100%;
         margin-top: 2px;
+        border-collapse:separate;
+        border-spacing:0px 3px;
 
     }
     .img-minus {
@@ -232,6 +234,9 @@
     .modal-content{
         border: none;
     }
+    .model-margin-top{
+        margin: 0.3rem 0.01rem;
+    }
 
 
 </style>
@@ -286,13 +291,15 @@
                     <td>优惠</td>
                     <td></td>
                 </tr>
-                <tr class="tb_content_b" ng-repeat="item in repairDataList" ng-click="editProjectForXm(item)">
+                <tr class="tb_content_b" ng-repeat="item in repairDataList">
                     <td class="tb_content_td_a">{{$index+1}}</td>
                     <td>{{item.xlxm}}</td>
                     <td>{{item.wxgz}}</td>
                     <td>{{item.xlf}}</td>
                     <td>{{item.zk}}</td>
-                    <td><img ng-click="deleteItem($index,item)" class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/></td>
+                    <td style="padding-bottom: 0.3rem;padding-top:0.3rem"><img ng-click="deleteItem($index,item)" class="img-minus" src="../../../vendor/images/zsx/minus_img.png"/>
+                        <br/>
+                        <img ng-click="editProjectForXm(item)" class="img-minus" src="../../../vendor/images/zsx/edit.png"/></td>
                 </tr>
 
 
@@ -344,7 +351,7 @@
         <div class="text-inline confirm-a confirm-nav-btn" ng-click="toProjectFactory()">
             项目库
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn" ng-click="addTempProject()">
             临时项目
         </div>
         <div class="text-inline confirm-a confirm-nav-btn">
@@ -488,11 +495,88 @@
             </h4>
         </div>
         <div class="modal-body">
-            <div style="text-align: left;margin-left: 2rem">
+            <div style="text-align: left;margin-left: 1rem">
 
-                <div><div>项目:</div><div><input type="text" ng-model="xlxm"/></div></div>
-                <div><div>维修工作:</div><div><input type="text" ng-model="wxgz"/></div></div>
-                <div><div>价格:</div><div><input type="text" ng-model="xlf"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: middle;">项&#12288;&#12288;目:</div><div style="display: inline-block;vertical-align: middle;"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="xlxm"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: middle;">维修工作:</div><div style="display: inline-block;vertical-align: middle;"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="wxgz"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: middle;">价&#12288;&#12288;格:</div><div style="display: inline-block;vertical-align: middle;"><input style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="xlf"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: top;">保存新价格:</div><div style="display: inline-block;vertical-align: top;"><input type="checkbox" style="width:0.5rem;height:0.5rem;margin-left: 0.7rem" ng-model="isNewPrice"/></div></div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()" >
+                取消
+            </button>
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem">
+                确定
+            </button>
+        </div>
+    </div>
+</script>
+
+
+
+
+
+
+
+
+
+<script type="text/ng-template" id="modal5.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                增加临时项目
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="text-align: left;margin-left: 1rem">
+
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: middle;">项目名称:</div><div style="display: inline-block;vertical-align: middle;"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="tempData.mc"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: middle;">维修成本:</div><div style="display: inline-block;vertical-align: middle;"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="tempData.wxcb"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: middle;">项目价格:</div><div style="display: inline-block;vertical-align: middle;"><input style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="tempData.xmjg"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block;vertical-align: top;">项目类别:</div><div style="display: inline-block;vertical-align: top;">
+                    <select style="width: 6rem;background-color: lightgray;margin-left: 1rem" ng-model="tempData.xmlb">
+                        <option ng-repeat="item in firstIconArr">{{item.wxgz}}</option>
+
+
+                    </select>
+                </div></div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()" >
+                取消
+            </button>
+            <button class="btn btn-warning" ng-click="ok(tempData)" style="margin-left: 2rem">
+                确定
+            </button>
+        </div>
+    </div>
+</script>
+
+
+
+
+
+
+
+<script type="text/ng-template" id="modal4.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                修改项目
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="text-align: left;margin-left: 1rem">
+
+                <div class="model-margin-top"><div style="display: inline-block">&#12288;项&#12288;&#12288;目:</div><div style="display: inline-block"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="xlxm"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block">&#12288;维修工作:</div><div style="display: inline-block"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="wxgz"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block">&#12288;价&#12288;&#12288;格:</div><div style="display: inline-block"><input style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="xlf"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block">保存新价格:</div><div style="display: inline-block"><input type="checkbox" style="width:10px;height:10px" ng-model="isNewPrice"/></div></div>
             </div>
         </div>
         <div class="modal-footer">

@@ -139,7 +139,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state',"locals","ionicToast
     $scope.carInfo = carInfo;
 
     $scope.toProjectFactory = function(){
-        var params =
+       /* var params =
         {
             db:"mycon1",
             function:"sp_fun_down_maintenance_project",
@@ -160,7 +160,8 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state',"locals","ionicToast
             }
         }).error(function(data){
             ionicToast.show("服务异常");
-        });
+        });*/
+        $state.go("TenderDtail");
 
     }
 
@@ -358,13 +359,13 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state',"locals","ionicToast
             }
         });
 
-        modalInstance.result.then(function (xlxm,wxgz,xlf) {
+        modalInstance.result.then(function (resData) {
             var params = {
                 db:"mycon1",
                 function:"sp_fun_upload_maintenance_project_library",
-                xlxm:xlxm,
-                wxgz:wxgz,
-                xlf:xlf
+                xlxm:resData.xlxm,
+                wxgz:resData.wxgz,
+                xlf:resData.xlf
             }
             var jsonStr = angular.toJson(params);
             $scope.xlfTotal=0;
@@ -377,7 +378,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state',"locals","ionicToast
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
-                    $scope.repairDataList.splice(index, 1);
+
 
                 }else {
                     ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
@@ -390,7 +391,84 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state',"locals","ionicToast
         });
 
     }
+
+    $scope.addTempProject=function(){
+        var firstIconArr = locals.getObject("firstIconArr");
+        data = firstIconArr;
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'modal5.html',
+            controller: 'modalAddTempCtrl',
+            size: 'lg',
+            resolve : {
+                data: function () {//data作为modal的controller传入的参数
+                    return data;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (tempData) {
+            var jsd_id = locals.get("jsd_id");
+            var params = {
+
+                db:"mycon1",
+                function:"sp_fun_upload_maintenance_project_detail",
+                jsd_id:jsd_id,
+                xlxm:tempData.mc,
+                xlf:tempData.xmjg,
+                zk:"0.00",
+                wxgz:tempData.xmlb,
+                pgzje:"5.00",
+                pgzgs:"1.00",
+                xh:"0"
+            }
+            var jsonStr = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    $state.go("Winbding");
+                    // locals.setObject("carInfo",upLoadInfo);
+                }else {
+                    ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+                }
+            }).error(function(data){
+                ionicToast.show("服务异常");
+            });
+        }, function () {
+
+        });
+
+
+
+    }
 }]);
+
+
+
+
+//模态框对应的Controller
+app.controller('modalAddTempCtrl', function($scope,$state, $modalInstance,locals,data) {
+    $scope.firstIconArr= data;
+
+    var tempData = new Object();
+    tempData.mc = "";
+    tempData.wxcb = "";
+    tempData.xmjg = "";
+    tempData.xmlb = "";
+    $scope.tempData = tempData;
+    //在这里处理要进行的操作
+    $scope.ok = function(tempData) {
+        $modalInstance.close(tempData);
+    };
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+});
 
 
 //模态框对应的Controller
@@ -418,8 +496,11 @@ app.controller('modalDCtrl', function($scope,$state, $modalInstance,locals,data)
 
     //在这里处理要进行的操作
     $scope.ok = function(xlxm,wxgz,xlf) {
-
-        $modalInstance.close(xlxm,wxgz,xlf);
+        var resData = new Object();
+         resData.xlxm=xlxm;
+         resData.wxgz=wxgz;
+         resData.xlf=xlf;
+        $modalInstance.close(resData);
     };
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');

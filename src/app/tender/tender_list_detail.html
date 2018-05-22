@@ -29,7 +29,7 @@
         vertical-align: middle;
         line-height: 1rem;
         padding-left: 1rem;
-        color:white;
+        color: white;
     }
 
     .container-fluid {
@@ -139,6 +139,7 @@
         height: 0.7rem;
         color: #333333;
     }
+
     .position-left-b > div {
         line-height: 0.7rem;
         height: 0.7rem;
@@ -149,6 +150,7 @@
         text-align: left;
         margin-left: 0.5rem;
     }
+
     .position-left-b {
         text-align: left;
         margin-left: 2rem;
@@ -173,8 +175,14 @@
         color: #333333;
         font-weight: 600;
     }
-    .text-inline-c{
+
+    .text-inline-c {
         margin-left: 1rem;
+    }
+
+    .second-div-a {
+        width: 100%;
+        text-align: center;
     }
 </style>
 <div>
@@ -191,34 +199,62 @@
 
         <div class="color-white bar-white-card">闽A23A97</div>
     </div>
-
-
+    <div class="second-div-a">
+        <div class="text-inline"><select ng-model="selectData.xllb">
+            <option>类别</option>
+            <option>机修</option>
+            <option>大修</option>
+        </select></div>
+        <div class="text-inline text-right"><input ng-change="updateCarInfo(isShowGzms,4)" class="claim_input"
+                                                   ng-model="selectData.startData"
+                                                   type="text" id="start_date" placeholder="选择起始日期"
+                                                   readonly="readonly"/></div>
+        <div class="text-inline text-right"><input ng-change="updateCarInfo(isShowGzms,4)" class="claim_input"
+                                                   ng-model="selectData.endData" type="text" id="end_date" placeholder="选择结束日期" readonly="readonly"/>
+        </div>
+        <button class="text-inline text-right" ng-click="getWxHistory(selectData)">搜索</button>
+    </div>
     <!-- 项目-->
     <ion-list>
         <ion-item ng-repeat="item in data">
             <div class="content-list-div">
                 <div class="text_inline content-list-div-a content-list-div-a-res">
-        
+
                     <div class="text-inline position-left">
                         <div>本次工单：</div>
-                        <div>维修内容：</div>
-                        <div>耗&#12288;&#12288;时：</div>
-                        <div>备&#12288;&#12288;注：</div>
+                        <div>修理类别：</div>
+                        <div>进厂日期：</div>
+                        <div>进厂里程：</div>
                     </div>
                     <div class="text-inline position-left-b">
-                        <div>{{item.days}}</div>
-                        <div>{{item.fault_info}}</div>
-                        <div>4小时</div>
-                        <div>钣金喷漆为高档漆</div>
+                        <div>{{item.jsd_id}}</div>
+                        <div>{{item.xllb}}</div>
+                        <div>{{item.jc_date}}</div>
+                        <div>{{item.jclc}}</div>
                     </div>
                 </div>
-                </div>
+            </div>
         </ion-item>
-      </ion-list>
-    </div>
-
-
-
+    </ion-list>
+</div>
 
 
 </div>
+
+<script>
+
+    var calendar = new LCalendar();
+    calendar.init({
+        'trigger': '#start_date', //标签id
+        'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+        'minDate': (new Date().getFullYear() - 40) + '-' + 1 + '-' + 1, //最小日期
+        'maxDate': (new Date().getFullYear() + 20) + '-' + 12 + '-' + 31 //最大日期
+    });
+    var calendar2 = new LCalendar();
+    calendar2.init({
+        'trigger': '#end_date', //标签id
+        'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+        'minDate': (new Date().getFullYear() - 40) + '-' + 1 + '-' + 1, //最小日期
+        'maxDate': (new Date().getFullYear() + 20) + '-' + 12 + '-' + 31 //最大日期
+    });
+</script>

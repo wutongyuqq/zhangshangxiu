@@ -153,6 +153,8 @@
         bottom: 0;
         left: 0;
         display: block;
+        background-color: white;
+        z-index: 1008;
     }
 
     .wb_btn_img {
@@ -175,12 +177,12 @@
     }
 
     .content-list-div-a {
-        width: 100%;
+        width: 90%;
         text-align: left;
         padding-left: 1rem;
         background-color: #ebccd1;
-        padding-bottom: 0.5rem;
-        padding-top: 0.5rem;
+
+        margin: 2px auto;
         color: #333333;
         font-weight: 600;
     }
@@ -305,6 +307,15 @@
     .text-pj-line{
         margin-top: 0.5rem;
     }
+    .list-margin{
+        margin-top: 0.2rem;
+    }
+    .item{
+        border-width: 0px;
+    }
+    label{
+        max-width: none;
+    }
 </style>
 <div>
     <div class="bar bar-header bar-light bar-light-div">
@@ -344,15 +355,52 @@
 
         <div class="serch_resualt_tip">
             <div class="text-inline select-all-div">
-                <img class="text-inline select-all" src="../../../vendor/images/zsx/select-blue-true.png">
-                <div class="text-inline ">全选/取消全选</div>
-            </div>
-            <div class="text-inline select-res-small">搜索到5条结果</div>
-            <div class="text-inline select-all-res">
-                <img class="text-inline select-all" src="../../../vendor/images/zsx/select-blue-true.png">
-                <div class="text-inline">在结果中搜索</div>
+               <!-- <img class="text-inline select-all" src="../../../vendor/images/zsx/select-blue-true.png">
+                <div class="text-inline">全选/取消全选</div>-->
+                <div class="text-inline">
+                    <ion-checkbox ng-click="checkPjkAll()" ng-model="checkAll" ng-checked="checkAll">全选/取消全选</ion-checkbox>
+                </div>
             </div>
 
+            <div class="text-inline select-all-res">
+                <div class="text-inline">
+                    <ion-checkbox ng-model="selectFromRes" ng-checked="selectFromRes">在结果中搜索</ion-checkbox>
+                </div>
+            </div>
+            <div class="select-res-small">{{dataList.length}}</div>
+
+
+
+
+            <div class="list list-margin">
+
+                <ion-checkbox class="content-list-div-a" ng-repeat="item in dataList"
+                              ng-model="item.checked"
+                              ng-checked="item.checked" ng-click="checkPjkItem($index)">
+                    <div class="text_inline content-list-div-a">
+
+                        <div class="text-inline position-left">
+                            <div>名称：{{item.pjmc}}</div>
+                            <div>仓库：{{item.cd}}号仓</div>
+                            <div>销售价：￥{{item.pjjj}}</div>
+                        </div>
+                        <div class="text-inline position-left">
+                            <div>规格：60*60</div>
+                            <div>库存量：101个</div>
+                            <div>配件型号：{{item.cx}}</div>
+                        </div>
+
+
+                    </div>
+
+                </ion-checkbox>
+
+
+            </div>
+
+
+
+           <!--
             <ion-list>
                 <ion-item ng-repeat="item in data">
                         <div class="text_inline content-list-div-a">
@@ -388,7 +436,7 @@
                                 
                             </div>
                 </ion-item>
-              </ion-list>
+              </ion-list>-->
         </div>
 
 
@@ -446,7 +494,7 @@
         <div class="text-inline confirm-a confirm-nav-btn">
             新增配件
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn" ng-click="makeSurePj()">
             确定
         </div>
 

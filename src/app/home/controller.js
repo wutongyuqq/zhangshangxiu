@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', ['$http', '$scope', '$anchorScroll', "$location", "utils", "locals","$modal","$state","ionicToast",function ($http, $scope,  $anchorScroll, $location, utils, locals,$modal,$state,ionicToast) {
+app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionicToast",function ($http, $scope, locals,$modal,$state,ionicToast) {
     var selt = this;
     var postNum=0;
     var user = locals.getObject("user");
@@ -209,6 +209,30 @@ app.controller('HomeCtrl', ['$http', '$scope', '$anchorScroll', "$location", "ut
 
     }
 
+
+    var repairPersonList = locals.getObject("repairPersonList");
+    if(repairPersonList==null||repairPersonList.length==null||repairPersonList.length==0){
+        var params={
+            db:"mycon1",
+            function:"sp_fun_down_repairman",
+            company_code:user.company_code
+        }
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr,
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                locals.setObject("repairPersonList",data.data);
+            }else {
+            }
+        }).error(function(data){
+        });
+    }
+
     $scope.uploadCarToServer=function(upLoadInfo){
         var params = {
             db:"mycon1",
@@ -361,9 +385,9 @@ app.controller('HomeCtrl', ['$http', '$scope', '$anchorScroll', "$location", "ut
             }
         });
     }
-    //if(locals.getObject("firstIconArr")==null||locals.getObject("firstIconArr").length==0){
+    if(locals.getObject("firstIconArr")==null||locals.getObject("firstIconArr").length==null||locals.getObject("firstIconArr").length==0){
         $scope.getFirstPageData();
-  // }
+   }
 
 //获取项目二级页面配置
     var kjProList = [];
@@ -409,7 +433,7 @@ app.controller('HomeCtrl', ['$http', '$scope', '$anchorScroll', "$location", "ut
             ionicToast.show("服务异常");
         });
     }
-    if(locals.getObject("kjProList")==null||locals.getObject("chgProList")==null||locals.getObject("kjProList").length==0||locals.getObject("chgProList").length==0){
+    if(locals.getObject("kjProList")==null||locals.getObject("chgProList")==null||locals.getObject("kjProList").length==null||locals.getObject("kjProList").length==0||locals.getObject("chgProList").length==null||locals.getObject("chgProList").length==0){
         $scope.getIconData();
     }
 

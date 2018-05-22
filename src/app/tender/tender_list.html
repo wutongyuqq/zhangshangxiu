@@ -29,7 +29,7 @@
         vertical-align: middle;
         line-height: 1rem;
         padding-left: 1rem;
-        color:white;
+        color: white;
     }
 
     .container-fluid {
@@ -104,6 +104,8 @@
         bottom: 0;
         left: 0;
         display: block;
+        background-color: #ffffff;
+        z-index: 1009;
     }
 
     .content-list-div {
@@ -139,19 +141,23 @@
         height: 0.7rem;
         color: #333333;
     }
+
     .position-left-b > div {
         line-height: 0.7rem;
         height: 0.7rem;
         color: #333333;
+
     }
 
     .position-left {
         text-align: left;
         margin-left: 0.5rem;
     }
+
     .position-left-b {
         text-align: left;
-        margin-left: 2rem;
+        margin-left: 0.5rem;
+        width: 5rem;
     }
 
     .content-list-div-a-res {
@@ -159,8 +165,8 @@
     }
 
     .select-all {
-        width: 0.5rem;
-        height: 0.5rem;
+        width: 1rem;
+        height: 1rem;
     }
 
     .content-list-div-a {
@@ -173,8 +179,64 @@
         color: #333333;
         font-weight: 600;
     }
-    .text-inline-c{
+
+    .text-inline-c {
+
+        margin-right:1rem;
+    }
+
+    .item-back {
+        background-color: lightblue;
+    }
+
+    .modal-dialog {
+        margin-top: 4rem;
+        border: none;
+    }
+
+    .modal {
+        background-color: transparent;
+        border: none;
+    }
+
+    .modal-header {
+        background-color: #333333;
+        color: white;
+        border: none;
+    }
+
+    .modal-title {
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #89c997;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-color: #89c997;
+    }
+
+    .btn-warning {
+        background-color: #89c997;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-color: #89c997;
         margin-left: 1rem;
+    }
+
+    .modal-footer {
+        text-align: center;
+        background-color: #abadab;
+        border: none;
+
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .model-margin-top {
+        margin: 0.3rem 0.01rem;
     }
 </style>
 <div>
@@ -200,81 +262,105 @@
 
     <!-- 项目-->
 
-    <div class="content-list-div">
-        <div class="text_inline content-list-div-a content-list-div-a-res" ng-repeat="item in pgDataList">
-            <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
-            </div>
-            <div class="text-inline position-left">
-                <div>轿车洗车</div>
-                <div>指派给</div>
-                <div>维修人员</div>
-                <div>派工金额</div>
-            </div>
-            <div class="text-inline position-left-b">
-                <div></div>
-                <div>张三</div>
-                <div>指派给未领工</div>
-                <div><span>￥</span>{{item.pgje}}</div>
-            </div>
-            <div class="text-inline text-inline-c"><img class="select-all" src="../../../vendor/images/zsx/right_btn.png"/></div>
 
-        </div>
+    <div class="list list-margin">
 
+        <ion-checkbox class="content-list-div-a" ng-repeat="item in pgDataList"
+                      ng-model="item.checked"
+                      ng-checked="item.checked" ng-click="checkPjkItem($index)">
+            <div class="text_inline content-list-div-a">
 
-        <div class="text_inline content-list-div-a content-list-div-a-res">
-            <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
+                <div class="text-inline position-left">
+                    <div>轿车洗车</div>
+                    <div>指派给</div>
+                    <div>维修人员</div>
+                    <div>派工金额</div>
+                </div>
+                <div class="text-inline position-left-b">
+                    <div>{{item.xlxm}}</div>
+                    <div>{{item.assign}}</div>
+                    <div>{{item.xlg}}</div>
+                    <div><span>￥</span>{{item.pgje}}</div>
+                </div>
             </div>
-            <div class="text-inline position-left">
-                <div>轿车洗车</div>
-                <div>指派给</div>
-                <div>维修人员</div>
-                <div>派工金额</div>
-            </div>
-            <div class="text-inline position-left-b">
-                <div>维修中</div>
-                <div>张三</div>
-                <div>指派给未领工</div>
-                <div>￥12.00元</div>
-            </div>
-            <div class="text-inline text-inline-c"><img class="select-all" src="../../../vendor/images/zsx/right_btn.png"/></div>
 
-        </div>
-
-
-        <div class="text_inline content-list-div-a content-list-div-a-res">
-            <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
-            </div>
-            <div class="text-inline position-left">
-                <div>轿车洗车</div>
-                <div>指派给</div>
-                <div>维修人员</div>
-                <div>派工金额</div>
-            </div>
-            <div class="text-inline position-left-b">
-                <div>维修中</div>
-                <div>张三</div>
-                <div>指派给未领工</div>
-                <div>￥12.00元</div>
-            </div>
-            <div class="text-inline text-inline-c"><img class="select-all" src="../../../vendor/images/zsx/right_btn.png"/></div>
-
-        </div>
+        </ion-checkbox>
 
 
     </div>
 
 
-    <div class="confirm-div">
-
-        <div class="text-inline confirm-a confirm-nav-btn">
-            派工
+    <!--<div class="text_inline content-list-div-a content-list-div-a-res" ng-repeat="item in pgDataList"
+         ng-click="pgPerson(item)">
+        <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
+        </div>
+        <div class="text-inline position-left">
+            <div>轿车洗车</div>
+            <div>指派给</div>
+            <div>维修人员</div>
+            <div>派工金额</div>
+        </div>
+        <div class="text-inline position-left-b">
+            <div>{{item.xlxm}}</div>
+            <div>{{item.assign}}</div>
+            <div>{{item.xlg}}</div>
+            <div><span>￥</span>{{item.pgje}}</div>
+        </div>
+        <div class="text-inline text-inline-c"><img class="select-all" src="../../../vendor/images/zsx/right_btn.png"/>
         </div>
 
-        <div class="text-inline confirm-a confirm-nav-btn">
-            车间管理
-        </div>
-
-    </div>
+    </div>-->
 
 
 </div>
+
+
+<div class="confirm-div">
+
+    <div class="text-inline confirm-a confirm-nav-btn"  ng-click="pgPerson()">
+        派工
+    </div>
+
+    <div class="text-inline confirm-a confirm-nav-btn">
+        车间管理
+    </div>
+
+</div>
+
+
+<script type="text/ng-template" id="modal7.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                派工
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="display: inline-block;vertical-align: top;">
+                <ul class="list">
+
+                    <li ng-repeat="item in repairPersonList | unique: 'xlz'"
+                        class="item {{$index==clickIndex?'item-back':''}}" ng-click="chooseXlz(item,$index)">
+                        {{item.xlz}}
+                    </li>
+                </ul>
+            </div>
+            <div style="display:inline-block;text-align: left;vertical-align: top;width:5rem;">
+                <ion-checkbox ng-repeat="item2 in personArr"
+                              ng-model="item2.checked"
+                              ng-checked="item2.checked">
+                    {{ item2.xlg }}
+                </ion-checkbox>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()">
+                取消
+            </button>
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem">
+                确定
+            </button>
+        </div>
+    </div>
+</script>

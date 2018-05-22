@@ -66,7 +66,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
         });
     }
 
-    var firstIconArr = null;
+    var firstIconArr = locals.getObject("firstIconArr");
 
     if(firstIconArr==null||firstIconArr.length==0){
 
@@ -113,7 +113,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
 
 
 
-app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$state',"$location","locals","ionicToast","$ionicHistory","$uibModal" ,function ($http, $scope, utils, $state,$location,locals,ionicToast,$ionicHistory,$uibModal) {
+app.controller('WinbdingCtrl', ['$http', '$scope', '$state',"locals","ionicToast" ,"$modal",function ($http, $scope, $state,locals,ionicToast,$modal) {
     var selt = this;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
@@ -213,11 +213,11 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$state',"$location"
     $scope.deleteItem=function(index,data){
 
 
-        var modalInstance = $uibModal.open({
+        var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'modal2.html',
             controller: 'modalBCtrl',
-            size: size,
+            size: 'lg',
             resolve : {
                 data: function () {//data作为modal的controller传入的参数
                     return data;//用于传递数据
@@ -225,12 +225,12 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$state',"$location"
             }
         });
 
-        modalInstance.result.then(function () {
+        modalInstance.result.then(function (delData) {
             var params = {
                 db:"mycon1",
                 function:"sp_fun_delete_maintenance_project_detail",
                 jsd_id:jsdId,
-                xh:"1"
+                xh:delData.xh
             }
             var jsonStr = angular.toJson(params);
             $scope.xlfTotal=0;
@@ -252,10 +252,12 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$state',"$location"
                 ionicToast.show("服务异常");
             });
         }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
+
         });
     }
     $scope.pjDataList=[];
+    $scope.pjTotal=0;
+    $scope.numPj=0;
     $scope.getPjData=function(){
         var params = {
             db:"mycon1",
@@ -271,7 +273,21 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$state',"$location"
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-                $scope.pjDataList = data.data;
+                var pjDataList = data.data;
+                $scope.pjDataList = pjDataList;
+
+
+                var numMoney = 0;
+                var numZk= 0;
+                for(var i=0;i<pjDataList.length;i++){
+                    var item = pjDataList[i];
+                    numMoney += Number(item.ssj)*Number(item.sl);
+                    numZk+=Number(item.sl);
+                }
+                $scope.pjTotal = numMoney;
+                $scope.numPj = numZk;
+
+
 
             }else {
                 ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
@@ -282,6 +298,98 @@ app.controller('WinbdingCtrl', ['$http', '$scope', 'utils', '$state',"$location"
     }
 
     $scope.getPjData();
+
+    $scope.deletePjItem = function (index,data) {
+        data.wxgz = data.pjmc;
+        var modalInstance = $modal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'modal2.html',
+            controller: 'modalBCtrl',
+            size: 'lg',
+            resolve : {
+                data: function () {//data作为modal的controller传入的参数
+                    return data;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (delData) {
+            var params = {
+                db:"mycon1",
+                function:"sp_fun_delete_parts_project_detail",
+                jsd_id:jsdId,
+                xh:delData.xh
+            }
+            var jsonStr = angular.toJson(params);
+            $scope.xlfTotal=0;
+            $scope.numZk = 0;
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    $scope.repairDataList.splice(index, 1);
+
+                }else {
+                    ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+                }
+            }).error(function(data){
+                ionicToast.show("服务异常");
+            });
+        }, function () {
+
+        });
+    }
+
+    $scope.editProjectForXm= function(item){
+        data = item;
+        var modalInstance = $modal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'modal3.html',
+            controller: 'modalDCtrl',
+            size: 'lg',
+            resolve : {
+                data: function () {//data作为modal的controller传入的参数
+                    return data;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (xlxm,wxgz,xlf) {
+            var params = {
+                db:"mycon1",
+                function:"sp_fun_upload_maintenance_project_library",
+                xlxm:xlxm,
+                wxgz:wxgz,
+                xlf:xlf
+            }
+            var jsonStr = angular.toJson(params);
+            $scope.xlfTotal=0;
+            $scope.numZk = 0;
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    $scope.repairDataList.splice(index, 1);
+
+                }else {
+                    ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+                }
+            }).error(function(data){
+                ionicToast.show("服务异常");
+            });
+        }, function () {
+
+        });
+
+    }
 }]);
 
 
@@ -290,8 +398,8 @@ app.controller('modalBCtrl', function($scope,$state, $modalInstance,locals,data)
     $scope.data= data;
 
     //在这里处理要进行的操作
-    $scope.ok = function() {
-        $modalInstance.close();
+    $scope.ok = function(data) {
+        $modalInstance.close(data);
     };
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
@@ -299,6 +407,24 @@ app.controller('modalBCtrl', function($scope,$state, $modalInstance,locals,data)
 });
 
 
+
+//模态框对应的Controller
+app.controller('modalDCtrl', function($scope,$state, $modalInstance,locals,data) {
+    var dataD = data;
+
+        $scope.xlxm=dataD.xlxm;
+        $scope.wxgz=dataD.wxgz;
+        $scope.xlf=dataD.xlf;
+
+    //在这里处理要进行的操作
+    $scope.ok = function(xlxm,wxgz,xlf) {
+
+        $modalInstance.close(xlxm,wxgz,xlf);
+    };
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+});
 
 //{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 
 app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state','userTemp','$anchorScroll',"$location", function ($http, $scope, utils, $stateParams, $state,userTemp,$anchorScroll,$location) {

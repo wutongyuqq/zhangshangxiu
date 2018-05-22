@@ -1,6 +1,8 @@
 app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast) {
     var selt = this;
     var showType = 0;
+    var carInfo = locals.getObject("carInfo");
+    $scope.carInfo = carInfo;
     $scope.firstIconArr = locals.getObject("firstIconArr");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
@@ -115,6 +117,8 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
 
 app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", "$modal", function ($http, $scope, $state, locals, ionicToast, $modal) {
     var selt = this;
+
+
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
     $scope.showMoreView = function (showMore) {
@@ -131,12 +135,13 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         window.history.back();
     }
     var carInfo = locals.getObject("carInfo");
+    $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
     if (carInfo == null || jsdId == null || jsdId == "") {
         $state.go("login");
         return;
     }
-    $scope.carInfo = carInfo;
+
 
     $scope.toProjectFactory = function () {
         /* var params =
@@ -451,6 +456,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 app.controller('modalAddTempCtrl', function ($scope, $state, $modalInstance, locals, data) {
     $scope.firstIconArr = data;
 
+
     var tempData = new Object();
     tempData.mc = "";
     tempData.wxcb = "";
@@ -505,6 +511,8 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
 //{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 
 app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'locals', '$anchorScroll', "$location", function ($http, $scope, utils, $stateParams, $state, locals, $anchorScroll, $location) {
     var selt = this;
+    var carInfo = locals.getObject("carInfo");
+    $scope.carInfo = carInfo;
     var user = locals.getObject("user");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
@@ -630,7 +638,8 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 
 
 app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "locals", "$modal", function ($http, $scope, $state, ionicToast, locals, $modal) {
-
+    var carInfo = locals.getObject("carInfo");
+    $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
@@ -749,6 +758,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
 app.controller('modalPgCtrl', function ($scope, $state, $modalInstance, locals, data) {
     $scope.repairPersonList = data;
     $scope.clickIndex = 0;
+
     var repairPersonList = data;
     var firstPerson = repairPersonList[0];
     var personArr = [];
@@ -794,6 +804,8 @@ app.controller('modalPgCtrl', function ($scope, $state, $modalInstance, locals, 
 
 app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
     var selt = this;
+    var carInfo = locals.getObject("carInfo");
+    $scope.carInfo = carInfo;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
     $scope.getDateTime = function () {

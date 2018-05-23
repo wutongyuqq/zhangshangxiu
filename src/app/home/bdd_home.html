@@ -148,19 +148,14 @@
     }
 
     .span_card_list {
-        position: fixed;
-        left: 0rem;
-        top: 5.5rem;
-        z-index: 1009;
-        width: 10.8rem;
+        width: 100%;
     }
 
     .home_ul {
 
-        width: 10.8rem;
+        width:100%;
         overflow: auto;
         padding: 0.5rem;
-        background-color: #eeeeee;
         text-align: center;
         margin: 0 auto;
     }
@@ -226,20 +221,19 @@
         border: none;
     }
     .card_ul{
-        position: fixed;
-        top:5.2rem;
+        position: absolute;
         background-color: #f4f1f1;
-        width: 5rem;
-        left:3.3rem;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        width: 4rem;
+        left:3rem;
+        padding: 0.3rem 0.3rem;
         z-index: 1010;
-        padding-top: 10px;
-        padding-bottom: 10px;
         max-height: 7rem;
         color: #7d7e7d;
         overflow: scroll;
 
+    }
+    .showCard-height{
+        height: 0.5rem;
     }
 
 </style>
@@ -273,51 +267,13 @@
         <any class="item-input" style="overflow: visible">
             <span class="input-label input-label-a">车牌
                 &nbsp;&nbsp;&nbsp;
-                <a class="span_card text_inline" ng-click="showCardMore(showCard)">{{proName?proName:'闽'}}</a>
-                <div ng-show="showCard" class="span_card_list text_inline">
-                    <ul class="home_ul">
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('闽')">闽</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('京')">京</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('津')">津</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('沪')">沪</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('渝')">渝</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('蒙')">蒙</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('新')">新</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('藏')">藏</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('宁')">宁</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('桂')">桂</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('港')">港</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('澳')">澳</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黑')">黑</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('吉')">吉</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('辽')">辽</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('晋')">晋</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('冀')">冀</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('青')">青</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鲁')">鲁</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('豫')">豫</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('苏')">苏</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('皖')">皖</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('浙')">浙</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('湘')">湘</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鄂')">鄂</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('粤')">粤</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('琼')">琼</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('甘')">甘</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('陕')">陕</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黔')">黔</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('滇')">滇</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('川')">川</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('临')">临</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('警')">警</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('测')">测</a></li>
-                    </ul>
-                </div>
+                <a class="span_card text_inline" ng-click="showCardMore()">{{proName?proName:'闽'}}</a>
+
             </span>
             <div class="text_inline">
             <input placeholder="必填" type="text" ng-model="carInfo.shortCardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
                 <ul class="card_ul"  ng-show="showCardList">
-                    <li ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</li>
+                    <li class="showCard-height" ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</li>
                 </ul>
             </div>
         </any>
@@ -436,5 +392,60 @@
                 返回接车
             </button>
         </div>
+    </div>
+</script>
+
+
+
+
+
+
+<script type="text/ng-template" id="modal9.html">
+    <div class="modal-top" align="center">
+        <div class="modal-body">
+            <div style="text-align: center;">
+
+                <div class="span_card_list text_inline">
+                    <ul class="home_ul">
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('闽')">闽</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('京')">京</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('津')">津</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('沪')">沪</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('渝')">渝</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('蒙')">蒙</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('新')">新</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('藏')">藏</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('宁')">宁</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('桂')">桂</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('港')">港</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('澳')">澳</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黑')">黑</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('吉')">吉</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('辽')">辽</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('晋')">晋</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('冀')">冀</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('青')">青</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鲁')">鲁</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('豫')">豫</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('苏')">苏</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('皖')">皖</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('浙')">浙</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('湘')">湘</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鄂')">鄂</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('粤')">粤</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('琼')">琼</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('甘')">甘</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('陕')">陕</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黔')">黔</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('滇')">滇</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('川')">川</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('临')">临</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('警')">警</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('测')">测</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </script>

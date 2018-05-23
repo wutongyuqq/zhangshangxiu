@@ -39,8 +39,30 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     $scope.showMoreView = function (showMore) {
         $scope.showMore = showMore;
     }
-    $scope.showCardMore = function (showCard) {
-        $scope.showCard = !showCard;
+    $scope.showCardMore = function () {
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'modal9.html',
+            controller: 'modalMCtrl',
+            size: 'lg',
+            resolve: {
+                data: function () {//data作为modal的controller传入的参数
+                    return null;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (resData) {
+           $scope.proName = resData;
+        }, function () {
+
+        });
+
+
+
+
+
+
     }
     $scope.selectCard = function (proviceName) {
         $scope.proName = proviceName;
@@ -457,6 +479,21 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         return true;
     }
 }]);
+
+
+
+
+
+
+//模态框对应的Controller
+app.controller('modalMCtrl', function ($scope, $state, $modalInstance) {
+
+    $scope.selectCard = function(resText){
+        $modalInstance.close(resText);
+    }
+});
+
+
 
 //模态框对应的Controller
 app.controller('modalCtrl', function($scope,$state, $modalInstance,locals,data) {

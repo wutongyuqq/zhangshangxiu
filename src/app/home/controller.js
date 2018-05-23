@@ -25,9 +25,14 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     carInfo.gzms="";
     carInfo.ysph="";
     carInfo.ywtx="";
+    carInfo.shortCardName = "";
     $scope.carInfo = carInfo;
     if(locals.getObject("selectCarInfo")!=null){
-        $scope.carInfo = locals.getObject("selectCarInfo");
+        var carInfo2 = locals.getObject("selectCarInfo");
+       var proName2 = carInfo2.mc.substring(0,1);
+        carInfo2.shortCardName = carInfo2.mc.substring(1,carInfo2.mc.length);
+        $scope.carInfo = carInfo2;
+        $scope.proName=proName2;
     }
     $scope.showMore = 0;
     $scope.showCard = false;
@@ -121,7 +126,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
 
 
-        if(upLoadInfo.cardName==null||upLoadInfo.cardName==""){
+        if(upLoadInfo.shortCardName==null||upLoadInfo.shortCardName==""){
             ionicToast.show('车牌必填', 'middle',false, 1000);
             return;
         }
@@ -134,6 +139,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             return;
         }
 
+        upLoadInfo.cardName = $scope.proName + $scope.carInfo.shortCardName;
         var isNewCar = $scope.judgeNewCar(upLoadInfo.cardName);
         if(isNewCar){
             var params = {
@@ -265,7 +271,6 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
 
     $scope.insertCarInfo = function(upLoadInfo){
-
         var dateTime=$scope.getDateTime();
         var params = {
             db:"mycon1",
@@ -333,8 +338,10 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         carInfo.company_code=user.company_code;
         carInfo.cx=item.mc;
         carInfo.cardName=item.mc;
+        carInfo.shortCardName=item.mc.substring(1,item.mc.length);
         $scope.carInfo=carInfo;
         $scope.showCardList = false;
+        $scope.proName = item.mc.substring(0,1);
 
     }
     var params = {

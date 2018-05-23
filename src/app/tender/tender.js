@@ -1,4 +1,4 @@
-app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "utils", "locals", "ionicToast", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, utils, locals, ionicToast) {
+app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToast", "$modal",function ($http, $scope, $state,  locals, ionicToast,$modal) {
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
 
@@ -13,6 +13,37 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
     }
     $scope.toHistoryRecord = function () {
         $state.go("TendListDetailCtrl");
+    }
+
+
+    $scope.toWinbding = function () {
+        $state.go("Winbding");
+    }
+
+
+    $scope.cancleJieche = function () {
+
+
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'modal8.html',
+            controller: 'modalFCtrl',
+            size: 'lg',
+            resolve: {
+                data: function () {//data作为modal的controller传入的参数
+                    return null;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (delData) {
+            locals.set("jsd_id","");
+            $state.go("home");
+        }, function () {
+
+        });
+
+
     }
 
 
@@ -112,3 +143,16 @@ app.controller('tenderIndex', ['$http', '$scope', 'utils', '$stateParams', '$sta
 
 }]);
 
+
+//模态框对应的Controller
+app.controller('modalFCtrl', function ($scope, $state, $modalInstance, locals, data) {
+   var carInfo = locals.getObject("carInfo");
+    $scope.cardName = carInfo.cardName;
+    //在这里处理要进行的操作
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    }
+});

@@ -315,7 +315,7 @@
                 </div>
             </span>
             <div class="text_inline">
-            <input placeholder="必填" type="text" ng-model="carInfo.cardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
+            <input placeholder="必填" type="text" ng-model="carInfo.shortCardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
                 <ul class="card_ul"  ng-show="showCardList">
                     <li ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</li>
                 </ul>
@@ -418,7 +418,7 @@
     <div class="modal-top" align="center">
         <div class="modal-header">
             <h4 class="modal-title" align="center">
-                该车辆已进场
+                该车辆已进厂
             </h4>
         </div>
         <div class="modal-body">

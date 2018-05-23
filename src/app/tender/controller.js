@@ -1,5 +1,6 @@
 app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast) {
     var selt = this;
+
     var showType = 0;
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
@@ -13,6 +14,12 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     }
     $scope.showMoreChange = function () {
         $scope.showMore = showType;
+    }
+    $scope.checked=0;
+    var chooseItem = null;
+    $scope.chooseProject = function (index,item) {
+        $scope.checked = index;
+        chooseItem = item;
     }
     $scope.showDetailImgPro = function (type, wxgz) {
 
@@ -80,17 +87,25 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     }
     $scope.toGdListPage = function () {
         var jsd_id = locals.get("jsd_id");
+        if(chooseItem==null){
+            var sencondPageData = $scope.sencondPageData;
+            if(sencondPageData==null){
+                ionicToast.show("请选择项目", 'middle', false, 1000);
+                return;
+            }
+            chooseItem = sencondPageData[0];
+        }
         var params = {
 
             db: "mycon1",
             function: "sp_fun_upload_maintenance_project_detail",
             jsd_id: jsd_id,
-            xlxm: "普通洗车",
-            xlf: "20.00",
+            xlxm: chooseItem.mc,
+            xlf: chooseItem.xlf,
             zk: "0.00",
-            wxgz: "洗车",
-            pgzje: "5.00",
-            pgzgs: "1.00",
+            wxgz: chooseItem.wxgz,
+            pgzje: chooseItem.pgzje,
+            pgzgs: chooseItem.pgzgs,
             xh: "0"
         }
         var jsonStr = angular.toJson(params);
@@ -138,7 +153,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
     if (carInfo == null || jsdId == null || jsdId == "") {
-        $state.go("login");
+        $state.go("home");
         return;
     }
 

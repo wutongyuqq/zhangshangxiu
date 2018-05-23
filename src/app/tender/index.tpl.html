@@ -239,6 +239,9 @@
         text-align: center;
         margin-top: 1rem;
     }
+    .choose_back{
+        background-color: lightgray;
+    }
 
 </style>
 <div>
@@ -308,7 +311,7 @@
 
         </div>
 
-        <div class="select-item select_one" ng-repeat="item in sencondPageData">
+        <div ng-repeat="item in sencondPageData" class="select-item select_one  {{checked==$index?'choose_back':''}}"   ng-click="chooseProject($index,item)">
             <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
 
             <div class="select-text">{{item.mc}}<br/><span>￥</span><span>{{item.xlf}}</span></div>

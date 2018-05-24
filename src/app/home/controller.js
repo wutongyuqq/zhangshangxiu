@@ -289,7 +289,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         var params = {
             db:"mycon1",
             function:"sp_fun_check_repair_list_cp",
-            customer_id:"A2018N00008"
+            customer_id:upLoadInfo.customer_id
         }
         var jsonStr = angular.toJson(params);
             $http({

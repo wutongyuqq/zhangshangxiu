@@ -27,12 +27,15 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     carInfo.ywtx="";
     carInfo.shortCardName = "";
     $scope.carInfo = carInfo;
+    $scope.proName="闽";
     if(locals.getObject("selectCarInfo")!=null){
         var carInfo2 = locals.getObject("selectCarInfo");
+        if(carInfo2.mc!=null){
        var proName2 = carInfo2.mc.substring(0,1);
         carInfo2.shortCardName = carInfo2.mc.substring(1,carInfo2.mc.length);
         $scope.carInfo = carInfo2;
         $scope.proName=proName2;
+        }
     }
     $scope.showMore = 0;
     $scope.showCard = false;
@@ -77,7 +80,6 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 //获取车牌列表
     var previous_xh = "0";
     var allCardDataList  = [];
-    $scope.cardDataList = [];
     $scope.getCardListData = function(){
         if(previous_xh=="end"){
             $scope.cardDataList = allCardDataList;
@@ -106,15 +108,37 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
 
     }
-
-    $scope.getCardListData();
+    var cardDataList = locals.getObject("cardDataList");
+    if(cardDataList==null || cardDataList.length==null||cardDataList.length==0){
+        $scope.getCardListData();
+    }else{
+            $scope.cardDataList = cardDataList;
+    }
+    $scope.showCardList = false;
     $scope.showCardListData = function () {
         $scope.showCardList = true;
+        $scope.cardDataList = cardDataList;
     };
 
     $scope.toSelectPage=function(){
         $state.go("Register");
     }
+
+
+    $scope.$watch('carInfo.shortCardName',function(){
+        var searchName = $scope.proName + $scope.carInfo.shortCardName;
+        var cardDataList = $scope.cardDataList;
+        var newCarArray = new Array();
+        for(var i=0;i<cardDataList.length;i++){
+            var carInfoS = cardDataList[i];
+            if(cardDataList[i].mc.indexOf(searchName)!=-1){
+                newCarArray.push(carInfoS);
+            }
+        }
+
+        $scope.cardDataList = newCarArray;
+        console.log($scope.carInfo.shortCardName)
+    });
 
     $scope.getDateTime = function(){
         var now = new Date();

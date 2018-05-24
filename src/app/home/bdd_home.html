@@ -38,10 +38,11 @@
 
     .input-label-a {
         width: 30%;
+        font-size: 1.5em;
     }
 
     .input-left-div {
-        padding-left: 1.3rem;
+        padding-left: 1.5rem;
     }
 
     .home_tab_div {
@@ -54,6 +55,7 @@
 
     .text_inline {
         display: inline-block;
+        font-size: 1.2em;
     }
 
     .home_tab_div_left {
@@ -233,7 +235,29 @@
 
     }
     .showCard-height{
-        height: 0.5rem;
+        height: 0.8rem;
+        font-size: 1.3em;
+    }
+    .bar-light-div{
+        font-size: 1.2em;
+    }
+    input[type=text]{
+        font-size: 1.3em;
+    }
+    input[type=number]{
+        font-size: 1.3em;
+    }
+    .home_tab_div_left{
+        font-size: 1.4em;
+    }
+    .home_tab_div_right{
+        font-size: 1.4em;
+    }
+    button{
+        font-size: 1.4em;
+    }
+    .title-color{
+        font-size: 1.4em;
     }
 
 </style>
@@ -267,14 +291,14 @@
         <any class="item-input" style="overflow: visible">
             <span class="input-label input-label-a">车牌
                 &nbsp;&nbsp;&nbsp;
-                <a class="span_card text_inline" ng-click="showCardMore()">{{proName?proName:'闽'}}</a>
+                <a class="span_card text_inline" ng-click="showCardMore()">{{proName}}</a>
 
             </span>
             <div class="text_inline">
             <input placeholder="必填" type="text" ng-model="carInfo.shortCardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
-                <ul class="card_ul"  ng-show="showCardList">
-                    <li class="showCard-height" ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</li>
-                </ul>
+                <div class="card_ul"  ng-show="showCardList">
+                    <div class="showCard-height" ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</div>
+                </div>
             </div>
         </any>
         <any class="item-input">
@@ -292,6 +316,11 @@
         <any class="item-input">
             <span class="input-label input-label-a">手机号</span>
             <input type="number" placeholder="必填" ng-model="carInfo.phone"/>
+        </any>
+
+        <any class="item-input">
+            <span class="input-label input-label-a">车型</span>
+            <input type="number" placeholder="输入" ng-model="carInfo.cx"/>
         </any>
 
     </div>

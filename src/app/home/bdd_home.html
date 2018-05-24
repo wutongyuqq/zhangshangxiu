@@ -38,10 +38,11 @@
 
     .input-label-a {
         width: 30%;
+        font-size: 1.5em;
     }
 
     .input-left-div {
-        padding-left: 1.3rem;
+        padding-left: 1.5rem;
     }
 
     .home_tab_div {
@@ -54,6 +55,7 @@
 
     .text_inline {
         display: inline-block;
+        font-size: 1.2em;
     }
 
     .home_tab_div_left {
@@ -148,19 +150,14 @@
     }
 
     .span_card_list {
-        position: fixed;
-        left: 0rem;
-        top: 5.5rem;
-        z-index: 1009;
-        width: 10.8rem;
+        width: 100%;
     }
 
     .home_ul {
 
-        width: 10.8rem;
+        width:100%;
         overflow: auto;
         padding: 0.5rem;
-        background-color: #eeeeee;
         text-align: center;
         margin: 0 auto;
     }
@@ -226,22 +223,50 @@
         border: none;
     }
     .card_ul{
-        position: fixed;
-        top:5.2rem;
+        position: absolute;
         background-color: #f4f1f1;
-        width: 5rem;
-        left:3.3rem;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        width: 4rem;
+        left:3rem;
+        padding: 0.3rem 0.3rem;
         z-index: 1010;
-        padding-top: 10px;
-        padding-bottom: 10px;
         max-height: 7rem;
         color: #7d7e7d;
         overflow: scroll;
 
     }
-
+    .showCard-height{
+        height: 0.8rem;
+        font-size: 1.3em;
+    }
+    .bar-light-div{
+        font-size: 1.2em;
+    }
+    input[type=text]{
+        font-size: 1.3em;
+    }
+    input[type=number]{
+        font-size: 1.3em;
+    }
+    .home_tab_div_left{
+        font-size: 1.4em;
+    }
+    .home_tab_div_right{
+        font-size: 1.4em;
+    }
+    button{
+        font-size: 1.4em;
+    }
+    .title-color{
+        font-size: 1.4em;
+    }
+    .input-group{
+        height: 1rem;
+        font-size: 1.4em;
+    }
+    .tabs{
+        height: 1.4rem;
+        font-size: 1.3em;
+    }
 </style>
 
 <div>
@@ -273,57 +298,19 @@
         <any class="item-input" style="overflow: visible">
             <span class="input-label input-label-a">车牌
                 &nbsp;&nbsp;&nbsp;
-                <a class="span_card text_inline" ng-click="showCardMore(showCard)">{{proName?proName:'闽'}}</a>
-                <div ng-show="showCard" class="span_card_list text_inline">
-                    <ul class="home_ul">
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('闽')">闽</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('京')">京</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('津')">津</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('沪')">沪</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('渝')">渝</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('蒙')">蒙</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('新')">新</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('藏')">藏</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('宁')">宁</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('桂')">桂</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('港')">港</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('澳')">澳</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黑')">黑</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('吉')">吉</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('辽')">辽</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('晋')">晋</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('冀')">冀</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('青')">青</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鲁')">鲁</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('豫')">豫</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('苏')">苏</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('皖')">皖</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('浙')">浙</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('湘')">湘</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鄂')">鄂</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('粤')">粤</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('琼')">琼</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('甘')">甘</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('陕')">陕</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黔')">黔</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('滇')">滇</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('川')">川</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('临')">临</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('警')">警</a></li>
-                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('测')">测</a></li>
-                    </ul>
-                </div>
+                <a class="span_card text_inline" ng-click="showCardMore()">{{proName}}</a>
+
             </span>
             <div class="text_inline">
             <input placeholder="必填" type="text" ng-model="carInfo.shortCardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
-                <ul class="card_ul"  ng-show="showCardList">
-                    <li ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</li>
-                </ul>
+                <div class="card_ul"  ng-show="showCardList">
+                    <div class="showCard-height" ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</div>
+                </div>
             </div>
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">车架号</span>
-            <input placeholder="输入" ng-model="carInfo.cjhm" type="text"  ng-pattern="/^[0-9a-zA-Z]+$/"/>
+            <input placeholder="输入" ng-focus="showCardList=false" ng-model="carInfo.cjhm" type="text"  ng-pattern="/^[0-9a-zA-Z]+$/"/>
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">公里数</span>
@@ -336,6 +323,11 @@
         <any class="item-input">
             <span class="input-label input-label-a">手机号</span>
             <input type="number" placeholder="必填" ng-model="carInfo.phone"/>
+        </any>
+
+        <any class="item-input">
+            <span class="input-label input-label-a">车型</span>
+            <input type="number" placeholder="输入" ng-model="carInfo.cx"/>
         </any>
 
     </div>
@@ -377,36 +369,36 @@
     <div class="tabs tabs-icon-top tabs-icon-top-line" style="border-top: 1px solid #1296db;">
         <a class="tab-item">
             <div>
-                <img style="width: 22px;height: 22px;margin-top: 5px;"
+                <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;"
                      src="../../../vendor/images/zsx/recever_hand_blue.png"/>
 
-                <div style="color: #1296db">车辆接待</div>
+                <div style="color: #1296db;height: 0.6rem;font-size: 1.2em;">车辆接待</div>
             </div>
 
         </a>
         <a class="tab-item">
-            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/factory_gray.png"/>
+            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/factory_gray.png"/>
 
-            <div>车间管理</div>
+            <div style="color: #515151;height: 0.6rem;font-size: 1.2em;">车间管理</div>
 
         </a>
         <a class="tab-item" ui-sref="CompanyTop">
-            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/condition_gray.png"/>
+            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/condition_gray.png"/>
 
-            <div style="color: #515151">整厂概况</div>
+            <div style="color: #515151;height: 0.6rem;font-size: 1.2em;">整厂概况</div>
 
         </a>
         <a class="tab-item">
-            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/msg_gray.png"/>
+            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/msg_gray.png"/>
 
-            <div>信息中心</div>
+            <div style="height: 0.6rem;font-size: 1.2em;">信息中心</div>
 
         </a>
 
         <a class="tab-item" ui-sref="workmore">
-            <img style="width: 22px;height: 22px;margin-top: 5px;" src="../../../vendor/images/zsx/setting_gray.png"/>
+            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/setting_gray.png"/>
 
-            <div style="color: #515151">设置</div>
+            <div style="color: #515151;height: 0.6rem;font-size: 1.2em;">设置</div>
 
         </a>
     </div>
@@ -436,5 +428,60 @@
                 返回接车
             </button>
         </div>
+    </div>
+</script>
+
+
+
+
+
+
+<script type="text/ng-template" id="modal9.html">
+    <div class="modal-top" align="center">
+        <div class="modal-body">
+            <div style="text-align: center;">
+
+                <div class="span_card_list text_inline">
+                    <ul class="home_ul">
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('闽')">闽</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('京')">京</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('津')">津</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('沪')">沪</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('渝')">渝</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('蒙')">蒙</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('新')">新</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('藏')">藏</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('宁')">宁</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('桂')">桂</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('港')">港</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('澳')">澳</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黑')">黑</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('吉')">吉</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('辽')">辽</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('晋')">晋</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('冀')">冀</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('青')">青</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鲁')">鲁</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('豫')">豫</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('苏')">苏</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('皖')">皖</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('浙')">浙</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('湘')">湘</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('鄂')">鄂</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('粤')">粤</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('琼')">琼</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('甘')">甘</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('陕')">陕</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('黔')">黔</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('滇')">滇</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('川')">川</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('临')">临</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('警')">警</a></li>
+                        <li class="home_li"><a class="home_li_a" ng-click="selectCard('测')">测</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </script>

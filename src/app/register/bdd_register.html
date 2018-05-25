@@ -34,20 +34,42 @@
     }
     .action-back{
 
-        width: 1rem;
-        height: 0.5rem;
-        background-image: url("../../../vendor/images/zsx/back_blue.png");
+
+        height: 1rem;
         background-repeat:no-repeat;
     }
-    .img-gray{
-        background-image: url("../../../vendor/images/zsx/back_gray.png");
+
+    .text-index{
+        display: inline-block;
+        vertical-align: middle;
     }
 </style>
 
+<!--
 <div class="bar bar-header bar-light bar-light-div">
-    <div  ng-click="goBackPage()" ng-touchstart="touchType=1" class="action-back {{touchType==1?'img-gray':'img-blue'}}" ng-touchmove="touchType=0"></div>
+    <div  ng-click="goBackPage()" ng-touchstart="touchType=1" class="action-back" ng-touchmove="touchType=0">
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+
+    </div>
     <h1 class="title"><span class="title-color">搜索车辆</span></h1>
 </div>
+-->
+
+
+<div class="bar bar-header bar-light">
+
+    <ion-header-bar align-title="left" class="bar-positive">
+        <div class="buttons">
+            <button class="button" ng-click="goBackPage()">返回</button>
+        </div>
+    </ion-header-bar>
+    <h1 class="title">搜索车辆</h1>
+</div>
+
+
+
 <ion-content>
 
     <div class="col-lg-6 bts-magin">

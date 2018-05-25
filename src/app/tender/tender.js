@@ -48,7 +48,9 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
 
 
 
-
+    $scope.goBackPage=function(){
+        history.back()
+    }
     $scope.toBjSelect = function () {
         ionicToast.show('没有权限', 'middle', false, 1000);
     }
@@ -64,7 +66,6 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         } else if (num == 3) {
             $scope.isShowCx = !isShowItem;
         } else if (num == 4) {
-            $scope.isShowGls = !isShowItem;
         } else if (num == 5) {
             $scope.isShowGzms = !isShowItem;
         } else if (num == 6) {

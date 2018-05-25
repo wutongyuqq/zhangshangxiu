@@ -180,7 +180,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             ionicToast.show('报修人必填', 'middle',false, 1000);
             return;
         }
-        if(upLoadInfo.phone==null||upLoadInfo.phone==""){
+        if(upLoadInfo.mobile==null||upLoadInfo.mobile==""){
             ionicToast.show('手机号必填', 'middle',false, 1000);
             return;
         }
@@ -380,7 +380,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
     $scope.showCardName = function(item){
         carInfo = item;
-        carInfo.phone = item.phone?Number(item.phone):"";
+        carInfo.mobile = item.phone?Number(item.mobile):"";
         carInfo.company_code=user.company_code;
         carInfo.cx=item.mc;
         carInfo.cardName=item.mc;

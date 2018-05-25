@@ -7,25 +7,65 @@
         background-size: 0px;
         border-bottom: 1px solid #1296db;
         display: block;
+        font-size: 1.2em;
+
     }
     .title-color {
         color: #3ca2dd;
     }
 
+
+    .btn-search {
+        background-color: #ff9db4;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+    }
+    .bts-magin {
+
+        width: 80%;
+        margin: 60px auto 0px auto;
+    }
+    .input-group{
+        height: 1rem;
+        font-size: 1.4em;
+    }
+    .action-back{
+
+        width: 1rem;
+        height: 0.5rem;
+        background-image: url("../../../vendor/images/zsx/back_blue.png");
+        background-repeat:no-repeat;
+    }
+    .img-gray{
+        background-image: url("../../../vendor/images/zsx/back_gray.png");
+    }
 </style>
 
 <div class="bar bar-header bar-light bar-light-div">
-    <button class="button-clear" onClick="javascript :history.back(-1);"><img src="../../../vendor/images/zsx/back_blue.png"></button>
-    <h1 class="title"><span class="title-color">选择项目</span></h1>
+    <div  ng-click="goBackPage()" ng-touchstart="touchType=1" class="action-back {{touchType==1?'img-gray':'img-blue'}}" ng-touchmove="touchType=0"></div>
+    <h1 class="title"><span class="title-color">搜索车辆</span></h1>
 </div>
 <ion-content>
 
+    <div class="col-lg-6 bts-magin">
+        <div class="input-group">
+            <input type="text"  class="form-control-a" ng-model="searchName" placeholder="姓名/卡号/手机号">
+      <span class="input-group-btn">
+        <button class="btn-search" ng-click="searchData(searchName)" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
+      </span>
+        </div>
+        <!-- /input-group -->
+    </div>
 
-    <!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
+
+   <!-- &lt;!&ndash; The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists &ndash;&gt;
     <label class="item item-input item-input-margin">
-        <input  placeholder="输入用户名" type="text" ng-model="searchName"/>
+        <input  placeholder="输入用户名/会员卡号/手机号码" type="text" ng-model="searchName"/>
     </label>
-    <button  class="button" ng-click="searchData(searchName)">搜索</button>
+    <button  class="button" ng-click="searchData(searchName)">搜索</button>-->
     <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="item in carListData"

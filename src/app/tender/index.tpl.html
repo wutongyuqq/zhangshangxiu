@@ -242,11 +242,10 @@
     .choose_back{
         background-color: lightgray;
     }
-
 </style>
 <div>
     <div class="bar bar-header bar-light bar-light-div">
-        <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+        <div class="action-back" ng-click="goBackHistory()"><img src="../../../vendor/images/zsx/back_blue.png"></div>
         <h1 class="title"><span class="title-color">项目选择</span></h1>
     </div>
     <div class="bar_second_pink">
@@ -272,7 +271,7 @@
 
     <div class="col-lg-6 bts-magin">
         <div class="input-group">
-            <input type="text" class="form-control-a" placeholder="姓名/卡号/手机号">
+            <input type="text"  ng-focus="toSelectPage()" class="form-control-a" placeholder="姓名/卡号/手机号">
       <span class="input-group-btn">
         <button class="btn-search" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
       </span>

@@ -316,11 +316,20 @@
     label{
         max-width: none;
     }
+    .action-back{
+
+        width: 1rem;
+        height: 0.5rem;
+        background-image: url("../../../vendor/images/zsx/back_blue.png");
+        background-repeat:no-repeat;
+    }
+    .img-gray{
+        background-image: url("../../../vendor/images/zsx/back_gray.png");
+    }
 </style>
-<div>
-    <div class="bar bar-header bar-light bar-light-div">
-        <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
-        <h1 class="title"><span class="title-color">配件选择</span></h1>
+
+<div class="bar bar-header bar-light bar-light-div">
+    <div  ng-click="goBackPage()" ng-touchstart="touchType=1" class="action-back {{touchType==1?'img-gray':'img-blue'}}" ng-touchmove="touchType=0"></div>      <h1 class="title"><span class="title-color">配件选择</span></h1>
     </div>
 
     <div class="home_tab_div">

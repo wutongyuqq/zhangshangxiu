@@ -219,7 +219,7 @@
 </style>
 <div>
     <div class="bar bar-header bar-light bar-light-div">
-         <button class="button-clear" onClick="javascript :history.back(-1);"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+         <div><img  ng-click="goBackPage()" src="../../../vendor/images/zsx/back_blue.png"/></div>
         <h1 class="title"><span class="title-color">业务导航</span></h1>
     </div>
     <div class="bar_second_pink">
@@ -244,7 +244,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left">期望提车时间</div>
-            <div class="text-inline text-right">   <input ng-change="updateCarInfo(isShowGzms,4)" class="claim_input" type="text" ng-model="queryBean.start_date" id="start_date" placeholder="选择起始日期" readonly="readonly"/></div>
+            <div class="text-inline text-right">   <input ng-change="updateCarInfo('',4)" class="claim_input" type="text" ng-model="queryBean.start_date" id="start_date" placeholder="选择起始日期" readonly="readonly"/></div>
 
         </div>
         <div class="border-color">

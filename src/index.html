@@ -16,6 +16,14 @@
     .container-fluid{
         padding: 0 0;
     }
+    .loading{
+        margin-top: 6rem;
+        margin-left: 4.5rem;
+    }
+    .action-back{
+        width: 1rem;
+        height: 100%;
+    }
 </style>
 
 
@@ -23,10 +31,12 @@
     <title>掌上修</title>
 </head>
 
-<body  class="container-fluid">
+<body  class="container-fluid" ng-controller="IndexCtrl">
 
 <ui-view class="ui_view_min_high"> </ui-view>
-
+<div class="loading" ng-show="busy"> <i class="fa fa-spin fa-spinner fa-lg"></i>
+    loading ...
+</div>
 <script>
     window.rootSrc = '/src/';
 

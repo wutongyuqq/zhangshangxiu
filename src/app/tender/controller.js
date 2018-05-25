@@ -1,4 +1,4 @@
-app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast) {
+app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast","$ionicNavBarDelegate", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast,$ionicNavBarDelegate) {
     var selt = this;
 
     var showType = 0;
@@ -15,6 +15,13 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     $scope.showMoreChange = function () {
         $scope.showMore = showType;
     }
+    $scope.goBackHistory = function() {
+        history.back();
+    };
+    $scope.toSelectPage=function(){
+        $state.go("Register");
+    }
+
     $scope.checked=0;
     var chooseItem = null;
     $scope.chooseProject = function (index,item) {
@@ -132,8 +139,9 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
 
 app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", "$modal", function ($http, $scope, $state, locals, ionicToast, $modal) {
     var selt = this;
-
-
+    $scope.goBackPage=function(){
+        history.back();
+    }
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
     $scope.showMoreView = function (showMore) {
@@ -156,36 +164,9 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         $state.go("home");
         return;
     }
-
-
     $scope.toProjectFactory = function () {
-        /* var params =
-         {
-         db:"mycon1",
-         function:"sp_fun_down_maintenance_project",
-         previous_xh:"0"
-         }
-         var jsonStr = angular.toJson(params);
-         $http({
-         method: 'post',
-         url: '/restful/pro',
-         dataType: "json",
-         data: jsonStr
-         }).success(function (data, status, headers, config) {
-         var state = data.state;
-         if (state == 'ok') {
-         // locals.setObject("carInfo",upLoadInfo);
-         }else {
-         ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
-         }
-         }).error(function(data){
-         ionicToast.show("服务异常");
-         });*/
         $state.go("TenderDtail");
-
     }
-
-
     $scope.repairDataList = [];
     $scope.getRepairListData = function () {
         var carInfo = locals.getObject("carInfo");
@@ -441,15 +422,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         }, function () {
 
         });
-
-
-
-
-
-
-
     }
-
     $scope.addTempProject = function () {
         var firstIconArr = locals.getObject("firstIconArr");
         data = firstIconArr;
@@ -516,6 +489,9 @@ app.controller('modalAddTempCtrl', function ($scope, $state, $modalInstance, loc
     tempData.wxcb = "";
     tempData.xmjg = "";
     tempData.xmlb = "";
+    $scope.goBackPage=function(){
+        history.back();
+    }
     $scope.tempData = tempData;
     //在这里处理要进行的操作
     $scope.ok = function (tempData) {
@@ -570,6 +546,9 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
     $scope.carInfo = carInfo;
     var user = locals.getObject("user");
     $scope.showMore = 0;
+    $scope.goBackPage=function(){
+        history.back();
+    }
     $scope.showSelectMore = 0;
     var params = {
         db: "mycon1",
@@ -705,7 +684,9 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
     $scope.showDetailPro = function () {
         $scope.showMore = 2;
     }
-
+    $scope.goBackPage=function(){
+        history.back();
+    }
     $scope.pgDataList = [];
     //获取派工列表
     $scope.getPgListData = function () {
@@ -863,6 +844,9 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
     $scope.carInfo = carInfo;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    $scope.goBackPage=function(){
+        history.back();
+    }
     $scope.getDateTime = function () {
         var now = new Date();
         var year = now.getFullYear();

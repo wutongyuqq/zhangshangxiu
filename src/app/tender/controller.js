@@ -405,9 +405,48 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             }).error(function (data) {
                 ionicToast.show("服务异常");
             });
+
+
+            if(resData.isNewPrice) {
+
+                var params = {
+                    db: "mycon1",
+                    function: "sp_fun_upload_maintenance_project_detail",
+                    xlxm: resData.xlxm,
+                    wxgz: resData.wxgz,
+                    xlf: resData.xlf
+                }
+                var jsonStr = angular.toJson(params);
+                $scope.xlfTotal = 0;
+                $scope.numZk = 0;
+                $http({
+                    method: 'post',
+                    url: '/restful/pro',
+                    dataType: "json",
+                    data: jsonStr
+                }).success(function (data, status, headers, config) {
+                    var state = data.state;
+                    if (state == 'ok') {
+
+
+                    } else {
+                        ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    }
+                }).error(function (data) {
+                    ionicToast.show("服务异常");
+                });
+
+            }
+
         }, function () {
 
         });
+
+
+
+
+
+
 
     }
 
@@ -509,13 +548,14 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
     $scope.xlxm = dataD.xlxm;
     $scope.wxgz = dataD.wxgz;
     $scope.xlf = dataD.xlf;
-
+    $scope.isNewPrice = true;
     //在这里处理要进行的操作
-    $scope.ok = function (xlxm, wxgz, xlf) {
+    $scope.ok = function (xlxm, wxgz, xlf,isNewPrice) {
         var resData = new Object();
         resData.xlxm = xlxm;
         resData.wxgz = wxgz;
         resData.xlf = xlf;
+        resData.isNewPrice = isNewPrice;
         $modalInstance.close(resData);
     };
     $scope.cancel = function () {

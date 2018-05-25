@@ -576,14 +576,14 @@
                 <div class="model-margin-top"><div style="display: inline-block">&#12288;项&#12288;&#12288;目:</div><div style="display: inline-block"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="xlxm"/></div></div>
                 <div class="model-margin-top"><div style="display: inline-block">&#12288;维修工作:</div><div style="display: inline-block"><input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="wxgz"/></div></div>
                 <div class="model-margin-top"><div style="display: inline-block">&#12288;价&#12288;&#12288;格:</div><div style="display: inline-block"><input style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="xlf"/></div></div>
-                <div class="model-margin-top"><div style="display: inline-block">保存新价格:</div><div style="display: inline-block"><input type="checkbox" style="width:10px;height:10px" ng-model="isNewPrice"/></div></div>
+                <div class="model-margin-top"><div style="display: inline-block">保存新价格:</div><div style="display: inline-block"><input type="checkbox" style="width:10px;height:10px" checked="isNewPrice" ng-model="isNewPrice"/></div></div>
             </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="cancel()" >
                 取消
             </button>
-            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem">
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf,isNewPrice)" style="margin-left: 2rem">
                 确定
             </button>
         </div>

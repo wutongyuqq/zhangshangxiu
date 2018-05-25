@@ -194,7 +194,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 company_code:user.company_code,
                 plate_number:upLoadInfo.cardName,
                 cz:upLoadInfo.cz,
-                mobile:upLoadInfo.mobile,
+                mobile:upLoadInfo.mobile+'',
                 phone: upLoadInfo.phone+'',
                 linkman:upLoadInfo.linkman,
                 custom5:upLoadInfo.custom5,
@@ -230,7 +230,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 db:"mycon1",
                 function:"sp_fun_update_customer_info",
                 cz:upLoadInfo.cz,
-                mobile:upLoadInfo.mobile,
+                mobile:upLoadInfo.mobile+'',
                 phone: upLoadInfo.phone+'',
                 linkman:upLoadInfo.linkman,
                 custom5:upLoadInfo.custom5,
@@ -324,7 +324,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             company_code:user.company_code,
             plate_number:upLoadInfo.cardName,
             cz:upLoadInfo.cz,
-            mobile:upLoadInfo.mobile,
+            mobile:upLoadInfo.mobile+'',
             phone: upLoadInfo.phone+'',
             linkman:upLoadInfo.linkman,
             custom5: upLoadInfo.custom5,
@@ -333,7 +333,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             fdjhm:upLoadInfo.fdjhm,
             ns_date:dateTime,
             oprater_code:userName,
-            xllb:"保养",
+            xllb:"",
             jclc:upLoadInfo.gls,
             ywg_date:dateTime,
             keys_no:upLoadInfo.ysph,
@@ -480,8 +480,8 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                         }
                     }
                 }
-                $scope.getIconData();
             }
+            $scope.getIconData();
         }).error(function (data) {
             ionicToast.show("服务异常");
         });

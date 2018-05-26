@@ -64,9 +64,6 @@
         vertical-align: middle;
     }
 
-
-
-
     .tb_content_b > td {
         text-align: center;
         padding-top: 0.6rem;
@@ -82,36 +79,104 @@
         padding-top: 0.2rem;
     }
 
-    input[type=text]{
+    input[type=text] {
         display: inline-block;
         height: 0.7rem;
         line-height: 0.7rem;
     }
-    .first-line-text{
+
+    .first-line-text {
         margin-left: 0.5rem;
     }
-    .expect-time{
+
+    .expect-time {
         margin-left: 0.5rem;
     }
-    .first-line-text{
+
+    .first-line-text {
         font-size: 1.2em;
-        font-weight: 600;margin-top: 0.5rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
     }
-    .text-left{
-        width: 2rem;
+
+    .text-left {
+        width: 3rem;
         text-align: right;
         margin-left: 1.2rem;
     }
-    .text-right{
+
+    .text-right {
         width: 5rem;
         text-align: left;
     }
-.second-line-txt{
-    margin-top: 0.3rem;
-}
-    .content-line-txt{
+
+    .second-line-txt {
+        margin-top: 0.3rem;
+    }
+
+    .content-line-txt {
         font-size: 1.2em;
-        font-size: 500;
+        font-weight: 500;
+    }
+
+    .tcxm-tb{
+
+        width: 10rem;
+        margin-top: 0.5rem;
+        font-size: 1.2em;
+
+    }
+    .div-margin-top{
+        width: 100%;
+        text-align: center;
+    }
+    .qz-div{
+        margin-top: 0.5rem;
+        font-size: 1.2em;
+
+    }
+    .qz-div>.qz-left-a{
+        margin-top: 0.2rem;
+        margin-left: 0.5rem;
+
+    }
+    .qz-div>.qz-left-b{
+        margin-top: 0.2rem;
+        margin-left: 1rem;
+    }
+  .confirm-div {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    display: block;
+    background-color: white;
+}
+    .confirm-a {
+        vertical-align: middle;
+
+    }
+
+    .confirm-nav-btn {
+        width: 3rem;
+        background-color: #89c997;
+        padding: 8px 10px;
+        color: white;
+        border-radius: 5px;
+        margin-left: 0.2rem;
+        margin-top: 0.5rem;
+    }
+    .confirm-nav-btn-a {
+        width:100%;
+        background-color: #89c997;
+        padding: 8px 10px;
+        color: white;
+    }
+    .text-inline {
+        display: inline-block;
     }
 
 </style>
@@ -129,24 +194,119 @@
         <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
     </div>
 
-    <div class="text_inline first-line-text">委托单号：GD201801011001</div><div class="first-line-text text_inline expect-time">期望提车时间：2018-03-01</div>
-    <div class="second-line-txt content-line-txt"><div class="text_inline text-left">车行名称：</div><div class="text_inline text-right">福州市仓山区白云路29号</div></div>
-    <div class="content-line-txt"><div class="text_inline text-left">车行电话：</div><div class="text_inline text-right">0591-66668888</div></div>
-    <div class="content-line-txt"> <div class="text_inline text-left">客户名称：</div><div class="text_inline text-right">王总</div></div>
-    <div class="content-line-txt"> <div class="text_inline text-left">车牌：</div><div class="text_inline text-right">湘A11011</div></div>
-    <div class="content-line-txt"> <div class="text_inline text-left">车型：</div><div class="text_inline text-right">宝马X6</div></div>
-    <div class="content-line-txt"> <div class="text_inline text-left">进厂里程：</div><div class="text_inline text-right">8000公里</div></div>
-    <div class="content-line-txt"> <div class="text_inline text-left">故障描述：</div><div class="text_inline text-right">机械故障</div></div>
-<div>
-   <table>
-       <tr><td>套餐已抵扣项目</td><td>本次使用</td></tr>
+    <div class="text_inline first-line-text">委托单号：{{jsd_id}}</div>
+    <div class="first-line-text text_inline expect-time">期望提车时间：{{ticheTime}}</div>
+    <div class="second-line-txt content-line-txt">
+        <div class="text_inline text-left">修理厂名称：</div>
+        <div class="text_inline text-right">福州市仓山区白云路29号</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">维修结算清单：</div>
+        <div class="text_inline text-right">{{jsd_id}}</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">客户名称：</div>
+        <div class="text_inline text-right">{{gdData.cz}}</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">车牌：</div>
+        <div class="text_inline text-right">{{gdData.cp}}</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">车架号：</div>
+        <div class="text_inline text-right">{{gdData.cx}}</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">车型：</div>
+        <div class="text_inline text-right">{{gdData.jclc}}</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">进厂里程：</div>
+        <div class="text_inline text-right">{{gdData.jclc}}</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">结算单号：</div>
+        <div class="text_inline text-right">{{gdData.jclc}}</div>
+    </div>
+    <div class="content-line-txt">
+        <div class="text_inline text-left">故障描述：</div>
+        <div class="text_inline text-right">{{gdData.jclc}}</div>
+    </div>
+    <div class="div-margin-top">
 
 
-   </table>
 
-</div>
+        <table class="tcxm-tb">
+            <tr>
+                <td>工时项目</td>
+                <td>项目费用</td>
+                <td>应收金额</td>
+            </tr>
+            <tr>
+                <td>轿车洗车</td>
+                <td>￥25.0</td>
+                <td>￥0.5</td>
+            </tr>
+            <tr>
+                <td>工时总价</td>
+                <td>￥25.0</td>
+                <td>￥0.5</td>
+            </tr>
+        </table>
+
+        <table class="tcxm-tb">
+            <tr>
+                <td>材料项目</td>
+                <td>数量</td>
+                <td>材料费用</td>
+                <td>应收金额</td>
+            </tr>
+            <tr>
+                <td>洗车拖把</td>
+                <td>1</td>
+                <td>￥0.0</td>
+                <td>￥0.0</td>
+            </tr>
+            <tr>
+                <td>工时总价</td>
+                <td>￥25.0</td>
+                <td></td>
+                <td>￥0.0</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="qz-div">
+        <div class="qz-left-a">客户签字：</div>
+        <div class="qz-left-a">接待签字：</div>
+        <div class="qz-left-b">日期：</div>
+        <div class="qz-left-b">备注：</div>
+        <div class="qz-left-b">打印时间：2018-05-09</div>
+
+    </div>
 
 
+
+    <div class="confirm-div">
+        <div class="text-inline confirm-a confirm-nav-btn">
+            单联打印
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn" >
+            双联打印
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn">
+            取消结算
+        </div>
+        <div style="width: 100%;background-color: #eeeeee;text-align: left;padding-left: 2rem;font-size: 1.2em;">
+            <div class="text_inline" style="padding-top: 0.2rem;text-align: left;">预收款:￥0.0</div>
+            <div class="text_inline" style="padding-top: 0.2rem;text-align: left;margin-left: 2rem;">应收总计:￥25.0</div>
+            <div style="margin-top: 0.2rem;padding-bottom: 0.2rem;width: 100%;text-align: left;">实收:￥0.5</div>
+        </div>
+
+        <div class="text-inline confirm-a confirm-nav-btn-a" ui-sref="WinBid">
+            收银
+        </div>
+    </div>
 
 
 </div>

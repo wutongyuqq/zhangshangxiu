@@ -5,8 +5,9 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     if(user==null||user.userName==null){
         $state.go("Login");
     }
+    $scope.showFootTab=true;
     var userName = user.userName;
-
+    locals.set("gonglishu","");
     $scope.showCardList = false;
     var carInfo = new Object();
     carInfo.company_code="";
@@ -186,6 +187,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         }
 
         upLoadInfo.cardName = $scope.proName + $scope.carInfo.shortCardName;
+        locals.set("gonglishu",upLoadInfo.gls==null?"":upLoadInfo.gls);
         var isNewCar = $scope.judgeNewCar(upLoadInfo.cardName);
         if(isNewCar){
             var params = {
@@ -334,7 +336,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             ns_date:dateTime,
             oprater_code:userName,
             xllb:"",
-            jclc:upLoadInfo.gls,
+            jclc:upLoadInfo.gls+"",
             ywg_date:dateTime,
             keys_no:upLoadInfo.ysph,
             memo:upLoadInfo.ywtx,

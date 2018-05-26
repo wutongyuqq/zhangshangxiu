@@ -250,10 +250,17 @@
     }
 </style>
 
-<div class="bar bar-header bar-light bar-light-div">
-    <div  ng-click="goBackPage()" ng-touchstart="touchType=1" class="action-back {{touchType==1?'img-gray':'img-blue'}}" ng-touchmove="touchType=0"></div>
-        <h1 class="title"><span class="title-color">派工</span></h1>
+<div>
+    <div class="bar bar-header bar-light">
+
+        <ion-header-bar align-title="left" class="bar-positive"  style="background-color: transparent;border-bottom: 1px solid blue">
+            <div class="buttons">
+                <button class="button" ng-click="goBackPage()">返回</button>
+            </div>
+        </ion-header-bar>
+        <h1 class="title">派工</h1>
     </div>
+
 
     <div class="bar_second_pink_a">
         <div>工单单号：GD2017080801010018</div>

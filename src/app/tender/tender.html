@@ -218,10 +218,24 @@
 
 </style>
 <div>
-    <div class="bar bar-header bar-light bar-light-div">
+    <!--<div class="bar bar-header bar-light bar-light-div">
          <div><img  ng-click="goBackPage()" src="../../../vendor/images/zsx/back_blue.png"/></div>
         <h1 class="title"><span class="title-color">业务导航</span></h1>
     </div>
+-->
+
+    <div class="bar bar-header bar-light">
+
+        <ion-header-bar align-title="left" class="bar-positive"  style="background-color: transparent;border-bottom: 1px solid blue">
+            <div class="buttons" style="background-color: transparent">
+                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+            </div>
+        </ion-header-bar>
+        <h1 class="title">业务导航</h1>
+    </div>
+
+
+
     <div class="bar_second_pink">
         <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
         <div class="color-white bar-white-home">{{carInfo.cz}}</div>
@@ -244,7 +258,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left">期望提车时间</div>
-            <div class="text-inline text-right">   <input ng-change="updateCarInfo('',4)" class="claim_input" type="text" ng-model="queryBean.start_date" id="start_date" placeholder="选择起始日期" readonly="readonly"/></div>
+            <div class="text-inline text-right">   <input ng-change="updateCarInfo('',4)" class="claim_input" type="text" ng-model="carInfo.ticheTime" id="start_date" placeholder="选择起始日期" readonly="readonly"/></div>
 
         </div>
         <div class="border-color">

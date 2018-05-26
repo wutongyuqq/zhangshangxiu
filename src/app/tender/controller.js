@@ -144,12 +144,34 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     }
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+
+    $scope.ticheTime = locals.get("ticheTime");
+    $scope.gonglishu = locals.get("gonglishu");
+    $scope.guzhangDes = locals.get("guzhangDes");
     $scope.showMoreView = function (showMore) {
         $scope.showMore = showMore;
         $scope.showSelectMore = showMore;
     }
     $scope.showDetailPro = function () {
         $scope.showMore = 2;
+    };
+    $scope.showInputGls = false;
+    $scope.showKell= function(showInputGls){
+        $scope.showInputGls = !showInputGls;
+        locals.set("gonglishu", $scope.gonglishu);
+
+    }
+    $scope.showTicheTime = false;
+    $scope.showTiche= function(showTicheTime){
+        $scope.showTicheTime = !showTicheTime;
+        locals.set("ticheTime", $scope.ticheTime);
+
+    }
+    $scope.showGuzhang = true;
+    $scope.showGuzhangT= function(showGuzhang){
+        $scope.showGuzhang = !showGuzhang;
+        locals.set("guzhangDes", $scope.guzhangDes);
+
     }
     $scope.toPjkSelect = function () {
         $state.go("TenderSay");
@@ -257,6 +279,8 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
         });
     }
+
+    //获取配件列表
     $scope.pjDataList = [];
     $scope.pjTotal = 0;
     $scope.numPj = 0;
@@ -277,7 +301,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             if (state == 'ok') {
                 var pjDataList = data.data;
                 $scope.pjDataList = pjDataList;
-
+                locals.setObject("pjDataList",pjDataList);
 
                 var numMoney = 0;
                 var numZk = 0;
@@ -360,32 +384,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         });
 
         modalInstance.result.then(function (resData) {
-            var params = {
-                db: "mycon1",
-                function: "sp_fun_upload_maintenance_project_library",
-                xlxm: resData.xlxm,
-                wxgz: resData.wxgz,
-                xlf: resData.xlf
-            }
-            var jsonStr = angular.toJson(params);
-            $scope.xlfTotal = 0;
-            $scope.numZk = 0;
-            $http({
-                method: 'post',
-                url: '/restful/pro',
-                dataType: "json",
-                data: jsonStr
-            }).success(function (data, status, headers, config) {
-                var state = data.state;
-                if (state == 'ok') {
 
-
-                } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
-                }
-            }).error(function (data) {
-                ionicToast.show("服务异常");
-            });
 
 
             if(resData.isNewPrice) {
@@ -417,6 +416,34 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     ionicToast.show("服务异常");
                 });
 
+            }else{
+                var params = {
+                    db: "mycon1",
+                    function: "sp_fun_upload_maintenance_project_library",
+                    xlxm: resData.xlxm,
+                    wxgz: resData.wxgz,
+                    xlf: resData.xlf
+                }
+                var jsonStr = angular.toJson(params);
+                $scope.xlfTotal = 0;
+                $scope.numZk = 0;
+                $http({
+                    method: 'post',
+                    url: '/restful/pro',
+                    dataType: "json",
+                    data: jsonStr
+                }).success(function (data, status, headers, config) {
+                    var state = data.state;
+                    if (state == 'ok') {
+                        $state.go("Winbding");
+
+                    } else {
+                        ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    }
+                }).error(function (data) {
+                    ionicToast.show("服务异常");
+                });
+
             }
 
         }, function () {
@@ -439,6 +466,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         });
 
         modalInstance.result.then(function (tempData) {
+
             var jsd_id = locals.get("jsd_id");
             var params = {
 
@@ -558,6 +586,9 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
         cd: "",
         ck: ""
     }
+    var pjKucun = locals.getObject("pjKucun");
+    $scope.dataList = pjKucun;
+    if(pjKucun==null||pjKucun.length==null||pjKucun.length==0){
     $http({
         method: 'post',
         url: '/restful/pro',
@@ -568,14 +599,17 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 
         var state = data.state;
         if (state == 'ok') {
-            $scope.dataList = data.data;
-            // locals.setObject("carInfo",upLoadInfo);
+            var pjKucun = data.data;
+            $scope.dataList = pjKucun;
+             locals.setObject("pjKucun",pjKucun);
+            locals.setObject("newPjDataList",pjKucun);
         } else {
             ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
         }
     }).error(function (data) {
         ionicToast.show("服务异常");
     });
+    }
     $scope.showMoreView = function (showMore) {
         $scope.showMore = showMore;
         $scope.showSelectMore = showMore;
@@ -597,6 +631,23 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
                 checkedNum = 0;
             }
         })
+    }
+    $scope.pjName="";
+    $scope.selectFromRes=false;
+    $scope.searchPjName=function(pjName){
+        var pjKucun = locals.getObject("pjKucun");
+        if($scope.selectFromRes){
+            pjKucun =  locals.getObject("newPjDataList");
+        }
+        var newPjList = new Array();
+        for(var i=0;i<pjKucun.length;i++){
+            var pjItem = pjKucun[i];
+            if(pjItem.pjmc!=null && pjItem.pjmc.indexOf(pjName)!=-1){
+                newPjList.push(pjItem);
+            }
+        }
+        locals.setObject("newPjDataList",newPjList);
+        $scope.dataList = newPjList;
     }
     $scope.checkPjkItem = function (index) {
 
@@ -665,6 +716,102 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
         }).error(function (data) {
             ionicToast.show("服务异常");
         });
+    }
+    var oData = new Object();
+    $scope.oData = oData;
+    $scope.tempAddDataList=[];
+    $scope.addTempPj=function(){
+        var item = new Object();
+        item.pjmc = "";
+        item.cb = "";
+        item.ssj = "";
+        item.sl = "";
+        $scope.tempAddDataList.push(item);
+    }
+
+
+
+    var postPjTempSize =0;
+    var postTempPjNum =0;
+    $scope.makeSureTempPei=function(){
+        var oData = $scope.oData;
+        $scope.tempAddDataList.push(oData);
+        var tempAddDataList = $scope.tempAddDataList;
+
+        postPjTempSize = tempAddDataList.length;
+        angular.forEach(tempAddDataList, function (value) {
+            postTempPjNum++;
+                $scope.addToTempGdServer(value);
+        })
+    }
+
+
+
+
+    $scope.addToTempGdServer = function (item) {
+
+
+        var jsd_id = locals.get("jsd_id");
+        var params =
+        {
+            db: "mycon1",
+            function: "sp_fun_upload_parts_project_detail",
+            jsd_id: jsd_id,
+            pjbm: item.pjbm,
+            pjmc: item.pjmc,
+            ck: item.ck,
+            cd: item.cd,
+            cx: item.cx,
+            dw: item.dw,
+            property: item.property,
+            zt: "急件销售",
+            ssj: item.ssj,
+            cb: item.cb,
+            sl: item.sl,
+            xh: item.xh,
+            comp_code: user.company_code
+        }
+
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: angular.toJson(params)
+        }).success(function (data, status, headers, config) {
+
+            if (postTempPjNum == postPjTempSize) {
+                $state.go("Winbding");
+            }
+            console.log(data);
+        }).error(function (data) {
+            ionicToast.show("服务异常");
+        });
+    }
+
+
+    var zdPjData=new Object();
+    $scope.zdPjData = zdPjData;
+    $scope.zdPeijianList = [];
+
+    $scope.addZdPj = function(){
+        var item=new Object();
+        item.pjmc="";
+        item.sl="";
+        $scope.zdPeijianList.push(item);
+    }
+
+    $scope.makeSureZdPei=function(){
+        postTempPjNum =0;
+        var oData = $scope.zdPjData;
+        $scope.zdPeijianList.push(oData);
+        var tempAddDataList = $scope.zdPeijianList;
+
+        postPjTempSize = tempAddDataList.length;
+        angular.forEach(tempAddDataList, function (value) {
+            postTempPjNum++;
+            $scope.addToTempGdServer(value);
+        })
+
     }
 
 

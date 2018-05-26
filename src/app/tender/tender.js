@@ -1,7 +1,7 @@
 app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToast", "$modal",function ($http, $scope, $state,  locals, ionicToast,$modal) {
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
-
+    locals.set("ticheTime","");
     var projectPer = locals.getObject("10600");
     $scope.projectPer = projectPer;
     $scope.toProjectSelect = function () {
@@ -66,6 +66,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         } else if (num == 3) {
             $scope.isShowCx = !isShowItem;
         } else if (num == 4) {
+            locals.set("ticheTime",$scope.carInfo.ticheTime);
         } else if (num == 5) {
             $scope.isShowGzms = !isShowItem;
         } else if (num == 6) {

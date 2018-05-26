@@ -22,7 +22,7 @@
     .bts-magin {
 
         width: 80%;
-        margin: 60px auto 0px auto;
+        margin: 44px auto 0px auto;
     }
 
     .bar-light-div {
@@ -49,7 +49,6 @@
         padding: 0 0;
         width: 100%;
         height: 1rem;
-        margin-top: 0.55rem;
 
     }
 
@@ -274,7 +273,10 @@
         <!--  <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>-->
         <h1 class="title"><span class="title-color">车辆接待</span></h1>
     </div>
-    <div class="col-lg-6 bts-magin">
+    <div class="bts-magin" style="width: 100%;height: auto;"><img  style="width: 100%;height: auto;" src="../../../vendor/images/zsx/take_photo.png"></div>
+    <div  style="width: 100%;text-align: center">拍摄车牌</div>
+
+    <div class="col-lg-6" style="margin-top: 0.1rem;width: 8rem;margin-left: 1.4rem">
         <div class="input-group">
             <input type="text" ng-focus="toSelectPage()" class="form-control-a" placeholder="姓名/卡号/手机号">
       <span class="input-group-btn">
@@ -302,7 +304,7 @@
 
             </span>
             <div class="text_inline">
-            <input placeholder="必填" type="text" ng-model="carInfo.shortCardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
+            <input class="kepybord-listen"  placeholder="必填" type="text" ng-model="carInfo.shortCardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
                 <div class="card_ul"  ng-show="showCardList">
                     <div class="showCard-height" ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</div>
                 </div>
@@ -310,24 +312,24 @@
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">车架号</span>
-            <input placeholder="输入" ng-focus="showCardList=false" ng-model="carInfo.cjhm" type="text"  ng-pattern="/^[0-9a-zA-Z]+$/"/>
+            <input class="kepybord-listen" placeholder="输入" ng-focus="showCardList=false" ng-model="carInfo.cjhm" type="text"  ng-pattern="/^[0-9a-zA-Z]+$/"/>
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">公里数</span>
-            <input placeholder="输入" ng-model="carInfo.gls" type="text">
+            <input class="kepybord-listen" type="number"  placeholder="输入" ng-model="carInfo.gls" type="text">
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">送修人</span>
-            <input placeholder="必填" ng-model="carInfo.linkman" type="text">
+            <input class="kepybord-listen" placeholder="必填" ng-model="carInfo.linkman" type="text">
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">手机号</span>
-            <input type="number" placeholder="必填" ng-model="carInfo.mobile"/>
+            <input class="kepybord-listen" type="number" placeholder="必填" ng-model="carInfo.mobile"/>
         </any>
 
         <any class="item-input">
             <span class="input-label input-label-a">车型</span>
-            <input type="text" placeholder="输入" ng-model="carInfo.cx"/>
+            <input class="kepybord-listen" type="text" placeholder="输入" ng-model="carInfo.cx"/>
         </any>
 
     </div>
@@ -336,19 +338,19 @@
     <div ng-show="showMore==1" class="input-left-div">
         <any class="item-input">
             <span class="input-label input-label-a">推荐人</span>
-            <input placeholder="输入" ng-model="carInfo.custom5" type="text">
+            <input class="kepybord-listen" placeholder="输入" ng-model="carInfo.custom5" type="text">
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">故障描述</span>
-            <input placeholder="输入" ng-model="carInfo.gzms"  type="text">
+            <input class="kepybord-listen" placeholder="输入" ng-model="carInfo.gzms"  type="text">
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">钥匙牌号</span>
-            <input placeholder="输入" ng-model="carInfo.ysph"  type="text">
+            <input class="kepybord-listen" placeholder="输入" ng-model="carInfo.ysph"  type="text">
         </any>
         <any class="item-input">
             <span class="input-label input-label-a">备注</span>
-            <input placeholder="输入" ng-model="carInfo.ywtx" type="text">
+            <input class="kepybord-listen" placeholder="输入" ng-model="carInfo.ywtx" type="text">
         </any>
 
     </div>
@@ -366,39 +368,39 @@
 
     </div>
 
-    <div class="tabs tabs-icon-top tabs-icon-top-line" style="border-top: 1px solid #1296db;">
+    <div class="tabs tabs-icon-top tabs-icon-top-line bar-footer" keyboardshow style="border-top: 1px solid #1296db;height: 1.4rem">
         <a class="tab-item">
             <div>
                 <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;"
                      src="../../../vendor/images/zsx/recever_hand_blue.png"/>
 
-                <div style="color: #1296db;height: 0.6rem;font-size: 1.2em;">车辆接待</div>
+                <div style="color: #1296db;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">车辆接待</div>
             </div>
 
         </a>
         <a class="tab-item">
             <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/factory_gray.png"/>
 
-            <div style="color: #515151;height: 0.6rem;font-size: 1.2em;">车间管理</div>
+            <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">车间管理</div>
 
         </a>
         <a class="tab-item" ui-sref="CompanyTop">
             <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/condition_gray.png"/>
 
-            <div style="color: #515151;height: 0.6rem;font-size: 1.2em;">整厂概况</div>
+            <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">整厂概况</div>
 
         </a>
         <a class="tab-item">
             <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/msg_gray.png"/>
 
-            <div style="height: 0.6rem;font-size: 1.2em;">信息中心</div>
+            <div style="height: 0.6rem;font-size: 1.8em;margin-top: 5px;">信息中心</div>
 
         </a>
 
         <a class="tab-item" ui-sref="workmore">
             <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/setting_gray.png"/>
 
-            <div style="color: #515151;height: 0.6rem;font-size: 1.2em;">设置</div>
+            <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">设置</div>
 
         </a>
     </div>
@@ -484,4 +486,52 @@
         </div>
 
     </div>
+</script>
+
+<script>
+    /**
+     * 解决android键盘弹出遮挡input
+     */
+
+    var winHeight = $(window).height();   //获取当前页面高度
+    $(window).resize(function(){
+        var thisHeight=$(this).height();
+        if(winHeight - thisHeight >50){
+            $(".bar-footer").hide();
+            $(".btn_width_div").hide();
+        }else{
+            $(".bar-footer").show();
+            $(".btn_width_div").show();
+        }
+    });
+
+
+
+    /**
+     * 解决ios键盘弹出遮挡input
+     */
+    function iosInput() {
+
+            $('.bar-footer').css('position','absolute');
+            //解决第三方软键盘唤起时底部input输入框被遮挡问题
+            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+            $(".kepybord-listen").focus(function(){//在这里‘input.inputframe’是我的底部输入栏的输入框，当它获取焦点时触发事件
+                interval = setInterval(function(){//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                },100)
+            }).blur(function(){//设定输入框失去焦点时的事件
+                clearInterval(interval);//清除计时器
+                document.body.scrollTop = bfscrolltop-20;
+                //将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
+            });
+
+    }
+    iosInput();
+
+  /*  function isIos(){
+        var u = navigator.userAgent;
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        return isiOS;
+    }*/
+
 </script>

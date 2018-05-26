@@ -328,8 +328,15 @@
     }
 </style>
 
-<div class="bar bar-header bar-light bar-light-div">
-    <div  ng-click="goBackPage()" ng-touchstart="touchType=1" class="action-back {{touchType==1?'img-gray':'img-blue'}}" ng-touchmove="touchType=0"></div>      <h1 class="title"><span class="title-color">配件选择</span></h1>
+<div>
+    <div class="bar bar-header bar-light">
+
+        <ion-header-bar align-title="left" class="bar-positive"  style="background-color: transparent;border-bottom: 1px solid blue">
+            <div class="buttons" style="background-color: transparent">
+                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+            </div>
+        </ion-header-bar>
+        <h1 class="title">配件选择</h1>
     </div>
 
     <div class="home_tab_div">
@@ -352,9 +359,9 @@
 
         <div class="col-lg-6 bts-magin">
             <div class="input-group">
-                <input type="text" class="form-control-a" placeholder="输入配件名称">
+                <input type="text" class="form-control-a" ng-model="pjName" placeholder="输入配件名称">
                 <span class="input-group-btn">
-        <button class="btn-search" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
+        <button class="btn-search" type="button" ng-click="searchPjName(pjName)"><img src="../../../vendor/images/zsx/search_white.png"></button>
       </span>
             </div>
             <!-- /input-group -->
@@ -460,25 +467,42 @@
         <div class="temp-pj-div">
             <div class="text-pj-line">
                 <div class="text-inline">名称：</div>
-                <input class="text-inline temp-pj-white-back"/>
+                <input   ng-model="oData.pjmc"  class="text-inline temp-pj-white-back"/>
             </div>
             <div class="text-pj-line">
                 <div class="text-inline">进价：</div>
-                <input class="text-inline temp-pj-white-back"/>
+                <input   ng-model="oData.cb" class="text-inline temp-pj-white-back"/>
             </div>
             <div class="text-pj-line">
                 <div class="text-inline">销价：</div>
-                <input class="text-inline temp-pj-white-back"/>
+                <input ng-model="oData.ssj" class="text-inline temp-pj-white-back"/>
             </div>
             <div class="text-pj-line">
                 <div class="text-inline">数量：</div>
-                <input class="text-inline temp-pj-white-back"/>
+                <input  ng-model="oData.sl"  class="text-inline temp-pj-white-back"/>
             </div>
-
-
         </div>
 
 
+
+        <div class="temp-pj-div" ng-repeat="item in tempAddDataList">
+            <div class="text-pj-line">
+                <div class="text-inline">名称：</div>
+                <input ng-model="item.pjmc" class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">进价：</div>
+                <input  ng-model="item.cb"  class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">销价：</div>
+                <input  ng-model="item.ssj"  class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">数量：</div>
+                <input  ng-model="item.sl"  class="text-inline temp-pj-white-back"/>
+            </div>
+        </div>
     </div>
 
 
@@ -487,11 +511,22 @@
         <div class="temp-pj-div">
             <div class="text-pj-line">
                 <div class="text-inline">名称：</div>
-                <input class="text-inline temp-pj-white-back"/>
+                <input  ng-model="zdPjData.pjmc" class="text-inline temp-pj-white-back"/>
             </div>
             <div class="text-pj-line">
                 <div class="text-inline">数量：</div>
-                <input class="text-inline temp-pj-white-back"/>
+                <input  ng-model="zdPjData.sl" class="text-inline temp-pj-white-back"/>
+            </div>
+        </div>
+
+        <div class="temp-pj-div" ng-repeat="item in zdPeijianList">
+            <div class="text-pj-line">
+                <div class="text-inline">名称：</div>
+                <input ng-model="item.pjmc" class="text-inline temp-pj-white-back"/>
+            </div>
+            <div class="text-pj-line">
+                <div class="text-inline">数量：</div>
+                <input  ng-model="item.sl" class="text-inline temp-pj-white-back"/>
             </div>
         </div>
     </div>
@@ -512,10 +547,10 @@
 
 
     <div class="confirm-div" ng-show="showSelectMore==1">
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn" ng-click="addTempPj()">
             再加一个
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn"  ng-click="makeSureTempPei()">
             确定
         </div>
 
@@ -525,10 +560,10 @@
 
 
     <div class="confirm-div" ng-show="showSelectMore==2">
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn"  ng-click="addZdPj()">
             再加一个
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn">
+        <div class="text-inline confirm-a confirm-nav-btn"   ng-click="makeSureZdPei()">
             确定
         </div>
 

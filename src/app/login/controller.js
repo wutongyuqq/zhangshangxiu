@@ -6,6 +6,7 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
         user.userName = locals.getObject("user").userName;
         user.password = locals.getObject("user").password;
     }else{
+        user=new Object();
         user.factoryName = "";
         user.userName =  "";
         user.password =  "";
@@ -16,6 +17,7 @@ app.controller('LoginCtrl', ['$http', '$log', '$scope', '$document', 'userTemp',
      * 登录
      */
     $scope.checkDate = function () {
+        user = $scope.user;
         var params = {
             db: "sjsoft_SQL",
             function: "sp_fun_check_service_validity",

@@ -1,3 +1,31 @@
-app.controller('CompanyTopCtrl', ['$http','$scope','$document', 'userTemp',function($http, $scope,$document,userTemp) {
+app.controller('CompanyTopCtrl', ['$http','$scope','locals','ionicToast',function($http, $scope,locals,ionicToast) {
+    var user = locals.getObject("user");
+
+    var params ={
+        db:"mycon1",
+        function:"sp_fun_get_general_situation",
+        company_code:user.company_code
+    };
+    var jsonStr = angular.toJson(params);
+    $scope.zcData = new Object();
+    $http({
+        method: 'post',
+        url: '/restful/pro',
+        dataType: "json",
+        data: jsonStr
+    }).success(function (data, status, headers, config) {
+        var state = data.state;
+        if (state == 'ok') {
+            var dataArray = data.data;
+            if(dataArray!=null && dataArray.length>0){
+                $scope.zcData = dataArray[0];
+            }
+
+        } else {
+            ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+        }
+    }).error(function (data) {
+        ionicToast.show("服务异常");
+    });
 
 }]);

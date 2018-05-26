@@ -276,7 +276,7 @@
         margin-left: -0.6rem;
     }
 </style>
-<div ng-controller="WinBidCtrl">
+<div>
     <div class="bar bar-header bar-light bar-light-div">
         <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>
         <h1 class="title"><span class="title-color">工单(NO:201805132201)</span></h1>
@@ -284,10 +284,10 @@
     <div class="bar_second_pink">
         <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
 
-        <div class="color-white bar-white-home">王总</div>
+        <div class="color-white bar-white-home">{{carInfo.cz}}</div>
         <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
 
-        <div class="color-white bar-white-card">闽A23A97</div>
+        <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
     </div>
     <div class="wb_second_line">
         <div class="text_inline">已收预约款:￥0.0</div>
@@ -296,13 +296,10 @@
 
     </div>
     <div class="wb_second_line tb_content_a">
-
         <div class="text_inline tb_content_a_ss">实收总计:￥0.5</div>
         <div class="text_inline wb_second_line_qw">结算方式：内结</div>
-
     </div>
     <div class="tb_content_b">
-
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">现金:￥</div>
             <input  class="text-inline input-white-back" type="text"/>
@@ -314,13 +311,13 @@
             <div class="text-inline green-btn-back">全额支付</div>
         </div>
         <div class="tb_content_b_a">
-            <div class="text-inline tb_text_l`bel">银行账户:</div>
+            <div class="text-inline tb_text_label">银行账户:</div>
             <input  class="text-inline input-white-back-right" type="text"/>
 
         </div>
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">费率:￥</div>
-            <input  class="text-inline input-white-back" type="text"/>
+            <input  ng-model="jsToBean.yhkFl" class="text-inline input-white-back" type="text"/>
             <div class="text-inline">%</div>
         </div>
         <div class="tb_content_b_a">
@@ -354,7 +351,7 @@
         </div>
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">费率:￥</div>
-            <input  class="text-inline input-white-back" type="text"/>
+            <input   ng-model="jsToBean.wxFl"  class="text-inline input-white-back" type="text"/>
         </div>
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">支付宝:￥</div>
@@ -363,7 +360,7 @@
         </div>
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">费率:￥</div>
-            <input  class="text-inline input-white-back" type="text"/>
+            <input   ng-model="jsToBean.zfbFl"  class="text-inline input-white-back" type="text"/>
         </div>
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">获得积分:￥</div>

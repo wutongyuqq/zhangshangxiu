@@ -228,7 +228,8 @@
         left:3rem;
         padding: 0.3rem 0.3rem;
         z-index: 1010;
-        max-height: 7rem;
+        max-height: 9rem;
+        min-height: 6rem;
         color: #7d7e7d;
         overflow: scroll;
 
@@ -378,7 +379,7 @@
             </div>
 
         </a>
-        <a class="tab-item">
+        <a class="tab-item" ui-sref="FactoryPage">
             <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/factory_gray.png"/>
 
             <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">车间管理</div>
@@ -390,10 +391,10 @@
             <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">整厂概况</div>
 
         </a>
-        <a class="tab-item">
+        <a class="tab-item" ui-sref="Usercenter">
             <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;" src="../../../vendor/images/zsx/msg_gray.png"/>
 
-            <div style="height: 0.6rem;font-size: 1.8em;margin-top: 5px;">信息中心</div>
+            <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">信息中心</div>
 
         </a>
 
@@ -508,7 +509,7 @@
 
 
     /**
-     * 解决ios键盘弹出遮挡input
+     * 解决键盘弹出遮挡input
      */
     function iosInput() {
 

@@ -125,14 +125,13 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         $state.go("Register");
     }
 
-
+    var cardDataListForSerch = locals.getObject("cardDataList");
     $scope.$watch('carInfo.shortCardName',function(){
-        var searchName = $scope.proName + $scope.carInfo.shortCardName;
-        var cardDataList = $scope.cardDataList;
+        var searchName =$scope.carInfo.shortCardName;
         var newCarArray = new Array();
-        for(var i=0;i<cardDataList.length;i++){
-            var carInfoS = cardDataList[i];
-            if(cardDataList[i].mc.indexOf(searchName)!=-1){
+        for(var i=0;i<cardDataListForSerch.length;i++){
+            var carInfoS = cardDataListForSerch[i];
+            if(cardDataListForSerch[i].mc.indexOf(searchName)!=-1){
                 newCarArray.push(carInfoS);
             }
         }

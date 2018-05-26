@@ -181,7 +181,19 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                 ]);
             }]
         }
-    }).state('Winbding', {
+    }).state('wintotal', {
+            url: '/wintotal',
+            templateUrl: window.rootSrc + 'app/winbid/total_num.html',
+            title:'标大大-标讯',
+            controller: 'WinTotalCtrl as ctrl',
+            resolve: {
+                load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        'app/winbid/controller.js'
+                    ]);
+                }]
+            }
+        }).state('Winbding', {
         url: '/winbding',
         templateUrl: window.rootSrc + 'app/tender/winbding.html',
         controller: 'WinbdingCtrl as ctrl',
@@ -220,8 +232,8 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                 }]
             }
         })
-        .state('Forget', {
-            url: '/forget',
+        .state('FactoryPage', {
+            url: '/factory',
             templateUrl: window.rootSrc + 'app/forget/bdd_forget.html',
             controller: 'ForgetCtrl as ctrl',
             title:'标大大-忘记密码',

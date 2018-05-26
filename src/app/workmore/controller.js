@@ -1,23 +1,26 @@
 app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals','userTemp', '$anchorScroll',"$location","ionicToast",function($http, $scope,$state,locals,userTemp,$anchorScroll,$location,ionicToast) {
 
     $scope.exitLogin = function(){
+        var user = locals.getObject("user");
         var params = {
             db:"mycon1",
             function:"sp_fun_user_logout",
-            operater_code:"superuser",
-            operater_ip:"192.168.0.101"
+            operater_code:user.userName,
+            operater_ip:returnCitySN.cip
         };
+        var jsonStr = angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: angular.toJson(params),
+            data: jsonStr,
         }).success(function (data, status, headers, config) {
             console.log(data);
             var state = data.state;
             var endDateStr = data.service_end_date;
             if (state == 'true') {
                 console.log(data.msg);
+                locals.setObject("user","");
                 $state.go("Login");
 
             }

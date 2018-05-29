@@ -3,16 +3,17 @@ app.controller('RegisterCtrl', ['$http','$scope','ionicToast','locals','$state',
     $scope.carListData=[];
     $scope.searchName="";
 
-
+    var cardDataList =  locals.getObject("cardDataList");
     $scope.searchData=function(searchName){
         locals.setObject("selectCarInfo",null);
 
-        var carListData =  locals.getObject("carListData");
+
         var hasCarListData = new Array();
-        if(carListData!=null && carListData.length!=null && carListData.length>0){
-            for(var i=0;i<carListData.length;i++){
-                var car=carListData[i];
-                if(car.mobile.indexOf(searchName)!=-1||car.vipnumber.indexOf(searchName)!=-1||car.cz.indexOf(searchName)!=-1){
+        if(cardDataList!=null && cardDataList.length!=null && cardDataList.length>0){
+            for(var i=0;i<cardDataList.length;i++){
+                var car=cardDataList[i];
+                if(car.mobile!=null && car.mobile.indexOf(searchName)!=-1||car.vipnumber!=null && car.vipnumber.indexOf(searchName)!=-1||
+                    car.cz!=null && car.cz.indexOf(searchName)!=-1||car.mc!=null&&car.mc.indexOf(searchName)!=-1){
                     hasCarListData.push(car);
                 }
             }
@@ -38,7 +39,9 @@ app.controller('RegisterCtrl', ['$http','$scope','ionicToast','locals','$state',
             if (state == 'ok') {
                 var carListData=data.data;
                 $scope.carListData=carListData;
-                locals.setObject("carListData",carListData);
+                var newCardDataList =  locals.getObject("cardDataList");
+                newCardDataList.push(carListData);
+                locals.setObject("cardDataList",newCardDataList);
             } else {
                 ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 1000);
             }

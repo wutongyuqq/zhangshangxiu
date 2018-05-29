@@ -194,6 +194,17 @@
     .img-gray{
         background-image: url("../../../vendor/images/zsx/back_gray.png");
     }
+    .sel-lb-op{
+        width: 1.2rem;
+    }
+    .btn-search {
+        background-color: #ff9db4;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        border-radius: 3px;
+    }
 </style>
 
 <div>
@@ -211,25 +222,29 @@
     <div class="bar_second_pink">
         <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
 
-        <div class="color-white bar-white-home">{{carInfo.cz}}</div>
+        <div class="color-white bar-white-home" style="font-size: 1.6em;">{{carInfo.cz}}</div>
         <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
 
-        <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
+        <div class="color-white bar-white-card" style="font-size: 1.6em;">{{carInfo.cardName}}</div>
     </div>
-    <div class="second-div-a">
-        <div class="text-inline"><select ng-model="selectData.xllb">
-            <option>类别</option>
-            <option>机修</option>
-            <option>大修</option>
+    <div class="second-div-a" style="margin-top: 0.3rem;padding-bottom: 0.2rem;">
+        <div  class="text-inline"><select class="sel-lb-op"  style="width: 2rem;height: 0.8rem;font-size: 1.2em;border:none;background-color: #f0ecec;" ng-model="selectData.xllb">
+            <option style="font-size: 1em;">机修</option>
+            <option style="font-size: 1em;">大修</option>
         </select></div>
-        <div class="text-inline text-right"><input ng-change="updateCarInfo(isShowGzms,4)" class="claim_input"
-                                                   ng-model="selectData.startData"
+        <div class="text-inline text-right" style="margin-left: 0.2rem;"><input ng-change="updateCarInfo(isShowGzms,4)" class="claim_input"
+                                                  style="width: 2.9rem;height: 0.8rem;font-size: 1.4em;background-color: #f0ecec;padding-left: 0.2rem;" ng-model="selectData.startData"
                                                    type="text" id="start_date" placeholder="选择起始日期"
                                                    readonly="readonly"/></div>
+        <div class="text-inline">至</div>
         <div class="text-inline text-right"><input ng-change="updateCarInfo(isShowGzms,4)" class="claim_input"
-                                                   ng-model="selectData.endData" type="text" id="end_date" placeholder="选择结束日期" readonly="readonly"/>
+                                                   style="width: 2.9rem;height: 0.8rem;font-size: 1.4em;background-color: #f0ecec;padding-left: 0.2rem;" ng-model="selectData.endData" type="text" id="end_date" placeholder="选择结束日期" readonly="readonly"/>
         </div>
-        <button class="text-inline text-right" ng-click="getWxHistory(selectData)">搜索</button>
+       <!-- <button class="text-inline text-right" ng-click="getWxHistory(selectData)" style="font-size: 1.4em;">搜索</button>-->
+
+        <button class="text-inline btn-search"  ng-click="getWxHistory(selectData)" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
+
+
     </div>
     <!-- 项目-->
     <ion-list>

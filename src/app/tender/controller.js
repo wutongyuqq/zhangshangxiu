@@ -1,4 +1,4 @@
-app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast","$ionicNavBarDelegate", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast,$ionicNavBarDelegate) {
+app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast", "$ionicNavBarDelegate", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast, $ionicNavBarDelegate) {
     var selt = this;
 
     var showType = 0;
@@ -15,16 +15,16 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     $scope.showMoreChange = function () {
         $scope.showMore = showType;
     }
-    $scope.goBackHistory = function() {
+    $scope.goBackHistory = function () {
         history.back();
     };
-    $scope.toSelectPage=function(){
+    $scope.toSelectPage = function () {
         $state.go("Register");
     }
 
-    $scope.checked=0;
+    $scope.checked = 0;
     var chooseItem = null;
-    $scope.chooseProject = function (index,item) {
+    $scope.chooseProject = function (index, item) {
         $scope.checked = index;
         chooseItem = item;
     }
@@ -65,12 +65,12 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
             function: "sp_fun_down_maintenance_category"
         }
 
-        var jsonStr = angular.toJson(params);
+        var jsonStr6 = angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: jsonStr
+            data: jsonStr6
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == "ok") {
@@ -94,9 +94,9 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     }
     $scope.toGdListPage = function () {
         var jsd_id = locals.get("jsd_id");
-        if(chooseItem==null){
+        if (chooseItem == null) {
             var sencondPageData = $scope.sencondPageData;
-            if(sencondPageData==null){
+            if (sencondPageData == null) {
                 ionicToast.show("请选择项目", 'middle', false, 1000);
                 return;
             }
@@ -115,12 +115,12 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
             pgzgs: chooseItem.pgzgs,
             xh: "0"
         }
-        var jsonStr = angular.toJson(params);
+        var jsonStr1 = angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: jsonStr
+            data: jsonStr1
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
@@ -139,15 +139,19 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
 
 app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", "$modal", function ($http, $scope, $state, locals, ionicToast, $modal) {
     var selt = this;
-    $scope.goBackPage=function(){
+    $scope.goBackPage = function () {
         history.back();
     }
+    var user = locals.getObject("user");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    var carInfo = locals.getObject("carInfo");
+    $scope.carInfo = carInfo;
+    var jsdId = locals.get("jsd_id");
 
-    $scope.ticheTime = locals.get("ticheTime");
-    $scope.gonglishu = locals.get("gonglishu");
-    $scope.guzhangDes = locals.get("guzhangDes");
+    $scope.ticheTime = (locals.get("ticheTime") == null || locals.get("ticheTime") == "undefined") ? "" : locals.get("ticheTime");
+    $scope.gonglishu = (locals.get("gonglishu") == null || locals.get("gonglishu") == "undefined") ? "" : locals.get("gonglishu"); //locals.get("gonglishu");
+    $scope.guzhangDes = (locals.get("guzhangDes") == null || locals.get("guzhangDes") == "undefined") ? "" : locals.get("guzhangDes");//locals.get("guzhangDes");
     $scope.showMoreView = function (showMore) {
         $scope.showMore = showMore;
         $scope.showSelectMore = showMore;
@@ -155,33 +159,186 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.showDetailPro = function () {
         $scope.showMore = 2;
     };
+
+    $scope.djztUnable = 0;
+    $scope.djzt = "派工";
+    var jsdInfo = new Object();
+    $scope.getJsdStatu = function () {
+        var jsd_id = locals.get("jsd_id");
+        $scope.jsd_id = jsd_id;
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_down_repair_list_main",
+            jsd_id: jsd_id
+        };
+        var jsonStr3 = angular.toJson(params);
+        var gdData = new Object();
+        $scope.gdData = gdData;
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                var gdDataList = data.data;
+                if (gdDataList != null && gdDataList.length > 0) {
+                    carInfo = $scope.carInfo;
+                    gdData = gdDataList[0];
+                    jsdInfo = gdData;
+                    if (gdData.djzt == '已派工' || gdData.djzt == '修理中') {
+                        $scope.djzt = '全部完工';
+                    } else if (gdData.djzt == '处理中') {
+                        $scope.djzt = '派工';
+                    } else if (gdData.djzt == '审核已结算') {
+                        $scope.djzt = '取消完工';
+                        $scope.djztUnable = 1;
+                    }
+                }
+
+            }
+        });
+
+    }
+    $scope.getJsdStatu();
     $scope.showInputGls = false;
-    $scope.showKell= function(showInputGls){
+    $scope.showKell = function (showInputGls) {
         $scope.showInputGls = !showInputGls;
         locals.set("gonglishu", $scope.gonglishu);
+        var carInfo = locals.getObject("carInfo");
+        carInfo.gls = $scope.showInputGls;
+        locals.setObject("carInfo", carInfo);
+        $scope.updateCarForOne('jclc', showInputGls);
+
+
+    }
+
+
+    $scope.updateCarForOne = function (columnName, valueData) {
+        var jsd_id = locals.get("jsd_id");
+        $scope.jsd_id = jsd_id;
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_upload_repair_list_main_other",
+            column_name: columnName,
+            data: valueData,
+            jsd_id: jsd_id
+        };
+        var jsonStr3 = angular.toJson(params);
+        var gdData = new Object();
+        $scope.gdData = gdData;
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+
+
+            }
+        });
+
 
     }
     $scope.showTicheTime = false;
-    $scope.showTiche= function(showTicheTime){
+    $scope.showTiche = function (showTicheTime) {
         $scope.showTicheTime = !showTicheTime;
         locals.set("ticheTime", $scope.ticheTime);
+        var carInfo = locals.getObject("carInfo");
+        carInfo.ticheTime = $scope.ticheTime;
+        locals.setObject("carInfo", carInfo);
+        // $scope.uploadCarBean();
+        $scope.updateCarForOne('ywg_date', ticheTime);
+    }
+
+    $scope.showBeizhu = false;
+    $scope.meno = "";
+    $scope.showBeizhuT = function (showBeizhu) {
+        $scope.showBeizhu = !showBeizhu;
+        if (showBeizhu) {
+
+            $scope.updateCarForOne("memo", $scope.meno ? $scope.meno : "");
+
+
+        }
 
     }
+
+
+    $scope.getDateTime = function () {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString();
+        var day = (now.getDate()).toString();
+        var hour = (now.getHours()).toString();
+        var minute = (now.getMinutes()).toString();
+        var second = (now.getSeconds()).toString();
+        if (month.length == 1) {
+            month = "0" + month;
+        }
+        if (day.length == 1) {
+            day = "0" + day;
+        }
+        if (hour.length == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length == 1) {
+            minute = "0" + minute;
+        }
+        if (second.length == 1) {
+            second = "0" + second;
+        }
+        var dateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+        return dateTime;
+
+    }
+
+
     $scope.showGuzhang = true;
-    $scope.showGuzhangT= function(showGuzhang){
+    $scope.showGuzhangT = function (showGuzhang) {
         $scope.showGuzhang = !showGuzhang;
-        locals.set("guzhangDes", $scope.guzhangDes);
+        var carInfo2 = $scope.carInfo;
 
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_update_fault_info",
+            customer_id: carInfo.customer_id,
+            car_fault: $scope.guzhangDes,
+            days: $scope.getDateTime()
+        };
+        var jsonStr5 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr5
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                carInfo2.gzms = $scope.guzhangDes;
+                locals.set("guzhangDes", $scope.guzhangDes);
+                locals.setObject("carInfo", carInfo2);
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常");
+        });
     }
+
+
     $scope.toPjkSelect = function () {
         $state.go("TenderSay");
     }
     $scope.goBack = function () {
         window.history.back();
     }
-    var carInfo = locals.getObject("carInfo");
-    $scope.carInfo = carInfo;
-    var jsdId = locals.get("jsd_id");
+
     if (carInfo == null || jsdId == null || jsdId == "") {
         $state.go("home");
         return;
@@ -189,7 +346,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.toProjectFactory = function () {
         $state.go("TenderDtail");
     }
-    $scope.repairDataList = [];
+    $scope.repairDataList = new Array();
     $scope.getRepairListData = function () {
         var carInfo = locals.getObject("carInfo");
 
@@ -211,7 +368,25 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             if (state == 'ok') {
                 // locals.setObject("carInfdata.datao",upLoadInfo);
                 var repairDataList = data.data;
-                $scope.repairDataList = data.data;
+
+
+                var repairDataListNew = locals.getObject("repairDataList");
+                if (repairDataListNew != null && repairDataListNew.length > 0) {
+                    for (var j = 0; j < repairDataList.length; j++) {
+                        var oldRepairData = repairDataList[j];
+                        if (repairDataList != null && repairDataList.length != 0) {
+                            for (var i = 0; i < repairDataListNew.length; i++) {
+                                var repairNewData = repairDataListNew[i];
+                                if (repairNewData.xh == oldRepairData.xh) {
+                                    repairDataList.splice(j, 1, repairNewData);
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+                $scope.repairDataList = repairDataList;
                 var numMoney = 0;
                 var numZk = 0;
                 for (var i = 0; i < repairDataList.length; i++) {
@@ -221,6 +396,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 }
                 $scope.xlfTotal = numMoney;
                 $scope.numZk = numZk;
+
 
             } else {
                 ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
@@ -256,14 +432,14 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 jsd_id: jsdId,
                 xh: delData.xh
             }
-            var jsonStr = angular.toJson(params);
+            var jsonStr3 = angular.toJson(params);
             $scope.xlfTotal = 0;
             $scope.numZk = 0;
             $http({
                 method: 'post',
                 url: '/restful/pro',
                 dataType: "json",
-                data: jsonStr
+                data: jsonStr3
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
@@ -290,18 +466,18 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             function: "sp_fun_down_jsdmx_pjclmx",
             jsd_id: jsdId
         }
-        var jsonStr = angular.toJson(params);
+        var jsonStr4 = angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: jsonStr
+            data: jsonStr4
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
                 var pjDataList = data.data;
                 $scope.pjDataList = pjDataList;
-                locals.setObject("pjDataList",pjDataList);
+
 
                 var numMoney = 0;
                 var numZk = 0;
@@ -345,14 +521,14 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 jsd_id: jsdId,
                 xh: delData.xh
             }
-            var jsonStr = angular.toJson(params);
+            var jsonStr5 = angular.toJson(params);
             $scope.xlfTotal = 0;
             $scope.numZk = 0;
             $http({
                 method: 'post',
                 url: '/restful/pro',
                 dataType: "json",
-                data: jsonStr
+                data: jsonStr5
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
@@ -369,7 +545,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         });
     }
 
-    $scope.editProjectForXm = function (item) {
+    $scope.editProjectForXm = function (index, item) {
         data = item;
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
@@ -385,29 +561,62 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
         modalInstance.result.then(function (resData) {
 
+            var jsd_id = locals.get("jsd_id");
+            var params = {
 
+                db: "mycon1",
+                function: "sp_fun_upload_maintenance_project_detail",
+                jsd_id: jsd_id,
+                zk: item.xlf - resData.xlf,
+                xlxm: resData.xlxm,
+                wxgz: resData.wxgz,
+                xlf: resData.xlf,
+                pgzje: "",
+                pgzgs: "",
+                xh: item.xh
+            }
+            var jsonStr8 = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr8
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    $state.go("Winbding");
+                    // locals.setObject("carInfo",upLoadInfo);
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                }
+            }).error(function (data) {
+                ionicToast.show("服务异常");
+            });
 
-            if(resData.isNewPrice) {
-
+            if (resData.isNewPrice) {
                 var params = {
                     db: "mycon1",
-                    function: "sp_fun_upload_maintenance_project_detail",
+                    function: "sp_fun_upload_maintenance_project_library",
                     xlxm: resData.xlxm,
                     wxgz: resData.wxgz,
                     xlf: resData.xlf
                 }
-                var jsonStr = angular.toJson(params);
+                var jsonStr6 = angular.toJson(params);
                 $scope.xlfTotal = 0;
                 $scope.numZk = 0;
                 $http({
                     method: 'post',
                     url: '/restful/pro',
                     dataType: "json",
-                    data: jsonStr
+                    data: jsonStr6
                 }).success(function (data, status, headers, config) {
                     var state = data.state;
                     if (state == 'ok') {
-
+                        item.xlf = resData.xlf;
+                        item.wxgz = resData.wxgz;
+                        item.xlxm = resData.xlxm;
+                        $scope.repairDataList.splice(index, 1, item);
+                        locals.setObject("repairDataList", $scope.repairDataList);
 
                     } else {
                         ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
@@ -416,7 +625,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     ionicToast.show("服务异常");
                 });
 
-            }else{
+            } else {
                 var params = {
                     db: "mycon1",
                     function: "sp_fun_upload_maintenance_project_library",
@@ -424,18 +633,22 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     wxgz: resData.wxgz,
                     xlf: resData.xlf
                 }
-                var jsonStr = angular.toJson(params);
+                var jsonStr7 = angular.toJson(params);
                 $scope.xlfTotal = 0;
                 $scope.numZk = 0;
                 $http({
                     method: 'post',
                     url: '/restful/pro',
                     dataType: "json",
-                    data: jsonStr
+                    data: jsonStr7
                 }).success(function (data, status, headers, config) {
                     var state = data.state;
                     if (state == 'ok') {
-                        $state.go("Winbding");
+                        item.xlf = resData.xlf;
+                        item.wxgz = resData.wxgz;
+                        item.xlxm = resData.xlxm;
+                        $scope.pjDataList.splice(index, 1, item);
+                        locals.setObject("repairDataList", $scope.pjDataList);
 
                     } else {
                         ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
@@ -449,6 +662,75 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         }, function () {
 
         });
+    }
+
+
+    $scope.showFloatImg = false;
+    $scope.judgeToStatu = function (djzt) {
+        if ($scope.djztUnable == 1) {
+            return;
+        }
+        if (djzt == "派工") {
+            $state.go("TendList");
+        } else if (djzt == "全部完工") {
+
+            var params = {
+                db: "mycon1",
+                function: "sp_fun_update_repair_list_state",
+                jsd_id: jsdId,
+                states: "审核未结算",
+                xm_state: "已完工"
+            }
+            var jsonStr7 = angular.toJson(params);
+            $scope.xlfTotal = 0;
+            $scope.numZk = 0;
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr7
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    $scope.djzt = "取消完工";
+                    $scope.showFloatImg = true;
+
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                }
+            }).error(function (data) {
+                ionicToast.show("服务异常");
+            });
+        } else if (djzt == "取消完工") {
+
+            var params = {
+                db: "mycon1",
+                function: "sp_fun_update_repair_list_state",
+                jsd_id: jsdId,
+                states: "修理中",
+                xm_state: "待质检"
+            }
+            var jsonStr7 = angular.toJson(params);
+            $scope.xlfTotal = 0;
+            $scope.numZk = 0;
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr7
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    $scope.djzt = "派工";
+                    $scope.showFloatImg = false;
+
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                }
+            }).error(function (data) {
+                ionicToast.show("服务异常");
+            });
+        }
     }
     $scope.addTempProject = function () {
         var firstIconArr = locals.getObject("firstIconArr");
@@ -481,12 +763,12 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 pgzgs: "1.00",
                 xh: "0"
             }
-            var jsonStr = angular.toJson(params);
+            var jsonStr8 = angular.toJson(params);
             $http({
                 method: 'post',
                 url: '/restful/pro',
                 dataType: "json",
-                data: jsonStr
+                data: jsonStr8
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
@@ -504,6 +786,54 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
 
     }
+
+    //当离开工单页面时，比较数据
+    $scope.$on('$stateChangeStart', function (event, toState, fromState) {
+        var pjDataListT = $scope.pjDataList;
+        var pjTotalCb = 0;
+        if (pjDataListT != null && pjDataListT.length > 0) {
+            for (var i = 0; i < pjDataListT.length; i++) {
+                var pjData = pjDataListT[i];
+                pjTotalCb += Number(pjData.cb);
+            }
+        }
+        if (Number(jsdInfo.clcb) != pjTotalCb ||
+            Number(jsdInfo.clfzj) != Number($scope.pjTotal) ||
+            Number(jsdInfo.wxfzj) != Number($scope.xlfTotal) ||
+            (Number($scope.pjTotal) + Number(jsdInfo.wxfzj)) != Number(jsdInfo.zje)) {
+
+
+            var jsd_id = locals.get("jsd_id");
+            var params = {
+                db: "mycon1",
+                function: "sp_fun_update_repair_main_money",
+                jsd_id: jsd_id,
+                zje: Number($scope.pjTotal) + Number(jsdInfo.wxfzj) + '',
+                wxfzj: jsdInfo.wxfzj,
+                clfzj: $scope.pjTotal,
+                clcb: pjTotalCb + ''
+
+            }
+            var jsonStr8 = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr8
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                }
+            }).error(function (data) {
+                ionicToast.show("服务异常");
+            });
+        }
+
+
+    });
 }]);
 
 
@@ -517,7 +847,7 @@ app.controller('modalAddTempCtrl', function ($scope, $state, $modalInstance, loc
     tempData.wxcb = "";
     tempData.xmjg = "";
     tempData.xmlb = "";
-    $scope.goBackPage=function(){
+    $scope.goBackPage = function () {
         history.back();
     }
     $scope.tempData = tempData;
@@ -554,12 +884,12 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
     $scope.xlf = dataD.xlf;
     $scope.isNewPrice = true;
     //在这里处理要进行的操作
-    $scope.ok = function (xlxm, wxgz, xlf,isNewPrice) {
+    $scope.ok = function (xlxm, wxgz, xlf, isNewPrice) {
         var resData = new Object();
         resData.xlxm = xlxm;
         resData.wxgz = wxgz;
         resData.xlf = xlf;
-        resData.isNewPrice = isNewPrice;
+        resData.isNewPrice = $scope.isNewPrice;
         $modalInstance.close(resData);
     };
     $scope.cancel = function () {
@@ -574,7 +904,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
     $scope.carInfo = carInfo;
     var user = locals.getObject("user");
     $scope.showMore = 0;
-    $scope.goBackPage=function(){
+    $scope.goBackPage = function () {
         history.back();
     }
     $scope.showSelectMore = 0;
@@ -588,27 +918,27 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
     }
     var pjKucun = locals.getObject("pjKucun");
     $scope.dataList = pjKucun;
-    if(pjKucun==null||pjKucun.length==null||pjKucun.length==0){
-    $http({
-        method: 'post',
-        url: '/restful/pro',
-        dataType: "json",
-        data: angular.toJson(params)
-    }).success(function (data, status, headers, config) {
-        console.log("data   " + angular.toJson(data));
+    if (pjKucun == null || pjKucun.length == null || pjKucun.length == 0) {
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: angular.toJson(params)
+        }).success(function (data, status, headers, config) {
+            console.log("data   " + angular.toJson(data));
 
-        var state = data.state;
-        if (state == 'ok') {
-            var pjKucun = data.data;
-            $scope.dataList = pjKucun;
-             locals.setObject("pjKucun",pjKucun);
-            locals.setObject("newPjDataList",pjKucun);
-        } else {
-            ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
-        }
-    }).error(function (data) {
-        ionicToast.show("服务异常");
-    });
+            var state = data.state;
+            if (state == 'ok') {
+                var pjKucun = data.data;
+                $scope.dataList = pjKucun;
+                locals.setObject("pjKucun", pjKucun);
+                locals.setObject("newPjDataList", pjKucun);
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常");
+        });
     }
     $scope.showMoreView = function (showMore) {
         $scope.showMore = showMore;
@@ -632,21 +962,21 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             }
         })
     }
-    $scope.pjName="";
-    $scope.selectFromRes=false;
-    $scope.searchPjName=function(pjName){
+    $scope.pjName = "";
+    $scope.selectFromRes = false;
+    $scope.searchPjName = function (pjName) {
         var pjKucun = locals.getObject("pjKucun");
-        if($scope.selectFromRes){
-            pjKucun =  locals.getObject("newPjDataList");
+        if ($scope.selectFromRes) {
+            pjKucun = locals.getObject("newPjDataList");
         }
         var newPjList = new Array();
-        for(var i=0;i<pjKucun.length;i++){
+        for (var i = 0; i < pjKucun.length; i++) {
             var pjItem = pjKucun[i];
-            if(pjItem.pjmc!=null && pjItem.pjmc.indexOf(pjName)!=-1){
+            if (pjItem.pjmc != null && pjItem.pjmc.indexOf(pjName) != -1) {
                 newPjList.push(pjItem);
             }
         }
-        locals.setObject("newPjDataList",newPjList);
+        locals.setObject("newPjDataList", newPjList);
         $scope.dataList = newPjList;
     }
     $scope.checkPjkItem = function (index) {
@@ -719,8 +1049,8 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
     }
     var oData = new Object();
     $scope.oData = oData;
-    $scope.tempAddDataList=[];
-    $scope.addTempPj=function(){
+    $scope.tempAddDataList = [];
+    $scope.addTempPj = function () {
         var item = new Object();
         item.pjmc = "";
         item.cb = "";
@@ -730,10 +1060,9 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
     }
 
 
-
-    var postPjTempSize =0;
-    var postTempPjNum =0;
-    $scope.makeSureTempPei=function(){
+    var postPjTempSize = 0;
+    var postTempPjNum = 0;
+    $scope.makeSureTempPei = function () {
         var oData = $scope.oData;
         $scope.tempAddDataList.push(oData);
         var tempAddDataList = $scope.tempAddDataList;
@@ -741,11 +1070,9 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
         postPjTempSize = tempAddDataList.length;
         angular.forEach(tempAddDataList, function (value) {
             postTempPjNum++;
-                $scope.addToTempGdServer(value);
+            $scope.addToTempGdServer(value);
         })
     }
-
-
 
 
     $scope.addToTempGdServer = function (item) {
@@ -789,19 +1116,19 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
     }
 
 
-    var zdPjData=new Object();
+    var zdPjData = new Object();
     $scope.zdPjData = zdPjData;
     $scope.zdPeijianList = [];
 
-    $scope.addZdPj = function(){
-        var item=new Object();
-        item.pjmc="";
-        item.sl="";
+    $scope.addZdPj = function () {
+        var item = new Object();
+        item.pjmc = "";
+        item.sl = "";
         $scope.zdPeijianList.push(item);
     }
 
-    $scope.makeSureZdPei=function(){
-        postTempPjNum =0;
+    $scope.makeSureZdPei = function () {
+        postTempPjNum = 0;
         var oData = $scope.zdPjData;
         $scope.zdPeijianList.push(oData);
         var tempAddDataList = $scope.zdPeijianList;
@@ -818,7 +1145,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 }]);
 
 
-app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "locals", "$modal", function ($http, $scope, $state, ionicToast, locals, $modal) {
+app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "locals", "$modal", "$window", function ($http, $scope, $state, ionicToast, locals, $modal, $window) {
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
@@ -831,7 +1158,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
     $scope.showDetailPro = function () {
         $scope.showMore = 2;
     }
-    $scope.goBackPage=function(){
+    $scope.goBackPage = function () {
         history.back();
     }
     $scope.pgDataList = [];
@@ -922,7 +1249,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-
+                $window.location.reload();
                 // locals.setObject("carInfo",upLoadInfo);
             } else {
 
@@ -991,7 +1318,7 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
     $scope.carInfo = carInfo;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
-    $scope.goBackPage=function(){
+    $scope.goBackPage = function () {
         history.back();
     }
     $scope.getDateTime = function () {

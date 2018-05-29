@@ -34,6 +34,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         if(carInfo2.mc!=null){
        var proName2 = carInfo2.mc.substring(0,1);
         carInfo2.shortCardName = carInfo2.mc.substring(1,carInfo2.mc.length);
+            carInfo2.mobile=Number(carInfo2.mobile);
         $scope.carInfo = carInfo2;
         $scope.proName=proName2;
         }
@@ -125,18 +126,44 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         $state.go("Register");
     }
 
-    var cardDataListForSerch = locals.getObject("cardDataList");
+
     $scope.$watch('carInfo.shortCardName',function(){
+        var cardDataListForSerch = locals.getObject("cardDataList");
         var searchName =$scope.carInfo.shortCardName;
         var newCarArray = new Array();
         for(var i=0;i<cardDataListForSerch.length;i++){
             var carInfoS = cardDataListForSerch[i];
-            if(cardDataListForSerch[i].mc.indexOf(searchName)!=-1){
+            if(cardDataListForSerch[i].mc!=null&&cardDataListForSerch[i].mc.indexOf(searchName)!=-1){
                 newCarArray.push(carInfoS);
             }
         }
-
         $scope.cardDataList = newCarArray;
+        if((newCarArray==null||newCarArray.length==null||newCarArray.length==0)&&searchName.length==6){
+            var serchNameT = $scope.proName + searchName;
+            var params = {
+            db:"mycon1",
+                function:"sp_fun_down_cp_one",
+                company_code:user.company_code,
+                cp:serchNameT
+            };
+            var jsonString =  angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonString,
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+
+                if (state == 'ok') {
+                    var carForDataList = data.data;
+                    if(carForDataList!=null && carForDataList.length!=null&&carForDataList.length>0){
+                        $scope.cardDataList = carForDataList;
+                        locals.setObject("cardDataList",locals.getObject("cardDataList").concat(carForDataList));
+                    }
+                }
+            });
+        }
         console.log($scope.carInfo.shortCardName)
     });
 
@@ -170,18 +197,28 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
     $scope.uploadCardInfo = function (upLoadInfo) {
 
-
+        locals.setObject("repairDataList", new Array());
 
         if(upLoadInfo.shortCardName==null||upLoadInfo.shortCardName==""){
             ionicToast.show('车牌必填', 'middle',false, 1000);
             return;
         }
+
+        if(upLoadInfo.shortCardName!=null&&upLoadInfo.shortCardName.length!=null&&upLoadInfo.shortCardName.length!=6){
+            ionicToast.show('车牌号输入错误', 'middle',false, 1000);
+            return;
+        }
+
         if(upLoadInfo.linkman==null||upLoadInfo.linkman==""){
             ionicToast.show('报修人必填', 'middle',false, 1000);
             return;
         }
         if(upLoadInfo.mobile==null||upLoadInfo.mobile==""){
             ionicToast.show('手机号必填', 'middle',false, 1000);
+            return;
+        }
+        if(upLoadInfo.mobile!=null&&(upLoadInfo.mobile+'').length!=null&&(upLoadInfo.mobile+'').length!=11){
+            ionicToast.show('手机号输入有误', 'middle',false, 1000);
             return;
         }
 
@@ -194,7 +231,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 function:"sp_fun_upload_customer_info",
                 company_code:user.company_code,
                 plate_number:upLoadInfo.cardName,
-                cz:upLoadInfo.cz,
+                cz:upLoadInfo.linkman,
                 mobile:upLoadInfo.mobile+'',
                 phone: upLoadInfo.phone+'',
                 linkman:upLoadInfo.linkman,
@@ -223,9 +260,22 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             }).error(function(data){
                 ionicToast.show("服务异常");
             });
-
-
-
+            var allCarList = locals.getObject("cardDataList");
+            var carInfo = new Object();
+            carInfo.mc = upLoadInfo.cardName;
+            carInfo.mobile = upLoadInfo.mobile+'';
+            carInfo.phone = upLoadInfo.phone+'';
+            carInfo.linkman = upLoadInfo.linkman;
+            carInfo.custom5 = upLoadInfo.custom5;
+            carInfo.cx = upLoadInfo.cx;
+            carInfo.cjhm = upLoadInfo.cjhm;
+            carInfo.fdjhm = upLoadInfo.fdjhm;
+            carInfo.cjhm = upLoadInfo.cjhm;
+            carInfo.gls = upLoadInfo.gls;
+            carInfo.gzms = upLoadInfo.gzms;
+            carInfo.ysph = upLoadInfo.ysph;
+            allCarList.push(carInfo);
+            locals.setObject("cardDataList",allCarList);
         }else{
             var params = {
                 db:"mycon1",

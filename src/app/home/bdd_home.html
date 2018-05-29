@@ -315,6 +315,12 @@
             <span class="input-label input-label-a">车架号</span>
             <input class="kepybord-listen" placeholder="输入" ng-focus="showCardList=false" ng-model="carInfo.cjhm" type="text"  ng-pattern="/^[0-9a-zA-Z]+$/"/>
         </any>
+
+        <any class="item-input">
+            <span class="input-label input-label-a">车型</span>
+            <input class="kepybord-listen" type="text" placeholder="输入" ng-model="carInfo.cx"/>
+        </any>
+
         <any class="item-input">
             <span class="input-label input-label-a">公里数</span>
             <input class="kepybord-listen" type="number"  placeholder="输入" ng-model="carInfo.gls" type="text">
@@ -328,10 +334,6 @@
             <input class="kepybord-listen" type="number" placeholder="必填" ng-model="carInfo.mobile"/>
         </any>
 
-        <any class="item-input">
-            <span class="input-label input-label-a">车型</span>
-            <input class="kepybord-listen" type="text" placeholder="输入" ng-model="carInfo.cx"/>
-        </any>
 
     </div>
 

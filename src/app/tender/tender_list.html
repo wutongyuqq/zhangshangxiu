@@ -248,6 +248,9 @@
     .img-gray{
         background-image: url("../../../vendor/images/zsx/back_gray.png");
     }
+    .list-margin{
+        padding-bottom: 1rem;
+    }
 </style>
 
 <div>
@@ -263,17 +266,17 @@
 
 
     <div class="bar_second_pink_a">
-        <div>工单单号：GD2017080801010018</div>
+        <div style="font-size: 1.2em">工单单号：GD2017080801010018</div>
     </div>
 
 
     <div class="bar_second_pink">
         <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
 
-        <div class="color-white bar-white-home">{{carInfo.cz}}</div>
+        <div class="color-white bar-white-home" style="font-size: 1.2em">{{carInfo.cz}}</div>
         <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
 
-        <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
+        <div class="color-white bar-white-card" style="font-size: 1.2em">{{carInfo.cardName}}</div>
     </div>
 
 
@@ -288,20 +291,23 @@
             <div class="text_inline content-list-div-a">
 
                 <div class="text-inline position-left">
-                    <div>轿车洗车</div>
-                    <div>指派给</div>
-                    <div>维修人员</div>
-                    <div>派工金额</div>
+                    <div style="font-size: 1.2em">项目名称：</div>
+                    <div style="font-size: 1.2em">指派给：</div>
+                    <div style="font-size: 1.2em">维修人员：</div>
+                    <div style="font-size: 1.2em">派工金额：</div>
+                    <div style="font-size: 1.2em">派工状态：</div>
                 </div>
                 <div class="text-inline position-left-b">
-                    <div>{{item.xlxm}}</div>
-                    <div>{{item.assign}}</div>
-                    <div>{{item.xlg}}</div>
-                    <div><span>￥</span>{{item.pgje}}</div>
+                    <div style="font-size: 1.2em">{{item.xlxm}}</div>
+                    <div style="font-size: 1.2em">{{item.assign}}</div>
+                    <div style="font-size: 1.2em">{{item.xlg}}</div>
+                    <div style="font-size: 1.2em"><span>￥</span><span>{{item.pgje}}</span></div>
+                    <div style="font-size: 1.2em">{{item.states}}</div>
                 </div>
             </div>
 
         </ion-checkbox>
+
 
 
     </div>

@@ -188,6 +188,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     carInfo = $scope.carInfo;
                     gdData = gdDataList[0];
                     jsdInfo = gdData;
+                    $scope.memo = jsdInfo.memo;
                     if (gdData.djzt == '已派工' || gdData.djzt == '修理中') {
                         $scope.djzt = '全部完工';
                     } else if (gdData.djzt == '处理中') {
@@ -257,12 +258,12 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     }
 
     $scope.showBeizhu = false;
-    $scope.meno = "";
+    $scope.memo = "";
     $scope.showBeizhuT = function (showBeizhu) {
         $scope.showBeizhu = !showBeizhu;
         if (showBeizhu) {
 
-            $scope.updateCarForOne("memo", $scope.meno ? $scope.meno : "");
+            $scope.updateCarForOne("memo", $scope.memo ? $scope.memo : "");
 
 
         }

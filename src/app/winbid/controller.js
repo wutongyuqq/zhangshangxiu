@@ -1,4 +1,4 @@
-app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', function ($http, $scope, $state,locals) {
+app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast',function ($http, $scope, $state,locals,ionicToast) {
     var carInfo =locals.getObject("carInfo");
 
     $scope.carInfo = carInfo;
@@ -39,6 +39,119 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', function ($h
             console.log(data.msg);
         }
     });
+    var shouyinBean = locals.getObject("shouyinBean");
+    $scope.shouyinBean = shouyinBean;
+    $scope.isShowAll = false;
+
+    $scope.showAllMoney=function(){
+        var params2={
+        db:"mycon1",
+        function:"sp_fun_get_vipcard_money",
+        vipcard_no:$scope.vipcard_no
+    }
+
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: angular.toJson(params2),
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                $scope.isShowAll = true;
+                    $scope.vipcard_money = data.vipcard_money;
+            }else{
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+            }
+        });
+
+
+
+    }
+
+    $scope.xianjinPay=function(){
+
+        $scope.xianjinNum = shouyinBean.ysje;
+    }
+
+
+    $scope.shuakaPay=function(){
+
+        $scope.shuakaNum = shouyinBean.ysje;
+    }
+
+
+    $scope.zhuanzhangPay=function(){
+
+        $scope.zhuanzhangNum = shouyinBean.ysje;
+    }
+
+
+    $scope.guazhangPay=function(){
+
+        $scope.guazhangNum = shouyinBean.ysje;
+    }
+
+    $scope.weixinPay=function(){
+
+        $scope.weixinNum = shouyinBean.ysje;
+    }
+    $scope.zfbPay=function(){
+
+        $scope.zfbNum = shouyinBean.ysje;
+    }
+    $scope.shouYin=function(){
+        var carInfo =locals.getObject("carInfo");
+        var user = locals.getObject("user");
+        var jsd_id = locals.get("jsd_id");
+        $scope.carInfo = carInfo;
+
+
+
+
+        var sxf = ($scope.weixinNum)*($scope.jsToBean.wxFl)+($scope.shuakaNum)*($scope.jsToBean.yhkFl);
+
+        var params = {
+            db:"mycon1",
+            function:"sp_fun_upload_receivables_data",
+            comp_code:user.comp_code,
+            customer_id:carInfo.customer_id,
+            plate_number:carInfo.cp,
+            jsd_id:jsd_id,
+            czy:user.userName,
+            ysje:shouyinBean.ysje,
+            yhje:shouyinBean.yhje,
+            sxf:($scope.shuakaNum)*($scope.jsToBean.yhkFl),
+            ssje:shouyinBean.ysje - shouyinBean.yhje - sxf - shouyinBean.bit_use,
+            skfs:"现金",
+            bit_compute:shouyinBean.bit_compute,
+            bit_use:shouyinBean.bit_use,
+            skfs1:"微信",
+            skje1:$scope.weixinNum,
+            sxf1:($scope.weixinNum)*($scope.jsToBean.wxFl),
+            skfs2:"中行刷卡",
+            skje2:$scope.shuakaNum,
+            sxf2:($scope.jsToBean.yhkFl)*($scope.shuakaNum),
+            pre_payment:"0.00",
+            vipcard_no:$scope.vipcard_no
+        };
+        var jsonToRes = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonToRes
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+
+            }
+        });
+    }
+
+
 
 
 }]);
@@ -51,7 +164,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function (
     $scope.carInfo = carInfo;
     $scope.jsd_id = jsd_id;
     $scope.ticheTime = ticheTime;
-
+    var jsdInfo = new Object();
     $scope.getBaseData=function(){
         var params = {
             db:"mycon1",
@@ -73,6 +186,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function (
                 var gdDataList = data.data;
                 if(gdDataList!=null&&gdDataList.length>0){
                     gdData = gdDataList[0];
+                    jsdInfo = gdData;
                     $scope.gdData = gdData;
 
                     $scope.getGzData(gdData.jc_date);
@@ -112,7 +226,8 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function (
 
 
     $scope.pjDataList = new Array();
-
+    var totalCb = 0;
+    var jsdInfo = new Object();
     $scope.getPjListData = function(){
         var params2 = {
             db:"mycon1",
@@ -144,6 +259,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function (
                             var bean = gdDataList[i];
                             totalsl += Number(bean.sl);
                             totalMoney += Number(bean.ssj)*Number(bean.sl);
+                            totalCb+=Number(bean.cb);
                         }
                         $scope.totalsl = totalsl;
                         $scope.totalMoney = totalMoney;
@@ -234,5 +350,91 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function (
 
     }
     $scope.getCompanyData();
+
+
+
+    $scope.toJieSuanDetail=function(){
+        //totalXlf+totalMoney
+
+
+        if (Number(jsdInfo.clcb) != totalCb ||
+            Number(jsdInfo.clfzj) != Number($scope.totalMoney) ||
+            Number(jsdInfo.wxfzj) != Number($scope.totalXlf) ||
+            (Number($scope.totalMoney) + Number(jsdInfo.totalXlf)) != Number(jsdInfo.zje)) {
+
+            $scope.judgeIsSendData();
+        }else{
+            $scope.uploadMoney();
+        }
+
+
+
+    }
+
+
+    $scope.judgeIsSendData=function(){
+        var jsd_id = locals.get("jsd_id");
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_update_repair_main_money",
+            jsd_id: jsd_id,
+            zje: Number($scope.totalXlf) + Number($scope.totalMoney) + '',
+            wxfzj: $scope.totalXlf,
+            clfzj: $scope.totalMoney,
+            clcb: totalCb + ''
+
+        }
+        var jsonStr8 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr8
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                $scope.uploadMoney();
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常");
+        });
+    }
+
+    $scope.uploadMoney=function(){
+        var jsd_id = locals.get("jsd_id");
+        var params = {
+            db:"mycon1",
+            function:"sp_fun_get_settle_accounts_info",
+            jsd_id:jsd_id
+        }
+        var jsonStr8 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr8
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                var shouyinBean = new Object();
+                var dataArray = data.data;
+                var dataBean=dataArray[0];
+                shouyinBean.ysje=$scope.totalXlf+$scope.totalMoney;
+                shouyinBean.yhje=$scope.totalZk;
+                shouyinBean.bit_compute=dataBean.bit_compute;
+                shouyinBean.bit_use=dataBean.bit_amount;
+                shouyinBean.ysje = dataBean.zje;
+                locals.setObject("shouyinBean",shouyinBean);
+                $state.go("WinBid");
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常");
+        });
+
+    }
 
 }]);

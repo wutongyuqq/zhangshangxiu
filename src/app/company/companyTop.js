@@ -1,4 +1,4 @@
-app.controller('CompanyTopCtrl', ['$http','$scope','locals','ionicToast',function($http, $scope,locals,ionicToast) {
+app.controller('CompanyTopCtrl', ['$http','$scope','locals','ionicToast','$state',function($http, $scope,locals,ionicToast,$state) {
     var user = locals.getObject("user");
 
     var params ={
@@ -27,5 +27,13 @@ app.controller('CompanyTopCtrl', ['$http','$scope','locals','ionicToast',functio
     }).error(function (data) {
         ionicToast.show("服务异常");
     });
+
+    $scope.toFactoryDetail=function(enterName){
+
+        locals.set("enterName",enterName);
+        $state.go("companyRes");
+
+
+    }
 
 }]);

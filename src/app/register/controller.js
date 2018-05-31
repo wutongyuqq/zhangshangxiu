@@ -53,6 +53,7 @@ app.controller('RegisterCtrl', ['$http','$scope','ionicToast','locals','$state',
 
     $scope.goBackPage=function(){
         history.back()
+       // $ionicHistory.goBack();
     }
     $scope.toHomePage=function(item){
 

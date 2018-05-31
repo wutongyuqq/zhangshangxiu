@@ -145,6 +145,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     var user = locals.getObject("user");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    $scope.showFloatImg = false;
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
@@ -194,6 +195,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     } else if (gdData.djzt == '处理中') {
                         $scope.djzt = '派工';
                     } else if (gdData.djzt == '审核已结算') {
+                        $scope.showFloatImg = true;
                         $scope.djzt = '取消完工';
                         $scope.djztUnable = 1;
                     }
@@ -243,8 +245,6 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
             }
         });
-
-
     }
     $scope.showTicheTime = false;
     $scope.showTiche = function (showTicheTime) {
@@ -262,15 +262,9 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.showBeizhuT = function (showBeizhu) {
         $scope.showBeizhu = !showBeizhu;
         if (showBeizhu) {
-
             $scope.updateCarForOne("memo", $scope.memo ? $scope.memo : "");
-
-
         }
-
     }
-
-
     $scope.getDateTime = function () {
         var now = new Date();
         var year = now.getFullYear();
@@ -666,7 +660,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     }
 
 
-    $scope.showFloatImg = false;
+
     $scope.judgeToStatu = function (djzt) {
         if ($scope.djztUnable == 1) {
             return;

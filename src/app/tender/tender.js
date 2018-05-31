@@ -81,19 +81,37 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         });
 
         modalInstance.result.then(function (delData) {
-            locals.set("jsd_id","");
-            $state.go("home");
+            var jsd_id=locals.get("jsd_id");
+            var params2 = {
+                db:"mycon1",
+                function:"sp_fun_delete_repair_list_main",
+                jsd_id:jsd_id
+            }
+
+            var jsonStr3 =  angular.toJson(params2);
+
+            $scope.gdData = gdData;
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data:jsonStr3
+            }).success(function (data, status, headers, config) {
+                console.log(data);
+                var state = data.state;
+                if (state == 'ok') {
+
+                    locals.set("jsd_id","");
+                    $state.go("home");
+                }else{
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+
+                }
+            });
         }, function () {
 
         });
-
-
     }
-
-
-
-
-
     $scope.goBackPage=function(){
         history.back()
     }

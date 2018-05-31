@@ -74,6 +74,10 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
 
         $scope.xianjinNum = shouyinBean.ysje;
     }
+    $scope.goBackPage=function(){
+
+        history.back();
+    }
 
 
     $scope.shuakaPay=function(){
@@ -111,28 +115,31 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
 
 
         var sxf = ($scope.weixinNum)*($scope.jsToBean.wxFl)+($scope.shuakaNum)*($scope.jsToBean.yhkFl);
+        var sxf1 = ($scope.weixinNum)*($scope.jsToBean.wxFl);
+        var sxf2 = ($scope.jsToBean.yhkFl)*($scope.shuakaNum);
+        var ssje=shouyinBean.ysje - shouyinBean.yhje - sxf - shouyinBean.bit_use;
 
         var params = {
             db:"mycon1",
             function:"sp_fun_upload_receivables_data",
-            comp_code:user.comp_code,
+            company_code:user.company_code,
             customer_id:carInfo.customer_id,
-            plate_number:carInfo.cp,
+            plate_number:carInfo.cardName,
             jsd_id:jsd_id,
             czy:user.userName,
-            ysje:shouyinBean.ysje,
-            yhje:shouyinBean.yhje,
-            sxf:($scope.shuakaNum)*($scope.jsToBean.yhkFl),
-            ssje:shouyinBean.ysje - shouyinBean.yhje - sxf - shouyinBean.bit_use,
+            ysje:shouyinBean.ysje?shouyinBean.ysje:'0',
+            yhje:shouyinBean.yhje?shouyinBean.yhje:'0',
+            sxf:sxf?sxf:'0',
+            ssje:ssje?ssje:'0',
             skfs:"现金",
-            bit_compute:shouyinBean.bit_compute,
-            bit_use:shouyinBean.bit_use,
+            bit_compute:shouyinBean.bit_compute?shouyinBean.bit_compute:'0',
+            bit_use:shouyinBean.bit_use?shouyinBean.bit_use:'0',
             skfs1:"微信",
-            skje1:$scope.weixinNum,
-            sxf1:($scope.weixinNum)*($scope.jsToBean.wxFl),
+            skje1:$scope.weixinNum?shouyinBean.weixinNum:'0',
+            sxf1:sxf1,
             skfs2:"中行刷卡",
-            skje2:$scope.shuakaNum,
-            sxf2:($scope.jsToBean.yhkFl)*($scope.shuakaNum),
+            skje2:$scope.shuakaNum?$scope.shuakaNum:'0',
+            sxf2:sxf2?sxf2:'0',
             pre_payment:"0.00",
             vipcard_no:$scope.vipcard_no
         };
@@ -146,16 +153,13 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
             console.log(data);
             var state = data.state;
             if (state == 'ok') {
-
+                ionicToast.show("提交成功", 'middle', false, 1000);
+                $state.go("Winbding");
             }
         });
     }
-
-
-
-
 }]);
-app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function ($http, $scope, $state,locals) {
+app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToast',function ($http, $scope, $state,locals,ionicToast) {
     var carInfo =locals.getObject("carInfo");
     var user =locals.getObject("user");
     $scope.factoryName = user.factoryName;
@@ -248,10 +252,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function (
             if (state == 'ok') {
                 var gdDataList = data.data;
                 if(gdDataList!=null&&gdDataList.length>0){
-
                     $scope.pjDataList = gdDataList;
-
-
                     if(gdDataList!=null && gdDataList.length>0){
                         var totalsl = 0;
                         var totalMoney = 0;
@@ -264,23 +265,17 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', function (
                         $scope.totalsl = totalsl;
                         $scope.totalMoney = totalMoney;
                     }
-
-
                 }
             }
         });
     }
     $scope.getPjListData();
-
-
-
     $scope.getProjListData = function(){
         var params2 = {
             db:"mycon1",
             function:"sp_fun_down_jsdmx_xlxm",
             jsd_id:jsd_id
         };
-
         var jsonStr3=  angular.toJson(params2);
         var pjData = new Object();
         $scope.pjData = pjData;

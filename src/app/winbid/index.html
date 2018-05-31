@@ -330,7 +330,7 @@
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">费率:￥</div>
             <input  ng-model="jsToBean.yhkFl" class="text-inline input-white-back" type="text"/>
-            <div class="text-inline">%</div>
+
         </div>
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">银行转账:￥</div>
@@ -349,6 +349,11 @@
         <div class="tb_content_b_a" ng-show="isShowAll">
             <div class="text-inline tb_text_label">余额:￥</div>
             <div class="text-inline green-btn-back">{{vipcard_money}}</div>
+        </div>
+        <div class="tb_content_b_a">
+            <div class="text-inline tb_text_label">扣除金额：</div>
+            <input  ng-model="jsToBean.yhkFl" class="text-inline input-white-back" type="text"/>
+
         </div>
     </div>
 
@@ -380,7 +385,7 @@
             <input   ng-model="jsToBean.zfbFl"  class="text-inline input-white-back" type="text"/>
         </div>
         <div class="tb_content_b_a">
-            <div class="text-inline tb_text_label">养车币:</div>
+            <div class="text-inline tb_text_label">可获得养车币:</div>
             <div  class="text-inline">{{shouyinBean.bit_use}}</div>
         </div>
 

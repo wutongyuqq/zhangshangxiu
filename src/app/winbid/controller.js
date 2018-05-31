@@ -161,6 +161,8 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
             if (state == 'ok') {
                 ionicToast.show("提交成功", 'middle', false, 2000);
                 $state.go("Winbding");
+            }else{
+                ionicToast.show("错误："+data.msg, 'middle', false, 2000);
             }
         }).error(function (data) {
             ionicToast.show("服务异常","middle",2000);

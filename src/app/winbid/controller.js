@@ -38,6 +38,9 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
             }
             console.log(data.msg);
         }
+    }).error(function (data) {
+        ionicToast.show("服务异常","middle",2000);
+        pre_row_number='end';
     });
     var shouyinBean = locals.getObject("shouyinBean");
     $scope.shouyinBean = shouyinBean;
@@ -62,8 +65,11 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
                 $scope.isShowAll = true;
                     $scope.vipcard_money = data.vipcard_money;
             }else{
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+            pre_row_number='end';
         });
 
 
@@ -141,7 +147,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
             skje2:$scope.shuakaNum?$scope.shuakaNum:'0',
             sxf2:sxf2?sxf2:'0',
             pre_payment:"0.00",
-            vipcard_no:$scope.vipcard_no
+            vipcard_no:$scope.vipcard_no?$scope.vipcard_no:''
         };
         var jsonToRes = angular.toJson(params);
         $http({
@@ -153,9 +159,12 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state','locals', 'ionicToast'
             console.log(data);
             var state = data.state;
             if (state == 'ok') {
-                ionicToast.show("提交成功", 'middle', false, 1000);
+                ionicToast.show("提交成功", 'middle', false, 2000);
                 $state.go("Winbding");
             }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+            pre_row_number='end';
         });
     }
 }]);
@@ -196,6 +205,9 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
                     $scope.getGzData(gdData.jc_date);
                 }
             }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+            pre_row_number='end';
         });
 
     }
@@ -225,6 +237,9 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
             if (state == 'ok') {
                 var gzDataItem = data.data;
             }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+            pre_row_number='end';
         });
     }
 
@@ -267,6 +282,9 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
                     }
                 }
             }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+            pre_row_number='end';
         });
     }
     $scope.getPjListData();
@@ -305,6 +323,9 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
 
                 }
             }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+            pre_row_number='end';
         });
     }
     $scope.getProjListData();
@@ -339,6 +360,9 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
                 }
 
             }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+            pre_row_number='end';
         });
 
 
@@ -373,10 +397,10 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
             db: "mycon1",
             function: "sp_fun_update_repair_main_money",
             jsd_id: jsd_id,
-            zje: Number($scope.totalXlf) + Number($scope.totalMoney) + '',
-            wxfzj: $scope.totalXlf,
-            clfzj: $scope.totalMoney,
-            clcb: totalCb + ''
+            zje: Number($scope.totalXlf==null?'0':$scope.totalXlf) + Number($scope.totalMoney==null?'0':$scope.totalMoney) + '',
+            wxfzj: $scope.totalXlf==null?'0':$scope.totalXlf,
+            clfzj: $scope.totalMoney==null?'0':$scope.totalMoney,
+            clcb: totalCb==null?'0':totalCb+ ''
 
         }
         var jsonStr8 = angular.toJson(params);
@@ -390,10 +414,10 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
             if (state == 'ok') {
                 $scope.uploadMoney();
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
 
@@ -424,10 +448,10 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state','locals', 'ionicToas
                 locals.setObject("shouyinBean",shouyinBean);
                 $state.go("WinBid");
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
 
     }

@@ -6,7 +6,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
     $scope.projectPer = projectPer;
     $scope.toProjectSelect = function () {
         if (projectPer.new != '1') {
-            ionicToast.show('没有权限', 'middle', false, 1000);
+            ionicToast.show('没有权限', 'middle', false, 2000);
         } else {
             $state.go("TenderDtail");
         }
@@ -104,7 +104,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                     locals.set("jsd_id","");
                     $state.go("home");
                 }else{
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
 
                 }
             });
@@ -116,7 +116,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         history.back()
     }
     $scope.toBjSelect = function () {
-        ionicToast.show('没有权限', 'middle', false, 1000);
+        ionicToast.show('没有权限', 'middle', false, 2000);
     }
 
 
@@ -170,10 +170,10 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 if (state == 'ok') {
 
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
         }
 
@@ -227,11 +227,11 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
 
                 locals.setObject("cardDataList",allCarList);
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
 
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
 
 

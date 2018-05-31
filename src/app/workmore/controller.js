@@ -28,7 +28,7 @@ app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals','userTemp', '
     }
 
     $scope.checkVersion=function(){
-        ionicToast.show('当前已经是最新版本', 'middle',false, 1000);
+        ionicToast.show('当前已经是最新版本', 'middle',false, 2000);
 
     }
 

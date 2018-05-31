@@ -43,7 +43,7 @@ app.controller('RegisterCtrl', ['$http','$scope','ionicToast','locals','$state',
                 newCardDataList.push(carListData);
                 locals.setObject("cardDataList",newCardDataList);
             } else {
-                ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 1000);
+                ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 2000);
             }
         }).error(function (data, status, headers, config) {
             console.log(data);

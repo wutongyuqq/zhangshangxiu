@@ -41,10 +41,10 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
                 $scope.queryDataList(chooseName);
 
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
             pre_row_number='end';
         });
 
@@ -81,13 +81,14 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
         locals.setObject("carInfo",carInfo);
         $state.go("Winbding");
     }
-    var newDataList=new Array();
+
     $scope.searchCar=function(cardName){
+        var newDataList=new Array();
         if(dataAllList!=null&&dataAllList.length>0){
             for(var i=0;i<dataAllList.length;i++){
 
                 var dataBean = dataAllList[i];
-                if(dataBean.cp.indexOf(cardName)){
+                if(dataBean.cp.indexOf(cardName)!=-1){
                     newDataList.push(dataBean);
                 }
             }
@@ -110,13 +111,35 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
     $scope.changeByTime=function(orderBySx){
         $scope.orderBySx=!orderBySx;
         if(dataAllList!=null&&dataAllList.length>0){
-            console.log(dataAllList.sort($scope.compare));
-
+            var newDataArr = $scope.sortarr(dataAllList);
+            $scope.dataArray = newDataArr;
         }
 
     }
 
-
+        $scope.sortarr = function(arr){
+        for(i=0;i<arr.length-1;i++){
+            for(j=0;j<arr.length-1-i;j++){
+                var objJcDataStr1 = arr[j].jc_date.split('-').join('').split(':').join('').split(' ').join('');
+                var objJcDataStr2 = arr[j+1].jc_date.split('-').join('').split(':').join('').split(' ').join('');
+                var orderBy = $scope.orderBySx;
+                if(orderBy){
+                if(objJcDataStr1>objJcDataStr2){
+                    var temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+                }else{
+                    if(objJcDataStr1<objJcDataStr2){
+                        var temp=arr[j];
+                        arr[j]=arr[j+1];
+                        arr[j+1]=temp;
+                    }
+                }
+            }
+        }
+        return arr;
+    }
 
     }]);
 

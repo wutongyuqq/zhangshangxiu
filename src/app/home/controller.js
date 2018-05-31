@@ -255,10 +255,10 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                     $scope.uploadCarToServer(upLoadInfo);
 
                 }else {
-                    ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+                    ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 2000);
                 }
             }).error(function(data){
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
             var allCarList = locals.getObject("cardDataList");
             var carInfo = new Object();
@@ -302,10 +302,10 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                     locals.setObject("carInfo",upLoadInfo);
                     $scope.uploadCarToServer(upLoadInfo);
                 }else {
-                    ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+                    ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 2000);
                 }
             }).error(function(data){
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
 
         }
@@ -359,7 +359,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                     $scope.insertCarInfo(upLoadInfo);
                 }
             }).error(function(data){
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
 
         }
@@ -406,10 +406,10 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 $state.go("Tender");
 
             }else {
-                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 1000);
+                ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 2000);
             }
         }).error(function(data){
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
 
 
@@ -534,7 +534,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             }
             $scope.getIconData();
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
     if(locals.getObject("kjProList")==null||locals.getObject("chgProList")==null||locals.getObject("kjProList").length==null||locals.getObject("kjProList").length==0||locals.getObject("chgProList").length==null||locals.getObject("chgProList").length==0){

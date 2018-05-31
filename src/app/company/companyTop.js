@@ -22,10 +22,10 @@ app.controller('CompanyTopCtrl', ['$http','$scope','locals','ionicToast','$state
             }
 
         } else {
-            ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+            ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
         }
     }).error(function (data) {
-        ionicToast.show("服务异常");
+        ionicToast.show("服务异常","middle",2000);
     });
 
     $scope.toFactoryDetail=function(enterName){

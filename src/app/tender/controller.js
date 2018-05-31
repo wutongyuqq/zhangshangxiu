@@ -97,7 +97,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
         if (chooseItem == null) {
             var sencondPageData = $scope.sencondPageData;
             if (sencondPageData == null) {
-                ionicToast.show("请选择项目", 'middle', false, 1000);
+                ionicToast.show("请选择项目", 'middle', false, 2000);
                 return;
             }
             chooseItem = sencondPageData[0];
@@ -127,10 +127,10 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
                 $state.go("Winbding");
                 // locals.setObject("carInfo",upLoadInfo);
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
 
     }
@@ -319,10 +319,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 locals.set("guzhangDes", $scope.guzhangDes);
                 locals.setObject("carInfo", carInfo2);
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
 
@@ -394,10 +394,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
 
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
 
     }
@@ -441,10 +441,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     $scope.repairDataList.splice(index, 1);
 
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
         }, function () {
 
@@ -486,10 +486,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
 
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
 
@@ -530,10 +530,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     $scope.pjDataList.splice(index, 1);
 
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
         }, function () {
 
@@ -582,10 +582,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     $state.go("Winbding");
                     // locals.setObject("carInfo",upLoadInfo);
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
 
             if (resData.isNewPrice) {
@@ -614,10 +614,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                         locals.setObject("repairDataList", $scope.repairDataList);
 
                     } else {
-                        ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                        ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                     }
                 }).error(function (data) {
-                    ionicToast.show("服务异常");
+                    ionicToast.show("服务异常","middle",2000);
                 });
 
             } else {
@@ -646,10 +646,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                         locals.setObject("repairDataList", $scope.pjDataList);
 
                     } else {
-                        ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                        ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                     }
                 }).error(function (data) {
-                    ionicToast.show("服务异常");
+                    ionicToast.show("服务异常","middle",2000);
                 });
 
             }
@@ -691,10 +691,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     $scope.showFloatImg = true;
 
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
         } else if (djzt == "取消完工") {
 
@@ -720,10 +720,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     $scope.showFloatImg = false;
 
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
         }
     }
@@ -770,10 +770,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     $state.go("Winbding");
                     // locals.setObject("carInfo",upLoadInfo);
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
         }, function () {
 
@@ -820,10 +820,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 if (state == 'ok') {
 
                 } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
             }).error(function (data) {
-                ionicToast.show("服务异常");
+                ionicToast.show("服务异常","middle",2000);
             });
         }
 
@@ -929,10 +929,10 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
                 locals.setObject("pjKucun", pjKucun);
                 locals.setObject("newPjDataList", pjKucun);
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
     $scope.showMoreView = function (showMore) {
@@ -1039,7 +1039,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             }
             console.log(data);
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
     var oData = new Object();
@@ -1106,7 +1106,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             }
             console.log(data);
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
 
@@ -1179,10 +1179,10 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
                 $scope.pgDataList = data.data;
                 // locals.setObject("carInfo",upLoadInfo);
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
 
 
@@ -1250,7 +1250,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
 
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
 
@@ -1414,10 +1414,10 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
                 $scope.data = data.data;
 
             } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 1000);
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常");
+            ionicToast.show("服务异常","middle",2000);
         });
     }
     $scope.getWxHistory();

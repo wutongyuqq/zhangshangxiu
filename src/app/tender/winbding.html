@@ -307,6 +307,9 @@
     .img-gray {
         background-image: url("../../../vendor/images/zsx/back_gray.png");
     }
+    .claim_input{
+        width: 2.5rem;
+    }
 </style>
 
 <div>
@@ -320,8 +323,13 @@
                 <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
                         src="../../../vendor/images/zsx/back_blue.png"></button>
             </div>
+            <h1 class="title"></h1>
+            <div class="buttons">
+                <button class="button" ui-sref="home">首页</button>
+            </div>
+
         </ion-header-bar>
-        <h1 class="title">工单(NO:{{carInfo.customer_id}})</h1>
+        <h1 class="title">工单(NO:{{jsd_id}})</h1>
     </div>
 
     <div class="bar_second_pink">
@@ -365,12 +373,12 @@
         <div class="input-group-a">
             <div class="text_inline" style="font-size: 1.4em;">故障描述：</div>
             <div class="text_inline">
-                <span ng-show="!showGuzhang">{{guzhangDes}}</span> <input ng-show="showGuzhang" ng-model="guzhangDes"
+                <span ng-show="showGuzhang">{{guzhangDes}}</span> <input ng-show="!showGuzhang" ng-model="guzhangDes"
                                                                           class="form-control-a" type="text"
                                                                           placeholder="请输入"/>
             </div>
-            <img ng-click="showGuzhangT(showGuzhang)" class="text_inline wb_btn_img"
-                 src="{{showGuzhang?'../../../vendor/images/zsx/edit_true.png':'../../../vendor/images/zsx/edit.png'}}">
+            <img  ng-hide="showFloatImg" ng-click="showGuzhangT(showGuzhang)" class="text_inline wb_btn_img"
+                 src="{{!showGuzhang?'../../../vendor/images/zsx/edit_true.png':'../../../vendor/images/zsx/edit.png'}}">
 
         </div>
         <!-- /input-group -->
@@ -404,7 +412,7 @@
                     <td style="font-size: 1.4em; max-width: 1rem;">{{item.wxgz}}</td>
                     <td style="font-size: 1.4em; max-width: 1rem;">{{item.xlf}}</td>
                     <td style="font-size: 1.4em; max-width: 1rem;">{{item.zk}}</td>
-                    <td style="padding-bottom: 0.3rem;padding-top:0.3rem"><img ng-click="deleteItem($index,item)"
+                    <td style="padding-bottom: 0.3rem;padding-top:0.3rem"  ng-hide="allBtnUnable==1"><img ng-hide="notDelete==1" ng-click="deleteItem($index,item)"
                                                                                class="img-minus"
                                                                                src="../../../vendor/images/zsx/minus_img.png"/>
                         <br/>
@@ -445,7 +453,7 @@
                     <div class="text_inline" style="font-size: 1.4em;width: 2rem;">备注:</div>
 
                     <div class="text_inline"  style="font-size: 1.4em;"><div ng-show="!showBeizhu" ng-model="memo" ng-bind="memo"></div><div><input  ng-model="memo" ng-show="showBeizhu" type="text" placeholder="输入" style="width: 5rem;font-size: 1.2em;"/></div></div>
-                    <div class="text_inline" > <img ng-click="showBeizhuT(showBeizhu)" class="text_inline wb_btn_img"
+                    <div class="text_inline" ng-hide="showFloatImg"> <img ng-click="showBeizhuT(showBeizhu)" class="text_inline wb_btn_img"
                               src="{{showBeizhu?'../../../vendor/images/zsx/edit_true.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
                 </div>
 
@@ -461,10 +469,10 @@
         <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
             钣金喷漆
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn" ng-click="toProjectFactory()" style="font-size: 1.4em">
+        <div class="text-inline confirm-a {{allBtnUnable==1?'confirm-nav-btn-a':'confirm-nav-btn'}}" ng-click="toProjectFactory()" style="font-size: 1.4em">
             项目库
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn" ng-click="addTempProject()" style="font-size: 1.4em">
+        <div class="text-inline confirm-a {{allBtnUnable==1?'confirm-nav-btn-a':'confirm-nav-btn'}}" ng-click="addTempProject()" style="font-size: 1.4em">
             临时项目
         </div>
         <div class="text-inline confirm-a confirm-nav-btn" ui-sref="Tender" style="font-size: 1.4em">
@@ -474,7 +482,7 @@
              ng-click="judgeToStatu(djzt)" style="font-size: 1.4em">
             {{djzt}}
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn" ui-sref="wintotal" style="font-size: 1.4em">
+        <div class="text-inline confirm-a {{yccType==1?'confirm-nav-btn-a':'confirm-nav-btn'}}" ng-click="toJiesuan()" style="font-size: 1.4em">
             结&#12288;算
         </div>
     </div>
@@ -629,7 +637,7 @@
                     <div style="display: inline-block;vertical-align: middle;">优&#12288;&#12288;惠:</div>
                     <div style="display: inline-block;vertical-align: middle;"><input
                             style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
-                            ng-model="xlf"/></div>
+                            ng-model="yhje=orderXlf-xlf"/></div>
                 </div>
 
                 <div class="model-margin-top">
@@ -645,7 +653,7 @@
             <button class="btn btn-primary" ng-click="cancel()">
                 取消
             </button>
-            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem">
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf,yhje)" style="margin-left: 2rem">
                 确定
             </button>
         </div>

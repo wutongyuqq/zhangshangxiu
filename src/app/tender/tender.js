@@ -51,13 +51,14 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 }
                 carToInfo.cz = carInfo.cz?carInfo.cz:gdData.cz;
                 carToInfo.cardName = carInfo.cardName?carInfo.cardName:gdData.cp;
-                carToInfo.gls = carInfo.gls?carInfo.gls:gdData.jclc;
-                carToInfo.cjhm = carInfo.cjhm?carInfo.cjhm:gdData.cjhm;
-                carToInfo.cx = carInfo.cx?carInfo.cx:gdData.cx;
-                carToInfo.ticheTime = carInfo.ticheTime?carInfo.ticheTime:jcDataStr;
-                carToInfo.gzms = carInfo.gzms?carInfo.gzms:gdData.gzms;//故障描述,没有取到
-                carToInfo.jsr = carInfo.jsr?carInfo.jsr:gdData.jsr;//介绍人,没有取到
-                carToInfo.ywtx = carInfo.ywtx?carInfo.ywtx:gdData.ywtx;//备注,没有取到
+                carToInfo.gls = gdData.jclc;
+                carToInfo.cjhm = gdData.cjhm;
+                carToInfo.cx =gdData.cx;
+                carToInfo.ticheTime = jcDataStr;
+                carToInfo.gzms = gdData.car_fault;//故障描述
+                carToInfo.jsr =gdData.jsr;//介绍人,没有取到
+                carToInfo.ywtx = gdData.memo;//备注
+                carToInfo.ticheTime = (gdData.ywg_date&&gdData.ywg_date.length>9)?gdData.ywg_date.substring(0,10):"";//备注
                 $scope.carInfo = carToInfo;
             }
 
@@ -179,10 +180,6 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
 
     }
     $scope.$on('$stateChangeStart', function (event, toState, fromState){
-       locals.get("ticheTime",$scope.carInfo.ticheTime);
-        locals.get("gonglishu",$scope.carInfo.gls);
-       locals.get("guzhangDes",$scope.carInfo.gzms);
-
         if($scope.clickNum>0){
         $scope.updateCarInfoToServer();
         }

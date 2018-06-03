@@ -9,9 +9,7 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
     $scope.queryDataList = function (chooseName) {
 
        if(pre_row_number=='end'){
-
-           $scope.dataArray = dataAllList;
-
+           $scope.dataArray =  $scope.sortarr(dataAllList);
            return;
        }
         var params = {
@@ -70,7 +68,7 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
         locals.set("guzhangDes","");
 
 
-        var carInfo = locals.getObject("carInfo");
+        var carInfo = new Object();
         carInfo.cp=item.cp;
         carInfo.cardName=item.cp;
         carInfo.states=item.states;
@@ -114,9 +112,7 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
             var newDataArr = $scope.sortarr(dataAllList);
             $scope.dataArray = newDataArr;
         }
-
     }
-
         $scope.sortarr = function(arr){
         for(i=0;i<arr.length-1;i++){
             for(j=0;j<arr.length-1-i;j++){
@@ -140,9 +136,7 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
         }
         return arr;
     }
-
     }]);
-
 
 
 

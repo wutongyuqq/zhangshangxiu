@@ -267,7 +267,8 @@
         border: none;
 
     }
-    .select-statu>option{
+
+    .select-statu > option {
         border: none;
     }
 
@@ -275,7 +276,7 @@
         width: 4rem;
         height: 0.8rem;
         margin-left: 1.6rem;
-        color:#1296db;
+        color: #1296db;
         font-size: 1.2em;;
 
     }
@@ -325,65 +326,91 @@
         width: 100%;
         margin-top: 0.05rem;
     }
-    .pg_div_header{
+
+    .pg_div_header {
         font-size: 14px;
         font-weight: 600;
     }
 
+    .scroll-list {
+        overflow: scroll;
+    }
+    .up-load-part{
+        position: fixed;
+        top: 0;
+        background-color: white;
+    }
+    .scroll-list{
+        margin-top:3rem;
+    }
+
 </style>
 
-<div>
-    <div class="bar bar-header bar-light">
 
-        <ion-header-bar align-title="left" class="bar-positive"  style="background-color: transparent;border-bottom: 1px solid blue">
-            <div class="buttons" style="background-color: transparent">
-                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img src="../../../vendor/images/zsx/back_blue.png"></button>
-            </div>
-        </ion-header-bar>
-        <h1 class="title">在厂车辆</h1>
-    </div>N
+    <div class="up-load-part">
+        <div class="bar bar-header bar-light">
 
-    <div class="col-lg-6 bts-magin">
-        <div class="input-group">
-            <input type="text" class="form-control-a" placeholder="输入车牌" ng-model="cardName">
+            <ion-header-bar align-title="left" class="bar-positive"
+                            style="background-color: transparent;border-bottom: 1px solid blue">
+                <div class="buttons" style="background-color: transparent">
+                    <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;">
+                        <img src="../../../vendor/images/zsx/back_blue.png"></button>
+                </div>
+                <h1 class="title"></h1>
+                <div class="buttons">
+                    <button class="button" ui-sref="home">首页</button>
+                </div>
+            </ion-header-bar>
+            <h1 class="title">在厂车辆</h1>
+        </div>
+
+
+        <div class="col-lg-6 bts-magin">
+            <div class="input-group">
+                <input type="text" class="form-control-a" placeholder="输入车牌" ng-model="cardName">
             <span class="input-group-btn">
-        <button class="btn-search" type="button" ng-click="searchCar(cardName)"><img src="../../../vendor/images/zsx/search_white.png"></button>
+        <button class="btn-search" type="button" ng-click="searchCar(cardName)"><img
+                src="../../../vendor/images/zsx/search_white.png"></button>
       </span>
-        </div>
-        <!-- /input-group -->
-    </div>
-    <!-- /.col-lg-6 -->
-    <div class="red-back">
-        <select class="text_inline select-statu" ng-model="chooseName" ng-change="queryData(chooseName)">
-            <option>估价中</option>
-            <option>待派工</option>
-            <option>待领工</option>
-            <option>修理中</option>
-            <option>待结算</option>
-            <option>待质检</option>
-            <option>待出厂</option>
-        </select>
-
-
-        <div class="text_inline select-time" ng-click="changeByTime(orderBySx)">
-            {{orderBySx?'按时间升序排列':'按时间降序排列'}}
-        </div>
-    </div>
-    <div class="pg-line" ng-repeat="item in dataArray" ng-click="toGongdanPage(item)">
-        <div class="pg_div_header">
-            <div class="float_left">车牌：{{item.cp}}</div>
-            <div class="float_right">状态：{{item.states}}</div>
-        </div>
-        <div class="pg_div_content">
-            <div class="float_left"><img class="car_img" src="../../../vendor/images/zsx/car_img.jpg"/></div>
-            <div class="float_left text-aign-left">
-                <div class="text-left-b">车架号：{{item.cjhm}}</div>
-                <div class="text-left-b">进厂时间：{{item.jc_date}}</div>
-                <div class="text-left-b">接待人员：{{item.jcr}}</div>
-                <div class="text-left-b">车型：{{item.cx}}</div>
             </div>
+            <!-- /input-group -->
+        </div>
+        <!-- /.col-lg-6 -->
+        <div class="red-back">
+            <select class="text_inline select-statu" ng-model="chooseName" ng-change="queryData(chooseName)">
+                <option>估价中</option>
+                <option>待派工</option>
+                <option>待领工</option>
+                <option>修理中</option>
+                <option>待结算</option>
+                <option>待质检</option>
+                <option>待出厂</option>
+            </select>
 
+
+            <div class="text_inline select-time" ng-click="changeByTime(orderBySx)">
+                {{orderBySx?'按时间升序排列':'按时间降序排列'}}
+            </div>
+        </div>
+    </div>
+    <div class="scroll-list">
+
+
+        <div class="pg-line" ng-repeat="item in dataArray" ng-click="toGongdanPage(item)">
+            <div class="pg_div_header">
+                <div class="float_left">车牌：{{item.cp}}</div>
+                <div class="float_right">状态：{{item.states}}</div>
+            </div>
+            <div class="pg_div_content">
+                <div class="float_left"><img class="car_img" src="../../../vendor/images/zsx/car_img.jpg"/></div>
+                <div class="float_left text-aign-left">
+                    <div class="text-left-b">车架号：{{item.cjhm}}</div>
+                    <div class="text-left-b">进厂时间：{{item.jc_date}}</div>
+                    <div class="text-left-b">接待人员：{{item.jcr}}</div>
+                    <div class="text-left-b">车型：{{item.cx}}</div>
+                </div>
+
+            </div>
         </div>
     </div>
 
-</div>

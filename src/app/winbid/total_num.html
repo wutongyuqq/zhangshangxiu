@@ -90,7 +90,7 @@
     }
 
     .expect-time {
-        margin-left: 0.5rem;
+        margin-left: 0.2rem;
     }
 
     .first-line-text {
@@ -177,6 +177,13 @@
         color: white;
         font-size: 1.6em;
     }
+    .confirm-nav-btn-c{
+        width:100%;
+        background-color: darkgray;
+        padding: 15px 10px;
+        color: white;
+        font-size: 1.6em;
+    }
     .text-inline {
         display: inline-block;
     }
@@ -189,20 +196,24 @@
             <div class="buttons" style="background-color: transparent">
                 <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img src="../../../vendor/images/zsx/back_blue.png"></button>
             </div>
+            <h1 class="title"></h1>
+            <div class="buttons">
+                <button class="button" ui-sref="home">首页</button>
+            </div>
         </ion-header-bar>
         <h1 class="title">交车结算</h1>
     </div>
     <div class="bar_second_pink">
         <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
 
-        <div class="color-white bar-white-home">{{carInfo.cz}}</div>
+        <div class="color-white bar-white-home">{{gdData.cz}}</div>
         <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
 
         <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
     </div>
 
     <div class="text_inline first-line-text">委托单号：{{jsd_id}}</div>
-    <div class="first-line-text text_inline expect-time">期望提车时间：{{ticheTime}}</div>
+    <div class="first-line-text text_inline expect-time">预完工时间：{{ticheTime}}</div>
     <div class="second-line-txt content-line-txt">
         <div class="text_inline text-left">修理厂名称：</div>
         <div class="text_inline text-right">{{company_name}}</div>
@@ -237,7 +248,7 @@
     </div>
     <div class="content-line-txt">
         <div class="text_inline text-left">故障描述：</div>
-        <div class="text_inline text-right">{{gdData.jclc}}</div>
+        <div class="text_inline text-right">{{car_fault}}</div>
     </div>
     <div class="div-margin-top">
 
@@ -288,14 +299,16 @@
         <div style="width: 10rem;margin: 0.05rem auto; white-space:nowrap;overflow: hidden">--------------------------------------------------------------------------------------------------------------------------</div>
         <div style="width: 10rem;margin-left:1rem;text-align: left;font-size: 1.2em;font-weight: 700;">地址：{{address}}</div>
         <div style="width: 10rem;margin-left:1rem;margin-top:0.05rem;text-align: left;font-size: 1.2em;font-weight: 700;">电话：{{telphone}}</div>
+        <div style="width: 10rem;margin: 0.05rem auto; white-space:nowrap;overflow: hidden">--------------------------------------------------------------------------------------------------------------------------</div>
+
+
     </div>
-    <div style="width: 10rem;margin: 0.05rem auto; white-space:nowrap;overflow: hidden">--------------------------------------------------------------------------------------------------------------------------</div>
     <div class="qz-div">
         <div class="qz-left-a">客户签字：</div>
         <div class="qz-left-a">接待签字：</div>
-        <div class="qz-left-b">日期：</div>
-        <div class="qz-left-b">备注：</div>
-        <div class="qz-left-b">打印时间：2018-05-09</div>
+        <div class="qz-left-b">日期：{{gdData.jc_date}}</div>
+        <div class="qz-left-b">备注：{{gdData.memo}}</div>
+        <div class="qz-left-b">打印时间：{{dyTime}}</div>
     </div>
     <div class="confirm-div">
         <div class="text-inline confirm-a confirm-nav-btn">
@@ -307,7 +320,7 @@
         <div class="text-inline confirm-a confirm-nav-btn">
             取消结算
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn-a" ng-click="toJieSuanDetail()">
+        <div class="text-inline confirm-a confirm-nav-btn-a {{gdData.djzt=='审核已结算'?'confirm-nav-btn-c':'confirm-nav-btn-a'}}" ng-click="toJieSuanDetail()">
             收银
         </div>
     </div>

@@ -232,8 +232,13 @@
             <div class="buttons" style="background-color: transparent">
                 <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img src="../../../vendor/images/zsx/back_blue.png"></button>
             </div>
+            <h1 class="title"></h1>
+            <div class="buttons">
+                <button class="button" ui-sref="home">首页</button>
+            </div>
         </ion-header-bar>
         <h1 class="title">业务导航</h1>
+
     </div>
 
 
@@ -251,7 +256,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left" style="font-size: 1.6em;">车架号</div>
-            <div class="text-inline text-right" style="font-size: 1.6em;"><span ng-show="!isShowCjh">{{carInfo.cjhm}}</span><input  style="font-size: 1.0em;" ng-show="isShowCjh" ng-model="carInfo.cjhm" type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowCjh,2)" class="edit-img-a" src="{{isShowCjh?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
+            <div class="text-inline text-right" style="font-size: 1.4em;"><span ng-show="!isShowCjh">{{carInfo.cjhm}}</span><input  style="font-size: 1.0em;" ng-show="isShowCjh" ng-model="carInfo.cjhm" type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowCjh,2)" class="edit-img-a" src="{{isShowCjh?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
         </div>
         <div class="border-color">
             <div class="text-inline text-left" style="font-size: 1.6em;">车型</div>

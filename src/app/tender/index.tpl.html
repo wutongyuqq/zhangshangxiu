@@ -256,6 +256,10 @@
             <div class="buttons" style="background-color: transparent">
                 <button class="button" ng-click="goBackHistory()" style="border: none;background-color: transparent;"><img src="../../../vendor/images/zsx/back_blue.png"></button>
             </div>
+            <h1 class="title"></h1>
+            <div class="buttons">
+                <button class="button" ui-sref="home">首页</button>
+            </div>
         </ion-header-bar>
         <h1 class="title">项目选择</h1>
     </div>
@@ -285,9 +289,9 @@
 
     <div class="col-lg-6 bts-magin">
         <div class="input-group">
-            <input type="text"  style="font-size: 1.6em;" ng-focus="toSelectPage()" class="form-control-a" placeholder="姓名/卡号/手机号">
+            <input type="text"  style="font-size: 1.6em;" ng-model="searchName"  class="form-control-a" placeholder="姓名/卡号/手机号">
       <span class="input-group-btn">
-        <button class="btn-search" type="button"><img src="../../../vendor/images/zsx/search_white.png"></button>
+        <button class="btn-search" type="button" ng-click="toSelectPage()"><img src="../../../vendor/images/zsx/search_white.png"></button>
       </span>
         </div>
         <!-- /input-group -->
@@ -324,7 +328,7 @@
 
         </div>
 
-        <div ng-repeat="item in sencondPageData" class="select-item select_one  {{checked==$index?'choose_back':''}}"   ng-click="chooseProject($index,item)">
+        <div ng-repeat="item in sencondPageData" style="margin-top: 0.3rem;" class="select-item select_one  {{item.selected?'choose_back':''}}"   ng-click="chooseProject($index,item,item.selected)">
             <img class="select-img" src="../../../vendor/images/zsx/file_img.png"/>
 
             <div class="select-text" style="font-size: 1.2em;">{{item.mc}}<br/><span style="font-size: 1.2em;">￥</span><span style="font-size: 1.2em;">{{item.xlf}}</span></div>

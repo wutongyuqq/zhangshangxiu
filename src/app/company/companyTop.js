@@ -29,11 +29,8 @@ app.controller('CompanyTopCtrl', ['$http','$scope','locals','ionicToast','$state
     });
 
     $scope.toFactoryDetail=function(enterName){
-
         locals.set("enterName",enterName);
         $state.go("companyRes");
-
-
     }
 
 }]);

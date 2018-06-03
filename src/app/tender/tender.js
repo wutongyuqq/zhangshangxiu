@@ -56,7 +56,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 carToInfo.cx =gdData.cx;
                 carToInfo.ticheTime = jcDataStr;
                 carToInfo.gzms = gdData.car_fault;//故障描述
-                carToInfo.jsr =gdData.jsr;//介绍人,没有取到
+                carToInfo.jsr =gdData.custom5;//介绍人,没有取到
                 carToInfo.ywtx = gdData.memo;//备注
                 carToInfo.ticheTime = (gdData.ywg_date&&gdData.ywg_date.length>9)?gdData.ywg_date.substring(0,10):"";//备注
                 $scope.carInfo = carToInfo;

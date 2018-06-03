@@ -285,6 +285,11 @@
         width: 100%;
         height: 2rem;
     }
+    .width-in{
+        width: 2rem;
+        background-color: transparent;
+        border: none;
+    }
 </style>
 <div>
 
@@ -314,7 +319,7 @@
         <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
     </div>
     <div class="wb_second_line" style="margin-top: 0.3rem;">
-        <div class="text_inline">已收预约款:￥0.0</div>
+        <div class="text_inline">预收款余额:</div>
         <div class="text_inline wb_second_line_qw">未分配：{{weifenpeiNum}}</div>
 
 
@@ -322,7 +327,9 @@
     <div class="wb_second_line tb_content_a" style="margin-top: 0.3rem;">
         <div class="text_inline tb_content_a_ss">应收总计:￥{{shouyinBean.ysje}}</div>
         <div class="text_inline wb_second_line_qw">优惠：</div>
-        <div class="text_inline">{{shouyinBean.yhje}}</div>
+
+
+        <div class="text_inline"><input class="width-in" type="text" ng-model="shouyinBean.yhje"/></div>
 
     </div>
     <div class="tb_content_b" style="margin-top: 0.3rem;">

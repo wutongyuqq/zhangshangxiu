@@ -36,7 +36,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
                 }
                 $scope.jsToBean = jsdBean;
             }
-            console.log(data.msg);
+
         }
     }).error(function (data) {
         ionicToast.show("服务异常", "middle", 2000);
@@ -164,7 +164,33 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
         var jsd_id = locals.get("jsd_id");
         $scope.carInfo = carInfo;
 
+        var checkNum =0;
+        if($scope.xianjinNum&&Number($scope.xianjinNum)>0){
+            checkNum++;
+        }
+        if($scope.shuakaNum&&Number($scope.shuakaNum)>0){
+            checkNum++;
+        }
+        if($scope.guazhangNum&&Number($scope.guazhangNum)>0){
+            checkNum++;
+        }
+        if($scope.weixinNum&&Number($scope.weixinNum)>0){
+            checkNum++;
+        }
+        if($scope.zfbNum&&Number($scope.zfbNum)>0){
+            checkNum++;
+        }
+        if($scope.zhuanzhangNum&&Number($scope.zhuanzhangNum)>0){
+            checkNum++;
+        }
+        if($scope.xianjinNum&&Number($scope.xianjinNum)>0){
+            checkNum++;
+        }
 
+        if(checkNum>3){
+            ionicToast.show("结算方式超过3种，请重新选择", 'middle', false, 2000);
+            return;
+        }
         var sxf = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0") + Number($scope.shuakaNum ? $scope.shuakaNum : "0") * Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0")).toFixed(2);
         var sxf1 = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0")).toFixed(2);
         var sxf2 = (Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0") * Number($scope.shuakaNum ? $scope.shuakaNum : "0")).toFixed(2);

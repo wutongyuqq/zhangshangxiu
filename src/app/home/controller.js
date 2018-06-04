@@ -5,7 +5,6 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     if(user==null||user.userName==null){
         $state.go("Login");
     }
-
     locals.set("ticheTime","");
     locals.set("gonglishu","");
     locals.set("guzhangDes","");
@@ -117,13 +116,14 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
     }
     var cardDataList = locals.getObject("cardDataList");
-    if(cardDataList==null || cardDataList.length==null||cardDataList.length==0){
+    if(cardDataList==null || cardDataList.length==null||cardDataList.length==null||cardDataList.length==0){
         $scope.getCardListData();
     }else{
             $scope.cardDataList = cardDataList;
     }
     $scope.showCardList = false;
     $scope.showCardListData = function () {
+        cardDataList = locals.getObject("cardDataList");
         $scope.showCardList = true;
         $scope.cardDataList = cardDataList;
     };
@@ -137,11 +137,13 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         var cardDataListForSerch = locals.getObject("cardDataList");
         var searchName =$scope.carInfo.shortCardName;
         var newCarArray = new Array();
+        if(cardDataListForSerch!=null && cardDataListForSerch.length!=null &&cardDataListForSerch.length>0){
         for(var i=0;i<cardDataListForSerch.length;i++){
             var carInfoS = cardDataListForSerch[i];
             if(cardDataListForSerch[i].mc!=null&&cardDataListForSerch[i].mc.indexOf(searchName)!=-1){
                 newCarArray.push(carInfoS);
             }
+        }
         }
         $scope.cardDataList = newCarArray;
         if((newCarArray==null||newCarArray.length==null||newCarArray.length==0)&&searchName.length==6){
@@ -170,7 +172,6 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 }
             });
         }
-        console.log($scope.carInfo.shortCardName)
     });
 
     $scope.getDateTime = function(){
@@ -271,7 +272,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             db:"mycon1",
                 function:"sp_fun_upload_customer_info",
                 company_code:user.company_code,
-                plate_number:upLoadInfo.cardName,
+                plate_number:upLoadInfo.cardName?upLoadInfo.cardName:"",
                 cz:upLoadInfo.linkman,
                 mobile:upLoadInfo.mobile+'',
                 phone: upLoadInfo.phone+'',
@@ -293,7 +294,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 if (state == 'ok') {
                     upLoadInfo.customer_id=data.customer_id;
                     upLoadInfo.cz = upLoadInfo.linkman;
-                    upLoadInfo.plate_number = upLoadInfo.cardName;
+                    upLoadInfo.plate_number = upLoadInfo.cardName?upLoadInfo.cardName:"";
 
                    var cardDataListA = locals.getObject("cardDataList");
                     cardDataListA.push(upLoadInfo);
@@ -422,7 +423,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             db:"mycon1",
             function:"sp_fun_upload_repair_list_main",
             company_code:user.company_code,
-            plate_number:upLoadInfo.cardName,
+            plate_number:upLoadInfo.cardName?upLoadInfo.cardName:"",
             cz:upLoadInfo.cz,
             mobile:upLoadInfo.mobile+'',
             phone: upLoadInfo.phone+'',
@@ -435,7 +436,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             oprater_code:userName,
             xllb:"",
             jclc:upLoadInfo.gls+"",
-            ywg_date:dateTime,
+            ywg_date:upLoadInfo.ywg_date?(upLoadInfo.ywg_date+" 00:00:00"):"",
             keys_no:upLoadInfo.ysph,
             memo:upLoadInfo.ywtx,
             customer_id:upLoadInfo.customer_id,

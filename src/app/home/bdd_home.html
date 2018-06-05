@@ -307,7 +307,7 @@
             <div class="text_inline">
             <input class="kepybord-listen"  placeholder="必填" type="text" ng-model="carInfo.shortCardName" ng-blur="showCardList=false" ng-focus="showCardListData()"/>
                 <div class="card_ul"  ng-show="showCardList">
-                    <div class="showCard-height" ng-repeat="item in cardDataList" ng-click="showCardName(item)">{{item.mc}}</div>
+                    <div class="showCard-height" ng-repeat="itemA in cardDataList track by $index" ng-click="showCardName(itemA)">{{itemA.mc?itemA.mc:""}}</div>
                 </div>
             </div>
         </any>

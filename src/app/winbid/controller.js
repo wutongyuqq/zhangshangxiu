@@ -7,9 +7,9 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
         function: "sp_fun_down_poundage"
     };
     var jsToBean = new Object();
-    jsToBean.wxFl = "";
-    jsToBean.zfbFl = "";
-    jsToBean.yhkFl = "";
+    jsToBean.wxFl = 0;
+    jsToBean.zfbFl = 0;
+    jsToBean.yhkFl = 0;
     $scope.jsToBean = jsToBean;
     $http({
         method: 'post',
@@ -23,17 +23,22 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             var dataArray = data.data;
             if (dataArray != null && dataArray.length > 0) {
                 var jsdBean = jsToBean;
-
+                var selectList = new Array();
                 for (var i = 0; i < dataArray.length; i++) {
                     var bean = dataArray[i];
                     if (bean.name == "微信") {
-                        jsdBean.wxFl = bean.setup2;
+                        jsdBean.wxFl = Number(bean.setup2);
                     } else if (bean.name == "支付宝") {
-                        jsdBean.zfbFl = bean.setup2;
-                    } else if (bean.name == "中行刷卡") {
-                        jsdBean.yhkFl = bean.setup2;
+                        jsdBean.zfbFl = Number(bean.setup2);
+                    }
+                    if(bean.name!="微信"&&bean.name!="支付宝"){
+                        selectList.push(bean);
                     }
                 }
+                $scope.selectList = selectList;
+                jsdBean.yhkFl = Number(selectList[0].setup2);
+                $scope.shuaKaStr = selectList[0].setup1;
+                jsToBean.yskDkNum = selectList[0].Pre_payment;
                 $scope.jsToBean = jsdBean;
             }
 
@@ -46,11 +51,25 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
     $scope.shouyinBean = shouyinBean;
     $scope.isShowAll = false;
 
+
+    $scope.selectItem=function(item){
+        var jsdBean = $scope.jsdBean;
+        jsdBean.yhkFl = item.setup2;
+        $scope.jsToBean = jsdBean;
+        $scope.shuaKaStr = item.setup1;
+
+    }
     $scope.showAllMoney = function () {
+        var vipcard_no = Number($scope.vipcard_no?$scope.vipcard_no:"0");
+        if(vipcard_no==0){
+            ionicToast.show("请输入会员卡卡号", 'middle', false, 2000);
+            return;
+        }
+
         var params2 = {
             db: "mycon1",
             function: "sp_fun_get_vipcard_money",
-            vipcard_no: $scope.vipcard_no
+            vipcard_no: $scope.vipcard_no+""
         }
 
         $http({
@@ -84,7 +103,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.zhuanzhangNum ? $scope.zhuanzhangNum : '0') -
             Number($scope.guazhangNum ? $scope.guazhangNum : '0') -
             Number($scope.weixinNum ? $scope.weixinNum : '0') -
-            Number($scope.zfbNum ? $scope.zfbNum : '0') + "";
+            Number($scope.zfbNum ? $scope.zfbNum : '0');
         $scope.weifenpeiNum = 0;
     }
     $scope.goBackPage = function () {
@@ -100,7 +119,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.zhuanzhangNum ? $scope.zhuanzhangNum : '0') -
             Number($scope.guazhangNum ? $scope.guazhangNum : '0') -
             Number($scope.weixinNum ? $scope.weixinNum : '0') -
-            Number($scope.zfbNum ? $scope.zfbNum : '0') + "";
+            Number($scope.zfbNum ? $scope.zfbNum : '0');
         $scope.weifenpeiNum = 0;
     }
 
@@ -112,7 +131,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.shuakaNum ? $scope.shuakaNum : '0') -
             Number($scope.guazhangNum ? $scope.guazhangNum : '0') -
             Number($scope.weixinNum ? $scope.weixinNum : '0') -
-            Number($scope.zfbNum ? $scope.zfbNum : '0') + "";
+            Number($scope.zfbNum ? $scope.zfbNum : '0');
         $scope.weifenpeiNum = 0;
     }
 
@@ -124,7 +143,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.shuakaNum ? $scope.shuakaNum : '0') -
             Number($scope.zhuanzhangNum ? $scope.zhuanzhangNum : '0') -
             Number($scope.weixinNum ? $scope.weixinNum : '0') -
-            Number($scope.zfbNum ? $scope.zfbNum : '0') + "";
+            Number($scope.zfbNum ? $scope.zfbNum : '0');
         $scope.weifenpeiNum = 0;
     }
 
@@ -135,7 +154,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.shuakaNum ? $scope.shuakaNum : '0') -
             Number($scope.zhuanzhangNum ? $scope.zhuanzhangNum : '0') -
             Number($scope.guazhangNum ? $scope.guazhangNum : '0') -
-            Number($scope.zfbNum ? $scope.zfbNum : '0') + "";
+            Number($scope.zfbNum ? $scope.zfbNum : '0');
         $scope.weifenpeiNum = 0;
     }
 
@@ -145,7 +164,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.shuakaNum ? $scope.shuakaNum : '0') -
             Number($scope.zhuanzhangNum ? $scope.zhuanzhangNum : '0') -
             Number($scope.guazhangNum ? $scope.guazhangNum : '0') -
-            Number($scope.zfbNum ? $scope.zfbNum : '0') - Number($scope.weixinNum ? $scope.weixinNum : '0') + "";
+            Number($scope.zfbNum ? $scope.zfbNum : '0') - Number($scope.weixinNum ? $scope.weixinNum : '0') ;
 
     }
     $scope.zfbPay = function () {
@@ -155,7 +174,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.shuakaNum ? $scope.shuakaNum : '0') -
             Number($scope.zhuanzhangNum ? $scope.zhuanzhangNum : '0') -
             Number($scope.guazhangNum ? $scope.guazhangNum : '0') -
-            Number($scope.weixinNum ? $scope.weixinNum : '0') + "";
+            Number($scope.weixinNum ? $scope.weixinNum : '0');
         $scope.weifenpeiNum = 0;
     }
     $scope.shouYin = function () {
@@ -165,27 +184,96 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
         $scope.carInfo = carInfo;
 
         var checkNum =0;
-        if($scope.xianjinNum&&Number($scope.xianjinNum)>0){
+
+        var ysje;
+        var yhje;
+        var sxf;
+        var ssje;
+        var skfs='';
+        var skfs1='';
+        var sxf1;
+        var skje1;
+
+
+        var skfs2='';
+        var sxf2;
+        var skje2;
+
+        var Pre_payment = $scope.shouyinBean.Pre_payment;
+
+
+
+        var xianjinNum = $scope.xianjinNum?Number($scope.xianjinNum):0;//现金
+        var shuakaNum = $scope.shuakaNum?Number($scope.shuakaNum):0;//刷卡
+
+        var zhuanzhangNum = $scope.zhuanzhangNum?Number($scope.zhuanzhangNum):0;//转账
+
+
+        var zfbNum = $scope.zfbNum?Number($scope.zfbNum):0;//支付宝
+        var weixinNum = $scope.weixinNum?Number($scope.weixinNum):0;//微信
+        var yhkFl = (Number)($scope.jsToBean&&$scope.jsToBean.yhkFl?((Number)($scope.jsToBean.yhkFl)):0);
+        if(xianjinNum>0){//现金有值
             checkNum++;
+             skfs = "现金";
+             yhje=Number($scope.shouyinBean.yhje?$scope.shouyinBean.yhje:'0');
+             ysje = xianjinNum;
+             ssje = Number($scope.xianjinNum) - yhje;
+
+            if(shuakaNum>0){
+                skfs1= $scope.shuaKaStr;
+                skje1 = shuakaNum;
+               sxf1=shuakaNum*yhkFl;
+                if(weixinNum>0){
+                    skfs2 = "微信";
+                    skje2=weixinNum;
+                    sxf2 = weixinNum * ($scope.jsToBean.wxFl?Number($scope.jsToBean.wxFl):0);
+                }
+                if(zfbNum>0){
+                    skfs2 = "支付宝";
+                    skje2=zfbNum;
+                    sxf2 = zfbNum * ($scope.jsToBean.zfbFl?Number($scope.jsToBean.zfbFl):0);
+                }
+            }
+            //"ysje":"300","yhje":"1","sxf":"0.00","ssje":"299","skfs":"现金","pre_payment":"200.00"
+        }else if(xianjinNum==0&&shuakaNum>0){//现金无，刷卡有数据
+
+            skfs = $scope.shuaKaStr;
+            yhje=Number($scope.shouyinBean.yhje?$scope.shouyinBean.yhje:'0');
+            ysje = shuakaNum;
+            sxf = shuakaNum - shuakaNum*yhkFl;
+            ssje = shuakaNum - yhje - sxf;
+            if(weixinNum>0){
+                skfs1 = "微信";
+                skje1=weixinNum;
+                sxf1 = weixinNum * ($scope.jsToBean.wxFl?Number($scope.jsToBean.wxFl):0);
+                if(zfbNum>0){
+                    skfs2 = "支付宝";
+                    skje2=zfbNum;
+                    sxf2 = zfbNum * ($scope.jsToBean.zfbFl?Number($scope.jsToBean.zfbFl):0)
+                }
+            }
         }
         if($scope.shuakaNum&&Number($scope.shuakaNum)>0){
             checkNum++;
+
         }
         if($scope.guazhangNum&&Number($scope.guazhangNum)>0){
             checkNum++;
+
         }
         if($scope.weixinNum&&Number($scope.weixinNum)>0){
             checkNum++;
+
         }
         if($scope.zfbNum&&Number($scope.zfbNum)>0){
             checkNum++;
+
         }
         if($scope.zhuanzhangNum&&Number($scope.zhuanzhangNum)>0){
             checkNum++;
+
         }
-        if($scope.xianjinNum&&Number($scope.xianjinNum)>0){
-            checkNum++;
-        }
+
 
         if(checkNum>3){
             ionicToast.show("结算方式超过3种，请重新选择", 'middle', false, 2000);
@@ -554,11 +642,12 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
                 var shouyinBean = new Object();
                 var dataArray = data.data;
                 var dataBean = dataArray[0];
-                shouyinBean.ysje = $scope.totalXlf + $scope.totalMoney;
-                shouyinBean.yhje = $scope.totalZk;
-                shouyinBean.bit_compute = dataBean.bit_compute;
-                shouyinBean.bit_use = dataBean.bit_amount;
-                shouyinBean.ysje = dataBean.zje;
+                shouyinBean.ysje = Number($scope.totalXlf + $scope.totalMoney);
+                shouyinBean.yhje = Number($scope.totalZk);
+                shouyinBean.bit_compute = Number(dataBean.bit_compute);
+                shouyinBean.bit_use = Number(dataBean.bit_amount);
+                shouyinBean.ysje = Number(dataBean.zje);
+                shouyinBean.Pre_payment = Number(dataBean.Pre_payment);
                 locals.setObject("shouyinBean", shouyinBean);
                 $state.go("WinBid");
             } else {

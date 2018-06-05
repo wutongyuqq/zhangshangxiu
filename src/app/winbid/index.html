@@ -243,7 +243,7 @@
         background-color: white;
         border: none;
     }
-    input[type=text]{
+    input[type=number]{
         display: inline-block;
         height: 0.7rem;
         line-height: 0.7rem;
@@ -274,10 +274,10 @@
         margin-top: 0.2rem;
     }
     .tb_content_a_ss{
-        margin-left: -0.6rem;
+        margin-left: 0.2rem;
     }
 
-    input[type=text]{
+    input[type=number]{
         font-size: 1.4em;
         vertical-align: middle;
     }
@@ -319,7 +319,7 @@
         <div class="color-white bar-white-card">{{carInfo.cardName}}</div>
     </div>
     <div class="wb_second_line" style="margin-top: 0.3rem;">
-        <div class="text_inline">预收款余额:</div>
+        <div class="text_inline">预收款余额:{{shouyinBean.Pre_payment}}</div>
         <div class="text_inline wb_second_line_qw">未分配：{{weifenpeiNum}}</div>
 
 
@@ -329,42 +329,45 @@
         <div class="text_inline wb_second_line_qw">优惠：</div>
 
 
-        <div class="text_inline"><input class="width-in" type="text" ng-model="shouyinBean.yhje"/></div>
+        <div class="text_inline"><input class="width-in" type="number" ng-model="shouyinBean.yhje"/></div>
 
     </div>
     <div class="tb_content_b" style="margin-top: 0.3rem;">
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">现金:￥</div>
-            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="text" ng-model="xianjinNum"/>
+            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="number" ng-model="xianjinNum"/>
             <div class="text-inline green-btn-back" ng-click="xianjinPay()">全额支付</div>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">刷卡:￥</div>
-            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()"  type="text" ng-model="shuakaNum"/>
+            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()"  type="number" ng-model="shuakaNum"/>
             <div class="text-inline green-btn-back"  ng-click="shuakaPay()">全额支付</div>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">银行账户:</div>
-            <input  class="text-inline input-white-back-right" type="text"/>
+
+            <select class="text-inline input-white-back-right">
+                <option style="font-size: 1.2em;" ng-repeat="item in selectList"  ng-click="selectItem(item)"  ng-selected="0==$index">{{item.setup1}}</option>
+            </select>
 
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">费率:￥</div>
-            <input  ng-model="jsToBean.yhkFl" class="text-inline input-white-back" type="text"/>
+            <input  ng-model="jsToBean.yhkFl" class="text-inline input-white-back" type="number"/>
 
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">银行转账:￥</div>
-            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="text" ng-model="zhuanzhangNum"/>
+            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="number" ng-model="zhuanzhangNum"/>
             <div class="text-inline green-btn-back"  ng-click="zhuanzhangPay()">全额支付</div>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">银行账户:</div>
-            <input  class="text-inline input-white-back-right" type="text"/>
+            <input  class="text-inline input-white-back-right" type="number"/>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
-            <div class="text-inline tb_text_label">会员卡号:￥</div>
-            <input  class="text-inline input-white-back" type="text" ng-model="vipcard_no"/>
+            <div class="text-inline tb_text_label">会员卡号:</div>
+            <input  class="text-inline input-white-back" type="number" ng-model="vipcard_no"/>
             <div class="text-inline green-btn-back" ng-click="showAllMoney()">查全额</div>
         </div>
         <div class="tb_content_b_a" ng-show="isShowAll" style="margin-top: 0.3rem;">
@@ -372,8 +375,8 @@
             <div class="text-inline green-btn-back-a">{{vipcard_money}}</div>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
-            <div class="text-inline tb_text_label">扣除金额：</div>
-            <input  ng-model="jsToBean.Pre_payment" class="text-inline input-white-back" type="text"/>
+            <div class="text-inline tb_text_label">扣除金额：￥</div>
+            <input  ng-model="jsToBean.Pre_payment" class="text-inline input-white-back" type="number"/>
 
         </div>
     </div>
@@ -383,28 +386,35 @@
 
         <div class="tb_content_b_a">
             <div class="text-inline tb_text_label">挂账金额:￥</div>
-            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="text" ng-model="guazhangNum"/>
+            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="number" ng-model="guazhangNum"/>
             <div class="text-inline green-btn-back"  ng-click="guazhangPay()">全额支付</div>
         </div>
 
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">微信:￥</div>
-            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="text" ng-model="weixinNum"/>
+            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="number" ng-model="weixinNum"/>
             <div class="text-inline green-btn-back"  ng-click="weixinPay()">全额支付</div>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">费率:￥</div>
-            <input   ng-model="jsToBean.wxFl"  class="text-inline input-white-back" type="text"/>
+            <input   ng-model="jsToBean.wxFl"  class="text-inline input-white-back" type="number"/>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">支付宝:￥</div>
-            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="text" ng-model="zfbNum"/>
+            <input  class="text-inline input-white-back" ng-blur="getWfpMoney()" type="number" ng-model="zfbNum"/>
             <div class="text-inline green-btn-back"  ng-click="zfbPay()">全额支付</div>
         </div>
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
-            <div class="text-inline tb_text_label">费率:￥</div>
-            <input   ng-model="jsToBean.zfbFl"  class="text-inline input-white-back" type="text"/>
+            <div class="text-inline tb_text_label">费率:</div>
+            <input   ng-model="jsToBean.zfbFl"  class="text-inline input-white-back" type="number"/>
         </div>
+
+        <div class="tb_content_b_a" style="margin-top: 0.3rem;">
+            <div class="text-inline tb_text_label">预收款抵扣:￥</div>
+            <input   ng-model="jsToBean.yskDkNum"  class="text-inline input-white-back" type="number"/>
+        </div>
+
+
         <div class="tb_content_b_a" style="margin-top: 0.3rem;">
             <div class="text-inline tb_text_label">可获得养车币:</div>
             <div  class="text-inline">{{shouyinBean.bit_use}}</div>

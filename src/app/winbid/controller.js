@@ -254,6 +254,10 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
                 moneyBean.money = moneyArr[i];
                 moneyBean.sxf = Number(moneySxf[i]).toFixed(2);
                 moneyBean.moneyDesc = moneyDescArr[i];
+                if(moneyDescArr[i]=="刷卡"){
+                    moneyBean.moneyDesc = $scope.shuaKaStr;
+                }
+
                 moneyTotal+=moneyArr[i];
                 sxfTotal+=moneySxf[i];
                 newMoneyArr.push(moneyBean);
@@ -276,23 +280,25 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
                 skfs = newMoneyArr[0].moneyDesc;
                 ysje = newMoneyArr[0].money;
                 ssje = newMoneyArr[0].money - yhje - newMoneyArr[0].sxf;
+                sxf = newMoneyArr[0].sxf;
 
                 skfs1= newMoneyArr[1].moneyDesc;
                 skje1 =  newMoneyArr[1].money;
-                sxf1=newMoneyArr[1].money - newMoneyArr[1].sxf;
+                sxf1= newMoneyArr[1].sxf;
 
                 skfs2= newMoneyArr[2].moneyDesc;
-                skje2 =  newMoneyArr[12].money;
-                sxf2=newMoneyArr[2].money - newMoneyArr[2].sxf;
+                skje2 =  newMoneyArr[2].money;
+                sxf2=newMoneyArr[2].sxf;
 
             }else if(newMoneyArr.length==2){
                 skfs = newMoneyArr[0].moneyDesc;
                 ysje = newMoneyArr[0].money;
                 ssje = newMoneyArr[0].money - yhje - newMoneyArr[0].sxf;
+                sxf = newMoneyArr[0].sxf;
 
                 skfs1= newMoneyArr[1].moneyDesc;
                 skje1 =  newMoneyArr[1].money;
-                sxf1=newMoneyArr[1].money - newMoneyArr[1].sxf;
+                sxf1=newMoneyArr[1].sxf;
 
                 skfs2= 0;
                 skje2 =  0;
@@ -303,6 +309,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
                 skfs = newMoneyArr[0].moneyDesc;
                 ysje = newMoneyArr[0].money;
                 ssje = newMoneyArr[0].money - yhje - newMoneyArr[0].sxf;
+                sxf = newMoneyArr[0].sxf;
 
                 skfs1= 0;
                 skje1 =  0;
@@ -387,10 +394,10 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             ionicToast.show("结算方式超过3种，请重新选择", 'middle', false, 2000);
             return;
         }*/
-        var sxf = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0") + Number($scope.shuakaNum ? $scope.shuakaNum : "0") * Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0")).toFixed(2);
-        var sxf1 = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0")).toFixed(2);
-        var sxf2 = (Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0") * Number($scope.shuakaNum ? $scope.shuakaNum : "0")).toFixed(2);
-        var ssje = (Number(shouyinBean.ysje ? shouyinBean.ysje : "0") - Number(shouyinBean.yhje ? shouyinBean.yhje + "" : "0") - Number(sxf ? sxf : "0") - Number(shouyinBean.bit_use ? shouyinBean.bit_use : "0")).toFixed(2);
+       // var sxf = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0") + Number($scope.shuakaNum ? $scope.shuakaNum : "0") * Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0")).toFixed(2);
+        //var sxf1 = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0")).toFixed(2);
+        //var sxf2 = (Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0") * Number($scope.shuakaNum ? $scope.shuakaNum : "0")).toFixed(2);
+        //var ssje = (Number(shouyinBean.ysje ? shouyinBean.ysje : "0") - Number(shouyinBean.yhje ? shouyinBean.yhje + "" : "0") - Number(sxf ? sxf : "0") - Number(shouyinBean.bit_use ? shouyinBean.bit_use : "0")).toFixed(2);
 
         var params = {
             db: "mycon1",
@@ -400,20 +407,20 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             plate_number: carInfo.cardName + "",
             jsd_id: jsd_id,
             czy: user.userName,
-            ysje: shouyinBean.ysje ? shouyinBean.ysje + "" : '0',
-            yhje: shouyinBean.yhje ? shouyinBean.yhje + "" : '0',
+            ysje: ysje ? ysje + "" : '0',
+            yhje: yhje ? yhje + "" : '0',
             sxf: sxf ? sxf + "" : '0',
             ssje: ssje ? ssje + "" : '0',
-            skfs: "现金",
-            bit_compute: shouyinBean.bit_compute ? shouyinBean.bit_compute + "" : '0',
+            skfs: skfs,
+            bit_compute: bit_compute ? bit_compute + "" : '0',
             bit_use: shouyinBean.bit_use ? shouyinBean.bit_use + "" : '0',
-            skfs1: "微信",
-            skje1: $scope.weixinNum ? $scope.weixinNum + "" : '0',
+            skfs1: skfs1,
+            skje1: skje1 ? skje1 + "" : '0',
             sxf1: sxf1 ? sxf1 + "" : '0',
-            skfs2: "中行刷卡",
-            skje2: $scope.shuakaNum ? $scope.shuakaNum + "" : '0',
+            skfs2: skfs2 ? skfs2 + "" : '0',
+            skje2:skje2 ?skje2 + "" : '0',
             sxf2: sxf2 ? sxf2 + "" : '0',
-            pre_payment: "0.00",
+            pre_payment: $scope.shouyinBean.Pre_payment+"",
             vipcard_no: $scope.vipcard_no ? $scope.vipcard_no + "" : ''
         };
         var jsonToRes = angular.toJson(params);

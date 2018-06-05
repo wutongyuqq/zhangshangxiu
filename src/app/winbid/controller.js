@@ -252,9 +252,9 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             if(moneyNum>0) {
                 var moneyBean = new Object();
                 moneyBean.money = moneyArr[i];
-                moneyBean.sxf = moneySxf[i];
+                moneyBean.sxf = Number(moneySxf[i]).toFixed(2);
                 moneyBean.moneyDesc = moneyDescArr[i];
-                moneyTotal+=moneySxf[i];
+                moneyTotal+=moneyArr[i];
                 sxfTotal+=moneySxf[i];
                 newMoneyArr.push(moneyBean);
             }
@@ -266,7 +266,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             ionicToast.show("您还未填写付款金额", 'middle', false, 2000);
             return;
         }
-        if(moneyTotal!=(ysje-yhje)){
+        if(moneyTotal<(ysje-yhje).toFixed(0)){
             ionicToast.show("您填写的金额不正确", 'middle', false, 2000);
             return;
         }

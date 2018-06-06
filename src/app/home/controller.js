@@ -207,6 +207,8 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     }
 
 
+
+
     $scope.updateCarForOne = function (columnName, valueData) {
         var jsd_id = locals.get("jsd_id");
         $scope.jsd_id = jsd_id;
@@ -237,8 +239,35 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         });
     }
 
+    var gz_jc_date="";
+    var gz_customer_id = "";
+    var gz_jsd_id = "";
 
+    $scope.showGuzhangT = function (gzDesc) {//故障上传
 
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_update_fault_info",
+            customer_id: gz_customer_id,
+            car_fault: gzDesc?gzDesc:"",
+            days:gz_jc_date
+        };
+        var jsonStr5 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr5
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+
+            }
+
+        }).error(function (data) {
+
+        });
+    }
 
 
         //5-3：新车上传信息。
@@ -299,6 +328,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 var state = data.state;
                 if (state == 'ok') {
                     upLoadInfo.customer_id=data.customer_id;
+                    var gz_customer_id = data.customer_id;
                     upLoadInfo.cz = upLoadInfo.linkman;
                     upLoadInfo.plate_number = upLoadInfo.cardName?upLoadInfo.cardName:"";
 
@@ -426,6 +456,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         //4  5-8：生成接车单。
     $scope.insertCarInfo = function(upLoadInfo){
         var dateTime=$scope.getDateTime();
+        gz_jc_date = dateTime;
         var params = {
             db:"mycon1",
             function:"sp_fun_upload_repair_list_main",
@@ -460,7 +491,15 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             if (state == 'ok') {
                 locals.set("jsd_id",data.jsd_id);
 
-                    $state.go("Tender");
+                    gz_jsd_id = data.jsd_id;
+                    if($scope.carInfo.gzms){
+                        $scope.showGuzhangT($scope.carInfo.gzms);
+                        setTimeout($state.go("Tender"),1000)
+                    }else{
+                        $state.go("Tender");
+                    }
+
+
 
             }else {
                 ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 2000);

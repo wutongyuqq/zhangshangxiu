@@ -261,7 +261,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-
+                $state.go("Tender");
             }
 
         }).error(function (data) {
@@ -328,7 +328,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 var state = data.state;
                 if (state == 'ok') {
                     upLoadInfo.customer_id=data.customer_id;
-                    var gz_customer_id = data.customer_id;
+                    gz_customer_id = data.customer_id;
                     upLoadInfo.cz = upLoadInfo.linkman;
                     upLoadInfo.plate_number = upLoadInfo.cardName?upLoadInfo.cardName:"";
 
@@ -493,8 +493,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
                     gz_jsd_id = data.jsd_id;
                     if($scope.carInfo.gzms){
-                        $scope.showGuzhangT($scope.carInfo.gzms);
-                        setTimeout($state.go("Tender"),1000)
+                      $scope.showGuzhangT($scope.carInfo.gzms);
                     }else{
                         $state.go("Tender");
                     }
@@ -560,8 +559,6 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                     var item = dataArr[i];
                     locals.setObject(item.menu_right,item);
                 }
-
-
             }
         }).error(function(data){
             ionicToast.show("服务异常","middle",2000);

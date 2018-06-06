@@ -1,3 +1,4 @@
+//结算收银页面控制器
 app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast', function ($http, $scope, $state, locals, ionicToast) {
     var carInfo = locals.getObject("carInfo");
 
@@ -177,6 +178,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             Number($scope.weixinNum ? $scope.weixinNum : '0');
         $scope.weifenpeiNum = 0;
     }
+    var tipJson="";
     $scope.shouYin = function () {
         var carInfo = locals.getObject("carInfo");
         var user = locals.getObject("user");
@@ -199,83 +201,67 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
         var sxf2;
         var skje2;
 
-        var Pre_payment = $scope.shouyinBean.Pre_payment;
-
-
-
+        var Pre_payment = $scope.shouyinBean.Pre_payment;//预收金额
         var xianjinNum = $scope.xianjinNum?Number($scope.xianjinNum):0;//现金
         var shuakaNum = $scope.shuakaNum?Number($scope.shuakaNum):0;//刷卡
-
         var zhuanzhangNum = $scope.zhuanzhangNum?Number($scope.zhuanzhangNum):0;//转账
-
         var kcVipMoney = $scope.kcVipMoney?Number($scope.kcVipMoney):0;//扣除会员卡
-
-
         var guazhangNum = $scope.guazhangNum?Number($scope.guazhangNum):0;//挂账
-
         var weixinNum = $scope.weixinNum?Number($scope.weixinNum):0;//微信
-
         var zfbNum = $scope.zfbNum?Number($scope.zfbNum):0;//支付宝
-
-
-
-
-        var yhkFl = (Number)($scope.jsToBean&&$scope.jsToBean.yhkFl?((Number)($scope.jsToBean.yhkFl)):0);
-
+        var yhkFl = (Number)($scope.jsToBean&&$scope.jsToBean.yhkFl?((Number)($scope.jsToBean.yhkFl)):0);//银行卡费率
         var yskDkNum = $scope.jsToBean.yskDkNum?Number($scope.jsToBean.yskDkNum):0;//预收款抵扣
-
         var bit_compute = $scope.shouyinBean.bit_compute?Number($scope.shouyinBean.bit_compute):0;//养车币
-
         var wxFl = $scope.jsToBean.wxFl?Number($scope.jsToBean.wxFl):0;//微信费率
-
         var zfbFl = $scope.jsToBean.zfbFl?Number($scope.jsToBean.zfbFl):0;//支付宝费率
+        var yhje=Number($scope.shouyinBean.yhje?$scope.shouyinBean.yhje:'0');//优惠金额
 
+        var ysje=Number($scope.shouyinBean.ysje ? shouyinBean.ysje : "0");
+        var kcYcb=Number($scope.kcYcb ? $scope.kcYcb : "0");
+        var vipcard_no=$scope.vipcard_no ? $scope.vipcard_no : ""
 
-        var yhje=Number($scope.shouyinBean.yhje?$scope.shouyinBean.yhje:'0');
-
-        var ysje=Number(shouyinBean.ysje ? shouyinBean.ysje : "0");
-
-
-        var moneyDescArr = ['现金','刷卡','转账','会员卡','挂账','微信','支付宝','预收款','养车币'];
-        var moneyArr =[xianjinNum,shuakaNum,zhuanzhangNum,kcVipMoney,guazhangNum,weixinNum,zfbNum,yskDkNum,bit_compute];
-
-
-
-        var moneySxf = [0,shuakaNum*yhkFl,0,0,0,weixinNum*wxFl,zfbNum*zfbFl,0,0];
-
+        //付款方式数组
+        var moneyDescArr = ['消费卡','现金','刷卡','转账','挂账','微信','支付宝','预收款','养车币'];
+        //付款金额数组
+        var moneyArr =[kcVipMoney,xianjinNum,shuakaNum,zhuanzhangNum,guazhangNum,weixinNum,zfbNum,yskDkNum,kcYcb];
+        //付款金额对应手续费
+        var moneySxf = [0,0,shuakaNum*yhkFl,0,0,weixinNum*wxFl,zfbNum*zfbFl,0,0];
+        //结算数组初始化
         var newMoneyArr = new Array();
 
         var moneyTotal = 0;
         var sxfTotal = 0;
         for(var i=0;i<moneyArr.length;i++){
             var moneyNum = Number(moneyArr[i]?moneyArr[i]:0);
-            if(moneyNum>0) {
+            if(moneyNum>0) {//如果金额大于0，则填充到结算数组中
                 var moneyBean = new Object();
                 moneyBean.money = moneyArr[i];
                 moneyBean.sxf = Number(moneySxf[i]).toFixed(2);
                 moneyBean.moneyDesc = moneyDescArr[i];
-                if(moneyDescArr[i]=="刷卡"){
+                if(moneyDescArr[i]=="刷卡"){//如果付款方式是刷卡，则更换为具体的银行名称
                     moneyBean.moneyDesc = $scope.shuaKaStr;
                 }
 
-                moneyTotal+=moneyArr[i];
-                sxfTotal+=moneySxf[i];
-                newMoneyArr.push(moneyBean);
+                moneyTotal+=moneyArr[i];//计算各项付款方式金额的总和
+                sxfTotal+=moneySxf[i];//计算各项手续费总和
+                newMoneyArr.push(moneyBean);//将对象push到结算数组中
             }
         }
+        //超过三种方式，提示重新选择
         if(newMoneyArr.length>3){
-            ionicToast.show("结算方式超过3种，请重新选择", 'middle', false, 2000);
+            ionicToast.show("结算方式超过3种，请重新选择", 'middle', false, 5000);
             return;
-        }else if(newMoneyArr.length==0){
-            ionicToast.show("您还未填写付款金额", 'middle', false, 2000);
+        }else if(newMoneyArr.length==0){//如果没有填写金额，提示重新选择
+            ionicToast.show("您还未填写付款金额", 'middle', false, 5000);
             return;
         }
-        if(moneyTotal<(ysje-yhje).toFixed(0)){
-            ionicToast.show("您填写的金额不正确", 'middle', false, 2000);
+        if(moneyTotal.toFixed(0)<(ysje-yhje).toFixed(0)){//如果金额不正确，提示重新选择
+            ionicToast.show("您填写的金额不正确", 'middle', false, 5000);
             return;
         }
 
         if(newMoneyArr!=null && newMoneyArr.length>0){
+            //如果是三种付款方式，则按先后顺序赋值
             if(newMoneyArr.length>2){
                 skfs = newMoneyArr[0].moneyDesc;
                 ysje = newMoneyArr[0].money;
@@ -290,7 +276,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
                 skje2 =  newMoneyArr[2].money;
                 sxf2=newMoneyArr[2].sxf;
 
-            }else if(newMoneyArr.length==2){
+            }else if(newMoneyArr.length==2){ //如果是两种付款方式，则按先后顺序赋值，第三个赋值为0
                 skfs = newMoneyArr[0].moneyDesc;
                 ysje = newMoneyArr[0].money;
                 ssje = newMoneyArr[0].money - yhje - newMoneyArr[0].sxf;
@@ -303,108 +289,29 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
                 skfs2= 0;
                 skje2 =  0;
                 sxf2=0;
-
-
-            }else if(newMoneyArr.length==1){
+            }else if(newMoneyArr.length==1){ //如果是两种付款方式，则按先后顺序赋值，第三个赋值为0
                 skfs = newMoneyArr[0].moneyDesc;
                 ysje = newMoneyArr[0].money;
                 ssje = newMoneyArr[0].money - yhje - newMoneyArr[0].sxf;
                 sxf = newMoneyArr[0].sxf;
-
                 skfs1= 0;
                 skje1 =  0;
                 sxf1=0;
-
                 skfs2=0;
                 skje2 =  0;
                 sxf2=0;
-
             }else if(newMoneyArr.length==0){
                 ionicToast.show("请未填写付款方式或付款金额", 'middle', false, 2000);
                 return;
             }
         }
-
-
-
-      /*  if(xianjinNum>0){//现金有值
-            checkNum++;
-             skfs = "现金";
-             yhje=Number($scope.shouyinBean.yhje?$scope.shouyinBean.yhje:'0');
-             ysje = xianjinNum;
-             ssje = Number($scope.xianjinNum) - yhje;
-
-            if(shuakaNum>0){
-                skfs1= $scope.shuaKaStr;
-                skje1 = shuakaNum;
-               sxf1=shuakaNum*yhkFl;
-                if(weixinNum>0){
-                    skfs2 = "微信";
-                    skje2=weixinNum;
-                    sxf2 = weixinNum * ($scope.jsToBean.wxFl?Number($scope.jsToBean.wxFl):0);
-                }
-                if(zfbNum>0){
-                    skfs2 = "支付宝";
-                    skje2=zfbNum;
-                    sxf2 = zfbNum * ($scope.jsToBean.zfbFl?Number($scope.jsToBean.zfbFl):0);
-                }
-            }
-            //"ysje":"300","yhje":"1","sxf":"0.00","ssje":"299","skfs":"现金","pre_payment":"200.00"
-        }else if(xianjinNum==0&&shuakaNum>0){//现金无，刷卡有数据
-
-            skfs = $scope.shuaKaStr;
-            yhje=Number($scope.shouyinBean.yhje?$scope.shouyinBean.yhje:'0');
-            ysje = shuakaNum;
-            sxf = shuakaNum - shuakaNum*yhkFl;
-            ssje = shuakaNum - yhje - sxf;
-            if(weixinNum>0){
-                skfs1 = "微信";
-                skje1=weixinNum;
-                sxf1 = weixinNum * ($scope.jsToBean.wxFl?Number($scope.jsToBean.wxFl):0);
-                if(zfbNum>0){
-                    skfs2 = "支付宝";
-                    skje2=zfbNum;
-                    sxf2 = zfbNum * ($scope.jsToBean.zfbFl?Number($scope.jsToBean.zfbFl):0)
-                }
-            }
-        }
-        if($scope.shuakaNum&&Number($scope.shuakaNum)>0){
-            checkNum++;
-
-        }
-        if($scope.guazhangNum&&Number($scope.guazhangNum)>0){
-            checkNum++;
-
-        }
-        if($scope.weixinNum&&Number($scope.weixinNum)>0){
-            checkNum++;
-
-        }
-        if($scope.zfbNum&&Number($scope.zfbNum)>0){
-            checkNum++;
-
-        }
-        if($scope.zhuanzhangNum&&Number($scope.zhuanzhangNum)>0){
-            checkNum++;
-
-        }
-
-
-        if(checkNum>3){
-            ionicToast.show("结算方式超过3种，请重新选择", 'middle', false, 2000);
-            return;
-        }*/
-       // var sxf = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0") + Number($scope.shuakaNum ? $scope.shuakaNum : "0") * Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0")).toFixed(2);
-        //var sxf1 = (Number($scope.weixinNum ? $scope.weixinNum : "0") * Number($scope.jsToBean.wxFl ? $scope.jsToBean.wxFl : "0")).toFixed(2);
-        //var sxf2 = (Number($scope.jsToBean.yhkFl ? $scope.jsToBean.yhkFl : "0") * Number($scope.shuakaNum ? $scope.shuakaNum : "0")).toFixed(2);
-        //var ssje = (Number(shouyinBean.ysje ? shouyinBean.ysje : "0") - Number(shouyinBean.yhje ? shouyinBean.yhje + "" : "0") - Number(sxf ? sxf : "0") - Number(shouyinBean.bit_use ? shouyinBean.bit_use : "0")).toFixed(2);
-
+       var shouyinCar = locals.getObject("shouyinCar");
         var params = {
             db: "mycon1",
             function: "sp_fun_upload_receivables_data",
             company_code: user.company_code,
-            customer_id: carInfo.customer_id,
-            plate_number: carInfo.cardName + "",
+            customer_id: shouyinCar.customer_id,
+            plate_number:  shouyinCar.cp,
             jsd_id: jsd_id,
             czy: user.userName,
             ysje: ysje ? ysje + "" : '0',
@@ -421,9 +328,10 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             skje2:skje2 ?skje2 + "" : '0',
             sxf2: sxf2 ? sxf2 + "" : '0',
             pre_payment: $scope.shouyinBean.Pre_payment+"",
-            vipcard_no: $scope.vipcard_no ? $scope.vipcard_no + "" : ''
+            vipcard_no: vipcard_no
         };
         var jsonToRes = angular.toJson(params);
+        tipJson = jsonToRes;
         $http({
             method: 'post',
             url: '/restful/pro',
@@ -433,17 +341,173 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
             console.log(data);
             var state = data.state;
             if (state == 'ok') {
-                ionicToast.show("提交成功", 'middle', false, 2000);
+                ionicToast.show("提交成功"+tipJson, 'middle', false, 5000);
                 $state.go("Winbding");
             } else {
-                ionicToast.show("错误：" + data.msg, 'middle', false, 2000);
+                ionicToast.show("错误：" + data.msg+"  "+tipJson, 'middle', false, 5000);
             }
         }).error(function (data) {
-            ionicToast.show("服务异常", "middle", 2000);
+            ionicToast.show("服务异常"+tipJson, "middle", 5000);
             pre_row_number = 'end';
         });
     }
+   /* $scope.getDataToServer = function(){
+        var hyk_kcje;
+        var  yhje;
+        var  ysje;
+        var  sxf;
+        var  ssje;
+        var pre_payment;
+        var skje1;
+        var skje2;
+        var sxf1;
+        var sxf2;
+        var zje;
+        var xj;
+        var shuaka;
+        var zhuangzhang;
+        var guazhang;
+        var wx;
+        var zfb;
+        var yinhangzhanghao;
+        var skfs;
+        var skfs1;
+        var  skfs2;
+        var  sub_json;
+        var  json1;
+        var  json2;
+        var  json3;
+
+        zje=本单的总的应收金额
+        Yhje=优惠金额的输入值
+        pre_payment=预收款抵扣金额在输入值
+
+        先判断会员卡有没有输入卡号和扣除金额
+
+        hyk_kcje=会员卡扣除金额
+        xj=现金的输入值
+        shuaka=刷卡的输入值
+        zhuangzhang=转账的输入值
+        guazhang=挂账的输入值
+        sxf=0
+        if hyk_kcje>0  then
+        ysje=hyk_kcje
+        ssje=ysje - Yhje - sxf
+        json1='"ysje":"300","yhje":"'+string(Yhje)+'","sxf":"0.00","ssje":"299","skfs":"消费卡"
+        vipcard_no=会员卡号输入值
+        end if
+            if xj>0 then
+        ysje=xj
+        ssje=ysje - Yhje - sxf
+        if json1='' then
+        json1='"ysje":"300","yhje":'+string(Yhje)+'","sxf":"0.00","ssje":"'+string(ssje)+'","skfs":"现金"
+        else
+        json2='"skfs1":"现金","skje1":"300","sxf1":"0.0"'
+        end if
+            end if
+                if shuaka>0 then
+        ysje=shuaka
+        sxf=shuaka*当前收款银行的手续费率
+        ssje=ysje - Yhje - sxf
+        yinhangzhanghao=所选择的银行账号
+        if json1='' then
+        json1='"ysje":"300","yhje":'+string(Yhje)+'","sxf":"'+string(sxf)+'","ssje":"'+string(ssje)+'","skfs":"'+yinhangzhanghao+'"
+        elseif json2='' then
+        skje1=shuaka
+        json2='"skfs1":"'+yinhangzhanghao+","skje1":"+string(skje1)+","sxf1":"'+string(sxf)+'"'
+        else
+        skje2=zhuangzhang
+        json3='"skfs2":"'+yinhangzhanghao+","skje2":"+string(skje2)+","sxf2":"'+string(sxf)+'"'
+        end if
+            end if
+
+                if zhuangzhang>0 then
+        ysje=zhuangzhang
+        sxf=0
+        ssje=ysje - Yhje - sxf
+        yinhangzhanghao=所选择的银行账号
+        if json1='' then
+        json1='"ysje":"300","yhje":'+string(Yhje)+'","sxf":"'+string(sxf)+'","ssje":"'+string(ssje)+'","skfs":"'+yinhangzhanghao+'"
+        elseif json2='' then
+
+        skje1=zhuangzhang
+        json2='"skfs1":"'+yinhangzhanghao+","skje1":"+string(skje1)+","sxf1":"'+string(sxf)+'"'
+        elseif 	json3='' then
+        skje2=zhuangzhang
+        json3='"skfs2":"'+yinhangzhanghao+","skje2":"+string(skje2)+","sxf2":"'+string(sxf)+'"'
+        else
+        messagebox('','一次收款不能超过三种收款方式，请检查输入。')
+        return
+        end if
+            end if
+                if guazhang>0
+                    ysje=guazhang
+        sxf=0
+        ssje=ysje - Yhje - sxf
+        yinhangzhanghao='挂账'
+        if json1='' then
+        json1='"ysje":"300","yhje":'+string(Yhje)+'","sxf":"'+string(sxf)+'","ssje":"'+string(ssje)+'","skfs":"挂账"
+        elseif json2='' then
+
+        skje1=guazhang
+        json2='"skfs1":"'+yinhangzhanghao+","skje1":"+string(skje1)+","sxf1":"'+string(sxf)+'"'
+        elseif 	json3='' then
+        skje2=guazhang
+        json3='"skfs2":"'+yinhangzhanghao+","skje2":"+string(skje2)+","sxf2":"'+string(sxf)+'"'
+        else
+        messagebox('','一次收款不能超过三种收款方式，请检查输入。')
+        return
+        end if
+            end if
+                if wx>0
+                    ysje=wx
+        sxf=*微信的手续费率
+        ssje=ysje - Yhje - sxf
+        yinhangzhanghao='微信'
+        if json1='' then
+        json1='"ysje":"300","yhje":'+string(Yhje)+'","sxf":"'+string(sxf)+'","ssje":"'+string(ssje)+'","skfs":"微信"
+        elseif json2='' then
+
+        skje1=wx
+        json2='"skfs1":"'+yinhangzhanghao+","skje1":"+string(skje1)+","sxf1":"'+string(sxf)+'"'
+        elseif 	json3='' then
+        skje2=wx
+        json3='"skfs2":"'+yinhangzhanghao+","skje2":"+string(skje2)+","sxf2":"'+string(sxf)+'"'
+        else
+        messagebox('','一次收款不能超过三种收款方式，请检查输入。')
+        return
+        end if
+            end if
+
+                if zfb>0
+                    ysje=zfb
+        sxf=*支付宝的手续费率
+        ssje=ysje - Yhje - sxf
+        yinhangzhanghao='微信'
+        if json1='' then
+        json1='"ysje":"300","yhje":'+string(Yhje)+'","sxf":"'+string(sxf)+'","ssje":"'+string(ssje)+'","skfs":"支付宝"
+        elseif json2='' then
+
+        skje1=zfb
+        json2='"skfs1":"'+yinhangzhanghao+","skje1":"+string(skje1)+","sxf1":"'+string(sxf)+'"'
+        elseif 	json3='' then
+        skje2=zfb
+        json3='"skfs2":"'+yinhangzhanghao+","skje2":"+string(skje2)+","sxf2":"'+string(sxf)+'"'
+        else
+        messagebox('','一次收款不能超过三种收款方式，请检查输入。')
+        return
+        end if
+            end if
+
+                if (hyk_kcje+xj+shuaka+zhuangzhang+guazhang+wx+zfb)>zje then
+        messagebox('','收款的总金额不能超过本工单的总应收金额，请检查输入。')
+        return
+        end if
+            sub_json=json1+json2+json3+',"pre_payment":"200.00"'+vipcard_no+加上其它必须上传的字段拼接一起。
+    }*/
 }]);
+
+//打印数据页面
 app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast', function ($http, $scope, $state, locals, ionicToast) {
     var carInfo = locals.getObject("carInfo");
     var user = locals.getObject("user");
@@ -478,6 +542,10 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
                     gdData = gdDataList[0];
                     jsdInfo = gdData;
                     $scope.gdData = gdData;
+                    var carInfo = locals.getObject("carInfo");
+                    carInfo.customer_id = gdData.customer_id;
+                    locals.setObject("carInfo",carInfo);
+                    locals.setObject("shouyinCar",gdData);
 
 
                 }

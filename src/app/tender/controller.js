@@ -204,7 +204,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.goBackPage = function () {
         history.back();
     }
-
+    var customer_id="";
 
     $scope.updateCarForOne = function (columnName, valueData) {
         var jsd_id = locals.get("jsd_id");
@@ -272,6 +272,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.notDelete=0;
     $scope.yccType=0;
     var jsdInfo = new Object();
+    var jc_date = "";
     $scope.getJsdStatu = function () {
         var jsd_id = locals.get("jsd_id");
         $scope.jsd_id = jsd_id;
@@ -297,10 +298,14 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     carInfo = $scope.carInfo;
                     gdData = gdDataList[0];
                     jsdInfo = gdData;
+                    customer_id = jsdInfo.customer_id;
+                    carInfo.customer_id=jsdInfo.customer_id;
+                    locals.setObject("carInfo",carInfo);
                     $scope.memo = jsdInfo.memo;
                     $scope.ticheTime =(jsdInfo.ywg_date&&jsdInfo.ywg_date.length>10)?jsdInfo.ywg_date.substring(0,10):"";
                     $scope.gonglishu = jsdInfo.jclc;
-                    $scope.guzhangDes = jsdInfo.guzhangDes;
+                    $scope.guzhangDes = jsdInfo.car_fault;
+                    jc_date = jsdInfo.jc_date;
 
 
                     if (gdData.djzt == '待修'){
@@ -337,11 +342,15 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.showInputGls = false;
     $scope.showKell = function (showInputGls) {
         $scope.showInputGls = !showInputGls;
+        if(!showInputGls){
+            return;
+        }
+
         locals.set("gonglishu", $scope.gonglishu);
         var carInfo = locals.getObject("carInfo");
         carInfo.gls = $scope.showInputGls;
         locals.setObject("carInfo", carInfo);
-        $scope.updateCarForOne('jclc', showInputGls);
+        $scope.updateCarForOne('jclc', $scope.gonglishu);
 
 
     }
@@ -350,18 +359,26 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.showTicheTime = false;
     $scope.showTiche = function (showTicheTime) {
         $scope.showTicheTime = !showTicheTime;
+        if(!showTicheTime){
+            return;
+        }
+
         locals.set("ticheTime", $scope.ticheTime);
         var carInfo = locals.getObject("carInfo");
         carInfo.ticheTime = $scope.ticheTime;
         locals.setObject("carInfo", carInfo);
         // $scope.uploadCarBean();
-        $scope.updateCarForOne('ywg_date', ticheTime);
+        $scope.updateCarForOne('ywg_date', $scope.ticheTime);
     }
 
     $scope.showBeizhu = false;
     $scope.memo = "";
     $scope.showBeizhuT = function (showBeizhu) {
         $scope.showBeizhu = !showBeizhu;
+        if(!showBeizhu){
+            return;
+        }
+
         if (showBeizhu) {
             $scope.updateCarForOne("memo", $scope.memo ? $scope.memo : "");
         }
@@ -406,9 +423,9 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         var params = {
             db: "mycon1",
             function: "sp_fun_update_fault_info",
-            customer_id: carInfo.customer_id,
+            customer_id: customer_id,
             car_fault: $scope.guzhangDes?$scope.guzhangDes:"",
-            days: $scope.getDateTime()
+            days:jc_date
         };
         var jsonStr5 = angular.toJson(params);
         $http({

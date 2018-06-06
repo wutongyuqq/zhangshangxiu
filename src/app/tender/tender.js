@@ -1,7 +1,7 @@
 app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToast", "$modal",function ($http, $scope, $state,  locals, ionicToast,$modal) {
     var carInfo = locals.getObject("carInfo");
-    $scope.carInfo = carInfo;
-    locals.set("ticheTime","");
+
+
     var projectPer = locals.getObject("10600");
     $scope.projectPer = projectPer;
     $scope.toProjectSelect = function () {
@@ -20,8 +20,9 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
     $scope.toWinbding = function () {
         $state.go("Winbding");
     }
-
+    var customer_id="";
     var jsd_id = locals.get("jsd_id");
+    var jc_date = "";
     $scope.jsd_id = jsd_id;
     var params = {
         db:"mycon1",
@@ -49,16 +50,20 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 if(jcDataStr.length>10){
                     jcDataStr = jcDataStr.substring(0,10);
                 }
-                carToInfo.cz = carInfo.cz?carInfo.cz:gdData.cz;
-                carToInfo.cardName = carInfo.cardName?carInfo.cardName:gdData.cp;
+                jc_date = gdData.jc_date;
+                customer_id = gdData.customer_id;
+                carToInfo.cz = gdData.cz;
+                carToInfo.cardName = gdData.cp;
                 carToInfo.gls = gdData.jclc;
                 carToInfo.cjhm = gdData.cjhm;
                 carToInfo.cx =gdData.cx;
-                carToInfo.ticheTime = jcDataStr;
                 carToInfo.gzms = gdData.car_fault;//故障描述
                 carToInfo.jsr =gdData.custom5;//介绍人,没有取到
                 carToInfo.ywtx = gdData.memo;//备注
                 carToInfo.ticheTime = (gdData.ywg_date&&gdData.ywg_date.length>9)?gdData.ywg_date.substring(0,10):"";//备注
+                carToInfo.customer_id = customer_id;
+
+                locals.setObject("carInfo",carToInfo);
                 $scope.carInfo = carToInfo;
             }
 
@@ -127,22 +132,24 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         if (num == 1) {
 
             $scope.isShowGls = !isShowItem;
+            $scope.updateCarForOne("jclc",$scope.carInfo.gls);
         } else if (num == 2) {
-
+            $scope.updateCarForOne("cjhm",$scope.carInfo.cjhm);
             $scope.isShowCjh = !isShowItem;
         } else if (num == 3) {
-
+            $scope.updateCarForOne("cx",$scope.carInfo.cx);
             $scope.isShowCx = !isShowItem;
         } else if (num == 4) {
-
-            locals.set("ticheTime",$scope.carInfo.ticheTime);
+            $scope.updateCarForOne("ywg_date",$scope.carInfo.ticheTime);
+           // locals.set("ticheTime",$scope.carInfo.ticheTime);
         } else if (num == 5) {
+
             $scope.isShowGzms = !isShowItem;
         } else if (num == 6) {
-
+            $scope.updateCarForOne("custom5",$scope.carInfo.jsr);
             $scope.isShowJsr = !isShowItem;
         } else if (num == 7) {
-
+            $scope.updateCarForOne("memo",$scope.carInfo.ywtx);
             $scope.isShowBz = !isShowItem;
         }
         if (!isShowItem) {
@@ -158,7 +165,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 function:"sp_fun_update_fault_info",
                 customer_id:carInfo.customer_id,
                 car_fault:$scope.carInfo.gzms,
-                days:$scope.getDateTime()
+                days:jc_date
             };
             var jsonStr5 = angular.toJson(params);
             $http({
@@ -179,60 +186,36 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         }
 
     }
-    $scope.$on('$stateChangeStart', function (event, toState, fromState){
-        if($scope.clickNum>0){
-        $scope.updateCarInfoToServer();
-        }
 
-    });
 
-    $scope.updateCarInfoToServer=function(){
-        var carInfo = $scope.carInfo;
-        var params =
-        {
+    $scope.updateCarForOne = function (columnName, valueData) {
+        var jsd_id = locals.get("jsd_id");
+        $scope.jsd_id = jsd_id;
+        var params = {
             db: "mycon1",
-            function: "sp_fun_update_customer_info",
-            cz: carInfo.cz,
-            mobile: carInfo.mobile,
-            phone: carInfo.phone,
-            linkman: carInfo.linkman,
-            custom5: carInfo.custom5,
-            cx: carInfo.cx,
-            cjhm: carInfo.cjhm,
-            fdjhm: carInfo.fdjhm,
-            customer_id: carInfo.customer_id
+            function: "sp_fun_upload_repair_list_main_other",
+            column_name: columnName,
+            data: valueData,
+            jsd_id: jsd_id
         };
-        var jsonStr4 = angular.toJson(params);
+        var jsonStr3 = angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: jsonStr4
+            data: jsonStr3
         }).success(function (data, status, headers, config) {
+            console.log(data);
             var state = data.state;
             if (state == 'ok') {
-                locals.setObject("carInfo", carInfo);
-                var allCarList = locals.getObject("cardDataList");
-                if(allCarList!=null&&allCarList.length>0){
-                    for(var i=0;i<allCarList.length;i++){
-                        var carItem = allCarList[i];
-                        if(carItem.mc==carInfo.mc){
-                            allCarList.splice(i,1,carItem);
-                        }
-                    }
-                }
 
-                locals.setObject("cardDataList",allCarList);
-            } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
-
-        }).error(function (data) {
-            ionicToast.show("服务异常","middle",2000);
         });
-
-
     }
+
+
+
+
 
 
 

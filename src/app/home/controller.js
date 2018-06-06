@@ -111,6 +111,8 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 allCardDataList = allCardDataList.concat(data.data);
             }
             $scope.getCardListData();
+        }).error(function(data){
+            ionicToast.show("服务异常","middle",2000);
         });
 
 
@@ -170,6 +172,8 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                         locals.setObject("cardDataList",locals.getObject("cardDataList").concat(carForDataList));
                     }
                 }
+            }).error(function(data){
+                ionicToast.show("服务异常","middle",2000);
             });
         }
     });
@@ -228,6 +232,8 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
                 $state.go("Tender");
             }
+        }).error(function(data){
+            ionicToast.show("服务异常","middle",2000);
         });
     }
 
@@ -382,6 +388,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             }else {
             }
         }).error(function(data){
+            ionicToast.show("服务异常","middle",2000);
         });
     }
 
@@ -428,7 +435,6 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             mobile:upLoadInfo.mobile+'',
             phone: upLoadInfo.phone+'',
             linkman:upLoadInfo.linkman,
-            custom5: upLoadInfo.custom5,
             cx:upLoadInfo.cx,
             cjhm:upLoadInfo.cjhm,
             fdjhm:upLoadInfo.fdjhm,
@@ -436,7 +442,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             oprater_code:userName,
             xllb:"",
             jclc:upLoadInfo.gls+"",
-            ywg_date:upLoadInfo.ywg_date?(upLoadInfo.ywg_date+" 00:00:00"):"",
+            ywg_date:upLoadInfo.ywg_date?(upLoadInfo.ywg_date+" 00:00:00"):dateTime,
             keys_no:upLoadInfo.ysph,
             memo:upLoadInfo.ywtx,
             customer_id:upLoadInfo.customer_id,
@@ -490,29 +496,42 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         $scope.proName = item.mc.substring(0,1);
 
     }
-    var params = {
-        db:"mycon1",
-        function:"sp_fun_get_oprater_right",
-        operater_code:userName
-    };
-    var jsonStr = angular.toJson(params);
-    $http({
-        method: 'post',
-        url: '/restful/pro',
-        dataType: "json",
-        data: jsonStr,
-    }).success(function (data, status, headers, config) {
-        console.log(data);
-        var state = data.state;
-        if (state == 'ok') {
-            var dataArr = data.data;
-            for(var i=0;i<dataArr.length;i++){
-                var item = dataArr[i];
-                locals.setObject(item.menu_right,item);
-            }
 
-        }
-    })
+    $scope.getAutorData=function(){
+        var params = {
+            db:"mycon1",
+            function:"sp_fun_get_oprater_right",
+            operater_code:userName
+        };
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr,
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                var dataArr = data.data;
+                if(dataArr!=null&&dataArr.length>0){
+                    locals.set('isFirstLogin',1);
+                }
+                for(var i=0;i<dataArr.length;i++){
+                    var item = dataArr[i];
+                    locals.setObject(item.menu_right,item);
+                }
+
+
+            }
+        }).error(function(data){
+            ionicToast.show("服务异常","middle",2000);
+        });
+    }
+
+    if(locals.get('isFirstLogin',0)==0){
+        $scope.getAutorData();
+    }
 
 //获取项目一级页面配置
 
@@ -536,6 +555,8 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 $scope.firstIconArr = firstIconArr;
                 locals.setObject("firstIconArr",firstIconArr);
             }
+        }).error(function(data){
+            ionicToast.show("服务异常","middle",2000);
         });
     }
     if(locals.getObject("firstIconArr")==null||locals.getObject("firstIconArr").length==null||locals.getObject("firstIconArr").length==0){

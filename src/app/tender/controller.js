@@ -1140,7 +1140,6 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 
     $scope.addToGdServer = function (item) {
 
-
         var jsd_id = locals.get("jsd_id");
         var params =
         {
@@ -1155,9 +1154,9 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             dw: item.dw,
             property: item.property,
             zt: item.zt,
-            ssj: item.ssj,
-            cb: item.cb,
-            sl: item.sl,
+            ssj: item.pjjj?item.pjjj:"0",
+            cb: "",
+            sl: "1",
             xh: item.xh,
             comp_code: user.company_code
         }

@@ -117,7 +117,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
 
     }
-    var cardDataList = locals.getObject("cardDataList");
+    var cardDataList =locals.getObject("cardDataList");
     if(cardDataList==null || cardDataList.length==null||cardDataList.length==null||cardDataList.length==0){
         $scope.getCardListData();
     }else{
@@ -308,9 +308,9 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 function:"sp_fun_upload_customer_info",
                 company_code:user.company_code,
                 plate_number:upLoadInfo.cardName?upLoadInfo.cardName:"",
-                cz:upLoadInfo.linkman,
+                cz:upLoadInfo.cz,
                 mobile:upLoadInfo.mobile+'',
-                phone: upLoadInfo.phone+'',
+                phone: '',
                 linkman:upLoadInfo.linkman,
                 custom5:upLoadInfo.custom5,
                 cx:upLoadInfo.cx,
@@ -329,7 +329,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 if (state == 'ok') {
                     upLoadInfo.customer_id=data.customer_id;
                     gz_customer_id = data.customer_id;
-                    upLoadInfo.cz = upLoadInfo.linkman;
+                    upLoadInfo.cz = upLoadInfo.cz;
                     upLoadInfo.plate_number = upLoadInfo.cardName?upLoadInfo.cardName:"";
 
                    var cardDataListA = locals.getObject("cardDataList");
@@ -349,7 +349,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             var carInfo = new Object();
             carInfo.mc = upLoadInfo.cardName;
             carInfo.mobile = upLoadInfo.mobile+'';
-            carInfo.phone = upLoadInfo.phone+'';
+            carInfo.phone = '';
             carInfo.linkman = upLoadInfo.linkman;
             carInfo.custom5 = upLoadInfo.custom5;
             carInfo.cx = upLoadInfo.cx;
@@ -367,7 +367,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 function:"sp_fun_update_customer_info",
                 cz:upLoadInfo.cz,
                 mobile:upLoadInfo.mobile+'',
-                phone: upLoadInfo.phone+'',
+                phone: '',
                 linkman:upLoadInfo.linkman,
                 custom5:upLoadInfo.custom5,
                 cx:upLoadInfo.cx,
@@ -464,7 +464,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             plate_number:upLoadInfo.cardName?upLoadInfo.cardName:"",
             cz:upLoadInfo.cz,
             mobile:upLoadInfo.mobile+'',
-            phone: upLoadInfo.phone+'',
+            phone: '',
             linkman:upLoadInfo.linkman,
             cx:upLoadInfo.cx,
             cjhm:upLoadInfo.cjhm,
@@ -524,9 +524,9 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
     $scope.showCardName = function(item){
         carInfo = item;
-        carInfo.mobile = item.phone?Number(item.mobile):"";
+        carInfo.mobile = item.mobile?Number(item.mobile):"";
         carInfo.company_code=user.company_code;
-        carInfo.cx=item.mc;
+        carInfo.cx=item.cx;
         carInfo.cardName=item.mc;
         carInfo.shortCardName=item.mc.substring(1,item.mc.length);
         $scope.carInfo=carInfo;

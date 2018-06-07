@@ -42,7 +42,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
 
 
 
-       $scope.sencondPageData=newDataArr;
+        $scope.sencondPageData=newDataArr;
 
         //$state.go("Register");
     }
@@ -52,7 +52,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     $scope.chooseProject = function (index, item,selected) {
         item.selected = !selected;
         $scope.sencondPageData.splice(index,1,item);
-       // chooseItem = item;
+        // chooseItem = item;
     }
     $scope.showDetailImgPro = function (type, wxgz) {
 
@@ -151,14 +151,14 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     var jsd_id = locals.get("jsd_id");
     $scope.jsd_id=jsd_id;
     $scope.upLoadServerData=function(chooseItem){
-     /*   if (chooseItem == null) {
-            var sencondPageData = $scope.sencondPageData;
-            if (sencondPageData == null) {
-                ionicToast.show("请选择项目", 'middle', false, 2000);
-                return;
-            }
-            chooseItem = sencondPageData[0];
-        }*/
+        /*   if (chooseItem == null) {
+               var sencondPageData = $scope.sencondPageData;
+               if (sencondPageData == null) {
+                   ionicToast.show("请选择项目", 'middle', false, 2000);
+                   return;
+               }
+               chooseItem = sencondPageData[0];
+           }*/
 
         var params = {
 
@@ -236,24 +236,28 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     var user = locals.getObject("user");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    if(locals.get("fromPeijian",0)==1){
+        $scope.showSelectMore = 1;
+    }
+    locals.set("fromPeijian",0);
     $scope.showFloatImg = false;
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
     var flag = 0;
 
-  /*  if(carInfo.gls!=null&&carInfo.gls!=""){
-        locals.set("gonglishu",carInfo.gls);
-        $scope.updateCarForOne("jclc",carInfo.gls);
-        flag++;
-    }
-    if(carInfo.ywtx!=null&&carInfo.ywtx!=""){
-        $scope.memo = carInfo.ywtx;
-        //$scope.updateCarForOne("jclc",upLoadInfo.gls);
-        $scope.updateCarForOne("memo", carInfo.ywtx ? carInfo.ywtx : "");
-        flag++;
-    }
-*/
+    /*  if(carInfo.gls!=null&&carInfo.gls!=""){
+          locals.set("gonglishu",carInfo.gls);
+          $scope.updateCarForOne("jclc",carInfo.gls);
+          flag++;
+      }
+      if(carInfo.ywtx!=null&&carInfo.ywtx!=""){
+          $scope.memo = carInfo.ywtx;
+          //$scope.updateCarForOne("jclc",upLoadInfo.gls);
+          $scope.updateCarForOne("memo", carInfo.ywtx ? carInfo.ywtx : "");
+          flag++;
+      }
+  */
 
     $scope.ticheTime ="";
     $scope.gonglishu = "";
@@ -337,7 +341,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
     }
 
-        $scope.getJsdStatu();
+    $scope.getJsdStatu();
 
     $scope.showInputGls = false;
     $scope.showKell = function (showInputGls) {
@@ -569,6 +573,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 var state = data.state;
                 if (state == 'ok') {
                     $scope.repairDataList.splice(index, 1);
+                    $scope.getRepairListData();
 
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
@@ -658,7 +663,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 var state = data.state;
                 if (state == 'ok') {
                     $scope.pjDataList.splice(index, 1);
-
+                    $scope.getPjData();
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
@@ -901,7 +906,8 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
-                    $state.go("Winbding");
+                    // $state.go("Winbding");
+                    $scope.getRepairListData();
                     // locals.setObject("carInfo",upLoadInfo);
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
@@ -926,10 +932,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 pjTotalCb += Number(pjData.cb);
             }
         }
-        if (Number(jsdInfo.clcb) != pjTotalCb ||
-            Number(jsdInfo.clfzj) != Number($scope.pjTotal) ||
-            Number(jsdInfo.wxfzj) != Number($scope.xlfTotal) ||
-            (Number($scope.pjTotal) + Number(jsdInfo.wxfzj)) != Number(jsdInfo.zje)) {
+        if ((Number($scope.pjTotal) + Number($scope.xlfTotal)) != Number(jsdInfo.zje)) {
 
 
             var jsd_id = locals.get("jsd_id");
@@ -937,8 +940,8 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 db: "mycon1",
                 function: "sp_fun_update_repair_main_money",
                 jsd_id: jsd_id,
-                zje: Number($scope.pjTotal) + Number(jsdInfo.wxfzj) + '',
-                wxfzj: jsdInfo.wxfzj,
+                zje: Number($scope.pjTotal) + Number($scope.xlfTotal) + '',
+                wxfzj: $scope.xlfTotal,
                 clfzj: $scope.pjTotal,
                 clcb: pjTotalCb + ''
 
@@ -1027,7 +1030,7 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
     }
 });
 
-//{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 
+//{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""}
 app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'locals', '$anchorScroll', "$location", function ($http, $scope, utils, $stateParams, $state, locals, $anchorScroll, $location) {
     var selt = this;
     var carInfo = locals.getObject("carInfo");
@@ -1140,35 +1143,37 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 
     $scope.addToGdServer = function (item) {
 
+
         var jsd_id = locals.get("jsd_id");
         var params =
-        {
-            db: "mycon1",
-            function: "sp_fun_upload_parts_project_detail",
-            jsd_id: jsd_id,
-            pjbm: item.pjbm,
-            pjmc: item.pjmc,
-            ck: item.ck,
-            cd: item.cd,
-            cx: item.cx,
-            dw: item.dw,
-            property: item.property,
-            zt: item.zt,
-            ssj: item.pjjj?item.pjjj:"0",
-            cb: "",
-            sl: "1",
-            xh: item.xh,
-            comp_code: user.company_code
-        }
-
+            {
+                db: "mycon1",
+                function: "sp_fun_upload_parts_project_detail",
+                jsd_id: jsd_id,
+                pjbm: item.pjbm,
+                pjmc: item.pjmc,
+                ck: item.ck,
+                cd: item.cd,
+                cx: item.cx,
+                dw: item.dw,
+                property: item.property,
+                zt: item.zt,
+                ssj: item.xsj,
+                cb: item.pjjj,
+                sl: (item.sl&&Number(item.sl)>0)?item.sl:'1',
+                xh: item.xh,
+                comp_code: user.company_code
+            }
+        var jsonStr3=angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: angular.toJson(params)
+            data: jsonStr3
         }).success(function (data, status, headers, config) {
             postPjNum++;
             if (postPjNum == checkedNum) {
+                locals.set("fromPeijian",1);
                 $state.go("Winbding");
             }
             console.log(data);
@@ -1209,33 +1214,34 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 
         var jsd_id = locals.get("jsd_id");
         var params =
-        {
-            db: "mycon1",
-            function: "sp_fun_upload_parts_project_detail",
-            jsd_id: jsd_id,
-            pjbm: item.pjbm,
-            pjmc: item.pjmc,
-            ck: item.ck,
-            cd: item.cd,
-            cx: item.cx,
-            dw: item.dw,
-            property: item.property,
-            zt: "急件销售",
-            ssj: item.ssj,
-            cb: item.cb,
-            sl: item.sl,
-            xh: item.xh,
-            comp_code: user.company_code
-        }
-
+            {
+                db: "mycon1",
+                function: "sp_fun_upload_parts_project_detail",
+                jsd_id: jsd_id,
+                pjbm: item.pjbm,
+                pjmc: item.pjmc,
+                ck: item.ck,
+                cd: item.cd,
+                cx: item.cx,
+                dw: item.dw,
+                property: item.property,
+                zt: "急件销售",
+                ssj: item.xsj,
+                cb: item.pjjj,
+                sl: item.sl,
+                xh: item.xh,
+                comp_code: user.company_code
+            }
+        var jsonString = angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: angular.toJson(params)
+            data: jsonString
         }).success(function (data, status, headers, config) {
 
             if (postTempPjNum == postPjTempSize) {
+                locals.set("fromPeijian",1);
                 $state.go("Winbding");
             }
             console.log(data);
@@ -1278,6 +1284,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
+    $scope.jsd_id = jsdId;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
     $scope.showMoreView = function (showMore) {
@@ -1339,7 +1346,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
 
 
         var params2 = {
-        db:"mycon1",
+            db:"mycon1",
             function:"sp_fun_update_maintenance_project_pgje",
             jsd_id:jsd_id,
             xh:item.xh,
@@ -1390,7 +1397,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
 
         modalInstance.result.then(function (choosePersonStr) {
             if (choosePersonStr != null && choosePersonStr[choosePersonStr.length - 1] == ",") {
-                choosePersonStr.substring(0, choosePersonStr.length - 1);
+                choosePersonStr = choosePersonStr.substring(0, choosePersonStr.length - 1);
             }
             var pgDataList = $scope.pgDataList;
             var jsd_id = locals.get("jsd_id");
@@ -1426,8 +1433,9 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-                $window.location.reload();
+                //$window.location.reload();
                 // locals.setObject("carInfo",upLoadInfo);
+                $scope.getPgListData();
             } else {
 
             }
@@ -1495,6 +1503,7 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
     $scope.carInfo = carInfo;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    $scope.jsd_id = locals.get("jsd_id");
     $scope.goBackPage = function () {
         history.back();
     }
@@ -1576,13 +1585,13 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
         var endData = selectData.endData ? (selectData.endData + " 23:59:59") : $scope.getDateTime();
         var carInfo = locals.getObject("carInfo");
         var params =
-        {
-            db: "mycon1",
-            function: "sp_fun_down_repair_history",
-            customer_id: carInfo.customer_id,
-            dates: startData,
-            datee: endData
-        }
+            {
+                db: "mycon1",
+                function: "sp_fun_down_repair_history",
+                customer_id: carInfo.customer_id,
+                dates: startData,
+                datee: endData
+            }
         var jsonStr = angular.toJson(params);
         $http({
             method: 'post',

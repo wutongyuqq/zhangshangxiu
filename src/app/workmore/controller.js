@@ -1,7 +1,14 @@
-app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals','userTemp', '$anchorScroll',"$location","ionicToast",function($http, $scope,$state,locals,userTemp,$anchorScroll,$location,ionicToast) {
+app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals',"ionicToast",function($http, $scope,$state,locals,ionicToast) {
 
     $scope.exitLogin = function(){
+        locals.setObject("pjKucun","");
         var user = locals.getObject("user");
+        locals.set("ticheTime","");
+        locals.set("gonglishu","");
+        locals.set("guzhangDes","");
+        locals.setObject("selectCarInfo",null);
+
+
         var params = {
             db:"mycon1",
             function:"sp_fun_user_logout",

@@ -133,11 +133,12 @@
     .confirm-nav-btn {
         width: 3rem;
         background-color: #89c997;
-        padding: 5px 10px;
+        padding: 0.3rem 0.4rem;
         color: white;
         border-radius: 5px;
         margin-left: 0.2rem;
         margin-top: 0.5rem;
+        font-size: 1.4em;
     }
 
     .confirm-a {
@@ -402,11 +403,11 @@
                         <div class="text-inline position-left">
                             <div>名称：{{item.pjmc}}</div>
                             <div>仓库：{{item.cd}}号仓</div>
-                            <div>销售价：￥{{item.pjjj}}</div>
+                            <div>销售价：￥{{item.xsj}}</div>
                         </div>
                         <div class="text-inline position-left">
-                            <div>规格：60*60</div>
-                            <div>库存量：101个</div>
+                            <div>规格：{{item.cd}}</div>
+                            <div>库存量：{{item.kcl}}</div>
                             <div>配件型号：{{item.cx}}</div>
                         </div>
 

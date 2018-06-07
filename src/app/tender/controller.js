@@ -236,6 +236,10 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     var user = locals.getObject("user");
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    if(locals.get("fromPeijian",0)==1){
+        $scope.showSelectMore = 1;
+    }
+    locals.set("fromPeijian",0);
     $scope.showFloatImg = false;
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
@@ -569,6 +573,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 var state = data.state;
                 if (state == 'ok') {
                     $scope.repairDataList.splice(index, 1);
+                    $scope.getRepairListData();
 
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
@@ -658,7 +663,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 var state = data.state;
                 if (state == 'ok') {
                     $scope.pjDataList.splice(index, 1);
-
+                    $scope.getPjData();
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
@@ -901,7 +906,8 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
-                    $state.go("Winbding");
+                   // $state.go("Winbding");
+                    $scope.getRepairListData();
                     // locals.setObject("carInfo",upLoadInfo);
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
@@ -926,10 +932,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 pjTotalCb += Number(pjData.cb);
             }
         }
-        if (Number(jsdInfo.clcb) != pjTotalCb ||
-            Number(jsdInfo.clfzj) != Number($scope.pjTotal) ||
-            Number(jsdInfo.wxfzj) != Number($scope.xlfTotal) ||
-            (Number($scope.pjTotal) + Number(jsdInfo.wxfzj)) != Number(jsdInfo.zje)) {
+        if ((Number($scope.pjTotal) + Number($scope.xlfTotal)) != Number(jsdInfo.zje)) {
 
 
             var jsd_id = locals.get("jsd_id");
@@ -937,8 +940,8 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 db: "mycon1",
                 function: "sp_fun_update_repair_main_money",
                 jsd_id: jsd_id,
-                zje: Number($scope.pjTotal) + Number(jsdInfo.wxfzj) + '',
-                wxfzj: jsdInfo.wxfzj,
+                zje: Number($scope.pjTotal) + Number($scope.xlfTotal) + '',
+                wxfzj: $scope.xlfTotal,
                 clfzj: $scope.pjTotal,
                 clcb: pjTotalCb + ''
 
@@ -1155,21 +1158,22 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             dw: item.dw,
             property: item.property,
             zt: item.zt,
-            ssj: item.ssj,
-            cb: item.cb,
-            sl: item.sl,
+            ssj: item.xsj,
+            cb: item.pjjj,
+            sl: (item.sl&&Number(item.sl)>0)?item.sl:'1',
             xh: item.xh,
             comp_code: user.company_code
         }
-
+        var jsonStr3=angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: angular.toJson(params)
+            data: jsonStr3
         }).success(function (data, status, headers, config) {
             postPjNum++;
             if (postPjNum == checkedNum) {
+                locals.set("fromPeijian",1);
                 $state.go("Winbding");
             }
             console.log(data);
@@ -1222,21 +1226,22 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             dw: item.dw,
             property: item.property,
             zt: "急件销售",
-            ssj: item.ssj,
-            cb: item.cb,
+            ssj: item.xsj,
+            cb: item.pjjj,
             sl: item.sl,
             xh: item.xh,
             comp_code: user.company_code
         }
-
+        var jsonString = angular.toJson(params);
         $http({
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: angular.toJson(params)
+            data: jsonString
         }).success(function (data, status, headers, config) {
 
             if (postTempPjNum == postPjTempSize) {
+                locals.set("fromPeijian",1);
                 $state.go("Winbding");
             }
             console.log(data);
@@ -1279,6 +1284,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
     var carInfo = locals.getObject("carInfo");
     $scope.carInfo = carInfo;
     var jsdId = locals.get("jsd_id");
+    $scope.jsd_id = jsdId;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
     $scope.showMoreView = function (showMore) {
@@ -1391,7 +1397,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
 
         modalInstance.result.then(function (choosePersonStr) {
             if (choosePersonStr != null && choosePersonStr[choosePersonStr.length - 1] == ",") {
-                choosePersonStr.substring(0, choosePersonStr.length - 1);
+                choosePersonStr = choosePersonStr.substring(0, choosePersonStr.length - 1);
             }
             var pgDataList = $scope.pgDataList;
             var jsd_id = locals.get("jsd_id");
@@ -1427,8 +1433,9 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-                $window.location.reload();
+                //$window.location.reload();
                 // locals.setObject("carInfo",upLoadInfo);
+                $scope.getPgListData();
             } else {
 
             }
@@ -1496,6 +1503,7 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
     $scope.carInfo = carInfo;
     $scope.showMore = 0;
     $scope.showSelectMore = 0;
+    $scope.jsd_id = locals.get("jsd_id");
     $scope.goBackPage = function () {
         history.back();
     }

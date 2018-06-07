@@ -9,7 +9,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     locals.set("gonglishu","");
     locals.set("guzhangDes","");
 
-
+    var flagNumber = 0;
     $scope.showFootTab=true;
     var userName = user.userName;
 
@@ -301,6 +301,11 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         upLoadInfo.cardName = $scope.proName + $scope.carInfo.shortCardName;
         locals.set("gonglishu",upLoadInfo.gls==null?"":upLoadInfo.gls);
         var isNewCar = $scope.judgeNewCar(upLoadInfo.cardName);
+        var allCarList = locals.getObject("cardDataList");
+        upLoadInfo.cp= upLoadInfo.cardName;
+        upLoadInfo.momo= upLoadInfo.gzms;
+        upLoadInfo.jclc= upLoadInfo.gls;
+        upLoadInfo.mc= upLoadInfo.cardName;
         if(isNewCar){//如果是新车，就调用5-3 新车上传信息。
             upLoadInfo.company_code = user.company_code;
             var params = {
@@ -329,38 +334,18 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
                 if (state == 'ok') {
                     upLoadInfo.customer_id=data.customer_id;
                     gz_customer_id = data.customer_id;
-                    upLoadInfo.cz = upLoadInfo.cz;
                     upLoadInfo.plate_number = upLoadInfo.cardName?upLoadInfo.cardName:"";
-
-                   var cardDataListA = locals.getObject("cardDataList");
-                    cardDataListA.push(upLoadInfo);
-                    locals.setObject("cardDataList",cardDataListA);
+                    allCarList.push(upLoadInfo);
+                    locals.setObject("cardDataList",allCarList);
                     locals.setObject("carInfo",upLoadInfo);
-
                     $scope.uploadCarToServer(upLoadInfo);
-
                 }else {
                     ionicToast.show("错误："+data.msg?data.msg:"", 'middle',false, 2000);
                 }
             }).error(function(data){
                 ionicToast.show("服务异常","middle",2000);
             });
-            var allCarList = locals.getObject("cardDataList");
-            var carInfo = new Object();
-            carInfo.mc = upLoadInfo.cardName;
-            carInfo.mobile = upLoadInfo.mobile+'';
-            carInfo.phone = '';
-            carInfo.linkman = upLoadInfo.linkman;
-            carInfo.custom5 = upLoadInfo.custom5;
-            carInfo.cx = upLoadInfo.cx;
-            carInfo.cjhm = upLoadInfo.cjhm;
-            carInfo.fdjhm = upLoadInfo.fdjhm;
-            carInfo.cjhm = upLoadInfo.cjhm;
-            carInfo.gls = upLoadInfo.gls;
-            carInfo.gzms = upLoadInfo.gzms;
-            carInfo.ysph = upLoadInfo.ysph;
-            allCarList.push(carInfo);
-            locals.setObject("cardDataList",allCarList);
+
         }else{  //2，如果不是新车，就更新车辆信息
             var params = {
                 db:"mycon1",
@@ -384,6 +369,11 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
+                    var allCarList = locals.getObject("cardDataList");
+                    upLoadInfo.plate_number = upLoadInfo.cardName?upLoadInfo.cardName:"";
+                    allCarList.splice(flagNumber,1,upLoadInfo);
+                    allCarList.push(upLoadInfo);
+                    locals.setObject("cardDataList",allCarList);
                     locals.setObject("carInfo",upLoadInfo);
                     $scope.uploadCarToServer(upLoadInfo);
                 }else {
@@ -650,9 +640,11 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     $scope.judgeNewCar=function(cardName){
 
         if(allCardDataList!=null && allCardDataList.length>0){
+
             for(var i=0;i<allCardDataList.length;i++){
                 var itemCar = allCardDataList[i];
                 if(cardName==itemCar.mc){
+                    flagNumber = i;
                     return false;
                 }
             }

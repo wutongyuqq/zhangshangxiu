@@ -1226,8 +1226,8 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
             dw: item.dw,
             property: item.property,
             zt: "急件销售",
-            ssj: item.xsj,
-            cb: item.pjjj,
+            ssj: item.ssj,
+            cb: item.cb,
             sl: item.sl,
             xh: item.xh,
             comp_code: user.company_code

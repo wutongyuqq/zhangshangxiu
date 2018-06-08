@@ -395,7 +395,7 @@
 
             <div class="list list-margin">
 
-                <ion-checkbox class="content-list-div-a" ng-repeat="item in dataList"
+                <ion-checkbox class="content-list-div-a" ng-repeat="item in dataList track by $index"
                               ng-model="item.checked"
                               ng-checked="item.checked" ng-click="checkPjkItem($index)">
                     <div class="text_inline content-list-div-a">

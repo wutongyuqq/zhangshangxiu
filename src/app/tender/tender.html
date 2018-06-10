@@ -270,7 +270,7 @@
         </div>
         <div class="border-color">
             <div class="text-inline text-left" style="font-size: 1.6em;">故障描述</div>
-            <div class="text-inline text-right" style="font-size: 1.6em;"><span ng-show="!isShowGzms">{{carInfo.gzms}}</span><input  style="font-size: 1.0em;" ng-show="isShowGzms"  ng-model="carInfo.gzms"  type="text" class="text-input-a"/><img ng-click="updateCarInfo(isShowGzms,5)" class="edit-img-a" src="{{isShowGzms?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
+            <div class="text-inline text-right" style="font-size: 1.6em;" ng-click="updateCarInfo(isShowGzms,5)"><span>{{carInfo.gzms}}</span><img  class="edit-img-a" src="../../../vendor/images/zsx/right_btn.png"/></div>
 
         </div>
         <div class="border-color">

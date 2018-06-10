@@ -179,7 +179,7 @@
     .div_list_d{
         background-color: #fcf3a5;
         width: 8rem;
-        height: 6rem;
+        height: 8rem;
         color:#333;
         font-size: 1.2em;
         padding-top: 0.5rem;
@@ -247,16 +247,16 @@
     <div class="div_list_con">
         <div class="div_content_a">
             <div class="div_list_c">
-                进厂日期：{{item.days | limitTo:10}}
+                进厂日期：{{curTime | limitTo:10}}
                 <img  ng-click="cancel()" class="del_red" src="../../../vendor/images/zsx/del_red.png">
             </div>
             <div class="div_list_d">
 
-                <textarea ng-model="gzms"  cols="40"  rows="15"  style="margin:0 auto;overflow: hidden;"></textarea>
+                <textarea ng-model="gzms"  cols="25"  rows="21"  style="font-size:1.4em;margin:0 auto;overflow: hidden;padding: 0.2rem 0.2rem;"></textarea>
 
             </div>
 
-            <button class="btn btn-warning" ng-click="ok()">
+            <button class="btn btn-warning" ng-click="ok()" style="margin-top: 0.3rem;">
                 确定
             </button>
 

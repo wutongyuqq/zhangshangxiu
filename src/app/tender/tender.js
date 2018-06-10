@@ -62,6 +62,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 carToInfo.ywtx = gdData.memo;//备注
                 carToInfo.ticheTime = (gdData.ywg_date&&gdData.ywg_date.length>9)?gdData.ywg_date.substring(0,10):"";//备注
                 carToInfo.customer_id = customer_id;
+                carToInfo.jc_date = jc_date;
 
                 locals.setObject("carInfo",carToInfo);
                 $scope.carInfo = carToInfo;

@@ -121,6 +121,19 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                     ]);
                 }]
             }
+        }) .state('guzhang', {
+            url: '/guzhang',
+            templateUrl: window.rootSrc + 'app/tender/guzhang_history.html',
+            params: {'id': null},
+            title:'故障描述',
+            controller: 'guzhangCtrl as $ctrl',
+            resolve: {
+                load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        'app/tender/guzhang.js'
+                    ]);
+                }]
+            }
         }).state('TenderSay', {
         url: '/tenderSay',
         templateUrl: window.rootSrc + 'app/tender/tenderSay.html',

@@ -795,7 +795,29 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         });
     }
 
+    //修改配件价格
+    $scope.editItemForPj = function(index, item){
+        data = item;
+        var modalInstance = $modal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'modal_edit.html',
+            controller: 'modalEditCtrl',
+            size: 'lg',
+            resolve: {
+                data: function () {//data作为modal的controller传入的参数
+                    return data;//用于传递数据
+                }
+            }
+        });
 
+        modalInstance.result.then(function (resData) {
+
+            var jsd_id = locals.get("jsd_id");
+
+
+        });
+
+    }
 
     $scope.judgeToStatu = function (djzt) {
         if ($scope.djztUnable == 1) {
@@ -1029,6 +1051,26 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
         $modalInstance.dismiss('cancel');
     }
 });
+
+
+
+
+
+//模态框对应的Controller
+app.controller('modalEditCtrl', function ($scope, $state, $modalInstance, locals, data) {
+    var dataD = data;
+
+    //在这里处理要进行的操作
+    $scope.ok = function () {
+
+
+    };
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    }
+});
+
+
 
 //{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 
 app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'locals', '$anchorScroll', "$location", function ($http, $scope, utils, $stateParams, $state, locals, $anchorScroll, $location) {

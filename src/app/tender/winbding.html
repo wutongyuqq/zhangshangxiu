@@ -455,6 +455,8 @@
                     <div class="text_inline"  style="font-size: 1.4em;"><div ng-show="!showBeizhu" ng-model="memo" ng-bind="memo"></div><div><input  ng-model="memo" ng-show="showBeizhu" type="text" placeholder="输入" style="width: 5rem;font-size: 1.2em;"/></div></div>
                     <div class="text_inline" ng-hide="showFloatImg"> <img ng-click="showBeizhuT(showBeizhu)" class="text_inline wb_btn_img"
                               src="{{showBeizhu?'../../../vendor/images/zsx/edit_true.png':'../../../vendor/images/zsx/edit.png'}}"/></div>
+
+
                 </div>
 
 
@@ -510,7 +512,11 @@
                     <td style="font-size: 1.4em">{{item.ssj}}</td>
                     <td style="font-size: 1.4em">{{(item.sl*item.ssj)}}</td>
                     <td><img ng-click="deletePjItem($index,item)" class="img-minus"
-                             src="../../../vendor/images/zsx/minus_img.png"/></td>
+                             src="../../../vendor/images/zsx/minus_img.png"/>
+                        <br/>
+                        <img ng-click="editItemForPj($index,item)" class="img-minus"
+                             src="../../../vendor/images/zsx/edit.png"/></td>
+                    </td>
                 </tr>
 
 
@@ -611,7 +617,7 @@
             </h4>
         </div>
         <div class="modal-body">
-            <div style="text-align: left;margin-left: 1rem">
+            <div style="text-align: left;margin-left: 1rem;">
 
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">项&#12288;&#12288;目:</div>
@@ -622,13 +628,13 @@
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">项目名称:</div>
                     <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" type="text"
                             ng-model="wxgz"/></div>
                 </div>
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">价&#12288;&#12288;格:</div>
                     <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" type="text"
                             ng-model="xlf"/></div>
                 </div>
 
@@ -660,6 +666,66 @@
     </div>
 </script>
 
+
+
+
+
+<script type="text/ng-template" id="modal_edit.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                修改配件
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="text-align: left;margin-left: 1rem;">
+
+                <div class="model-margin-top">
+                    <div style="display: inline-block;vertical-align: middle;">配件名称:</div>
+                    <div style="display: inline-block;vertical-align: middle;"><input
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
+                            ng-model="xlxm"/></div>
+                </div>
+                <div class="model-margin-top">
+                    <div style="display: inline-block;vertical-align: middle;">规&#12288;&#12288;格:</div>
+                    <div style="display: inline-block;vertical-align: middle;"><input
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" type="text"
+                            ng-model="wxgz"/></div>
+                </div>
+                <div class="model-margin-top">
+                    <div style="display: inline-block;vertical-align: middle;">数&#12288;&#12288;量:</div>
+                    <div style="display: inline-block;vertical-align: middle;"><input
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" type="text"
+                            ng-model="xlf"/></div>
+                </div>
+
+
+                <div class="model-margin-top">
+                    <div style="display: inline-block;vertical-align: middle;">单&#12288;&#12288;价:</div>
+                    <div style="display: inline-block;vertical-align: middle;"><input
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
+                            ng-model="yhje=orderXlf-xlf"/></div>
+                </div>
+
+                <div class="model-margin-top">
+                    <div style="display: inline-block;vertical-align: top;">保存新价格:</div>
+                    <div style="display: inline-block;vertical-align: top;"><input type="checkbox"
+                                                                                   style="width:0.5rem;height:0.5rem;margin-left: 0.7rem"
+                                                                                   ng-model="isNewPrice"/></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()">
+                取消
+            </button>
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf,yhje)" style="margin-left: 2rem">
+                确定
+            </button>
+        </div>
+    </div>
+</script>
 
 <script type="text/ng-template" id="modal5.html">
     <div class="modal-top" align="center">

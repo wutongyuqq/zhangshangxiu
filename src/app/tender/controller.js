@@ -42,7 +42,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
 
 
 
-        $scope.sencondPageData=newDataArr;
+       $scope.sencondPageData=newDataArr;
 
         //$state.go("Register");
     }
@@ -52,7 +52,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     $scope.chooseProject = function (index, item,selected) {
         item.selected = !selected;
         $scope.sencondPageData.splice(index,1,item);
-        // chooseItem = item;
+       // chooseItem = item;
     }
     $scope.showDetailImgPro = function (type, wxgz) {
 
@@ -151,14 +151,14 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', 
     var jsd_id = locals.get("jsd_id");
     $scope.jsd_id=jsd_id;
     $scope.upLoadServerData=function(chooseItem){
-        /*   if (chooseItem == null) {
-               var sencondPageData = $scope.sencondPageData;
-               if (sencondPageData == null) {
-                   ionicToast.show("请选择项目", 'middle', false, 2000);
-                   return;
-               }
-               chooseItem = sencondPageData[0];
-           }*/
+     /*   if (chooseItem == null) {
+            var sencondPageData = $scope.sencondPageData;
+            if (sencondPageData == null) {
+                ionicToast.show("请选择项目", 'middle', false, 2000);
+                return;
+            }
+            chooseItem = sencondPageData[0];
+        }*/
 
         var params = {
 
@@ -246,18 +246,18 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     var jsdId = locals.get("jsd_id");
     var flag = 0;
 
-    /*  if(carInfo.gls!=null&&carInfo.gls!=""){
-          locals.set("gonglishu",carInfo.gls);
-          $scope.updateCarForOne("jclc",carInfo.gls);
-          flag++;
-      }
-      if(carInfo.ywtx!=null&&carInfo.ywtx!=""){
-          $scope.memo = carInfo.ywtx;
-          //$scope.updateCarForOne("jclc",upLoadInfo.gls);
-          $scope.updateCarForOne("memo", carInfo.ywtx ? carInfo.ywtx : "");
-          flag++;
-      }
-  */
+  /*  if(carInfo.gls!=null&&carInfo.gls!=""){
+        locals.set("gonglishu",carInfo.gls);
+        $scope.updateCarForOne("jclc",carInfo.gls);
+        flag++;
+    }
+    if(carInfo.ywtx!=null&&carInfo.ywtx!=""){
+        $scope.memo = carInfo.ywtx;
+        //$scope.updateCarForOne("jclc",upLoadInfo.gls);
+        $scope.updateCarForOne("memo", carInfo.ywtx ? carInfo.ywtx : "");
+        flag++;
+    }
+*/
 
     $scope.ticheTime ="";
     $scope.gonglishu = "";
@@ -341,7 +341,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
     }
 
-    $scope.getJsdStatu();
+        $scope.getJsdStatu();
 
     $scope.showInputGls = false;
     $scope.showKell = function (showInputGls) {
@@ -906,7 +906,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
-                    // $state.go("Winbding");
+                   // $state.go("Winbding");
                     $scope.getRepairListData();
                     // locals.setObject("carInfo",upLoadInfo);
                 } else {
@@ -1030,7 +1030,7 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
     }
 });
 
-//{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""}
+//{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 
 app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'locals', '$anchorScroll', "$location", function ($http, $scope, utils, $stateParams, $state, locals, $anchorScroll, $location) {
     var selt = this;
     var carInfo = locals.getObject("carInfo");
@@ -1146,24 +1146,24 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 
         var jsd_id = locals.get("jsd_id");
         var params =
-            {
-                db: "mycon1",
-                function: "sp_fun_upload_parts_project_detail",
-                jsd_id: jsd_id,
-                pjbm: item.pjbm,
-                pjmc: item.pjmc,
-                ck: item.ck,
-                cd: item.cd,
-                cx: item.cx,
-                dw: item.dw,
-                property: item.property,
-                zt: item.zt,
-                ssj: item.xsj,
-                cb: item.pjjj,
-                sl: (item.sl&&Number(item.sl)>0)?item.sl:'1',
-                xh: item.xh,
-                comp_code: user.company_code
-            }
+        {
+            db: "mycon1",
+            function: "sp_fun_upload_parts_project_detail",
+            jsd_id: jsd_id,
+            pjbm: item.pjbm,
+            pjmc: item.pjmc,
+            ck: item.ck,
+            cd: item.cd,
+            cx: item.cx,
+            dw: item.dw,
+            property: item.property,
+            zt: item.zt,
+            ssj: item.xsj,
+            cb: item.pjjj,
+            sl: (item.sl&&Number(item.sl)>0)?item.sl:'1',
+            xh: item.xh,
+            comp_code: user.company_code
+        }
         var jsonStr3=angular.toJson(params);
         $http({
             method: 'post',
@@ -1214,24 +1214,24 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
 
         var jsd_id = locals.get("jsd_id");
         var params =
-            {
-                db: "mycon1",
-                function: "sp_fun_upload_parts_project_detail",
-                jsd_id: jsd_id,
-                pjbm: item.pjbm,
-                pjmc: item.pjmc,
-                ck: item.ck,
-                cd: item.cd,
-                cx: item.cx,
-                dw: item.dw,
-                property: item.property,
-                zt: "急件销售",
-                ssj: item.xsj,
-                cb: item.pjjj,
-                sl: item.sl,
-                xh: item.xh,
-                comp_code: user.company_code
-            }
+        {
+            db: "mycon1",
+            function: "sp_fun_upload_parts_project_detail",
+            jsd_id: jsd_id,
+            pjbm: item.pjbm,
+            pjmc: item.pjmc,
+            ck: item.ck,
+            cd: item.cd,
+            cx: item.cx,
+            dw: item.dw,
+            property: item.property,
+            zt: "急件销售",
+            ssj: item.ssj,
+            cb: item.cb,
+            sl: item.sl,
+            xh: item.xh,
+            comp_code: user.company_code
+        }
         var jsonString = angular.toJson(params);
         $http({
             method: 'post',
@@ -1346,7 +1346,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
 
 
         var params2 = {
-            db:"mycon1",
+        db:"mycon1",
             function:"sp_fun_update_maintenance_project_pgje",
             jsd_id:jsd_id,
             xh:item.xh,
@@ -1585,13 +1585,13 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
         var endData = selectData.endData ? (selectData.endData + " 23:59:59") : $scope.getDateTime();
         var carInfo = locals.getObject("carInfo");
         var params =
-            {
-                db: "mycon1",
-                function: "sp_fun_down_repair_history",
-                customer_id: carInfo.customer_id,
-                dates: startData,
-                datee: endData
-            }
+        {
+            db: "mycon1",
+            function: "sp_fun_down_repair_history",
+            customer_id: carInfo.customer_id,
+            dates: startData,
+            datee: endData
+        }
         var jsonStr = angular.toJson(params);
         $http({
             method: 'post',

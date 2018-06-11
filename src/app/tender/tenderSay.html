@@ -395,7 +395,7 @@
 
             <div class="list list-margin">
 
-                <ion-checkbox class="content-list-div-a" ng-repeat="item in dataList"
+                <ion-checkbox class="content-list-div-a" ng-repeat="item in dataList track by $index"
                               ng-model="item.checked"
                               ng-checked="item.checked" ng-click="checkPjkItem($index)">
                     <div class="text_inline content-list-div-a">
@@ -421,43 +421,6 @@
 
 
 
-           <!--
-            <ion-list>
-                <ion-item ng-repeat="item in data">
-                        <div class="text_inline content-list-div-a">
-                                <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
-                                </div>
-                                <div class="text-inline position-left">
-                                    <div>名称：{{item.pjmc}}</div>
-                                    <div>仓库：{{item.cd}}号仓</div>
-                                    <div>销售价：￥{{item.pjjj}}</div>
-                                </div>
-                                <div class="text-inline position-left">
-                                    <div>规格：60*60</div>
-                                    <div>库存量：101个</div>
-                                    <div>配件型号：{{item.cx}}</div>
-                                </div>
-                    
-                                
-                            </div>
-                            <div class="text_inline content-list-div-a">
-                                <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
-                                </div>
-                                <div class="text-inline position-left">
-                                    <div>名称：{{item.pjmc}}</div>
-                                    <div>仓库：{{item.cd}}号仓</div>
-                                    <div>销售价：￥{{item.pjjj}}</div>
-                                </div>
-                                <div class="text-inline position-left">
-                                    <div>规格：60*60</div>
-                                    <div>库存量：101个</div>
-                                    <div>配件型号：{{item.cx}}</div>
-                                </div>
-                    
-                                
-                            </div>
-                </ion-item>
-              </ion-list>-->
         </div>
 
 

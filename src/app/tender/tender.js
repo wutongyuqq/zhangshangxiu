@@ -53,6 +53,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 jc_date = gdData.jc_date;
                 customer_id = gdData.customer_id;
                 carToInfo.cz = gdData.cz;
+                carToInfo.car_fault = gdData.car_fault;
                 carToInfo.cardName = gdData.cp;
                 carToInfo.gls = gdData.jclc;
                 carToInfo.cjhm = gdData.cjhm;
@@ -62,6 +63,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
                 carToInfo.ywtx = gdData.memo;//备注
                 carToInfo.ticheTime = (gdData.ywg_date&&gdData.ywg_date.length>9)?gdData.ywg_date.substring(0,10):"";//备注
                 carToInfo.customer_id = customer_id;
+                carToInfo.jc_date = jc_date;
 
                 locals.setObject("carInfo",carToInfo);
                 $scope.carInfo = carToInfo;
@@ -159,30 +161,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
             var totleNum =  $scope.clickNum+1;
             $scope.clickNum =  totleNum;
         }else{
-            var carInfo = $scope.carInfo;
-            var params = {
-                db:"mycon1",
-                function:"sp_fun_update_fault_info",
-                customer_id:carInfo.customer_id,
-                car_fault:$scope.carInfo.gzms,
-                days:jc_date
-            };
-            var jsonStr5 = angular.toJson(params);
-            $http({
-                method: 'post',
-                url: '/restful/pro',
-                dataType: "json",
-                data: jsonStr5
-            }).success(function (data, status, headers, config) {
-                var state = data.state;
-                if (state == 'ok') {
-
-                } else {
-                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
-                }
-            }).error(function (data) {
-                ionicToast.show("服务异常","middle",2000);
-            });
+           $state.go("guzhang");
         }
 
     }

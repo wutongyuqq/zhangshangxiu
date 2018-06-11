@@ -634,7 +634,7 @@
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">价&#12288;&#12288;格:</div>
                     <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" type="text"
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" ng-change="updatePrice()" type="text"
                             ng-model="xlf"/></div>
                 </div>
 
@@ -642,8 +642,8 @@
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">优&#12288;&#12288;惠:</div>
                     <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
-                            ng-model="yhje=orderXlf-xlf"/></div>
+                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" ng-readonly="true" type="text"
+                            ng-model="yhje"/></div>
                 </div>
 
                 <div class="model-margin-top">
@@ -682,36 +682,34 @@
 
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">配件名称:</div>
-                    <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
-                            ng-model="xlxm"/></div>
+                    <div style="display: inline-block;vertical-align: middle;">
+                        <input  style="width: 6rem;background-color: lightgray;margin-left: 1rem" ng-model="dataEdit.pjmc" type="text"/>
+                    </div>
                 </div>
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">规&#12288;&#12288;格:</div>
-                    <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" type="text"
-                            ng-model="wxgz"/></div>
+                    <div style="display: inline-block;vertical-align: middle;">
+                        <input style="width: 6rem;background-color: lightgray;margin-left: 1rem;"  ng-model="dataEdit.pjbm" type="text"/>
+                    </div>
                 </div>
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">数&#12288;&#12288;量:</div>
-                    <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem;" type="text"
-                            ng-model="xlf"/></div>
+                    <div style="display: inline-block;vertical-align: middle;">
+                        <input style="width: 6rem;background-color: lightgray;margin-left: 1rem;"   ng-model="dataEdit.sl"  type="text"/>
+                    </div>
                 </div>
 
 
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">单&#12288;&#12288;价:</div>
-                    <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
-                            ng-model="yhje=orderXlf-xlf"/></div>
+                    <div style="display: inline-block;vertical-align: middle;">
+                        <input style="width: 6rem;background-color: lightgray;margin-left: 1rem" ng-model="dataEdit.ssj" type="text"/></div>
                 </div>
 
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: top;">保存新价格:</div>
-                    <div style="display: inline-block;vertical-align: top;"><input type="checkbox"
-                                                                                   style="width:0.5rem;height:0.5rem;margin-left: 0.7rem"
-                                                                                   ng-model="isNewPrice"/></div>
+                    <div style="display: inline-block;vertical-align: top;">
+                        <input type="checkbox" style="width:0.5rem;height:0.5rem;margin-left: 0.7rem"/></div>
                 </div>
 
             </div>
@@ -720,7 +718,7 @@
             <button class="btn btn-primary" ng-click="cancel()">
                 取消
             </button>
-            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf,yhje)" style="margin-left: 2rem">
+            <button class="btn btn-warning" ng-click="ok()" style="margin-left: 2rem">
                 确定
             </button>
         </div>
@@ -739,9 +737,8 @@
 
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">项目名称:</div>
-                    <div style="display: inline-block;vertical-align: middle;"><input
-                            style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text"
-                            ng-model="tempData.mc"/></div>
+                    <div style="display: inline-block;vertical-align: middle;">
+                        <input style="width: 6rem;background-color: lightgray;margin-left: 1rem" type="text" ng-model="tempData.mc"/></div>
                 </div>
                 <div class="model-margin-top">
                     <div style="display: inline-block;vertical-align: middle;">维修成本:</div>

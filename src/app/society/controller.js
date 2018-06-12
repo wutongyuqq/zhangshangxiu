@@ -1,10 +1,10 @@
-app.controller('SocietyCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
+app.controller('carInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
     $scope.getCarInfoData = function () {
-        var carInfo = locals
+        var carInfo = locals.getObject("carInfo");
         var params = {
             db: "mycon1",
             function: "sp_fun_down_car_owner",
-            customer_id: postFlag
+            customer_id: carInfo.customer_id
         };
         var jsonStr = angular.toJson(params);
         $http({
@@ -16,12 +16,44 @@ app.controller('SocietyCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             console.log(data);
             var state = data.state;
 
-            if (state == 'ok' && postFlag != "end") {
+            if (state == 'ok') {
 
             }
 
         }).error(function (data) {
-            ionicToast.show("∑˛ŒÒ“Ï≥£", "middle", 2000);
+            ionicToast.show("ÊúçÂä°ÂºÇÂ∏∏", "middle", 2000);
         });
     }
+    $scope.getCarInfoData();
+}]);
+
+
+app.controller('czInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
+    $scope.getCarInfoData = function () {
+        var carInfo = locals.getObject("carInfo");
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_down_car_owner",
+            customer_id: carInfo.customer_id
+        };
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+
+            if (state == 'ok') {
+                var dataArr =  data.data;
+                $scope.czInfo = dataArr[0];
+            }
+
+        }).error(function (data) {
+            ionicToast.show("ÊúçÂä°ÂºÇÂ∏∏", "middle", 2000);
+        });
+    }
+    $scope.getCarInfoData();
 }]);

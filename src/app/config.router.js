@@ -284,10 +284,22 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
         }
     })
 
-        .state('society', {
-            url: '/society',
+        .state('carInfo', {
+            url: '/carInfo',
             templateUrl: window.rootSrc + 'app/society/index.tpl.html',
-            controller: 'SocietyCtrl as ctrl',
+            controller: 'carInfoCtrl as ctrl',
+            title:'标大大-应用',
+            resolve: {
+                load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        'app/society/controller.js'
+                    ]);
+                }]
+            }
+        }).state('czInfo', {
+            url: '/czInfo',
+            templateUrl: window.rootSrc + 'app/society/index_cz.html',
+            controller: 'czInfoCtrl as ctrl',
             title:'标大大-应用',
             resolve: {
                 load: ['$ocLazyLoad', function ($ocLazyLoad) {

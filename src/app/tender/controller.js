@@ -1,4 +1,4 @@
-app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast", "$ionicNavBarDelegate", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast, $ionicNavBarDelegate) {
+app.controller('tenderDetailCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
     var selt = this;
 
     var showType = 0;

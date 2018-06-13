@@ -785,7 +785,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
             zje: Number($scope.totalXlf == null ? '0' : $scope.totalXlf) + Number($scope.totalMoney == null ? '0' : $scope.totalMoney) + '',
             wxfzj: $scope.totalXlf == null ? '0' : $scope.totalXlf,
             clfzj: $scope.totalMoney == null ? '0' : $scope.totalMoney,
-            clcb: totalCb == null ? '0' : totalCb + ''
+            clcb: totalCb == null ? '0' : totalCb.toFixed(2) + ''
 
         }
         var jsonStr8 = angular.toJson(params);

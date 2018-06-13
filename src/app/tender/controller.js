@@ -1014,7 +1014,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                 zje: Number($scope.pjTotal) + Number($scope.xlfTotal) + '',
                 wxfzj: $scope.xlfTotal,
                 clfzj: $scope.pjTotal,
-                clcb: pjTotalCb + ''
+                clcb: pjTotalCb?(pjTotalCb.toFixed(2) + ''):'0'
 
             }
             var jsonStr8 = angular.toJson(params);

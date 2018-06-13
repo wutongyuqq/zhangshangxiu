@@ -4,6 +4,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     var user = locals.getObject("user");
     if(user==null||user.userName==null){
         $state.go("Login");
+        return;
     }
     locals.set("ticheTime","");
     locals.set("gonglishu","");
@@ -99,6 +100,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             company_code: user.company_code,
             previous_xh: previous_xh
         };
+        if(user.company_code){
         $http({
             method: 'post',
             url: '/restful/pro',
@@ -114,7 +116,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         }).error(function(data){
             ionicToast.show("服务异常","middle",2000);
         });
-
+        }
 
     }
     var cardDataList =locals.getObject("cardDataList");

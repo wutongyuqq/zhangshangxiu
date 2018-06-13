@@ -310,7 +310,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     carInfo.memo=jsdInfo.memo;
                     carInfo.car_fault=jsdInfo.car_fault;
                     carInfo.cjhm=jsdInfo.cjhm;
-                    carInfo.gls=jsdInfo.jclc;
+                    carInfo.glsAsafjjks-=jsdInfo.jclc;
 
 
                     locals.setObject("carInfo",carInfo);

@@ -1,4 +1,4 @@
-app.controller('tenderDetailCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'userTemp', '$anchorScroll', "$location", "locals", "ionicToast", "$ionicNavBarDelegate", function ($http, $scope, utils, $stateParams, $state, userTemp, $anchorScroll, $location, locals, ionicToast, $ionicNavBarDelegate) {
+app.controller('tenderDetailCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
     var selt = this;
 
     var showType = 0;
@@ -304,6 +304,15 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     jsdInfo = gdData;
                     customer_id = jsdInfo.customer_id;
                     carInfo.customer_id=jsdInfo.customer_id;
+                    carInfo.cz=jsdInfo.cz;
+                    carInfo.cp=jsdInfo.cp;
+                    carInfo.jc_date=jsdInfo.jc_date;
+                    carInfo.memo=jsdInfo.memo;
+                    carInfo.car_fault=jsdInfo.car_fault;
+                    carInfo.cjhm=jsdInfo.cjhm;
+                    carInfo.glsAsafjjks-=jsdInfo.jclc;
+
+
                     locals.setObject("carInfo",carInfo);
                     $scope.memo = jsdInfo.memo;
                     $scope.ticheTime =(jsdInfo.ywg_date&&jsdInfo.ywg_date.length>10)?jsdInfo.ywg_date.substring(0,10):"";
@@ -795,6 +804,44 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         });
     }
 
+    $scope.addPjToServer = function (item) {
+
+
+        var jsd_id = locals.get("jsd_id");
+        var params =
+        {
+            db: "mycon1",
+            function: "sp_fun_upload_parts_project_detail",
+            jsd_id: jsd_id,
+            pjbm: item.pjbm,
+            pjmc: item.pjmc,
+            ck: item.ck,
+            cd: item.cd,
+            cx: item.cx,
+            dw: item.dw,
+            property: item.property,
+            zt: item.zt,
+            ssj: item.ssj,
+            cb: item.cb,
+            sl: (item.sl&&Number(item.sl)>0)?item.sl:'1',
+            xh: item.xh,
+            comp_code: user.company_code
+        }
+        var jsonStr3=angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+
+            $scope.getPjData();
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+        });
+    }
+
+
     //修改配件价格
     $scope.editItemForPj = function(index, item){
         data = item;
@@ -810,9 +857,11 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             }
         });
 
-        modalInstance.result.then(function (resData) {
+        modalInstance.result.then(function (dataEdit) {
 
-            var jsd_id = locals.get("jsd_id");
+           $scope.pjDataList.splice(index,1,dataEdit);
+
+            $scope.addPjToServer(dataEdit);
 
 
         });
@@ -1032,10 +1081,13 @@ app.controller('modalBCtrl', function ($scope, $state, $modalInstance, locals, d
 //模态框对应的Controller
 app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, data) {
     var dataD = data;
-    $scope.orderXlf = dataD.xlf;
+    var orderXlf =  dataD.xlf;
+    $scope.orderXlf = orderXlf;
     $scope.xlxm = dataD.xlxm;
     $scope.wxgz = dataD.wxgz;
     $scope.xlf = dataD.xlf;
+    var yhje =  Number($scope.orderXlf?$scope.orderXlf:"0")- Number($scope.xlf?$scope.xlf:'0');
+    $scope.yhje=yhje?yhje:'0';
     $scope.isNewPrice = true;
     //在这里处理要进行的操作
     $scope.ok = function (xlxm, wxgz, xlf, yhje) {
@@ -1050,6 +1102,11 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     }
+
+    $scope.updatePrice=function(){
+        var yhje =  Number($scope.orderXlf?$scope.orderXlf:"0")- Number($scope.xlf?$scope.xlf:'0');
+        $scope.yhje=yhje?yhje:'0';
+    }
 });
 
 
@@ -1058,15 +1115,18 @@ app.controller('modalDCtrl', function ($scope, $state, $modalInstance, locals, d
 
 //模态框对应的Controller
 app.controller('modalEditCtrl', function ($scope, $state, $modalInstance, locals, data) {
-    var dataD = data;
+    var dataEdit = data;
+    $scope.dataEdit = dataEdit;
 
     //在这里处理要进行的操作
-    $scope.ok = function () {
+    $scope.ok = function (dataEdit) {
 
-
+        $modalInstance.close($scope.dataEdit);
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
+
+
     }
 });
 

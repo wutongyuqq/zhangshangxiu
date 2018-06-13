@@ -177,7 +177,7 @@
 
     .home_tab_div_left {
         padding: 0 0;
-        width: 30%;
+        width: 25%;
         height: 100%;
         line-height: 1rem;
 
@@ -190,7 +190,7 @@
     .home_tab_div_right {
 
         margin-left: -3px;
-        width: 30%;
+        width: 25%;
         height: 100%;
         line-height: 1rem;
         vertical-align: middle;
@@ -267,12 +267,11 @@
 
 
     <div class="bar_second_pink">
-        <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
-
-        <div class="color-white bar-white-home" style="font-size: 1.6em;">{{carInfo.cz}}</div>
-        <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
-
-        <div class="color-white bar-white-card" style="font-size: 1.6em;">{{carInfo.cardName}}</div>
+        <a ui-sref="czInfo">
+            <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
+            <div class="color-white bar-white-home" style="font-size: 1.6em;">{{carInfo.cz}}</div></a> <a ui-sref="carInfo">
+        <img  class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
+        <div class="color-white bar-white-card" style="font-size: 1.6em;">{{carInfo.cardName}}</div></a>
     </div>
 
 
@@ -282,6 +281,10 @@
         </div>
         <div class="text_inline home_tab_div_right  {{showSelectMore==1?'home_tab_div_left_color':'home_tab_div_right_color'}}"
              ng-click="showMoreView(1)" style="font-size: 1.6em;">常规项目
+        </div>
+
+        <div class="text_inline home_tab_div_right  {{showSelectMore==2?'home_tab_div_left_color':'home_tab_div_right_color'}}"
+             ng-click="showMoreView(2)" style="font-size: 1.6em;">保养套餐
         </div>
 
     </div>

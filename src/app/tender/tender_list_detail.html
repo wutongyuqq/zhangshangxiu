@@ -220,12 +220,11 @@
     </div>
 
     <div class="bar_second_pink">
-        <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
-
-        <div class="color-white bar-white-home" style="font-size: 1.6em;">{{carInfo.cz}}</div>
-        <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
-
-        <div class="color-white bar-white-card" style="font-size: 1.6em;">{{carInfo.cardName}}</div>
+        <a ui-sref="czInfo">
+            <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
+            <div class="color-white bar-white-home" style="font-size: 1.6em;">{{carInfo.cz}}</div></a> <a ui-sref="carInfo">
+        <img  class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
+        <div class="color-white bar-white-card" style="font-size: 1.6em;">{{carInfo.cardName}}</div></a>
     </div>
     <div class="second-div-a" style="margin-top: 0.3rem;padding-bottom: 0.2rem;">
         <div  class="text-inline"><select class="sel-lb-op"  style="width: 2rem;height: 0.8rem;font-size: 1.2em;border:none;background-color: #f0ecec;" ng-model="selectData.xllb">

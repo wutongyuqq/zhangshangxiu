@@ -2,7 +2,7 @@ app.controller('RegisterCtrl', ['$http','$scope','ionicToast','locals','$state',
 
     $scope.carListData=[];
     $scope.searchName="";
-
+    var user = locals.getObject("user");
     var cardDataList =  locals.getObject("cardDataList");
     $scope.searchData=function(searchName){
         locals.setObject("selectCarInfo",null);
@@ -24,7 +24,7 @@ app.controller('RegisterCtrl', ['$http','$scope','ionicToast','locals','$state',
         var params= {
             db: "mycon1",
             function: "sp_fun_down_plate_number_other",
-            company_code: "A",
+            company_code: user.company_code,
             parameter: searchName
         }
         var jsonStr = angular.toJson(params);

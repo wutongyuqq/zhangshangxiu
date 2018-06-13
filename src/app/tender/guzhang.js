@@ -116,6 +116,10 @@ app.controller('guzhangCtrl', ['$http', '$scope', '$state' , "locals", "ionicToa
     }
     $scope.showFirstModel();
 
+    $scope.goBackPage=function(){
+        window.history.back();
+    }
+
 
 }]);
 

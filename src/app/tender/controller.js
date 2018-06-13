@@ -304,6 +304,15 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
                     jsdInfo = gdData;
                     customer_id = jsdInfo.customer_id;
                     carInfo.customer_id=jsdInfo.customer_id;
+                    carInfo.cz=jsdInfo.cz;
+                    carInfo.cp=jsdInfo.cp;
+                    carInfo.jc_date=jsdInfo.jc_date;
+                    carInfo.memo=jsdInfo.memo;
+                    carInfo.car_fault=jsdInfo.car_fault;
+                    carInfo.cjhm=jsdInfo.cjhm;
+                    carInfo.gls=jsdInfo.jclc;
+
+
                     locals.setObject("carInfo",carInfo);
                     $scope.memo = jsdInfo.memo;
                     $scope.ticheTime =(jsdInfo.ywg_date&&jsdInfo.ywg_date.length>10)?jsdInfo.ywg_date.substring(0,10):"";

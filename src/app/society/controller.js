@@ -1,6 +1,7 @@
 app.controller('carInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
     $scope.getCarInfoData = function () {
         var carInfo = locals.getObject("carInfo");
+        $scope.carInfo = carInfo;
         var params = {
             db:"mycon1",
             function:"sp_fun_down_car_info",
@@ -18,7 +19,7 @@ app.controller('carInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
             if (state == 'ok') {
                 var dataArr =  data.data;
-                $scope.carInfo = dataArr[0];
+                $scope.carDataInfo = dataArr[0];
             }
 
         }).error(function (data) {
@@ -26,12 +27,17 @@ app.controller('carInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         });
     }
     $scope.getCarInfoData();
+
+    $scope.goBackPage=function(){
+        window.history.back();
+    }
 }]);
 
 
 app.controller('czInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
     $scope.getCarOwerData = function () {
         var carInfo = locals.getObject("carInfo");
+        $scope.carInfo=carInfo;
         var params = {
             db: "mycon1",
             function: "sp_fun_down_car_owner",
@@ -55,4 +61,8 @@ app.controller('czInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
         });
     }
     $scope.getCarOwerData();
+
+    $scope.goBackPage=function(){
+        window.history.back();
+    }
 }]);

@@ -1,5 +1,6 @@
 package com.example.tucheng.zhangshangxiu;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -52,13 +54,15 @@ public class MainActivity extends Activity {
     Timer timer = new Timer();
 
     Handler myHandler = new Handler() {
-        @Override
+    
+		@Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 3:
+                case 3://47.106.108.87
                     findViewById(R.id.image_tv).setVisibility(View.GONE);
                     findViewById(R.id.web).setVisibility(View.VISIBLE);
-                    webView.loadUrl("http://47.106.108.87:3000/src/index.html#/home");
+                    webView.loadUrl("http://192.168.43.59:3000/src/index.html#/home");
+                   
                     break;
                 case 2:
                     Toast.makeText(context, "服务异常", Toast.LENGTH_LONG).show();
@@ -67,7 +71,17 @@ public class MainActivity extends Activity {
 
         }
     };
-    private final OkHttpClient client = new OkHttpClient();
+    
+    
+ 
+    @JavascriptInterface  
+    public void print(String paramsJSON,String xmListJson,String pjDataListJson) {  
+        Toast.makeText(context, paramsJSON, Toast.LENGTH_LONG).show();
+    }  
+  
+   
+    
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +92,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         context = this;
         webView = (WebView) findViewById(R.id.web);
+        webView.addJavascriptInterface(this, "printdata");
         init(webView);
         initClient(webView);
         try {
@@ -90,7 +105,7 @@ public class MainActivity extends Activity {
             public void run() {
                 try {
 
-                    PrintMessage.getToken(context);
+                   // PrintMessage.getToken(context);
                     Thread.sleep(3000);
                     myHandler.sendEmptyMessage(3);
                 } catch (InterruptedException e) {

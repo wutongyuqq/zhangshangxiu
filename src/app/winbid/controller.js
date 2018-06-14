@@ -841,5 +841,104 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
         });
 
     }
+    $scope.guid = function(){
+        function S4() {
+            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        }
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+    $scope.printOne = function(){
+        /*var timestamp = (Date.parse(new Date()))/1000;
+        var params = {
+            client_id:'25972',    //string	开发者的应用ID，在开放平台创建应用时获得
+            access_token:'a90188b91d2b34fb00c0b3c6473160f6',     //string	授权的token 必要参数
+            machine_code:'4004564459',     //string	易联云打印机终端号
+            content:'易佳软件测试',     //string	打印内容(需要urlencode)，排版指令详见打印机指令
+            origin_id:'20180613202300',    // string	商户系统内部订单号，要求32个字符内，只能是数字、大小写字母 ，且在同一个client_id下唯一。详见商户订单号
+            sign :'1056180385',    //string	签名 详见API文档列表-接口签名
+            id:'',     //string	UUID4 详见API文档列表-uuid4
+            timestamp:timestamp   //	int	当前服务器时间戳(10位)
+        }
+
+
+
+        $http({
+            method:'post',
+            url:'https://open-api.10ss.net/print/index',
+            data:params
+        }).success(function(req){
+            console.log(req);
+        }).error(function (data) {
+            ionicToast.show("服务异常", "middle", 2000);
+        });*/
+
+        var params={
+            jsd_id:$scope.jsd_id,
+            ticheTime:$scope.ticheTime,
+            company_name:$scope.company_name,
+            cz:$scope.gdData.cz,
+            cp:$scope.gdData.cp,
+            cjhm:$scope.gdData.cjhm,
+            cx:$scope.gdData.cx,
+            jclc:$scope.gdData.jclc,
+            car_fault:$scope.car_fault,
+            totalsl:$scope.totalsl,
+            totalMoney:$scope.totalMoney,
+            yszje:($scope.totalXlf+$scope.totalMoney),
+            address:$scope.address,
+            telphone:$scope.telphone,
+            jc_date:$scope.gdData.jc_date,
+            memo:$scope.gdData.memo,
+            dyTime:$scope.dyTime
+        }
+
+        var xmListJson=angular.toJson($scope.xmDataList);
+        var pjDataListJson=angular.toJson($scope.pjDataList);
+        var paramsJSON=angular.toJson(params);
+
+        window.printdata.print(paramsJSON,xmListJson,pjDataListJson);
+
+
+
+        /*var contentStr = encodeURI("首佳测试");
+
+        var client_id="25972";//用户id
+        var access_token="a90188b91d2b34fb00c0b3c6473160f6";//用户id
+        var machine_code="4004564459";//打印机终端号
+        var origin_id = "2018061320"+(Math.random()*1000)/1;
+        var timestamp =(Date.parse(new Date()))/1000;
+        var id=$scope.guid();
+        var sign=md5(client_id+timestamp+access_token);//用户id
+
+        var params = {
+            client_id:client_id,
+            access_token:access_token,
+            machine_code:machine_code,
+            origin_id:origin_id,
+            timestamp:timestamp,
+            id:id,
+            sign:sign,
+            content:contentStr
+        }*/
+
+        /*    $.post("https://open-api.10ss.net/print/index",params,function(result){
+         console.log(result)
+         });*/
+
+
+
+    }
+
+
+
 
 }]);
+
+
+
+
+
+
+
+
+

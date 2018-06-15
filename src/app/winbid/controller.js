@@ -874,22 +874,22 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
 
         var params={
             jsd_id:$scope.jsd_id,
-            ticheTime:$scope.ticheTime,
-            company_name:$scope.company_name,
-            cz:$scope.gdData.cz,
-            cp:$scope.gdData.cp,
-            cjhm:$scope.gdData.cjhm,
-            cx:$scope.gdData.cx,
-            jclc:$scope.gdData.jclc,
-            car_fault:$scope.car_fault,
-            totalsl:$scope.totalsl,
-            totalMoney:$scope.totalMoney,
-            yszje:($scope.totalXlf+$scope.totalMoney),
-            address:$scope.address,
-            telphone:$scope.telphone,
-            jc_date:$scope.gdData.jc_date,
-            memo:$scope.gdData.memo,
-            dyTime:$scope.dyTime
+            ticheTime:$scope.ticheTime?$scope.ticheTime:"",
+            company_name:$scope.company_name?$scope.company_name:"",
+            cz:$scope.gdData.cz?$scope.cz:"",
+            cp:$scope.gdData.cp?$scope.cp:"",
+            cjhm:$scope.gdData.cjhm?$scope.gdData.cjhm:"",
+            cx:$scope.gdData.cx?$scope.gdData.cx:"",
+            jclc:$scope.gdData.jclc?$scope.gdData.jclc:"",
+            car_fault:$scope.car_fault?$scope.car_fault:"",
+            totalsl:$scope.totalsl?$scope.totalsl:"0",
+            totalMoney:$scope.totalMoney?$scope.totalMoney:"0",
+            yszje:($scope.totalXlf+$scope.totalMoney)?(($scope.totalXlf+$scope.totalMoney)+""):"0",
+            address:$scope.address?$scope.address:"",
+            telphone:$scope.telphone?$scope.telphone:"",
+            jc_date:$scope.gdData.jc_date?$scope.gdData.jc_date:"",
+            memo:$scope.gdData.memo?$scope.gdData.memo:"",
+            dyTime:$scope.dyTime?$scope.dyTime:""
         }
 
         var xmListJson=angular.toJson($scope.xmDataList);

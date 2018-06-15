@@ -929,10 +929,38 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
 
     }
 
+    /**
+     * 登录
+     */
+    $scope.getDataToClient = function () {
+        var user = locals.getObject("user");
+        var params = {
+            db: "sjsoft_SQL",
+            function: "sp_fun_check_service_validity",
+            data_source: user.factoryName,
+            operater_code: user.userName
+        };
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: angular.toJson(params),
+        }).success(function (data, status, headers, config) {
+            if (state == 'true') {
+                window.printdata.saveData(user.factoryName, data.machine_code, data.machine_key);
+            }
+        });
+    }
+
 
 
 
 }]);
+
+function getWebData(){
+    angular.element(document.getElementById('WEBAPP')).scope().getDataToClient();
+    return "1";
+}
 
 
 

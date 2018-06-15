@@ -7,6 +7,7 @@ import java.util.Set;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -14,6 +15,7 @@ import okhttp3.Response;
 import android.content.Context;
 
 public class HttpClientService {
+	final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	 public void getServerData(final String url, final Map<String, String> dataMap, final RfcDataListener listener) {
 	        String newUrl = url;
 	        OkHttpClient mOkHttpClient = MyApplication.getOkHttpClient();
@@ -48,4 +50,36 @@ public class HttpClientService {
 	        });
 	        
 	    }
+	 
+	 
+	 
+	 
+	 public String getDataFromZsx(final String url, String json) {
+		 String resJson = "";
+		//申明给服务端传递一个json串
+		    //创建一个OkHttpClient对象
+		    OkHttpClient okHttpClient = new OkHttpClient();
+		    //创建一个RequestBody(参数1：数据类型 参数2传递的json串)
+		    RequestBody requestBody = RequestBody.create(JSON, json);
+		    //创建一个请求对象
+		    Request request = new Request.Builder()
+		            .url(url)
+		            .post(requestBody)
+		            .build();
+		    //发送请求获取响应
+		    try {
+		    Response response=okHttpClient.newCall(request).execute();
+		        //判断请求是否成功
+		        if(response.isSuccessful()){
+		            //打印服务端返回结果
+		             resJson = response.body().string();
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		    return resJson;
+
+		}  
+	 
 }

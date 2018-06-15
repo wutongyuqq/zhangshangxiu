@@ -2,10 +2,16 @@ package com.example.tucheng.zhangshangxiu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +33,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +72,7 @@ public class MainActivity extends Activity {
 			case 3:// 47.106.108.87
 				findViewById(R.id.image_tv).setVisibility(View.GONE);
 				findViewById(R.id.web).setVisibility(View.VISIBLE);
-				webView.loadUrl("http://192.168.43.59:3000/src/index.html#/home");// 10.8.28.153
+				webView.loadUrl("http://47.106.108.87:3000/src/index.html#/home");// 10.8.28.153
 
 				break;
 			case 2:
@@ -96,28 +103,12 @@ public class MainActivity extends Activity {
 	@JavascriptInterface
 	public void print(final String paramsJSON, final String xmListJson,
 			final String pjDataListJson) {
-		this.paramsJSON = paramsJSON;
-		this.xmListJson = xmListJson;
-		this.pjDataListJson = pjDataListJson;
-		String machine_code = shared_user_info.getString("machine_code", "");
-		String msign = shared_user_info.getString("msign", "");
-		String Data_Source = shared_user_info.getString("Data_Source", "");
-		if(machine_code.equals("")||msign.equals("")||Data_Source.equals("")){
-			webView.evaluateJavascript("getWebData()", new ValueCallback<String>() {
-		        @Override
-		        public void onReceiveValue(String value) {
-		           System.out.println(value); 
-		        }
-		    });
-		}else{
 			printData( paramsJSON,xmListJson, pjDataListJson);
-		}
-	
 	}
 	
 	private void printData(String paramsJSON, String xmListJson,
 			String pjDataListJson){
-		Toast.makeText(context, "paramsJSON", Toast.LENGTH_LONG).show();
+		
 
 		Map<String, Object> paramMap = JsonUtil.jsToMap(paramsJSON);
 		List<Map<String, Object>> xmList = JsonUtil.jsToList(xmListJson);
@@ -229,7 +220,7 @@ public class MainActivity extends Activity {
 		content+="    备注："+memo+"\r";
 		content+="    打印时间："+dyTime+"\r";
 		content+="-----------------------\r";
-		PrintMessage printMsg = new PrintMessage(context);
+		NetTool printMsg = new NetTool(context);
 		printMsg.print(content);
 		
 	}
@@ -385,6 +376,38 @@ public class MainActivity extends Activity {
 		}
 		super.onDestroy();
 	}
+	
+	
+	
+	@JavascriptInterface
+	public void checkVesion() {
+		NetTool netTool = new NetTool();
+		Map<String,Object> jsonMap = netTool.getVesionInfoFromServer();
+		if(jsonMap!=null){
+			String stateStr =jsonMap.get("state")!=null ? (String) jsonMap.get("state"):"";
+			String updateStr =jsonMap.get("update")!=null ? (String) jsonMap.get("update"):"";
+			String download_url =jsonMap.get("download_url")!=null ? (String) jsonMap.get("download_url"):"";
+			if(stateStr.equals("ok")&&updateStr.equals("YES")&&!download_url.equals("")){
+				String versionServer =jsonMap.get("version")!=null ? (String) jsonMap.get("version"):"";
+				if(isNeedUpdate(versionServer)){
+				String update_log =jsonMap.get("update_log")!=null ? (String) jsonMap.get("update_log"):"";
+				showUpdateDialog(context, update_log, download_url);
+				}else{
+					Toast.makeText(context, "已是最新版本，无需更新", Toast.LENGTH_LONG).show();
+				}
+			}else{
+				if(stateStr.equals("ok")){
+					String msg =jsonMap.get("msg")!=null ? (String) jsonMap.get("msg"):"";
+					Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+				}else{
+				Toast.makeText(context, "服务异常", Toast.LENGTH_LONG).show();
+				}
+				
+			}
+		}else{
+			Toast.makeText(context, "已是最新版本，无需更新", Toast.LENGTH_LONG).show();
+		}
+	}
 
 	public String getAppVersionName(Context context) {
 		String versionName = "";
@@ -395,6 +418,7 @@ public class MainActivity extends Activity {
 			PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
 			versionName = pi.versionName;
 			versionCode = pi.versionCode;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -405,4 +429,127 @@ public class MainActivity extends Activity {
 
 		return versionName;
 	}
+	
+	//弹出升级框
+	private void showUpdateDialog(Context context,String tipMsg,final String url) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setTitle("更新版本");
+        builder.setMessage(tipMsg);
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (Environment.getExternalStorageState().equals(
+                        Environment.MEDIA_MOUNTED)) {
+                    downFile(url);
+                } else {
+                    Toast.makeText(MainActivity.this, "SD卡不可用，请插入SD卡",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+
+        });
+        builder.create().show();
+    }
+
+    private boolean isNeedUpdate(String version) {
+    	String oldVersion = getVersion();
+    	if(oldVersion.contains(".")&&version.contains(".")){
+    		oldVersion = oldVersion.replaceAll(".", "");
+    		version = version.replaceAll(".", "");
+    		long oldVersionLong = Long.parseLong(oldVersion);
+    		long versionLong = Long.parseLong(version);
+    		if(versionLong>oldVersionLong){
+    			return true;
+    		}else{
+    			return false;
+    		}
+    	}else{
+    		return false;
+    	}
+       
+    }
+
+    // 获取当前版本的版本号
+    private String getVersion() {
+        try {
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(
+                    getPackageName(), 0);
+
+            Log.d("TAK","packageInfo.versionName"+packageInfo.versionName);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "";
+
+        }
+    }
+    ProgressDialog pBar;
+    void downFile(final String url) {
+        Log.d("TSK","url"+url);
+        pBar = new ProgressDialog(MainActivity.this);    //进度条，在下载的时候实时更新进度，提高用户友好度
+        pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pBar.setTitle("正在下载");
+        pBar.setMessage("请稍候...");
+        pBar.setProgress(0);
+        pBar.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                String videoUrl = url;
+                String saveDir =Environment.getExternalStorageDirectory()+"/abc";
+                NetUtil.getInstance().download(videoUrl, saveDir, new NetUtil.OnDownloadListener() {
+                    @Override
+                    public void onDownloadSuccess(String path) {
+                        down();
+                    }
+
+                    @Override
+                    public void onDownloading(int progress) {
+                        //pBar.setMax((int) total);
+                        pBar.setProgress(progress);
+                    }
+
+                    @Override
+                    public void onDownloadFailed() {
+
+                    }
+                });
+            }
+        }).start();
+    }
+
+
+
+    void down() {
+        myHandler.post(new Runnable() {
+            public void run() {
+                pBar.cancel();
+                update();
+            }
+        });
+    }
+
+    void update() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(new File(Environment
+                        .getExternalStorageDirectory()+"/abc", "zhangshangxiu.apk")),
+                "application/vnd.android.package-archive");
+        startActivity(intent);
+    }
+
+    
+    
+    
 }

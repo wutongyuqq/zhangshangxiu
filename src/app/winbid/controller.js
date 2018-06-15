@@ -947,22 +947,12 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
             data: angular.toJson(params),
         }).success(function (data, status, headers, config) {
             if (state == 'true') {
-                window.printdata.saveData(user.factoryName, data.machine_code, data.machine_key);
+                window.printdata.saveDataForLogin(user.factoryName, data.machine_code, data.machine_key);
             }
         });
     }
-
-
-
-
+    $scope.getDataToClient();
 }]);
-
-function getWebData(){
-    angular.element(document.getElementById('WEBAPP')).scope().getDataToClient();
-    return "1";
-}
-
-
 
 
 

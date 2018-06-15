@@ -35,7 +35,7 @@ app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals',"ionicToast",
     }
 
     $scope.checkVersion=function(){
-        ionicToast.show('当前已经是最新版本', 'middle',false, 2000);
+        window.printdata.checkVesion();
 
     }
 

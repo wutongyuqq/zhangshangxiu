@@ -25,6 +25,36 @@
 <!--<div class="bdd_Busing_text_a">工程用途：<span class="bdd_Busing_message_in">办公</span></div>-->
 <!--</div>-->
 <!--table切换-->
+<style>
+
+    .float_img_div{
+        width:100%;
+        height: 100%;
+        position:absolute;
+        line-height: 100%;
+        background-color: rgba(180,180,180,0.2);
+        display: none;
+    }
+.float_img{
+    margin: auto auto;
+}
+
+
+</style>
+<script>
+
+    function showImg(){
+        $("#float_img_div").show();
+    }
+    function hideImg(){
+        $("#float_img_div").hide();
+    }
+
+</script>
+<div class="float_img_div" id="float_img_div" onclick="hideImg()">
+    <img class="float_img" src="${base}/img_code.png"/>
+
+</div>
 <div class="bdd_content_a">
     <div class="bdd_Busing_message_b">招投标</div>
     <div class="bdd_Busing_message_b">施工图审查</div>

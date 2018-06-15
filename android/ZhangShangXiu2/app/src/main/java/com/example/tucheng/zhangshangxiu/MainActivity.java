@@ -28,6 +28,7 @@ import com.alibaba.fastjson.JSON;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 
 import okhttp3.Call;
@@ -54,15 +55,15 @@ public class MainActivity extends Activity {
     Timer timer = new Timer();
 
     Handler myHandler = new Handler() {
-    
-		@Override
+
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 3://47.106.108.87
                     findViewById(R.id.image_tv).setVisibility(View.GONE);
                     findViewById(R.id.web).setVisibility(View.VISIBLE);
-                    webView.loadUrl("http://192.168.43.59:3000/src/index.html#/home");
-                   
+                    webView.loadUrl("http://10.8.28.153:3000/src/index.html#/home");//10.8.28.153
+
                     break;
                 case 2:
                     Toast.makeText(context, "服务异常", Toast.LENGTH_LONG).show();
@@ -71,17 +72,69 @@ public class MainActivity extends Activity {
 
         }
     };
-    
-    
- 
-    @JavascriptInterface  
-    public void print(String paramsJSON,String xmListJson,String pjDataListJson) {  
-        Toast.makeText(context, paramsJSON, Toast.LENGTH_LONG).show();
-    }  
-  
-   
-    
-    
+
+
+
+    @JavascriptInterface
+    public void print(String paramsJSON,String xmListJson,String pjDataListJson) {
+
+        Toast.makeText(context, "paramsJSON", Toast.LENGTH_LONG).show();
+
+
+
+        Map<String,Object> map = JsonUtil.jsToMap(paramsJSON);
+
+/**
+ * {
+ "jsd_id": "A1806150001",
+ "ticheTime": "2018-06-15",
+ "company_name": "昭通顺雄快捷修理厂(华晨金杯  中华售后服务中心",
+ "cjhm": "GS033254",
+ "cx": "G7",
+ "jclc": "97965",
+ "car_fault": "保养，右中门不好关",
+ "totalsl": 4,
+ "totalMoney": 515,
+ "yszje": "665",
+ "address": "昭通市昭阳区旧圃镇昭大线",
+ "telphone": "13887049779传真：",
+ "jc_date": "2018-06-15 09:30:31",
+ "memo": "",
+ "dyTime": "2018-06-15 16:55:59"
+ }
+
+
+ [{
+ "wxgz": "机修",
+ "xlxm": "机油",
+ "xlf": "150.00",
+ "zk": "0.00",
+ "xh": "1",
+ "ssje": "150.00"
+ }]
+
+ [{
+ "pjbm": "0012",
+ "pjmc": "机油格",
+ "ck": "机油库",
+ "cd": "12",
+ "cx": "",
+ "ssj": "200.00",
+ "sl": "1.00",
+ "cb": "100.00",
+ "xh": "444"
+ }]
+
+ */
+
+
+
+      //  PrintMessage.getToken(context);
+    }
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +158,7 @@ public class MainActivity extends Activity {
             public void run() {
                 try {
 
-                   // PrintMessage.getToken(context);
+
                     Thread.sleep(3000);
                     myHandler.sendEmptyMessage(3);
                 } catch (InterruptedException e) {

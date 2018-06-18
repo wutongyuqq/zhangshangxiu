@@ -257,6 +257,18 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                     ]);
                 }]
             }
+        }).state('LinggongPage', {
+            url: '/linggong',
+            templateUrl: window.rootSrc + 'app/forget/zsx_linggong.html',
+            controller: 'LinggongCtrl as ctrl',
+            title:'掌上修-领工',
+            resolve: {
+                load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        'app/forget/controller.js'
+                    ]);
+                }]
+            }
         })
         .state('workmore', {
             url: '/workmore',

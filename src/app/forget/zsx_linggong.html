@@ -320,133 +320,57 @@
 </style>
 
 <div>
-    <div class="bar bar-header bar-light bar-light-div">
-        <!--  <button class="button-clear"><img src="../../../vendor/images/zsx/back_blue.png"></button>-->
-        <h1 class="title"><span class="title-color">车间管理</span></h1>
+    <div class="bar bar-header bar-light">
+
+        <ion-header-bar align-title="left" class="bar-positive"
+                        style="background-color: transparent;border-bottom: 1px solid blue">
+            <div class="buttons" style="background-color: transparent">
+                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
+                        src="../../../vendor/images/zsx/back_blue.png"></button>
+            </div>
+            <h1 class="title"></h1>
+            <div class="buttons">
+                <button class="button" ui-sref="home">首页</button>
+            </div>
+
+        </ion-header-bar>
+        <h1 class="title">领工</h1>
     </div>
+    <div class="text_inline content-list-div-a">
+        <table class="content-list-div-table">
 
 
-    <div class="home_tab_div {{showMore==0?'home_tab_div_right_color':'home_tab_div_left_color'}}">
-        <div class="text_inline home_tab_div_right {{showMore==0?'home_tab_div_left_color':'home_tab_div_right_color'}}"
-             ng-click="showMoreView(0,'待领工')">待领工
-        </div>
-        <div class="text_inline home_tab_div_right  {{showMore==1?'home_tab_div_left_color':'home_tab_div_right_color'}}"
-             ng-click="showMoreView(1,'维修中')">维修中
-        </div>
+        </table>
+        <div class="content-list-div-content">
+            <table class="content-list-div-table-a">
+                <tr>
+                    <td colspan="2">车架号码：{{item.cjhm}}</td>
 
-        <div class="text_inline home_tab_div_right  {{showMore==2?'home_tab_div_left_color':'home_tab_div_right_color'}}"
-             ng-click="showMoreView(2,'待质检')">待质检
-        </div>
-
-        <div class="text_inline home_tab_div_right_a  {{showMore==3?'home_tab_div_left_color':'home_tab_div_right_color'}}"
-             ng-click="showMoreView(3,'已完工')">已完工
-        </div>
-
-
-    </div>
-    <div class="search_div">
-        <div class="text_inline search_select_div">
-            <div class="text_inline search_select_div_left">选择工种</div>
-            <div class="text_inline  search_select_div_right"><img class="img_search"
-                                                                   src="../../../vendor/images/zsx/sanjx.png"></div>
-
-        </div>
-        <div class="text_inline search_select_div_input">
-            <input class="text_inline" type="text" value="" placeholder="输入"
-                   style="margin: 0 0;padding: 0rem 0.1rem;height: 100%;width:5.4rem;"/>
-
-        </div>
-        <div class="text_inline"
-             style="width: 1.0rem;height:1rem;background-color: #ff9db4;padding: 0 0;margin: 0 0 0 -0.1rem;text-align: center;line-height: 1rem;">
-            <img class="img_white_search" src="../../../vendor/images/zsx/white_search.png"></div>
-
-
-    </div>
-
-    <!-- 数据-->
-    <div class="content-list-div" ng-repeat="item in factoryDataArr" ng-click="toLinggongPage(item)">
-        <div class="text_inline content-list-div-a">
-            <table class="content-list-div-table">
-
-                <tr class="tb_content_a">
-                    <td style="font-size: 1.4em;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$index+1}}</td>
-                    <td style="font-size: 1.4em;">车牌：{{item.cp}}</td>
-                    <td style="font-size: 1.4em;">结算单：{{item.jsd_id}}</td>
                 </tr>
+                <tr>
+                    <td>车牌：{{item.cp}}</td>
+                    <td>结算单：{{item.jsd_id}}</td>
+                </tr>
+                <tr>
+                    <td>项目状态：{{item.states}}</td>
+                    <td>车型：{{item.cx}}</td>
+                </tr>
+
+                <tr>
+                    <td>维修工种：{{item.wxgz}}</td>
+                    <td>领工人员：{{item.assign}}</td>
+                </tr>
+
+                <tr>
+                    <td>指派人员：{{item.assign}}</td>
+                    <td>进厂日期：{{item.jc_date}}</td>
+                </tr>
+
             </table>
-            <div class="content-list-div-content">
-                <table class="content-list-div-table-a">
-                    <tr>
-                        <td colspan="2">车架号码：{{item.cjhm}}</td>
-
-                    </tr>
-                    <tr>
-                        <td>项目状态：{{item.states}}</td>
-                        <td>车型：{{item.cx}}</td>
-                    </tr>
-
-                    <tr>
-                        <td>维修工种：{{item.wxgz}}</td>
-                        <td>领工人员：{{item.assign}}</td>
-                    </tr>
-
-                    <tr>
-                        <td>指派人员：{{item.assign}}</td>
-                        <td>进厂日期：{{item.jc_date}}</td>
-                    </tr>
-
-                </table>
-            </div>
-
         </div>
+
     </div>
 
-
-
-
-
-
-    <div class="tabs tabs-icon-top tabs-icon-top-line bar-footer" keyboardshow
-         style="border-top: 1px solid #1296db;height: 1.4rem">
-        <a class="tab-item" ui-sref="home">
-            <div>
-                <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;"
-                     src="../../../vendor/images/zsx/recever_hand_gray.png"/>
-
-                <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">车辆接待</div>
-            </div>
-
-        </a>
-        <a class="tab-item">
-            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;"
-                 src="../../../vendor/images/zsx/factory_blue.png"/>
-
-            <div style="color: #1296db;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">车间管理</div>
-
-        </a>
-        <a class="tab-item" ui-sref="CompanyTop">
-            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;"
-                 src="../../../vendor/images/zsx/condition_gray.png"/>
-
-            <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">整厂概况</div>
-
-        </a>
-        <a class="tab-item" ui-sref="Usercenter">
-            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;"
-                 src="../../../vendor/images/zsx/msg_gray.png"/>
-
-            <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">信息中心</div>
-
-        </a>
-
-        <a class="tab-item" ui-sref="workmore">
-            <img style="width: 0.7rem;height: 0.7rem;margin-top: 0.13rem;"
-                 src="../../../vendor/images/zsx/setting_gray.png"/>
-
-            <div style="color: #515151;height: 0.6rem;font-size: 1.8em;margin-top: 5px;">设置</div>
-
-        </a>
-    </div>
 
 </div>
 

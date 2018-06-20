@@ -315,6 +315,8 @@
     .content-list-div-content {
         background-color: #eeeeee;
         padding-left: 0.5rem;
+
+        margin-top: 0.8rem;
     }
 
 </style>
@@ -336,12 +338,8 @@
         </ion-header-bar>
         <h1 class="title">领工</h1>
     </div>
-    <div class="text_inline content-list-div-a">
-        <table class="content-list-div-table">
 
-
-        </table>
-        <div class="content-list-div-content">
+        <div class="content-list-div-content" ng-repeat="item in dataArr">
             <table class="content-list-div-table-a">
                 <tr>
                     <td colspan="2">车架号码：{{item.cjhm}}</td>
@@ -363,7 +361,11 @@
 
                 <tr>
                     <td>指派人员：{{item.assign}}</td>
-                    <td>进厂日期：{{item.jc_date}}</td>
+                    <td>预完工：{{item.ywg_date}}</td>
+                </tr>
+                <tr>
+                    <td>维修人员：{{item.xlg}}</td>
+                    <td>修理项目：{{item.xlxm}}</td>
                 </tr>
 
             </table>

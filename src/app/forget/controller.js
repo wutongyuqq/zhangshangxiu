@@ -70,7 +70,7 @@ app.controller('LinggongCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         var user = locals.getObject("user");
         var params ={
             db:"mycon1",
-            function:"sp_fun_down_repair_project_state",
+            function:"sp_fun_down_repair_project_schedule",
             jsd_id:jsd_id
         }
         var jsonStr3 = angular.toJson(params);
@@ -84,7 +84,7 @@ app.controller('LinggongCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             var state = data.state;
             if (state == 'ok') {
                 var dataArr = data.data;
-                $scope.item = dataArr[0];
+                $scope.dataArr = dataArr;
             }
         });
     }

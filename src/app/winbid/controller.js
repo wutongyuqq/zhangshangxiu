@@ -876,8 +876,8 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
             jsd_id:$scope.jsd_id,
             ticheTime:$scope.ticheTime?$scope.ticheTime:"",
             company_name:$scope.company_name?$scope.company_name:"",
-            cz:$scope.gdData.cz?$scope.cz:"",
-            cp:$scope.gdData.cp?$scope.cp:"",
+            cz:$scope.gdData.cz?$scope.gdData.cz:"",
+            cp:$scope.gdData.cp?$scope.gdData.cp:"",
             cjhm:$scope.gdData.cjhm?$scope.gdData.cjhm:"",
             cx:$scope.gdData.cx?$scope.gdData.cx:"",
             jclc:$scope.gdData.jclc?$scope.gdData.jclc:"",
@@ -889,11 +889,12 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
             telphone:$scope.telphone?$scope.telphone:"",
             jc_date:$scope.gdData.jc_date?$scope.gdData.jc_date:"",
             memo:$scope.gdData.memo?$scope.gdData.memo:"",
-            dyTime:$scope.dyTime?$scope.dyTime:""
+            dyTime:$scope.dyTime?$scope.dyTime:"",
+            totalXlf:$scope.totalXlf?$scope.totalXlf:""
         }
 
-        var xmListJson=angular.toJson($scope.xmDataList);
-        var pjDataListJson=angular.toJson($scope.pjDataList);
+        var xmListJson=angular.toJson($scope.xmDataList?$scope.xmDataList:new Array());
+        var pjDataListJson=angular.toJson($scope.pjDataList?$scope.pjDataList:new Array);
         var paramsJSON=angular.toJson(params);
 
         window.printdata.print(paramsJSON,xmListJson,pjDataListJson);

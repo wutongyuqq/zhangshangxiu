@@ -316,7 +316,21 @@
         background-color: #eeeeee;
         padding-left: 0.5rem;
     }
+    .search_select_div{
+        position: relative;
+    }
+.select_div_text{
+    position: absolute;
 
+    font-size: 1.4em;
+    top:1rem;
+    background-color: white;
+    padding: 0.1rem 1.2rem 0.3rem 0.3rem;
+}
+    .select_div_text_item{
+        padding-top: 0.4rem;
+        padding-bottom: 0.1rem;
+    }
 </style>
 
 <div>
@@ -346,17 +360,24 @@
     </div>
     <div class="search_div">
         <div class="text_inline search_select_div">
-            <div class="text_inline search_select_div_left">选择工种</div>
-            <div class="text_inline  search_select_div_right"><img class="img_search"
+
+            <div class="text_inline search_select_div_left" ng-click="showSelectDiv(isShowSelect)">{{wxgz?wxgz:'选择工种'}}</div>
+            <div class="text_inline  search_select_div_right"  ng-click="showSelectDiv(isShowSelect)"><img class="img_search"
                                                                    src="../../../vendor/images/zsx/sanjx.png"></div>
+            <div class="select_div_text" ng-show="isShowSelect">
+                <div class="select_div_text_item" ng-repeat="item in firstIconArr" ng-click="selectItem(item)">{{item.wxgz}}</div>
+
+
+            </div>
+
 
         </div>
         <div class="text_inline search_select_div_input">
-            <input class="text_inline" type="text" value="" placeholder="输入"
+            <input class="text_inline" type="text" value="" ng-model="content" placeholder="输入"
                    style="margin: 0 0;padding: 0rem 0.1rem;height: 100%;width:5.4rem;"/>
 
         </div>
-        <div class="text_inline"
+        <div class="text_inline" ng-click="searchData(content)"
              style="width: 1.0rem;height:1rem;background-color: #ff9db4;padding: 0 0;margin: 0 0 0 -0.1rem;text-align: center;line-height: 1rem;">
             <img class="img_white_search" src="../../../vendor/images/zsx/white_search.png"></div>
 

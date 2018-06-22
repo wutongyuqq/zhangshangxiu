@@ -15,6 +15,7 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
     $scope.getListData = function () {
         var user = locals.getObject("user");
         if(pre_row_number=="end"){
+
             $scope.factoryDataArr =factoryDataArr;
             return;
         }
@@ -53,6 +54,87 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
     $scope.toLinggongPage=function(item){
         locals.set("jsd_id",item.jsd_id);
         $state.go("LinggongPage");
+    }
+
+
+
+
+
+    $scope.getFirstPageData = function () {
+
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_down_maintenance_category"
+        }
+
+        var jsonStr6 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr6
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == "ok") {
+                var firstIconArr = data.data;
+                $scope.firstIconArr = firstIconArr;
+                locals.setObject("firstIconArr", firstIconArr);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
+    }
+
+    var firstIconArr = locals.getObject("firstIconArr");
+
+    if (firstIconArr == null || firstIconArr.length == 0) {
+
+        $scope.getFirstPageData();
+
+    } else {
+        $scope.firstIconArr = firstIconArr;
+    }
+    $scope.isShowSelect=false;
+    $scope.showSelectDiv=function(isShowSelect){
+        $scope.isShowSelect = !isShowSelect;
+    }
+
+    $scope.selectItem=function(item){
+        $scope.wxgz = item.wxgz;
+        $scope.isShowSelect=false;
+    }
+    $scope.content="";
+    $scope.wxgz="";
+    $scope.searchData=function(){
+        var content = $scope.content;
+        var wxgz = $scope.wxgz;
+        if(wxgz=='选择工种'){
+            wxgz='';
+        }
+        if(factoryDataArr==null||factoryDataArr.length==0){
+            return;
+        }
+        if(content==null){
+            $scope.factoryDataArr = factoryDataArr;
+            return;
+        }
+        var newFactoryArr = new Array();
+        for(var i=0;i<factoryDataArr.length;i++){
+            var factoryData = factoryDataArr[i];
+
+            if(((factoryData.jsd_id).indexOf(content)!=-1
+                ||(factoryData.cp).indexOf(content)!=-1
+                ||(factoryData.cx).indexOf(content)!=-1
+                ||(factoryData.cjhm).indexOf(content)!=-1
+                ||(factoryData.wxgz).indexOf(content)!=-1
+                ||(factoryData.xlg).indexOf(content)!=-1
+                ||(factoryData.states).indexOf(content)!=-1
+                ||(factoryData.jc_date).indexOf(content)!=-1
+                ||(factoryData.assign).indexOf(content)!=-1)&&((factoryData.wxgz).indexOf(wxgz)!=-1)){
+                newFactoryArr.push(factoryData);
+            }
+        }
+        $scope.factoryDataArr = newFactoryArr;
     }
 
 

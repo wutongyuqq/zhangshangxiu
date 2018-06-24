@@ -269,8 +269,19 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                     ]);
                 }]
             }
-        })
-        .state('workmore', {
+        }).state('TiaozhengPage', {
+        url: '/tiaozhengPage',
+        templateUrl: window.rootSrc + 'app/forget/zsx_tzpg.html',
+        controller: 'TiaozhengCtrl as ctrl',
+        title:'掌上修-领工',
+        resolve: {
+            load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load([
+                    'app/forget/controller.js'
+                ]);
+            }]
+        }
+    }).state('workmore', {
             url: '/workmore',
             templateUrl: window.rootSrc + 'app/workmore/index.tpl.html',
             controller: 'WorkMoreCtrl as ctrl',

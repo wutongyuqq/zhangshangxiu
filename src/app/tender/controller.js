@@ -1,4 +1,4 @@
-app.controller('tenderDetailCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
+app.controller('tenderDetailCtrl', ['$http', '$scope', '$state' , "locals", "ionicToast", "$modal",function ($http, $scope, $state,  locals, ionicToast,$modal) {
     var selt = this;
 
     var showType = 0;
@@ -67,6 +67,8 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', '$state', "locals", "ioni
                 if (kjPro.wxgz == wxgz) {
                     kjPro.selected=false;
                     sencondPageData.push(kjPro);
+
+
                 }
             }
             $scope.sencondPageData = sencondPageData;

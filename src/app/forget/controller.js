@@ -173,3 +173,39 @@ app.controller('LinggongCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.getLinggongData();
 
 }]);
+
+
+
+app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
+
+
+    var jsd_id=locals.get("jsd_id");
+    $scope.goBackPage = function(){
+        window.history.back();
+    }
+
+    $scope.getLinggongData = function () {
+        var user = locals.getObject("user");
+        var params ={
+            db:"mycon1",
+            function:"sp_fun_down_repair_project_schedule",
+            jsd_id:jsd_id
+        }
+        var jsonStr3 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                var dataArr = data.data;
+                $scope.dataArr = dataArr;
+            }
+        });
+    }
+    $scope.getLinggongData();
+
+}]);

@@ -284,7 +284,7 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
     }).state('JianyanPage', {
         url: '/jianyanPage',
         templateUrl: window.rootSrc + 'app/forget/zsx_jianyan.html',
-        controller: 'TiaozhengCtrl as ctrl',
+        controller: 'JianyanCtrl as ctrl',
         title:'掌上修-领工',
         resolve: {
             load: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -293,7 +293,31 @@ function config($stateProvider, $urlRouterProvider, $compileProvider, $httpProvi
                 ]);
             }]
         }
-    }).state('workmore', {
+    }).state('WanGong', {
+            url: '/wanGongPage',
+            templateUrl: window.rootSrc + 'app/forget/zsx_wangong.html',
+            controller: 'WanGongCtrl as ctrl',
+            title:'掌上修-领工',
+            resolve: {
+                load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        'app/forget/controller.js'
+                    ]);
+                }]
+            }
+        }).state('HuanRen', {
+            url: '/huanrenPage',
+            templateUrl: window.rootSrc + 'app/forget/zsx_huanren.html',
+            controller: 'HuanRenCtrl as ctrl',
+            title:'掌上修-领工',
+            resolve: {
+                load: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        'app/forget/controller.js'
+                    ]);
+                }]
+            }
+        }).state('workmore', {
             url: '/workmore',
             templateUrl: window.rootSrc + 'app/workmore/index.tpl.html',
             controller: 'WorkMoreCtrl as ctrl',

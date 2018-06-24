@@ -111,10 +111,11 @@
         margin-top: 0.1rem;
     }
     .ss_third_div{
-        width:100%;height: 1rem;
+        width:100%;
+        height: 1rem;
         background-color:#7ff7fb;
-        margin-top: 0.2rem;
         padding-left: 0.4rem;
+        margin-top: 0.2rem;
     }
     .img_bg{
         margin-top: 0.15rem;
@@ -154,6 +155,12 @@
     .tb_width_a{
         width: 7rem;
     }
+    .img_wg_z{
+        width: 6rem;
+        position: absolute;
+        left: 2.4rem;
+        top:3rem;
+    }
 
 
 </style>
@@ -176,6 +183,7 @@
         <h1 class="title">领工</h1>
     </div>
 
+
     <div class="ss_second">
         <div class="ss_second_car text-inline">
             <div class="ss_second_car_txt">闽AGR788</div>
@@ -183,8 +191,8 @@
 
         <div class="ss_second_car_b text-inline">
             <div class="ss_second_div">
-                <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_red.png"/>
-                <div class="margin_left_a">维修</div>
+                <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_blue.png"/>
+                <div class="margin_left_a">洗车</div>
                 <div class="ss_second_item">福特福克斯</div>
                 <div class="ss_second_item">进厂时间：2018-06-12</div>
                 <div class="ss_second_item">预计提车：2018-06-19</div>
@@ -193,7 +201,6 @@
 
 
     </div>
-
     <div class="ss_third_div">
         <img class="text-inline img_bg" src="../../../vendor/images/zsx/right_now.png">
         <div class="text-inline img_text">全选/取消全选</div>
@@ -207,13 +214,16 @@
 
             <tr>
                 <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
-                <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">维修中</div></td>
+                <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_blue.png"/><div class="text-inline-tb tb_item_txt">洗车</div></td>
             </tr>
             <tr>
-                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">施工人员：李四 &nbsp;&nbsp;完成时间：2018-05-02</div></td>
+                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">指派给：张三</div></td>
 
             </tr>
+            <tr>
+                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/repairing.png"/><div class="text-inline-tb tb_item_txt">正在维修：李四</div></td>
 
+            </tr>
            <!-- <tr>
                 <td>维修工种：{{item.wxgz}}</td>
                 <td>领工人员：{{item.assign}}</td>
@@ -230,17 +240,21 @@
 
         </table>
     </div>
-
+    
 
     <div class="btn_green_div">
 
     <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
-        返工
+        取消检验
     </div>
 
 
         <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
-            检验通过
+            完工
+        </div>
+
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
+            去工单
         </div>
 
 

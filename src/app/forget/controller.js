@@ -53,7 +53,19 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
 
     $scope.toLinggongPage=function(item){
         locals.set("jsd_id",item.jsd_id);
-        $state.go("LinggongPage");
+        var states = item.states;
+        if(states=='待领工') {
+            $state.go("TiaozhengPage");
+        }else if(states=='维修中'){
+            $state.go("HuanRen");
+
+        }else if(states=='待质检'){
+            $state.go("JianyanPage");
+
+        }else if(states=='已完工'){
+            $state.go("WanGong");
+
+        }
     }
 
 
@@ -177,6 +189,117 @@ app.controller('LinggongCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
 
 app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
+
+
+    var jsd_id=locals.get("jsd_id");
+    $scope.goBackPage = function(){
+        window.history.back();
+    }
+
+    $scope.getLinggongData = function () {
+        var user = locals.getObject("user");
+        var params ={
+            db:"mycon1",
+            function:"sp_fun_down_repair_project_schedule",
+            jsd_id:jsd_id
+        }
+        var jsonStr3 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                var dataArr = data.data;
+                $scope.dataArr = dataArr;
+            }
+        });
+    }
+    $scope.getLinggongData();
+
+}]);
+
+
+//检验
+app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
+
+
+    var jsd_id=locals.get("jsd_id");
+    $scope.goBackPage = function(){
+        window.history.back();
+    }
+
+    $scope.getLinggongData = function () {
+        var user = locals.getObject("user");
+        var params ={
+            db:"mycon1",
+            function:"sp_fun_down_repair_project_schedule",
+            jsd_id:jsd_id
+        }
+        var jsonStr3 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                var dataArr = data.data;
+                $scope.dataArr = dataArr;
+            }
+        });
+    }
+    $scope.getLinggongData();
+
+}]);
+
+
+
+//完工
+app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
+
+
+    var jsd_id=locals.get("jsd_id");
+    $scope.goBackPage = function(){
+        window.history.back();
+    }
+
+    $scope.getLinggongData = function () {
+        var user = locals.getObject("user");
+        var params ={
+            db:"mycon1",
+            function:"sp_fun_down_repair_project_schedule",
+            jsd_id:jsd_id
+        }
+        var jsonStr3 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                var dataArr = data.data;
+                $scope.dataArr = dataArr;
+            }
+        });
+    }
+    $scope.getLinggongData();
+
+}]);
+
+
+
+
+//换人
+app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
 
 
     var jsd_id=locals.get("jsd_id");

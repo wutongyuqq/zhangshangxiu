@@ -94,12 +94,12 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
             method: 'post',
             url: '/restful/pro',
             dataType: "json",
-            data: angular.toJson(params),
+            data: angular.toJson(params)
         }).success(function (data, status, headers, config) {
             var state = data.state;
             user.company_code = data.comp_code;
+            user.chinese_name = data.chinese_name;
             locals.setObject("user",user);
-
             if(state=='true'){
                 $state.go("home");
             }

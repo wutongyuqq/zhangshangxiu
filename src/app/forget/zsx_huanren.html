@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../../vendor/css/ioinc.min.css"/>
+
 <style>
     * {
         margin: 0;
@@ -240,95 +240,21 @@
         </ion-item>
 
     </ion-list>
-
-
-
-
     <div class="btn_green_div">
 
-        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
-            取消检验
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em"  ng-click="huanRen()">
+            换人
+        </div>
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em" ng-click="jiaRen()">
+           加人
         </div>
 
-
-        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
-            完工
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em"  ng-click="tuiGong()">
+            退工
         </div>
 
-        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em" ui-sref="Winbding">
-            去工单
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em"  ng-click="siGongWanBi()">
+            施工完毕
         </div>
-
-
     </div>
-
-
-
 </ion-content>
-
-
-
-
-<!--
-<div>
-    <div class="bar bar-header bar-light">
-
-        <ion-header-bar align-title="left" class="bar-positive"
-                        style="background-color: transparent;border-bottom: 1px solid blue">
-            <div class="buttons" style="background-color: transparent">
-                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
-                        src="../../../vendor/images/zsx/back_blue.png"></button>
-            </div>
-            <h1 class="title"></h1>
-            <div class="buttons">
-                <button class="button" ui-sref="home">首页</button>
-            </div>
-
-        </ion-header-bar>
-        <h1 class="title">领工</h1>
-    </div>
--->
-
-
-
-
-    <!--<div class="content-list-div-content" ng-repeat="item in dataArr">
-        <table class="content-list-div-table-a">
-
-            <tr>
-                <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
-                <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_blue.png"/><div class="text-inline-tb tb_item_txt">{{item.wxgz}}</div></td>
-            </tr>
-            <tr>
-                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">指派给：{{item.assign}}</div></td>
-
-            </tr>
-            <tr>
-                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/repairing.png"/><div class="text-inline-tb tb_item_txt">正在维修：{{item.xlg}}</div></td>
-
-            </tr>-->
-           <!-- <tr>
-                <td>维修工种：{{item.wxgz}}</td>
-                <td>领工人员：{{item.assign}}</td>
-            </tr>
-
-            <tr>
-                <td>指派人员：{{item.assign}}</td>
-                <td>预完工：{{item.ywg_date}}</td>
-            </tr>
-            <tr>
-                <td>维修人员：{{item.xlg}}</td>
-                <td>修理项目：{{item.xlxm}}</td>
-            </tr>
-
-       </table>
-    </div>-->
-    
-
-
-
-
-
-
-
-

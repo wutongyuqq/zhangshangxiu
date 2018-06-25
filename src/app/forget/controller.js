@@ -53,7 +53,9 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
 
     $scope.toLinggongPage=function(item){
         locals.set("jsd_id",item.jsd_id);
-        locals.setObject("factoryItem",item);
+        item.cardName = item.cp;
+        locals.setObject("carInfo",item);
+        
         var states = item.states;
         if(states=='待领工') {
             $state.go("TiaozhengPage");
@@ -190,7 +192,7 @@ app.controller('LinggongCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
 
 app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
-    var factoryItem=locals.getObject("factoryItem");
+    var factoryItem=locals.getObject("carInfo");
     $scope.factoryItem = factoryItem;
 
     var jsd_id=locals.get("jsd_id");
@@ -222,13 +224,39 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
     }
     $scope.getLinggongData();
 
+    $scope.lingGong=function(){
+        var user = locals.getObject("user");
+        var params ={
+            db:"mycon1",
+            function:"sp_fun_update_jsdmx_xlxm_xlg",
+            jsd_id:jsd_id,
+            xh:factoryItem.xh,
+            assign:user.chinese_name
+        }
+        var jsonStr3 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                ionicToast.show("领工成功", 'middle', false, 2000);
+                $scope.getLinggongData();
+            }else{
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+            }
+        });
+    }
 }]);
 
 
 //检验
 app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
 
-    var factoryItem=locals.getObject("factoryItem");
+    var factoryItem=locals.getObject("carInfo");
     $scope.factoryItem = factoryItem;
 
     var jsd_id=locals.get("jsd_id");
@@ -259,6 +287,36 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         });
     }
     $scope.getLinggongData();
+
+    $scope.fanGong=function(){
+
+        var params ={
+            db:"mycon1",
+            function:"sp_fun_update_repair_list_state",
+            jsd_id:jsd_id,
+            states:"",
+            xm_state:"返工"
+        }
+        var jsonStr3 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                $scope.getLinggongData();
+                ionicToast.show("操作成功", 'middle', false, 2000);
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+        });
+
+
+    }
 
 }]);
 
@@ -266,7 +324,7 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
 //完工
 app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
-    var factoryItem=locals.getObject("factoryItem");
+    var factoryItem=locals.getObject("carInfo");
     $scope.factoryItem = factoryItem;
 
 
@@ -298,6 +356,8 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         });
     }
     $scope.getLinggongData();
+
+
 
 }]);
 
@@ -307,16 +367,18 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 //换人
 app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
 
-    var factoryItem=locals.getObject("factoryItem");
+    var factoryItem=locals.getObject("carInfo");
     $scope.factoryItem = factoryItem;
 
     var jsd_id=locals.get("jsd_id");
+    var user=locals.get("user");
     $scope.goBackPage = function(){
         window.history.back();
     }
 
+
+
     $scope.getLinggongData = function () {
-        var user = locals.getObject("user");
         var params ={
             db:"mycon1",
             function:"sp_fun_down_repair_project_schedule",
@@ -338,5 +400,68 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         });
     }
     $scope.getLinggongData();
+
+    /*$scope.finishWork = function () {
+        var user = locals.getObject("user");
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_update_repair_list_state",
+            jsd_id: jsd_id,
+            states: "审核未结算",
+            xm_state: "已完工"
+        }
+        var jsonStr7 = angular.toJson(params);
+        $scope.xlfTotal = 0;
+        $scope.numZk = 0;
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr7
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                $scope.getLinggongData();
+                ionicToast.show("操作成功", 'middle', false, 2000);
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+        });
+    }*/
+function getRepairData(){
+    var params = {
+        db: "mycon1",
+        function: "sp_fun_down_repairman",
+        company_code: user.company_code
+    }
+    var jsonStr = angular.toJson(params);
+    $http({
+        method: 'post',
+        url: '/restful/pro',
+        dataType: "json",
+        data: jsonStr,
+    }).success(function (data, status, headers, config) {
+        var state = data.state;
+        if (state == 'ok') {
+            locals.setObject("repairPersonList", data.data);
+        } else {
+        }
+    }).error(function (data) {
+        ionicToast.show("服务异常", "middle", 2000);
+    });
+}
+
+    var repairPersonList = locals.getObject("repairPersonList");
+
+    if(repairPersonList==null||repairPersonList.length==null||repairPersonList.length==0) {
+        getRepairData();
+    }
+
+    $scope.jiaRen=function(){
+        var repairPersonList = locals.setObject("repairPersonList");
+
+    }
 
 }]);

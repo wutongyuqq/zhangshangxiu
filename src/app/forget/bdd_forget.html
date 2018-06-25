@@ -351,51 +351,6 @@
 
 </style>
 
-
-
-<!--
-    &lt;!&ndash; 数据&ndash;&gt;
-    <div class="content-list-div" ng-repeat="item in factoryDataArr" ng-click="toLinggongPage(item)">
-        <div class="text_inline content-list-div-a">
-            <table class="content-list-div-table">
-
-                <tr class="tb_content_a">
-                    <td style="font-size: 1.4em;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$index+1}}</td>
-                    <td style="font-size: 1.4em;">车牌：{{item.cp}}</td>
-                    <td style="font-size: 1.4em;">结算单：{{item.jsd_id}}</td>
-                </tr>
-            </table>
-            <div class="content-list-div-content">
-                <table class="content-list-div-table-a">
-                    <tr>
-                        <td colspan="2">车架号码：{{item.cjhm}}</td>
-
-                    </tr>
-                    <tr>
-                        <td>项目状态：{{item.states}}</td>
-                        <td>车型：{{item.cx}}</td>
-                    </tr>
-
-                    <tr>
-                        <td>维修工种：{{item.wxgz}}</td>
-                        <td>领工人员：{{item.assign}}</td>
-                    </tr>
-
-                    <tr>
-                        <td>指派人员：{{item.assign}}</td>
-                        <td>进厂日期：{{item.jc_date}}</td>
-                    </tr>
-
-                </table>
-            </div>
-
-        </div>
-    </div>
-
-
--->
-
-
 <ion-header-bar class="bar-positive">
     <h1 class="title">车间管理</h1>
 </ion-header-bar>
@@ -410,7 +365,7 @@
                  ng-click="showMoreView(0,'待领工')">待领工
             </div>
             <div class="text_inline home_tab_div_right  {{showMore==1?'home_tab_div_left_color':'home_tab_div_right_color'}}"
-                 ng-click="showMoreView(1,'维修中')">维修中
+                 ng-click="showMoreView(1,'修理中')">修理中
             </div>
 
             <div class="text_inline home_tab_div_right  {{showMore==2?'home_tab_div_left_color':'home_tab_div_right_color'}}"
@@ -434,10 +389,7 @@
                     <div class="select_div_text_item" ng-repeat="item in firstIconArr" ng-click="selectItem(item)">
                         {{item.wxgz}}
                     </div>
-
-
                 </div>
-
 
             </div>
             <div class="text_inline search_select_div_input">
@@ -451,6 +403,14 @@
 
 
         </div>
+        <table>
+            <tr>
+                <td><div>进厂时间</div></td>
+                <td><div>交车时间</div></td>
+                <td><div><img src="../../../vendor/images/zsx/">我的任务</div></td>
+            </tr>
+
+        </table>
     </div>
 
 

@@ -64,7 +64,7 @@
     }
     .ss_second{
         width: 100%;
-        margin-top: 55px;
+        margin-top: 2px;
         height: 3.4rem;
         background-color: #e7e6e6;
 
@@ -114,7 +114,7 @@
         width:100%;
         height: 1rem;
         background-color:#7ff7fb;
-        margin-top: 52px;
+        margin-top: 5px;
         padding-left: 0.4rem;
     }
     .img_bg{
@@ -159,79 +159,75 @@
         width: 6rem;
         position: absolute;
         left: 2.4rem;
-        top:3rem;
+        top:2.6rem;
+        z-index:1001;
     }
-
-
+    .list{
+        padding-bottom: 100px;
+        margin-top: 0.2rem;
+    }
+    .item{
+        padding: 0 0;
+        margin-top: 0.2rem;
+    }
 </style>
 
-<div>
-    <div class="bar bar-header bar-light">
 
-        <ion-header-bar align-title="left" class="bar-positive"
-                        style="background-color: transparent;border-bottom: 1px solid blue">
-            <div class="buttons" style="background-color: transparent">
-                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
-                        src="../../../vendor/images/zsx/back_blue.png"></button>
-            </div>
-            <h1 class="title"></h1>
-            <div class="buttons">
-                <button class="button" ui-sref="home">首页</button>
-            </div>
 
-        </ion-header-bar>
-        <h1 class="title">领工</h1>
+
+
+
+
+
+
+
+
+<ion-header-bar align-title="left" class="bar-light">
+    <div class="buttons">
+        <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
+                src="../../../vendor/images/zsx/back_blue.png"></button>
     </div>
-
-
+    <h1  class="title"></h1>
+    <div class="buttons">
+        <button class="button" ui-sref="home">首页</button>
+    </div>
+    <h1 class="title">领工</h1>
+</ion-header-bar>
+<ion-content>
 
     <div class="ss_third_div">
         <img class="text-inline img_bg" src="../../../vendor/images/zsx/right_now.png">
         <div class="text-inline img_text">全选/取消全选</div>
-
-
-
     </div>
+    <ion-list class="ion_list_bot">
 
-    <div class="content-list-div-content" ng-repeat="item in dataArr">
-        <table class="content-list-div-table-a">
+        <ion-item ng-repeat="item in dataArr"
+                  item="item"
+                  ng-click="toLinggongPage(item)" class="item-remove-animate">
 
-            <tr>
-                <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
-                <td><div class="tb_item_txt">完工</div></td>
-            </tr>
-            <tr>
-                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">指派给：{{item.assign}}</div></td>
+            <table class="content-list-div-table-a">
+                <tr>
+                    <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
+                    <td><div class="tb_item_txt">完工</div></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">指派给：{{item.assign}}</div></td>
 
-            </tr>
-            <tr>
-                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/repairing.png"/><div class="text-inline-tb tb_item_txt">正在维修：{{item.xlg}}</div></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/repairing.png"/><div class="text-inline-tb tb_item_txt">正在维修：{{item.xlg}}</div></td>
 
-            </tr>
-           <!-- <tr>
-                <td>维修工种：{{item.wxgz}}</td>
-                <td>领工人员：{{item.assign}}</td>
-            </tr>
-
-            <tr>
-                <td>指派人员：{{item.assign}}</td>
-                <td>预完工：{{item.ywg_date}}</td>
-            </tr>
-            <tr>
-                <td>维修人员：{{item.xlg}}</td>
-                <td>修理项目：{{item.xlxm}}</td>
-            </tr>-->
-
-        </table>
-    </div>
-    
+                </tr>
+            </table>
+        </ion-item>
+    </ion-list>
     <img class="img_wg_z" src="../../../vendor/images/zsx/img-wg.png">
 
     <div class="btn_green_div">
 
-    <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
-        取消检验
-    </div>
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
+            取消检验
+        </div>
 
 
         <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
@@ -244,8 +240,14 @@
 
 
     </div>
+</ion-content>
 
-</div>
+
+
+
+
+
+
 
 
 

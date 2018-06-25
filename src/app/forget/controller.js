@@ -53,7 +53,7 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
 
     $scope.toLinggongPage=function(item){
         locals.set("jsd_id",item.jsd_id);
-        locals.set("factoryItem",item);
+        locals.setObject("factoryItem",item);
         var states = item.states;
         if(states=='待领工') {
             $state.go("TiaozhengPage");

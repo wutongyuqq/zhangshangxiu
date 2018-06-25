@@ -155,100 +155,75 @@
         width: 7rem;
     }
 
-
+    .list{
+        padding-bottom: 100px;
+    }
+    .item{
+        padding: 0 0;
+        margin-top: 0.2rem;
+    }
+    .has-header{
+        top: 1px;
+    }
 </style>
 
-<div>
-    <div class="bar bar-header bar-light">
 
-        <ion-header-bar align-title="left" class="bar-positive"
-                        style="background-color: transparent;border-bottom: 1px solid blue">
-            <div class="buttons" style="background-color: transparent">
-                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
-                        src="../../../vendor/images/zsx/back_blue.png"></button>
-            </div>
-            <h1 class="title"></h1>
-            <div class="buttons">
-                <button class="button" ui-sref="home">首页</button>
-            </div>
-
-        </ion-header-bar>
-        <h1 class="title">领工</h1>
+<ion-header-bar align-title="left" class="bar-light">
+    <div class="buttons">
+        <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
+                src="../../../vendor/images/zsx/back_blue.png"></button>
     </div>
-    
+    <h1  class="title"></h1>
+    <div class="buttons">
+        <button class="button" ui-sref="home">首页</button>
+    </div>
+    <h1 class="title">领工</h1>
+</ion-header-bar>
+<ion-content>
     <div class="ss_second">
         <div class="ss_second_car text-inline">
-            <div class="ss_second_car_txt">闽AGR788</div>
+            <div class="ss_second_car_txt">{{factoryItem.cp}}</div>
         </div>
-
         <div class="ss_second_car_b text-inline">
             <div class="ss_second_div">
                 <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_red.png"/>
-                <div class="margin_left_a">{{factoryItem.xlxm }}</div>
+                <div class="margin_left_a">维修中</div>
                 <div class="ss_second_item">{{factoryItem.cx }}</div>
-                <div class="ss_second_item">进厂时间：{{factoryItem.jc_date }}</div>
-                <div class="ss_second_item">预计提车：{{factoryItem.ywg_date }}</div>
+                <div class="ss_second_item">进厂时间：{{factoryItem.jc_date|limitTo:10}}</div>
+                <div class="ss_second_item">预计提车：{{factoryItem.ywg_date|limitTo:10 }}</div>
             </div>
         </div>
-        
-        
     </div>
-
     <div class="ss_third_div">
         <img class="text-inline img_bg" src="../../../vendor/images/zsx/right_now.png">
         <div class="text-inline img_text">全选/取消全选</div>
-
-
-
     </div>
+    <ion-list class="ion_list_bot">
 
-    <div class="content-list-div-content" ng-repeat="item in dataArr">
-        <table class="content-list-div-table-a">
+        <ion-item ng-repeat="item in dataArr"
+                  item="item"
+                  ng-click="toLinggongPage(item)" class="item-remove-animate">
 
-            <tr>
-                <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
-                <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">维修中</div></td>
-            </tr>
-            <tr>
-                <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">未指派</div></td>
-                <td></td>
-            </tr>
+            <table class="content-list-div-table-a">
 
-           <!-- <tr>
-                <td>维修工种：{{item.wxgz}}</td>
-                <td>领工人员：{{item.assign}}</td>
-            </tr>
+                <tr>
+                    <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
+                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">维修中</div></td>
+                </tr>
+                <tr>
+                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">未指派</div></td>
+                    <td></td>
+                </tr>
+            </table>
+        </ion-item>
 
-            <tr>
-                <td>指派人员：{{item.assign}}</td>
-                <td>预完工：{{item.ywg_date}}</td>
-            </tr>
-            <tr>
-                <td>维修人员：{{item.xlg}}</td>
-                <td>修理项目：{{item.xlxm}}</td>
-            </tr>-->
-
-        </table>
-    </div>
-
-
+    </ion-list>
     <div class="btn_green_div">
-
-    <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
-        调整派工
-    </div>
-
-
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
+            调整派工
+        </div>
         <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
             领工
         </div>
-
-
     </div>
-
-</div>
-
-
-
-
-
+</ion-content>

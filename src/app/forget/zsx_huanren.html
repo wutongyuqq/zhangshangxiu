@@ -192,10 +192,10 @@
         <div class="ss_second_car_b text-inline">
             <div class="ss_second_div">
                 <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_blue.png"/>
-                <div class="margin_left_a">洗车</div>
-                <div class="ss_second_item">福特福克斯</div>
-                <div class="ss_second_item">进厂时间：2018-06-12</div>
-                <div class="ss_second_item">预计提车：2018-06-19</div>
+                <div class="margin_left_a">{{factoryItem.xlxm }}</div>
+                <div class="ss_second_item">{{factoryItem.cx }}</div>
+                <div class="ss_second_item">进厂时间：{{factoryItem.jc_date }}</div>
+                <div class="ss_second_item">预计提车：{{factoryItem.ywg_date }}</div>
             </div>
         </div>
 
@@ -214,14 +214,14 @@
 
             <tr>
                 <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
-                <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_blue.png"/><div class="text-inline-tb tb_item_txt">洗车</div></td>
+                <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_blue.png"/><div class="text-inline-tb tb_item_txt">{{item.wxgz}}</div></td>
             </tr>
             <tr>
-                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">指派给：张三</div></td>
+                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">指派给：{{item.assign}}</div></td>
 
             </tr>
             <tr>
-                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/repairing.png"/><div class="text-inline-tb tb_item_txt">正在维修：李四</div></td>
+                <td colspan="2"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/repairing.png"/><div class="text-inline-tb tb_item_txt">正在维修：{{item.xlg}}</div></td>
 
             </tr>
            <!-- <tr>

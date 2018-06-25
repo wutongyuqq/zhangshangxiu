@@ -53,6 +53,7 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
 
     $scope.toLinggongPage=function(item){
         locals.set("jsd_id",item.jsd_id);
+        locals.set("factoryItem",item);
         var states = item.states;
         if(states=='待领工') {
             $state.go("TiaozhengPage");
@@ -189,7 +190,8 @@ app.controller('LinggongCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
 
 app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
-
+    var factoryItem=locals.getObject("factoryItem");
+    $scope.factoryItem = factoryItem;
 
     var jsd_id=locals.get("jsd_id");
     $scope.goBackPage = function(){
@@ -226,6 +228,8 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
 //检验
 app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
 
+    var factoryItem=locals.getObject("factoryItem");
+    $scope.factoryItem = factoryItem;
 
     var jsd_id=locals.get("jsd_id");
     $scope.goBackPage = function(){
@@ -262,6 +266,8 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
 //完工
 app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
+    var factoryItem=locals.getObject("factoryItem");
+    $scope.factoryItem = factoryItem;
 
 
     var jsd_id=locals.get("jsd_id");
@@ -301,6 +307,8 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 //换人
 app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToast",  function ($http, $scope, $state, locals, ionicToast) {
 
+    var factoryItem=locals.getObject("factoryItem");
+    $scope.factoryItem = factoryItem;
 
     var jsd_id=locals.get("jsd_id");
     $scope.goBackPage = function(){

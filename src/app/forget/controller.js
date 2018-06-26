@@ -316,28 +316,44 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
         });
     }
     $scope.getLinggongData();
-
-    $scope.selectAll=true;
+    var selectAll = true;
+    $scope.selectAll=selectAll;
     $scope.chooseAll= function (selectAll) {
         var newDataArr = new Array();
         var tmpDataArr = $scope.dataArr;
-        for(var i=0;i<$scope.dataArr.length;i++){
+        for(var i=0;i<tmpDataArr.length;i++){
             $scope.selectAll = !selectAll;
             var dataBean = tmpDataArr[i];
-            if(selectAll==true){
+            if(!selectAll){
                 dataBean.choose=true;
             }else {
                 dataBean.choose=false;
             }
-            tmpDataArr.push(dataBean);
+            newDataArr.push(dataBean);
         }
-        $scope.dataArr = tmpDataArr;
-    };
+        $scope.dataArr = newDataArr;
+    }
 
 
 
     $scope.lingGong = function () {
         var user = locals.getObject("user");
+
+        var tjDataArr = $scope.dataArr;
+        var xhStr="";
+        if(tjDataArr&&tjDataArr.length&&tjDataArr.length>0){
+            for(var i=0;i<tjDataArr.length;i++){
+                var tjBean = tjDataArr[i];
+                if(tjBean.choose){
+                    xhStr+=tjBean.xh+",";
+                }
+            }
+        }
+        if(xhStr==""){
+            ionicToast.show("您还未选择", 'middle', false, 2000);
+            return;
+        }
+        xhStr=xhStr.substring(0,xhStr.length-1);
         var params = {
             db: "mycon1",
             function: "sp_fun_update_jsdmx_xlxm_xlg",
@@ -362,6 +378,31 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
             }
         });
     }
+
+    $scope.chooseItem=function(index,item,itemChoose){
+        item.choose = !itemChoose;
+        if(!item.choose){
+            $scope.selectAll=false;
+        }
+        $scope.dataArr.splice(index,item);
+        var tmpDataArr =  $scope.dataArr;
+        var chooseSize = 0;
+        for(var i=0;i<tmpDataArr.length;i++){
+            var tmpBean = tmpDataArr[i];
+            if(tmpBean.choose){
+                chooseSize++;
+            }
+        }
+        if(chooseSize==tmpDataArr.length){
+            $scope.selectAll=true;
+        }else{
+            $scope.selectAll=false;
+        }
+
+    }
+
+
+
 }]);
 
 

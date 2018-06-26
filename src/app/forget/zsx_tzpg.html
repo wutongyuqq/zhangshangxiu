@@ -207,7 +207,7 @@
             <table class="content-list-div-table-a">
 
                 <tr>
-                    <td class="tb_width_a"><img class="img_bg text-inline-tb" src="{{tem.choose?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
+                    <td class="tb_width_a"><div ng-click="chooseItem($index,item,item.choose)"><img class="img_bg text-inline-tb" src="{{item.choose?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></div></td>
                     <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">{{item.states}}</div></td>
                 </tr>
                 <tr>

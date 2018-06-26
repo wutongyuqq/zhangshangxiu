@@ -46,7 +46,11 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
                 }
                 $scope.getListData();
             } else {
-                $scope.factoryDataArr = new Array();
+                if(data.pre_row_number=="end"){
+                    $scope.factoryDataArr = factoryDataArr;
+                }else {
+                    $scope.factoryDataArr = new Array();
+                }
                 return;
             }
 
@@ -316,23 +320,6 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
         });
     }
     $scope.getLinggongData();
-    var selectAll = true;
-    $scope.selectAll=selectAll;
-    $scope.chooseAll= function (selectAll) {
-        var newDataArr = new Array();
-        var tmpDataArr = $scope.dataArr;
-        for(var i=0;i<tmpDataArr.length;i++){
-            $scope.selectAll = !selectAll;
-            var dataBean = tmpDataArr[i];
-            if(!selectAll){
-                dataBean.choose=true;
-            }else {
-                dataBean.choose=false;
-            }
-            newDataArr.push(dataBean);
-        }
-        $scope.dataArr = newDataArr;
-    }
 
 
 
@@ -358,7 +345,7 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
             db: "mycon1",
             function: "sp_fun_update_jsdmx_xlxm_xlg",
             jsd_id: jsd_id,
-            xh: factoryItem.xh,
+            xh_list:xhStr,
             assign: user.chinese_name
         }
         var jsonStr3 = angular.toJson(params);
@@ -378,6 +365,29 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
             }
         });
     }
+
+
+
+
+    var selectAll = true;
+    $scope.selectAll=selectAll;
+    $scope.chooseAll= function (selectAll) {
+        var newDataArr = new Array();
+        var tmpDataArr = $scope.dataArr;
+        for(var i=0;i<tmpDataArr.length;i++){
+            $scope.selectAll = !selectAll;
+            var dataBean = tmpDataArr[i];
+            if(!selectAll){
+                dataBean.choose=true;
+            }else {
+                dataBean.choose=false;
+            }
+            newDataArr.push(dataBean);
+        }
+        $scope.dataArr = newDataArr;
+    }
+
+
 
     $scope.chooseItem=function(index,item,itemChoose){
         item.choose = !itemChoose;
@@ -514,7 +524,7 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
 
 //换人
-app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
+app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToast","$modal", function ($http, $scope, $state, locals, ionicToast,$modal) {
 
     var factoryItem = locals.getObject("carInfo");
     $scope.factoryItem = factoryItem;
@@ -527,6 +537,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
 
     $scope.getLinggongData = function () {
+        var selectAll = true;
         var params = {
             db: "mycon1",
             function: "sp_fun_down_repair_project_schedule",
@@ -543,41 +554,17 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             var state = data.state;
             if (state == 'ok') {
                 var dataArr = data.data;
+
+                for(var i=0;i<dataArr.length;i++){
+                    dataArr[i].choose=true;
+                }
                 $scope.dataArr = dataArr;
             }
         });
     }
     $scope.getLinggongData();
 
-    /*$scope.finishWork = function () {
-        var user = locals.getObject("user");
-        var params = {
-            db: "mycon1",
-            function: "sp_fun_update_repair_list_state",
-            jsd_id: jsd_id,
-            states: "审核未结算",
-            xm_state: "已完工"
-        }
-        var jsonStr7 = angular.toJson(params);
-        $scope.xlfTotal = 0;
-        $scope.numZk = 0;
-        $http({
-            method: 'post',
-            url: '/restful/pro',
-            dataType: "json",
-            data: jsonStr7
-        }).success(function (data, status, headers, config) {
-            var state = data.state;
-            if (state == 'ok') {
-                $scope.getLinggongData();
-                ionicToast.show("操作成功", 'middle', false, 2000);
-            } else {
-                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
-            }
-        }).error(function (data) {
-            ionicToast.show("服务异常","middle",2000);
-        });
-    }*/
+
     function getRepairData() {
         var params = {
             db: "mycon1",
@@ -608,8 +595,247 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     }
 
     $scope.jiaRen = function () {
-        var repairPersonList = locals.setObject("repairPersonList");
+        var repairPersonList = locals.getObject("repairPersonList");
+        data = repairPersonList;
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'modalAdd.html',
+            controller: 'modalRepCtrl',
+            size: 'lg',
+            resolve: {
+                data: function () {//data作为modal的controller传入的参数
+                    return data;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (item) {
+
+
+            var user = locals.getObject("user");
+
+            var tjDataArr = $scope.dataArr;
+            var xhStr="";
+            if(tjDataArr&&tjDataArr.length&&tjDataArr.length>0){
+                for(var i=0;i<tjDataArr.length;i++){
+                    var tjBean = tjDataArr[i];
+                    if(tjBean.choose){
+                        xhStr+=tjBean.xh+",";
+                    }
+                }
+            }
+            if(xhStr==""){
+                ionicToast.show("您还未选择", 'middle', false, 2000);
+                return;
+            }
+            xhStr=xhStr.substring(0,xhStr.length-1);
+            var params = {
+
+            db: "mycon1",
+                function: "sp_fun_update_jsdmx_xlxm_xlg_add",
+                jsd_id: jsd_id,
+                xh:xhStr,
+                assign: item.xlg
+            }
+            var jsonStr3 = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr3
+            }).success(function (data, status, headers, config) {
+                console.log(data);
+                var state = data.state;
+                if (state == 'ok') {
+                    ionicToast.show("换人成功", 'middle', false, 2000);
+                    $scope.getLinggongData();
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+                }
+            });
+
+
+        }, function () {
+
+        });
+
+    }
+    $scope.tuiGong=function(){
+
+
+        var user = locals.getObject("user");
+
+        var tjDataArr = $scope.dataArr;
+        var xhStr="";
+        if(tjDataArr&&tjDataArr.length&&tjDataArr.length>0){
+            for(var i=0;i<tjDataArr.length;i++){
+                var tjBean = tjDataArr[i];
+                if(tjBean.choose){
+                    xhStr+=tjBean.xh+",";
+                }
+            }
+        }
+        if(xhStr==""){
+            ionicToast.show("您还未选择", 'middle', false, 2000);
+            return;
+        }
+        xhStr=xhStr.substring(0,xhStr.length-1);
+        var params = {
+
+            db: "mycon1",
+            function: "sp_fun_update_jsdmx_xlxm_xlg",
+            jsd_id: jsd_id,
+            xh_list:xhStr,
+            assign: ""
+        }
+        var jsonStr3 = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr3
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            if (state == 'ok') {
+                ionicToast.show("退工成功", 'middle', false, 2000);
+                $scope.getLinggongData();
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+            }
+        });
+
+
+    }
+    //换人
+
+
+    $scope.replacePerson = function () {
+        var repairPersonList = locals.getObject("repairPersonList");
+        data = repairPersonList;
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'modalRep.html',
+            controller: 'modalRepCtrl',
+            size: 'lg',
+            resolve: {
+                data: function () {//data作为modal的controller传入的参数
+                    return data;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (item) {
+
+
+            var user = locals.getObject("user");
+
+            var tjDataArr = $scope.dataArr;
+            var xhStr="";
+            if(tjDataArr&&tjDataArr.length&&tjDataArr.length>0){
+                for(var i=0;i<tjDataArr.length;i++){
+                    var tjBean = tjDataArr[i];
+                    if(tjBean.choose){
+                        xhStr+=tjBean.xh+",";
+                    }
+                }
+            }
+            if(xhStr==""){
+                ionicToast.show("您还未选择", 'middle', false, 2000);
+                return;
+            }
+            xhStr=xhStr.substring(0,xhStr.length-1);
+            var params = {
+                db: "mycon1",
+                function: "sp_fun_update_jsdmx_xlxm_xlg",
+                jsd_id: jsd_id,
+                xh_list:xhStr,
+                assign: item.xlg
+            }
+            var jsonStr3 = angular.toJson(params);
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr3
+            }).success(function (data, status, headers, config) {
+                console.log(data);
+                var state = data.state;
+                if (state == 'ok') {
+                    ionicToast.show("换人成功", 'middle', false, 2000);
+                    $scope.getLinggongData();
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+                }
+            });
+
+
+        }, function () {
+
+        });
+    }
+
+
+
+
+    var selectAll = true;
+    $scope.selectAll=selectAll;
+    $scope.chooseAll= function (selectAll) {
+        var newDataArr = new Array();
+        var tmpDataArr = $scope.dataArr;
+        for(var i=0;i<tmpDataArr.length;i++){
+            $scope.selectAll = !selectAll;
+            var dataBean = tmpDataArr[i];
+            if(!selectAll){
+                dataBean.choose=true;
+            }else {
+                dataBean.choose=false;
+            }
+            newDataArr.push(dataBean);
+        }
+        $scope.dataArr = newDataArr;
+    }
+
+
+
+    $scope.chooseItem=function(index,item,itemChoose){
+        item.choose = !itemChoose;
+        if(!item.choose){
+            $scope.selectAll=false;
+        }
+        $scope.dataArr.splice(index,item);
+        var tmpDataArr =  $scope.dataArr;
+        var chooseSize = 0;
+        for(var i=0;i<tmpDataArr.length;i++){
+            var tmpBean = tmpDataArr[i];
+            if(tmpBean.choose){
+                chooseSize++;
+            }
+        }
+        if(chooseSize==tmpDataArr.length){
+            $scope.selectAll=true;
+        }else{
+            $scope.selectAll=false;
+        }
 
     }
 
+
 }]);
+
+
+
+//模态框对应的Controller
+app.controller('modalRepCtrl', function ($scope, $state, $modalInstance, locals, data) {
+    $scope.repairPersonList = data;
+
+    $scope.chooseXlz = function (item) {
+        $modalInstance.close(item);
+    };
+
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    }
+});
+

@@ -391,7 +391,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
 
     var repairPersonList = locals.getObject("repairPersonList");
-    if(repairPersonList==null||repairPersonList.length==null||repairPersonList.length==0){
+    if(repairPersonList==null||repairPersonList.length==null||repairPersonList.length==0||repairPersonList=="undefined"){
         var params={
             db:"mycon1",
             function:"sp_fun_down_repairman",

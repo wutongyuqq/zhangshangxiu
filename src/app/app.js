@@ -28,7 +28,11 @@ app.factory('locals',['$window',function($window){
             $window.localStorage[key]=JSON.stringify(value);
         },
         getObject:function(key){
-            return JSON.parse( $window.localStorage[key] || '{}');
+            if($window.localStorage[key]&&$window.localStorage[key]!="undefined") {
+                return JSON.parse($window.localStorage[key] || '{}');
+            }else{
+                return "";
+            }
         }
     }
 }]);

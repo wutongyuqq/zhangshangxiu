@@ -141,12 +141,12 @@
 
 
     .confirm-nav-btn {
-        width: 3rem;
+        width: 2.3rem;
         background-color: #89c997;
-        padding: 0.3rem 0.5rem;
+        padding: 0.3rem 0.1rem;
         color: white;
         border-radius: 5px;
-        margin-left: 0.2rem;
+        margin-left: 0.1rem;
         margin-top: 0.5rem;
     }
     .confirm-a {
@@ -174,6 +174,58 @@
         padding: 0 0;
         margin-top: 0.2rem;
     }
+
+    .modal-footer {
+        text-align: center;
+        background-color: #abadab;
+        border: none;
+
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .model-margin-top {
+        margin: 0.3rem 0.01rem;
+    }
+
+    .modal-dialog {
+        margin-top: 4rem;
+        border: none;
+    }
+
+    .modal {
+        background-color: transparent;
+        border: none;
+    }
+
+    .modal-header {
+        background-color: #333333;
+        color: white;
+        border: none;
+    }
+
+    .modal-title {
+        color: white;
+    }
+    .li-item{
+        width: 100%;
+        padding: 0.3rem 0.3rem;
+        font-size: 1.4em;
+    }
+    .ul-list{
+        width: 100%;
+    }
+    .item-red{
+        background-color: lightpink;
+    }
+    .item-gray{
+        background-color: #cccccc;
+    }
+
+
+
 </style>
 
 
@@ -200,19 +252,16 @@
                 <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_blue.png"/>
                 <div class="margin_left_a">维修中</div>
                 <div class="ss_second_item">{{factoryItem.cx }}</div>
-                <div class="ss_second_item">进厂时间：{{factoryItem.jc_date }}</div>
-                <div class="ss_second_item">预计提车：{{factoryItem.ywg_date }}</div>
+                <div class="ss_second_item">进厂时间：{{factoryItem.jc_date|limitTo:10 }}</div>
+                <div class="ss_second_item">预计提车：{{factoryItem.ywg_date|limitTo:10 }}</div>
             </div>
         </div>
 
 
     </div>
-    <div class="ss_third_div">
-        <img class="text-inline img_bg" src="../../../vendor/images/zsx/right_now.png">
+    <div class="ss_third_div" ng-click="chooseAll(selectAll)">
+        <img class="text-inline img_bg" src="{{selectAll?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}">
         <div class="text-inline img_text">全选/取消全选</div>
-
-
-
     </div>
 
 
@@ -225,7 +274,8 @@
             <table class="content-list-div-table-a">
 
                 <tr>
-                    <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
+
+                    <td class="tb_width_a"><div ng-click="chooseItem($index,item,item.choose)"><img class="img_bg text-inline-tb" src="{{item.choose?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></div></td>
                     <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_blue.png"/><div class="text-inline-tb tb_item_txt">{{item.wxgz}}</div></td>
                 </tr>
                 <tr>
@@ -242,7 +292,7 @@
     </ion-list>
     <div class="btn_green_div">
 
-        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em"  ng-click="huanRen()">
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em"  ng-click="replacePerson()">
             换人
         </div>
         <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em" ng-click="jiaRen()">
@@ -258,3 +308,57 @@
         </div>
     </div>
 </ion-content>
+
+
+
+
+<script type="text/ng-template" id="modalRep.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                换人
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="display: inline-block;vertical-align: top;width: 100%;">
+                <ul class="list ul-list">
+
+                    <li  ng-repeat="item in repairPersonList | unique: 'xlg'"
+                        class="li-item item {{$index%2==0?'item-red':'item-gray'}}" ng-click="chooseXlz(item)">
+                        {{item.xlg}}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</script>
+
+
+
+
+
+
+<script type="text/ng-template" id="modalAdd.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                换人
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="display: inline-block;vertical-align: top;width: 100%;">
+                <ul class="list ul-list">
+
+                    <li  ng-repeat="item in repairPersonList | unique: 'xlg'"
+                         class="li-item item {{$index%2==0?'item-red':'item-gray'}}" ng-click="chooseXlz(item)">
+                        {{item.xlg}}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</script>

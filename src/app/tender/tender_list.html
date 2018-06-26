@@ -176,6 +176,7 @@
         color: #333333;
         font-weight: 600;
     }
+
     .content-list-div-b {
         width: 100%;
         text-align: left;
@@ -189,7 +190,7 @@
 
     .text-inline-c {
 
-        margin-right:1rem;
+        margin-right: 1rem;
     }
 
     .item-back {
@@ -245,24 +246,28 @@
     .model-margin-top {
         margin: 0.3rem 0.01rem;
     }
-    .action-back{
+
+    .action-back {
 
         width: 1rem;
         height: 0.5rem;
         background-image: url("../../../vendor/images/zsx/back_blue.png");
-        background-repeat:no-repeat;
+        background-repeat: no-repeat;
     }
-    .img-gray{
+
+    .img-gray {
         background-image: url("../../../vendor/images/zsx/back_gray.png");
     }
-    .list-margin{
+
+    .list-margin {
         padding-bottom: 1rem;
     }
-    .content-list-div-a{
+
+    .content-list-div-a {
         display: inline-block;
     }
 
-    .wb_btn_img{
+    .wb_btn_img {
         width: 0.5rem;
         height: 0.5rem;
     }
@@ -271,11 +276,14 @@
 <div>
     <div class="bar bar-header bar-light">
 
-        <ion-header-bar align-title="left" class="bar-positive"  style="background-color: transparent;border-bottom: 1px solid blue">
+        <ion-header-bar align-title="left" class="bar-positive"
+                        style="background-color: transparent;border-bottom: 1px solid blue">
             <div class="buttons" style="background-color: transparent">
-                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img src="../../../vendor/images/zsx/back_blue.png"></button>
+                <button class="button" ng-click="goBackPage()" style="border: none;background-color: transparent;"><img
+                        src="../../../vendor/images/zsx/back_blue.png"></button>
             </div>
             <h1 class="title"></h1>
+
             <div class="buttons">
                 <button class="button" ui-sref="home">首页</button>
             </div>
@@ -291,10 +299,15 @@
 
     <div class="bar_second_pink">
         <a ui-sref="czInfo">
-            <img class="color-white color-white-img color-white-img-home" src="../../../vendor/images/zsx/car_person.png">
-            <div class="color-white bar-white-home" style="font-size: 1.6em;">{{carInfo.cz}}</div></a> <a ui-sref="carInfo">
-        <img  class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
-        <div class="color-white bar-white-card" style="font-size: 1.6em;">{{carInfo.cardName}}</div></a>
+            <img class="color-white color-white-img color-white-img-home"
+                 src="../../../vendor/images/zsx/car_person.png">
+
+            <div class="color-white bar-white-home" style="font-size: 1.6em;">{{carInfo.cz}}</div>
+        </a> <a ui-sref="carInfo">
+        <img class="color-white color-white-img color-white-img-card" src="../../../vendor/images/zsx/car_yellow.png">
+
+        <div class="color-white bar-white-card" style="font-size: 1.6em;">{{carInfo.cardName}}</div>
+    </a>
     </div>
 
 
@@ -303,14 +316,13 @@
 
     <div class="list list-margin">
 
-        <div  class="content-list-div-b" ng-repeat="item in pgDataList">
+        <div class="content-list-div-b" ng-repeat="item in pgDataList">
 
 
-
-        <ion-checkbox class="content-list-div-a" style="border-width: 0px;"
-                      ng-model="item.checked"
-                      ng-checked="item.checked" ng-click="checkPjkItem($index)">
-        </ion-checkbox>
+            <ion-checkbox class="content-list-div-a" style="border-width: 0px;"
+                          ng-model="item.checked"
+                          ng-checked="item.checked" ng-click="checkPjkItem($index)">
+            </ion-checkbox>
             <div class="text_inline content-list-div-c">
 
                 <div class="text-inline position-left">
@@ -328,59 +340,60 @@
                             class="text_inline" ng-show="!item.showPgje">{{item.pgje}}</span>
 
                         <div class="text_inline" ng-show="item.showPgje">
-                            <input placeholder="输入" ng-model="item.pgje" style="width: 3rem;height: 0.6rem;border:none;background-color: #eeeeee;"/></div>
-                        <div class="text_inline"><img ng-click="showPgje($index,item,item.showPgje)" class="text_inline wb_btn_img"
+                            <input placeholder="输入" ng-model="item.pgje"
+                                   style="width: 3rem;height: 0.6rem;border:none;background-color: #eeeeee;"/></div>
+                        <div class="text_inline"><img ng-click="showPgje($index,item,item.showPgje)"
+                                                      class="text_inline wb_btn_img"
                                                       src="{{item.showPgje?'../../../vendor/images/zsx/edit_true.png':'../../../vendor/images/zsx/edit.png'}}"/>
 
+                        </div>
+
+
+                        <div style="font-size: 1.2em">{{item.states}}</div>
                     </div>
-
-
-                    <div style="font-size: 1.2em">{{item.states}}</div>
                 </div>
+
+
             </div>
 
 
+            <!--<div class="text_inline content-list-div-a content-list-div-a-res" ng-repeat="item in pgDataList"
+                 ng-click="pgPerson(item)">
+                <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
+                </div>
+                <div class="text-inline position-left">
+                    <div>轿车洗车</div>
+                    <div>指派给</div>
+                    <div>维修人员</div>
+                    <div>派工金额</div>
+                </div>
+                <div class="text-inline position-left-b">
+                    <div>{{item.xlxm}}</div>
+                    <div>{{item.assign}}</div>
+                    <div>{{item.xlg}}</div>
+                    <div><span>￥</span>{{item.pgje}}</div>
+                </div>
+                <div class="text-inline text-inline-c"><img class="select-all" src="../../../vendor/images/zsx/right_btn.png"/>
+                </div>
+
+            </div>-->
 
 
+        </div>
 
+
+        <div class="confirm-div">
+
+            <div class="text-inline confirm-a confirm-nav-btn" style="padding: 0.3rem 0.2rem" ng-click="pgPerson()">
+                派工
+            </div>
+
+            <div class="text-inline confirm-a confirm-nav-btn" style="padding: 0.3rem 0.2rem" ui-sref="FactoryPage">
+                车间管理
+            </div>
+
+        </div>
     </div>
-
-
-    <!--<div class="text_inline content-list-div-a content-list-div-a-res" ng-repeat="item in pgDataList"
-         ng-click="pgPerson(item)">
-        <div class="text-inline"><img class="select-all" src="../../../vendor/images/zsx/select-blue-true.png"/>
-        </div>
-        <div class="text-inline position-left">
-            <div>轿车洗车</div>
-            <div>指派给</div>
-            <div>维修人员</div>
-            <div>派工金额</div>
-        </div>
-        <div class="text-inline position-left-b">
-            <div>{{item.xlxm}}</div>
-            <div>{{item.assign}}</div>
-            <div>{{item.xlg}}</div>
-            <div><span>￥</span>{{item.pgje}}</div>
-        </div>
-        <div class="text-inline text-inline-c"><img class="select-all" src="../../../vendor/images/zsx/right_btn.png"/>
-        </div>
-
-    </div>-->
-
-
-</div>
-
-
-<div class="confirm-div">
-
-    <div class="text-inline confirm-a confirm-nav-btn"  style="padding: 0.3rem 0.2rem" ng-click="pgPerson()">
-        派工
-    </div>
-
-    <div class="text-inline confirm-a confirm-nav-btn" style="padding: 0.3rem 0.2rem" ui-sref="FactoryPage">
-        车间管理
-    </div>
-
 </div>
 
 

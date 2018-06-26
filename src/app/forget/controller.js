@@ -319,14 +319,19 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
 
     $scope.selectAll=true;
     $scope.chooseAll= function (selectAll) {
+        var newDataArr = new Array();
+        var tmpDataArr = $scope.dataArr;
         for(var i=0;i<$scope.dataArr.length;i++){
             $scope.selectAll = !selectAll;
+            var dataBean = tmpDataArr[i];
             if(selectAll==true){
-                $scope.dataArr[i].choose=true;
+                dataBean.choose=true;
             }else {
-                $scope.dataArr[i].choose=false;
+                dataBean.choose=false;
             }
+            tmpDataArr.push(dataBean);
         }
+        $scope.dataArr = tmpDataArr;
     };
 
 

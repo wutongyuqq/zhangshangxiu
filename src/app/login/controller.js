@@ -38,7 +38,7 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
                 var endDate = new Date(endDateStr.replace(/\-/g, "\/"));
                 var nowDate = new Date();
                 var appDataInfo = new Object();
-                window.printdata.saveDataForLogin(user.factoryName,data.machine_code,data.machine_key);
+                //window.printdata.saveDataForLogin(user.factoryName,data.machine_code,data.machine_key);
                 if (endDate < nowDate) {
                     ionicToast.show("服务有效期限已经过了，请联系首佳软件进行续费。 过期时间：" + (endDate.length > 10 ? endDate.substr(0, 10) : endDate), 'middle',false, 2000);
                 } else {

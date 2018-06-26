@@ -194,8 +194,8 @@
             </div>
         </div>
     </div>
-    <div class="ss_third_div">
-        <img class="text-inline img_bg" src="../../../vendor/images/zsx/right_now.png">
+    <div class="ss_third_div" ng-click="chooseAll(selectAll)">
+        <img class="text-inline img_bg" src="{{selectAll?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}">
         <div class="text-inline img_text">全选/取消全选</div>
     </div>
     <ion-list class="ion_list_bot">
@@ -207,11 +207,11 @@
             <table class="content-list-div-table-a">
 
                 <tr>
-                    <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
-                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">维修中</div></td>
+                    <td class="tb_width_a"><img class="img_bg text-inline-tb" src="{{tem.choose?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
+                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">{{item.states}}</div></td>
                 </tr>
                 <tr>
-                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">未指派</div></td>
+                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">{{item.assign?'指派给：'+item.assign:'未指派'}}</div></td>
                     <td></td>
                 </tr>
             </table>

@@ -1,8 +1,20 @@
-app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast", function ($http, $scope, $state, locals, ionicToast) {
+app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast"," $stateParams", function ($http, $scope, $state, locals, ionicToast, $stateParams) {
     $scope.showMore = 0;
     var pre_row_number = "0";
     var factoryDataArr = new Array();
+    var id= $stateParams.id;
     var queryStatuStr = "待领工";
+    $scope.showMore=id;
+    if(id==0) {
+
+         queryStatuStr = "待领工";
+    }else if(id==1) {
+         queryStatuStr = "修理中";
+    }else if(id==2) {
+         queryStatuStr = "待检验";
+    }else if(id==3) {
+         queryStatuStr = "已完工";
+    }
     $scope.showMoreView = function (showMore, queryState) {
         queryStatuStr = queryState;
         $scope.showMore = showMore;
@@ -312,10 +324,14 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
             var state = data.state;
             if (state == 'ok') {
                dataArr = data.data;
+                var newDataArr = new Array();
                 for(var i=0;i<dataArr.length;i++){
-                    dataArr[i].choose=true;
+                    if(dataArr[i].states=="待领工"){
+                        dataArr[i].choose=true;
+                        newDataArr.push(dataArr[i]);
+                    }
                 }
-                $scope.dataArr = dataArr;
+                $scope.dataArr = newDataArr;
             }
         });
     }
@@ -359,7 +375,8 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
             var state = data.state;
             if (state == 'ok') {
                 ionicToast.show("领工成功", 'middle', false, 2000);
-                $scope.getLinggongData();
+                //$scope.getLinggongData();
+                $state.go("FactoryPage",{id:0});
             } else {
                 ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
@@ -445,10 +462,14 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             var state = data.state;
             if (state == 'ok') {
                 var dataArr = data.data;
+                var newDataArr = new Array();
                 for(var i=0;i<dataArr.length;i++){
+                    if(dataArr[i].states=="待质检"){
                     dataArr[i].choose=true;
+                    newDataArr.push(dataArr[i]);
+                    }
                 }
-                $scope.dataArr = dataArr;
+                $scope.dataArr = newDataArr;
             }
         });
     }
@@ -472,9 +493,9 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-                $scope.getLinggongData();
-                ionicToast.show("操作成功", 'middle', false, 2000);
-                $scope.getLinggongData();
+
+                ionicToast.show("处理成功", 'middle', false, 2000);
+                $state.go("FactoryPage",{id:2});
             } else {
                 ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
@@ -530,6 +551,37 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
     }
 
+    $scope.passCheck=function(){
+
+        var jsd_id = locals.get("jsd_id");
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_update_repair_list_state",
+            jsd_id: jsd_id,
+            states: "",
+            xm_state: "已完工"
+        }
+        var jsonStr7 = angular.toJson(params);
+        $scope.xlfTotal = 0;
+        $scope.numZk = 0;
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr7
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                ionicToast.show("处理成功", 'middle', false, 2000);
+                $state.go("FactoryPage",{id:2})
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+        });
+    }
+
 }]);
 
 
@@ -563,16 +615,18 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             if (state == 'ok') {
                 var dataArr = data.data;
 
+                var newDataArr = new Array();
                 for(var i=0;i<dataArr.length;i++){
-                    dataArr[i].choose=true;
+                    if(dataArr[i].states=="已完工"){
+                        dataArr[i].choose=true;
+                        newDataArr.push(dataArr[i]);
+                    }
                 }
-                $scope.dataArr = dataArr;
+                $scope.dataArr = newDataArr;
             }
         });
     }
     $scope.getLinggongData();
-
-
     $scope.cancleCheck = function(){
 
         var jsd_id = locals.get("jsd_id");
@@ -594,8 +648,10 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         }).success(function (data, status, headers, config) {
             var state = data.state;
             if (state == 'ok') {
-                ionicToast.show("处理成功","middle",2000);
-                $scope.getLinggongData();
+                ionicToast.show("处理成功", 'middle', false, 2000);
+               // $scope.getLinggongData();
+
+                $state.go("FactoryPage",{id:3});
             } else {
                 ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
@@ -690,10 +746,14 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             if (state == 'ok') {
                 var dataArr = data.data;
 
+                var newDataArr = new Array();
                 for(var i=0;i<dataArr.length;i++){
-                    dataArr[i].choose=true;
+                    if(dataArr[i].states=="修理中"){
+                        dataArr[i].choose=true;
+                        newDataArr.push(dataArr[i]);
+                    }
                 }
-                $scope.dataArr = dataArr;
+                $scope.dataArr = newDataArr;
             }
         });
     }
@@ -782,7 +842,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
                 console.log(data);
                 var state = data.state;
                 if (state == 'ok') {
-                    ionicToast.show("换人成功", 'middle', false, 2000);
+                    ionicToast.show("处理成功", 'middle', false, 2000);
                     $scope.getLinggongData();
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
@@ -833,7 +893,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             console.log(data);
             var state = data.state;
             if (state == 'ok') {
-                ionicToast.show("退工成功", 'middle', false, 2000);
+                ionicToast.show("处理成功", 'middle', false, 2000);
                 $scope.getLinggongData();
             } else {
                 ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
@@ -897,7 +957,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
                 console.log(data);
                 var state = data.state;
                 if (state == 'ok') {
-                    ionicToast.show("换人成功", 'middle', false, 2000);
+                    ionicToast.show("处理成功", 'middle', false, 2000);
                     $scope.getLinggongData();
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
@@ -976,7 +1036,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
-                    ionicToast.show("处理成功","middle",2000);
+                    ionicToast.show("处理成功", 'middle', false, 2000);
                     $scope.getLinggongData();
 
                 } else {

@@ -445,6 +445,9 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             var state = data.state;
             if (state == 'ok') {
                 var dataArr = data.data;
+                for(var i=0;i<dataArr.length;i++){
+                    dataArr[i].choose=true;
+                }
                 $scope.dataArr = dataArr;
             }
         });
@@ -471,6 +474,7 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             if (state == 'ok') {
                 $scope.getLinggongData();
                 ionicToast.show("操作成功", 'middle', false, 2000);
+                $scope.getLinggongData();
             } else {
                 ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
             }
@@ -478,6 +482,51 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             ionicToast.show("服务异常", "middle", 2000);
         });
 
+
+    }
+
+
+
+
+    var selectAll = true;
+    $scope.selectAll=selectAll;
+    $scope.chooseAll= function (selectAll) {
+        var newDataArr = new Array();
+        var tmpDataArr = $scope.dataArr;
+        for(var i=0;i<tmpDataArr.length;i++){
+            $scope.selectAll = !selectAll;
+            var dataBean = tmpDataArr[i];
+            if(!selectAll){
+                dataBean.choose=true;
+            }else {
+                dataBean.choose=false;
+            }
+            newDataArr.push(dataBean);
+        }
+        $scope.dataArr = newDataArr;
+    }
+
+
+
+    $scope.chooseItem=function(index,item,itemChoose){
+        item.choose = !itemChoose;
+        if(!item.choose){
+            $scope.selectAll=false;
+        }
+        $scope.dataArr.splice(index,item);
+        var tmpDataArr =  $scope.dataArr;
+        var chooseSize = 0;
+        for(var i=0;i<tmpDataArr.length;i++){
+            var tmpBean = tmpDataArr[i];
+            if(tmpBean.choose){
+                chooseSize++;
+            }
+        }
+        if(chooseSize==tmpDataArr.length){
+            $scope.selectAll=true;
+        }else{
+            $scope.selectAll=false;
+        }
 
     }
 
@@ -513,6 +562,10 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             var state = data.state;
             if (state == 'ok') {
                 var dataArr = data.data;
+
+                for(var i=0;i<dataArr.length;i++){
+                    dataArr[i].choose=true;
+                }
                 $scope.dataArr = dataArr;
             }
         });
@@ -520,12 +573,93 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     $scope.getLinggongData();
 
 
+    $scope.cancleCheck = function(){
+
+        var jsd_id = locals.get("jsd_id");
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_update_repair_list_state",
+            jsd_id: jsd_id,
+            states: "修理中",
+            xm_state: "待质检"
+        }
+        var jsonStr7 = angular.toJson(params);
+        $scope.xlfTotal = 0;
+        $scope.numZk = 0;
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr7
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                ionicToast.show("处理成功","middle",2000);
+                $scope.getLinggongData();
+            } else {
+                ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+        });
+
+
+
+    }
+
+
+
+
+
+
+    var selectAll = true;
+    $scope.selectAll=selectAll;
+    $scope.chooseAll= function (selectAll) {
+        var newDataArr = new Array();
+        var tmpDataArr = $scope.dataArr;
+        for(var i=0;i<tmpDataArr.length;i++){
+            $scope.selectAll = !selectAll;
+            var dataBean = tmpDataArr[i];
+            if(!selectAll){
+                dataBean.choose=true;
+            }else {
+                dataBean.choose=false;
+            }
+            newDataArr.push(dataBean);
+        }
+        $scope.dataArr = newDataArr;
+    }
+
+
+
+    $scope.chooseItem=function(index,item,itemChoose){
+        item.choose = !itemChoose;
+        if(!item.choose){
+            $scope.selectAll=false;
+        }
+        $scope.dataArr.splice(index,item);
+        var tmpDataArr =  $scope.dataArr;
+        var chooseSize = 0;
+        for(var i=0;i<tmpDataArr.length;i++){
+            var tmpBean = tmpDataArr[i];
+            if(tmpBean.choose){
+                chooseSize++;
+            }
+        }
+        if(chooseSize==tmpDataArr.length){
+            $scope.selectAll=true;
+        }else{
+            $scope.selectAll=false;
+        }
+
+    }
+
 }]);
 
 
 //换人
 app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToast","$modal", function ($http, $scope, $state, locals, ionicToast,$modal) {
-
+    var selectAll = true;
     var factoryItem = locals.getObject("carInfo");
     $scope.factoryItem = factoryItem;
 
@@ -537,7 +671,8 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
 
     $scope.getLinggongData = function () {
-        var selectAll = true;
+        selectAll = true;
+        $scope.selectAll=selectAll;
         var params = {
             db: "mycon1",
             function: "sp_fun_down_repair_project_schedule",
@@ -778,7 +913,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
 
 
-    var selectAll = true;
+
     $scope.selectAll=selectAll;
     $scope.chooseAll= function (selectAll) {
         var newDataArr = new Array();
@@ -820,6 +955,37 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
     }
 
+    //完工
+    $scope.siGongWanBi=function(){
+            var jsd_id = locals.get("jsd_id");
+            var params = {
+                db: "mycon1",
+                function: "sp_fun_update_repair_list_state",
+                jsd_id: jsd_id,
+                states: "已完工",
+                xm_state: "已完工"
+            }
+            var jsonStr7 = angular.toJson(params);
+            $scope.xlfTotal = 0;
+            $scope.numZk = 0;
+            $http({
+                method: 'post',
+                url: '/restful/pro',
+                dataType: "json",
+                data: jsonStr7
+            }).success(function (data, status, headers, config) {
+                var state = data.state;
+                if (state == 'ok') {
+                    ionicToast.show("处理成功","middle",2000);
+                    $scope.getLinggongData();
+
+                } else {
+                    ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
+                }
+            }).error(function (data) {
+                ionicToast.show("服务异常","middle",2000);
+            });
+    }
 
 }]);
 

@@ -195,10 +195,13 @@
 </ion-header-bar>
 <ion-content>
 
-    <div class="ss_third_div">
-        <img class="text-inline img_bg" src="../../../vendor/images/zsx/right_now.png">
+
+
+    <div class="ss_third_div" ng-click="chooseAll(selectAll)">
+        <img class="text-inline img_bg" src="{{selectAll?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}">
         <div class="text-inline img_text">全选/取消全选</div>
     </div>
+
     <ion-list class="ion_list_bot">
 
         <ion-item ng-repeat="item in dataArr"
@@ -207,7 +210,7 @@
 
             <table class="content-list-div-table-a">
                 <tr>
-                    <td class="tb_width_a"><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/right_now.png"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></td>
+                    <td class="tb_width_a"><div ng-click="chooseItem($index,item,item.choose)"><img class="img_bg text-inline-tb" src="{{item.choose?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></div></td>
                     <td><div class="tb_item_txt">完工</div></td>
                 </tr>
                 <tr>
@@ -225,7 +228,7 @@
 
     <div class="btn_green_div">
 
-        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em">
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em" ng-click="cancleCheck()">
             取消检验
         </div>
 

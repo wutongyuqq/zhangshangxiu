@@ -22,11 +22,12 @@
     }
     .login-input_a{
         background-color:rgba(255,253,253,0.5);
-        width: 6rem;
+        width: 95%;
         border: none;
         border-radius: 5px;
         margin-top: 5px;
         padding-left: 0.2rem;
+        padding-right: 0.2rem;
         color:white;
         font-size:0.8em;
         padding-top: 3px;
@@ -65,9 +66,23 @@
     }
     .text-inline{
         display: inline-block;
+        font-size: 1.4em;
     }
     .login_back_img{
         font-size: 1.4em;
+    }
+    input[type=text]{
+        display:inline-block;
+        height: auto;
+        padding: 0.1rem 0.2rem;
+        font-size: 1.2em;
+    }
+
+    input[type=password]{
+        display:inline-block;
+        height: auto;
+        padding: 0.1rem 0.2rem;
+        font-size: 1.2em;
     }
 </style>
 
@@ -77,23 +92,21 @@
     <div class="login_back_gray">
         <div class="login-div">
         <div class="login-color-div">
-            <div class="login-color"><span class="text-inline">厂&#12288;名：</span>
+            <div class="login-color"><!--<div class="text-inline">厂&#12288;名：</div>-->
                 <input type="text" ng-model="user.factoryName" placeholder="修理厂名称/分店名称" class="text-inline login-input_a login_factory_name"/></div>
         </div>
         <div class="login-color-div">
-            <div class="login-color"><span class="text-inline">用户名：</span>
-                <input type="text"  ng-model="user.userName" class="text-inline login-input_a login_username"/></div>
+            <div class="login-color"><!--<div class="text-inline">用户名：</div>-->
+                <input type="text"  ng-model="user.userName"  placeholder="输入用户名"  class="text-inline login-input_a login_username"/></div>
 
         </div>
         <div class="login-color-div">
-            <div class="login-color"><span class="text-inline">密&#12288;码：</span>
-                <input type="password" ng-model="user.password" class="text-inline login-input_a login_password"/></div>
-
+            <div class="login-color"><!--<div class="text-inline">密&#12288;码：</div>-->
+                <input type="password" ng-model="user.password"   placeholder="输入密码"  class="text-inline login-input_a login_password"/></div>
         </div>
             <div class="btn-login-div">
-            <button type="button" class="btn btn-login" ng-click="checkDate(user)">登录</button>
+            <button type="button" class="btn btn-login" ng-click="checkDate(user)" style="font-size: 1.4em;">登录</button>
             </div>
         </div>
-
     </div>
 </div>

@@ -1,4 +1,4 @@
-app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast"," $stateParams", function ($http, $scope, $state, locals, ionicToast, $stateParams) {
+app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast","$stateParams", function ($http, $scope, $state, locals, ionicToast, $stateParams) {
     $scope.showMore = 0;
     var pre_row_number = "0";
     var factoryDataArr = new Array();
@@ -6,7 +6,6 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
     var queryStatuStr = "待领工";
     $scope.showMore=id;
     if(id==0) {
-
          queryStatuStr = "待领工";
     }else if(id==1) {
          queryStatuStr = "修理中";
@@ -1033,11 +1032,12 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
                 url: '/restful/pro',
                 dataType: "json",
                 data: jsonStr7
+
             }).success(function (data, status, headers, config) {
                 var state = data.state;
                 if (state == 'ok') {
                     ionicToast.show("处理成功", 'middle', false, 2000);
-                    $scope.getLinggongData();
+                    $state.go("FactoryPage",{id:1});
 
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);

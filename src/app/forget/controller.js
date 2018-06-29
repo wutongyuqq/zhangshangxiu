@@ -794,7 +794,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'modalAdd.html',
-            controller: 'modalRepCtrl',
+            controller: 'modalLgCtrl',
             size: 'lg',
             resolve: {
                 data: function () {//data作为modal的controller传入的参数
@@ -804,7 +804,6 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         });
 
         modalInstance.result.then(function (item) {
-
 
             var user = locals.getObject("user");
 
@@ -1033,12 +1032,11 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
                 dataType: "json",
                 data: jsonStr7
 
-            }).success(function (data, status, headers, config) {
+            }).success(function (data, status, headers, config){
                 var state = data.state;
                 if (state == 'ok') {
                     ionicToast.show("处理成功", 'middle', false, 2000);
                     $state.go("FactoryPage",{id:1});
-
                 } else {
                     ionicToast.show("错误：" + data.msg ? data.msg : "", 'middle', false, 2000);
                 }
@@ -1046,6 +1044,74 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
                 ionicToast.show("服务异常","middle",2000);
             });
     }
+
+
+    //弹出模态框-----------------------
+
+    $scope.pgPerson = function (item) {
+        var repairPersonList = locals.getObject("repairPersonList");
+        data = repairPersonList;
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'modal7.html',
+            controller: 'modalLgCtrl',
+            size: 'lg',
+            resolve: {
+                data: function () {//data作为modal的controller传入的参数
+                    return data;//用于传递数据
+                }
+            }
+        });
+
+        modalInstance.result.then(function (choosePersonStr) {
+            if (choosePersonStr != null && choosePersonStr[choosePersonStr.length - 1] == ",") {
+                choosePersonStr = choosePersonStr.substring(0, choosePersonStr.length - 1);
+            }
+            var pgDataList = $scope.pgDataList;
+            var jsd_id = locals.get("jsd_id");
+            if (pgDataList != null && pgDataList.length > 0) {
+                for (var i = 0; i < pgDataList.length; i++) {
+                    var pgData = pgDataList[i];
+                    if (pgData.checked) {
+                        $scope.toPGDataToServer(jsd_id, choosePersonStr, pgData.xh)
+                    }
+                }
+            }
+        }, function () {
+
+        });
+    }
+
+    $scope.toPGDataToServer = function (jsd_id, choosePersonStr, xh) {
+
+        var params = {
+            db: "mycon1",
+            function: "sp_fun_update_jsdmx_xlxm_assign",
+            jsd_id: jsd_id,
+            xh: xh,
+            assign: choosePersonStr
+        }
+
+        var jsonStr = angular.toJson(params);
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: jsonStr
+        }).success(function (data, status, headers, config) {
+            var state = data.state;
+            if (state == 'ok') {
+                //$window.location.reload();
+                // locals.setObject("carInfo",upLoadInfo);
+                $scope.getPgListData();
+            } else {
+
+            }
+        }).error(function (data) {
+            ionicToast.show("服务异常","middle",2000);
+        });
+    }
+
 
 }]);
 
@@ -1056,6 +1122,7 @@ app.controller('modalRepCtrl', function ($scope, $state, $modalInstance, locals,
     $scope.repairPersonList = data;
 
     $scope.chooseXlz = function (item) {
+        
         $modalInstance.close(item);
     };
 
@@ -1065,3 +1132,53 @@ app.controller('modalRepCtrl', function ($scope, $state, $modalInstance, locals,
     }
 });
 
+
+
+
+
+//模态框对应的Controller
+app.controller('modalLgCtrl', function ($scope, $state, $modalInstance, locals, data) {
+    $scope.repairPersonList = data;
+    $scope.clickIndex = 0;
+
+    var repairPersonList = data;
+    var firstPerson = repairPersonList[0];
+    var personArr = [];
+    for (var i = 0; i < repairPersonList.length; i++) {
+        var person = repairPersonList[i];
+        if (person.xlz == firstPerson.xlz) {
+            personArr.push(person);
+        }
+    }
+    $scope.personArr = personArr;
+
+    $scope.chooseXlz = function (itemData, index) {
+        $scope.clickIndex = index;
+        personArr = [];
+        for (var i = 0; i < repairPersonList.length; i++) {
+            var person = repairPersonList[i];
+            if (person.xlz == itemData.xlz) {
+                personArr.push(person);
+            }
+        }
+        $scope.personArr = personArr;
+    };
+    //在这里处理要进行的操作
+    $scope.ok = function () {
+        var choosePersonStr = "";
+        if (personArr != null && personArr.length != null) {
+            for (var i = 0; i < personArr.length; i++) {
+                var person = personArr[i];
+                if (person.checked) {
+                    choosePersonStr += person.xlg + ",";
+                }
+
+            }
+        }
+        $modalInstance.close(choosePersonStr);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    }
+});

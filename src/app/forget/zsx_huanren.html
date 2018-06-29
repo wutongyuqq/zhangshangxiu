@@ -362,3 +362,55 @@
 
     </div>
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/ng-template" id="modal7.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h4 class="modal-title" align="center">
+                派工
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div style="display: inline-block;vertical-align: top;">
+                <ul class="list">
+
+                    <li ng-repeat="item in repairPersonList | unique: 'xlz'"
+                        class="item {{$index==clickIndex?'item-back':''}}" ng-click="chooseXlz(item,$index)">
+                        {{item.xlz}}
+                    </li>
+                </ul>
+            </div>
+            <div style="display:inline-block;text-align: left;vertical-align: top;width:5rem;">
+                <ion-checkbox ng-repeat="item2 in personArr"
+                              ng-model="item2.checked"
+                              ng-checked="item2.checked">
+                    {{ item2.xlg }}
+                </ion-checkbox>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()">
+                取消
+            </button>
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem">
+                确定
+            </button>
+        </div>
+    </div>
+</script>
+

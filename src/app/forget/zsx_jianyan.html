@@ -188,8 +188,12 @@
 
         <div class="ss_second_car_b text-inline">
             <div class="ss_second_div">
-                <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_red.png"/>
-                <div class="margin_left_a">维修中</div>
+                <div style="width: 5rem">
+                    <div class="text-inline" ng-repeat="item in dataArr | unique:'states'" style="padding-left: 0.2rem;">
+                        <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_blue.png"/>
+                        <div class="margin_left_a">{{item.states}}</div>
+                    </div>
+                </div>
                 <div class="ss_second_item">{{factoryItem.cx }}</div>
                 <div class="ss_second_item">进厂时间：{{factoryItem.jc_date|limitTo:10 }}</div>
                 <div class="ss_second_item">预计提车：{{factoryItem.ywg_date|limitTo:10  }}</div>

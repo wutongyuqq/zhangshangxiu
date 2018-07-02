@@ -3,10 +3,14 @@ package com.example.tucheng.zhangshangxiu;
 import android.os.Handler;
 import android.os.Message;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,19 +38,58 @@ public class NetUtil {
     private NetUtil() {
         okHttpClient = new OkHttpClient();
     }
+    
+    
+    
+    public String getUpDateInfo(String filePath) throws Exception {
+        String path = filePath;
+        StringBuffer sb = new StringBuffer();
+        String line = null;
+        BufferedReader reader = null;
+        try {
+           // 创建一个url对象
+           URL url = new URL(path);
+           // 通過url对象，创建一个HttpURLConnection对象（连接）
+           HttpURLConnection urlConnection = (HttpURLConnection) url
+                 .openConnection();
+           // 通过HttpURLConnection对象，得到InputStream
+           reader = new BufferedReader(new InputStreamReader(
+                 urlConnection.getInputStream()));
+           // 使用io流读取文件
+           while ((line = reader.readLine()) != null) {
+              sb.append(line);
+           }
+        } catch (Exception e) {
+           e.printStackTrace();
+        } finally {
+           try {
+              if (reader != null) {
+                 reader.close();
+              }
+           } catch (Exception e) {
+              e.printStackTrace();
+           }
+        }
+        String info = sb.toString();
+    
+        return "";
+     }
+
+  
+
+
+
 
     /**
      *
      */
-    public void download(final String url,final String saveDir,final OnDownloadListener listener){
+    public void download2(final String url,final String saveDir,final OnDownloadListener listener){
         this.listener=listener;
         Request request=new Request.Builder().url(url).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Message message=Message.obtain();
-                message.what=DOWNLOAD_FAIL;
-                mHandler.sendMessage(message);
+                listener.onDownloadFailed();
             }
 
             @Override
@@ -68,22 +111,14 @@ public class NetUtil {
                         sum+=len;
                         int progress=(int)(sum*1.0f/total*100);
                         //下载中
-                        Message message=Message.obtain();
-                        message.what=DOWNLOAD_PROGRESS;
-                        message.obj=progress;
-                        mHandler.sendMessage(message);
+                        listener.onDownloading(progress);
 
                     }
                     fos.flush();
                     //下载完成
-                    Message message=Message.obtain();
-                    message.what=DOWNLOAD_SUCCESS;
-                    message.obj=file.getAbsolutePath();
-                    mHandler.sendMessage(message);
+                    listener.onDownloadSuccess(file.getAbsolutePath());
                 }catch (Exception e){
-                    Message message=Message.obtain();
-                    message.what=DOWNLOAD_FAIL;
-                    mHandler.sendMessage(message);
+                	listener.onDownloadFailed();
                 }finally{
                     try{
                         if(is!=null)
@@ -119,24 +154,6 @@ public class NetUtil {
 
 
 
-
-    private Handler mHandler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case DOWNLOAD_PROGRESS:
-                    listener.onDownloading((Integer) msg.obj);
-                    break;
-                case DOWNLOAD_FAIL:
-                    listener.onDownloadFailed();
-                    break;
-                case DOWNLOAD_SUCCESS:
-                    listener.onDownloadSuccess((String) msg.obj);
-                    break;
-            }
-        }
-    };
 
 
     OnDownloadListener listener;

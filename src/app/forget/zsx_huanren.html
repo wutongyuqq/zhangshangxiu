@@ -107,7 +107,7 @@
         padding-top: 0.25rem;
     }
     .margin_left_a{
-        margin-left: 0.4rem;
+
         margin-top: 0.1rem;
     }
     .ss_third_div{
@@ -223,8 +223,77 @@
     .item-gray{
         background-color: #cccccc;
     }
+    .text-inline-c {
+
+        margin-right: 1rem;
+    }
+
+    .item-back {
+        background-color: lightblue;
+    }
+
+    .modal-dialog {
+        margin-top: 4rem;
+        border: none;
+    }
+
+    .modal {
+        background-color: transparent;
+        border: none;
+    }
+
+    .modal-header {
+        background-color: #333333;
+        color: white;
+        border: none;
+    }
+
+    .modal-header {
+        background-color: #333333;
+        color: white;
+        border: none;
+    }
 
 
+    .modal-footer {
+        text-align: center;
+        background-color: #abadab;
+        border: none;
+
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .model-margin-top {
+        margin: 0.3rem 0.01rem;
+    }
+
+    .action-back {
+
+        width: 1rem;
+        height: 0.5rem;
+        background-image: url("../../../vendor/images/zsx/back_blue.png");
+        background-repeat: no-repeat;
+    }
+
+    .img-gray {
+        background-image: url("../../../vendor/images/zsx/back_gray.png");
+    }
+
+    .list-margin {
+        padding-bottom: 1rem;
+    }
+
+    .content-list-div-a {
+        display: inline-block;
+    }
+
+    .wb_btn_img {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
 
 </style>
 
@@ -249,8 +318,12 @@
 
         <div class="ss_second_car_b text-inline">
             <div class="ss_second_div">
+                <div style="width: 5rem">
+                <div class="text-inline" ng-repeat="item in dataArr | unique:'states'" style="padding-left: 0.2rem;">
                 <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_blue.png"/>
-                <div class="margin_left_a">维修中</div>
+                <div class="margin_left_a">{{item.states}}</div>
+                </div>
+                </div>
                 <div class="ss_second_item">{{factoryItem.cx }}</div>
                 <div class="ss_second_item">进厂时间：{{factoryItem.jc_date|limitTo:10 }}</div>
                 <div class="ss_second_item">预计提车：{{factoryItem.ywg_date|limitTo:10 }}</div>
@@ -295,7 +368,7 @@
         <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em"  ng-click="replacePerson()">
             换人
         </div>
-        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em" ng-click="jiaRen()">
+        <div class="text-inline confirm-a confirm-nav-btn" style="font-size: 1.4em" ng-click="pgPerson()">
            加人
         </div>
 
@@ -365,31 +438,19 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/ng-template" id="modal7.html">
     <div class="modal-top" align="center">
         <div class="modal-header">
-            <h4 class="modal-title" align="center">
-                派工
-            </h4>
+            <h3 class="modal-title" align="center">
+                加人
+            </h3>
         </div>
         <div class="modal-body">
             <div style="display: inline-block;vertical-align: top;">
                 <ul class="list">
 
                     <li ng-repeat="item in repairPersonList | unique: 'xlz'"
-                        class="item {{$index==clickIndex?'item-back':''}}" ng-click="chooseXlz(item,$index)">
+                        class="item {{$index==clickIndex?'item-back':''}}" style="padding: 0.4rem 0.6rem;font-size: 1.4em;margin-top: 0;" ng-click="chooseXlz(item,$index)">
                         {{item.xlz}}
                     </li>
                 </ul>
@@ -397,20 +458,61 @@
             <div style="display:inline-block;text-align: left;vertical-align: top;width:5rem;">
                 <ion-checkbox ng-repeat="item2 in personArr"
                               ng-model="item2.checked"
-                              ng-checked="item2.checked">
-                    {{ item2.xlg }}
+                              ng-checked="item2.checked" style="padding: 0.3rem 0.5rem;margin-top: 0;">
+                    <div  style="width:2rem;padding:0rem 0.6rem;margin-top: 0;font-size: 1.4em;">{{ item2.xlg }}</div>
                 </ion-checkbox>
 
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="cancel()">
+            <button class="btn btn-primary" ng-click="cancel()" style="margin-left: 1rem;padding:0.3rem 0.6rem; font-size: 1.4em;">
                 取消
             </button>
-            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem">
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem;padding:0.3rem 0.6rem;font-size: 1.4em; ">
                 确定
             </button>
         </div>
     </div>
 </script>
 
+
+
+
+
+
+<script type="text/ng-template" id="modal8.html">
+    <div class="modal-top" align="center">
+        <div class="modal-header">
+            <h3 class="modal-title" align="center">
+                换人
+            </h3>
+        </div>
+        <div class="modal-body">
+            <div style="display: inline-block;vertical-align: top;">
+                <ul class="list">
+
+                    <li ng-repeat="item in repairPersonList | unique: 'xlz'"
+                        class="item {{$index==clickIndex?'item-back':''}}" style="padding: 0.4rem 0.6rem;font-size: 1.4em;margin-top: 0;" ng-click="chooseXlz(item,$index)">
+                        {{item.xlz}}
+                    </li>
+                </ul>
+            </div>
+            <div style="display:inline-block;text-align: left;vertical-align: top;width:5rem;">
+                <ion-checkbox ng-repeat="item2 in personArr"
+                              ng-model="item2.checked"
+                              ng-checked="item2.checked" style="padding: 0.3rem 0.5rem;margin-top: 0;">
+                    <div  style="width:2rem;padding:0rem 0.6rem;margin-top: 0;font-size: 1.4em;">{{ item2.xlg }}</div>
+                </ion-checkbox>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="cancel()" style="margin-left: 1rem;padding:0.3rem 0.6rem; font-size: 1.4em;">
+                取消
+            </button>
+            <button class="btn btn-warning" ng-click="ok(xlxm,wxgz,xlf)" style="margin-left: 2rem;padding:0.3rem 0.6rem;font-size: 1.4em; ">
+                确定
+            </button>
+        </div>
+    </div>
+</script>

@@ -44,7 +44,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MainActivity extends Activity {
+public class MainTwoActivity extends Activity {
     WebView webView;
     private static Boolean isQuit = false;
     private long mExitTime = 0;
@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_main);
-        webView = findViewById(R.id.web);
+        webView = (WebView) findViewById(R.id.web);
         init(webView);
         initClient(webView);
         try {
@@ -296,7 +296,7 @@ public class MainActivity extends Activity {
                         Environment.MEDIA_MOUNTED)) {
                     downFile("下载地址");
                 } else {
-                    Toast.makeText(MainActivity.this, "SD卡不可用，请插入SD卡",
+                    Toast.makeText(MainTwoActivity.this, "SD卡不可用，请插入SD卡",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -315,7 +315,7 @@ public class MainActivity extends Activity {
 
         String v = "3.1.1"; // 最新版本的版本号
         Log.i("update",v);
-        Toast.makeText(MainActivity.this, v, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainTwoActivity.this, v, Toast.LENGTH_SHORT).show();
         if (v.equals(getVersion())) {
             return false;
         } else {
@@ -341,7 +341,7 @@ public class MainActivity extends Activity {
     ProgressDialog pBar;
     void downFile(final String url) {
         Log.d("TSK","url"+url);
-        pBar = new ProgressDialog(MainActivity.this);    //进度条，在下载的时候实时更新进度，提高用户友好度
+        pBar = new ProgressDialog(MainTwoActivity.this);    //进度条，在下载的时候实时更新进度，提高用户友好度
         pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         pBar.setTitle("正在下载");
         pBar.setMessage("请稍候...");
@@ -353,7 +353,7 @@ public class MainActivity extends Activity {
 
                 String videoUrl = "http://47.75.90.219:8080/PhoneWeb/";
                 String saveDir ="/src/index.html#/home";
-                NetUtil.getInstance().download(videoUrl, saveDir, new NetUtil.OnDownloadListener() {
+                NetUtil.getInstance().download2(videoUrl, saveDir, new NetUtil.OnDownloadListener() {
                     @Override
                     public void onDownloadSuccess(String path) {
                         down();

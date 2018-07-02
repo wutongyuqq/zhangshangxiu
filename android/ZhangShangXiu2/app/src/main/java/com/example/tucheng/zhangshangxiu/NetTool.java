@@ -62,9 +62,9 @@ public class NetTool {
 		}
 		HttpClientService service = new HttpClientService();
 		Map<String,Object> postMap = new HashMap<String,Object>();
-		postMap.put("db", "mycon1");
+		postMap.put("db", "sjsoft_SQL");
 		postMap.put("function", "sp_fun_machine_access_token");
-		postMap.put("Data_Source", shared_user_info.getString("Data_Source",""));//"首佳软件SQL");
+		postMap.put("data_source", shared_user_info.getString("Data_Source",""));//"首佳软件SQL");
 		postMap.put("machine_code", shared_user_info.getString("machine_code",""));//"4004564459");
 		postMap.put("access_token", access_token);
 		String json = JsonUtil.mapTojson(postMap);
@@ -227,8 +227,8 @@ public class NetTool {
 		Map<String,Object> postMap = new HashMap<String,Object>();
 		postMap.put("db", "sjsoft_SQL");
 		postMap.put("function", "sp_fun_check_update");
-		postMap.put("os", "android");//"首佳软件SQL");
-		postMap.put("update_date", getCurTime());//"4004564459");
+		postMap.put("os", "android");
+		//postMap.put("update_date", getCurTime());//"4004564459");
 		
 		String json = JsonUtil.mapTojson(postMap);
 		String resJson = service.getDataFromZsx("http://121.43.148.193:5555/restful/pro", json);

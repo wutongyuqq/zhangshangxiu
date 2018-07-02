@@ -186,8 +186,12 @@
         </div>
         <div class="ss_second_car_b text-inline">
             <div class="ss_second_div">
-                <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_red.png"/>
-                <div class="margin_left_a">维修中</div>
+                <div style="width: 5rem">
+                    <div class="text-inline" ng-repeat="item in dataArr | unique:'states'" style="padding-left: 0.2rem;">
+                        <img class="ss_second_gou_red margin_left_a" src="../../../vendor/images/zsx/gou_blue.png"/>
+                        <div class="margin_left_a">{{item.states}}</div>
+                    </div>
+                </div>
                 <div class="ss_second_item">{{factoryItem.cx }}</div>
                 <div class="ss_second_item">进厂时间：{{factoryItem.jc_date|limitTo:10}}</div>
                 <div class="ss_second_item">预计提车：{{factoryItem.ywg_date|limitTo:10 }}</div>
@@ -208,7 +212,7 @@
 
                 <tr>
                     <td class="tb_width_a"><div ng-click="chooseItem($index,item,item.choose)"><img class="img_bg text-inline-tb" src="{{item.choose?'../../../vendor/images/zsx/right_now.png':'../../../vendor/images/zsx/right_now_no.png'}}"/><div class="text-inline-tb tb_item_txt">{{item.xlxm}}</div></div></td>
-                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">{{item.states}}</div></td>
+                    <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/gou_red.png"/><div class="text-inline-tb tb_item_txt">{{item.wxgz}}</div></td>
                 </tr>
                 <tr>
                     <td><img class="img_bg text-inline-tb" src="../../../vendor/images/zsx/person.png"/><div class="text-inline-tb tb_item_txt">{{item.assign?'指派给：'+item.assign:'未指派'}}</div></td>

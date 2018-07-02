@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebSettings;
@@ -32,9 +35,15 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.example.tucheng.zhangshangxiu.NetUtil.OnDownloadListener;
+import com.example.tucheng.zhangshangxiu.util.WaitTool;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,10 +68,16 @@ public class MainActivity extends Activity {
 	private static String BaseURL;
 	private static boolean isInit = false;
 	private Context context;
-	String paramsJSON,xmListJson, pjDataListJson;
+	ProgressDialog pBar;
+
+	int progressInt = 0;
+	String apkPath = "";
+	String paramsJSON, xmListJson, pjDataListJson;
+	private String SDPath = "/mnt/sdcard/zsx/";
 	private String[] logins = new String[2];
 	Timer timer = new Timer();
 	SharedPreferences shared_user_info;
+	String saveDir = "";
 
 	Handler myHandler = new Handler() {
 
@@ -78,43 +93,61 @@ public class MainActivity extends Activity {
 			case 2:
 				Toast.makeText(context, "服务异常", Toast.LENGTH_LONG).show();
 				break;
+			case 4:
+				down();
+				break;
+			case 5:
+				pBar.setProgress(progressInt);
+				break;
+			case 6:
+				Toast.makeText(context, "文件下载失败", Toast.LENGTH_LONG).show();
+				break;
+			case 9:
+				WaitTool.dismissDialog();
+				break;
+			case 11:
+				WaitTool.showDialog(context);
+				break;
 			}
 
 		}
 	};
+
 	@JavascriptInterface
-	public void saveData(String Data_Source, String machine_code,String msign){
-		
+	public void saveData(String Data_Source, String machine_code, String msign) {
+
 		shared_user_info.edit().putString("Data_Source", Data_Source).commit();
-		shared_user_info.edit().putString("machine_code", machine_code).commit();
+		shared_user_info.edit().putString("machine_code", machine_code)
+				.commit();
 		shared_user_info.edit().putString("msign", msign).commit();
-		printData( paramsJSON,xmListJson, pjDataListJson);
+		printData(paramsJSON, xmListJson, pjDataListJson);
 	}
-	
+
 	@JavascriptInterface
-	public void saveDataForLogin(String Data_Source, String machine_code,String msign){
-		
+	public void saveDataForLogin(String Data_Source, String machine_code,
+			String msign) {
+
 		shared_user_info.edit().putString("Data_Source", Data_Source).commit();
-		shared_user_info.edit().putString("machine_code", machine_code).commit();
+		shared_user_info.edit().putString("machine_code", machine_code)
+				.commit();
 		shared_user_info.edit().putString("msign", msign).commit();
-		
+
 	}
-	
+
 	@JavascriptInterface
 	public void print(final String paramsJSON, final String xmListJson,
 			final String pjDataListJson) {
-			printData( paramsJSON,xmListJson, pjDataListJson);
+		printData(paramsJSON, xmListJson, pjDataListJson);
 	}
-	
+
 	private void printData(String paramsJSON, String xmListJson,
-			String pjDataListJson){
-		
+			String pjDataListJson) {
 
 		Map<String, Object> paramMap = JsonUtil.jsToMap(paramsJSON);
 		List<Map<String, Object>> xmList = JsonUtil.jsToList(xmListJson);
 		List<Map<String, Object>> pjDataList = JsonUtil
 				.jsToList(pjDataListJson);
-		if(paramMap==null){
+		if (paramMap == null) {
 			Toast.makeText(context, "数据异常，请重新操作！", Toast.LENGTH_LONG).show();
 			return;
 		}
@@ -153,9 +186,9 @@ public class MainActivity extends Activity {
 		String dyTime = paramMap.get("dyTime") != null ? (String) paramMap
 				.get("dyTime") : "";
 		String totalXlf = paramMap.get("totalXlf") != null ? (String) paramMap
-						.get("totalXlf") : "";
+				.get("totalXlf") : "";
 		String totalZk = paramMap.get("totalZk") != null ? (String) paramMap
-								.get("totalZk") : "";
+				.get("totalZk") : "";
 		String content = "<FH><FB><center>首佳软件</center></FB></FH>";
 		content += " <FH2>";
 		content += "<center> 结算单号： " + jsd_id + "  预完工时间：" + ticheTime
@@ -171,58 +204,86 @@ public class MainActivity extends Activity {
 		content += " </FH2>\r";
 
 		content += "<FH>";
-		content+="-----------------------\r";
+		content += "--------------------------------------------\r";
 		if (xmList != null && xmList.size() > 0) {
-			content += "项目名称  修理费  优惠\r";
+			content += "项目名称          修理费         优惠\r";
 			for (int i = 0; i < xmList.size(); i++) {
-				Map<String,Object> temp = xmList.get(i);
-					String wxgz=temp.get("wxgz")!=null?temp.get("wxgz").toString():"-";
-					String xlf=temp.get("xlf")!=null?temp.get("xlf").toString():"-";
-					String zk=temp.get("zk")!=null?temp.get("zk").toString():"-";
-					content +=wxgz+" "+wxgz + " "+zk+"\r";
+				Map<String, Object> temp = xmList.get(i);
+				String wxgz = temp.get("wxgz") != null ? temp.get("wxgz")
+						.toString() : "";
+				String xlf = temp.get("xlf") != null ? temp.get("xlf")
+						.toString() : "";
+				String zk = temp.get("zk") != null ? temp.get("zk").toString()
+						: "";
+				content += (wxgz.length() < 14 ? ((wxgz + "              ")
+						.substring(0, 10)) : wxgz)
+						+ " "
+						+ (wxgz.length() < 10 ? ((wxgz + "              ")
+								.substring(0, 10)) : wxgz)
+						+ " "
+						+ (zk.length() < 10 ? ((zk + "").substring(0, 10)) : zk)
+						+ "\r";
 			}
-			content +="小计  "+totalXlf + " "+totalZk+"</FH>\r";
-			content+="-----------------------\r";
+			content += "小计              "
+					+ (totalXlf.length() < 10 ? ((totalXlf + "              ")
+							.substring(0, 10)) : totalXlf)
+					+ " "
+					+ (totalZk.length() < 10 ? ((totalZk + "").substring(0, 10))
+							: totalZk) + "</FH>\r";
+			content += "--------------------------------------------\r";
 		}
-		
-		
+
 		if (pjDataList != null && pjDataList.size() > 0) {
-			content += "<FH>配件名称   数量   单价  金额\r";
+			content += "<FH>配件名称          数量        单价        金额\r";
 			for (int i = 0; i < pjDataList.size(); i++) {
-				Map<String,Object> temp = pjDataList.get(i);
-					String pjmc=temp.get("pjmc")!=null?temp.get("pjmc").toString():"-";
-					String sl=temp.get("sl")!=null?temp.get("sl").toString():"-";
-					String ssj=temp.get("ssj")!=null?temp.get("ssj").toString():"-";
-					String totalStr = "-";
-					if(!sl.equals("-")&&!ssj.equals("-")){
-						float numTotal = Float.parseFloat(sl)*Float.parseFloat(ssj);
-						float  bFloat   =  (float)(Math.round(numTotal*100))/100;
-						totalStr = bFloat+"";
-					}
-					
-					content +=pjmc+" "+sl + " "+ssj+" "+totalStr+"\r";
+				Map<String, Object> temp = pjDataList.get(i);
+				String pjmc = temp.get("pjmc") != null ? temp.get("pjmc")
+						.toString() : "";
+				String sl = temp.get("sl") != null ? temp.get("sl").toString()
+						: "";
+				String ssj = temp.get("ssj") != null ? temp.get("ssj")
+						.toString() : "";
+				String totalStr = "";
+				if (!sl.equals("") && !ssj.equals("")) {
+					float numTotal = Float.parseFloat(sl)
+							* Float.parseFloat(ssj);
+					float bFloat = (float) (Math.round(numTotal * 100)) / 100;
+					totalStr = bFloat + "";
+				}
+
+				content += (pjmc + "          ").substring(0, 14)
+						+ (sl.length() < 12 ? ((sl + "          ").substring(0,
+								12)) : sl)
+						+ " "
+						+ (ssj.length() < 12 ? ((ssj + "          ").substring(
+								0, 12)) : ssj) + " " + totalStr + "\r";
 			}
-			content +="小计  "+totalsl + " - "+totalMoney+"\r";
-			content+="</FH>\r";
-			content+="-----------------------\r";
+			content += "小计           "
+					+ (totalsl.length() < 12 ? ((totalsl + "              ")
+							.substring(0, 12)) : totalsl)
+					+ "           "
+					+ (totalMoney.length() < 12 ? ((totalMoney + "").substring(
+							0, 12)) : totalMoney) + "\r";
+			content += "</FH>\r";
+			content += "--------------------------------------------\r";
 
 		}
-		
-		content+="<FH>  应收总计：￥"+yszje+"\r";
-		content+="-----------------------\r";
-		
-		content+="  地址："+address+"\r";
-		content+="  电话："+telphone+"\r";
-		content+="-----------------------\r";
-		content+="  客户签字：\r";
-		content+="  接待签字：\r";
-		content+="    日期："+jc_date+"\r";
-		content+="    备注："+memo+"\r";
-		content+="    打印时间："+dyTime+"\r";
-		content+="-----------------------\r";
+
+		content += "<FH>  应收总计：￥" + yszje + "\r";
+		content += "--------------------------------------------\r";
+
+		content += "  地址：" + address + "\r";
+		content += "  电话：" + telphone + "\r";
+		content += "--------------------------------------------\r";
+		content += "  客户签字：\r";
+		content += "  接待签字：\r";
+		content += "  日期：" + jc_date + "\r";
+		content += "  备注：" + memo + "\r";
+		content += "  打印时间：" + dyTime + "\r";
+		content += "--------------------------------------------\r";
 		NetTool printMsg = new NetTool(context);
 		printMsg.print(content);
-		
+
 	}
 
 	@Override
@@ -235,9 +296,10 @@ public class MainActivity extends Activity {
 		context = this;
 		webView = (WebView) findViewById(R.id.web);
 		webView.addJavascriptInterface(this, "printdata");
-		 shared_user_info = context.getSharedPreferences("user_info", context.MODE_PRIVATE);
-		init(webView);
-		initClient(webView);
+		shared_user_info = context.getSharedPreferences("user_info",
+				context.MODE_PRIVATE);
+		init();
+	
 		try {
 			getData();
 		} catch (Exception e) {
@@ -260,7 +322,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
 
 	}
 
@@ -268,12 +329,47 @@ public class MainActivity extends Activity {
 
 	}
 
-	private void initClient(final WebView webView) {
+/*	private void initClient(final WebView webView) {
 
 		// 步骤3. 复写shouldOverrideUrlLoading()方法，使得打开网页时不调用系统浏览器， 而是在本WebView中显示
 		webView.setWebViewClient(new WebViewClient() {
+
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				super.onPageFinished(view, url);
+				new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(500);
+							myHandler.sendEmptyMessage(9);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+				}).start();
+
+			}
+
+			@Override
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
+				super.onPageStarted(view, url, favicon);
+				WaitTool.showDialog(context);
+			}
+
+			@Override
+			public void onReceivedSslError(WebView view,
+					SslErrorHandler handler, SslError error) {
+				// super.onReceivedSslError(view, handler, error);
+				handler.proceed();
+			}
+
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				WaitTool.showDialog(context);
 				if (url.contains("login") && !isInit) {
 					logins[0] = "login";
 					isInit = true;
@@ -289,9 +385,67 @@ public class MainActivity extends Activity {
 				return true;
 			}
 		});
+	}*/
+
+	private class MyWebViewClient extends WebViewClient {
+
+		// 步骤3. 复写shouldOverrideUrlLoading()方法，使得打开网页时不调用系统浏览器， 而是在本WebView中显示
+
+		@Override
+		public void onPageFinished(WebView view, String url) {
+			myHandler.sendEmptyMessage(11);
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(300);
+						myHandler.sendEmptyMessage(9);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			}).start();
+			super.onPageFinished(view, url);
+
+		}
+
+		@Override
+		public void onPageStarted(WebView view, String url, Bitmap favicon) {
+			super.onPageStarted(view, url, favicon);
+			WaitTool.showDialog(context);
+		}
+
+		@Override
+		public void onReceivedSslError(WebView view, SslErrorHandler handler,
+				SslError error) {
+			// super.onReceivedSslError(view, handler, error);
+			handler.proceed();
+		}
+
+		@Override
+		public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			WaitTool.showDialog(context);
+			if (url.contains("login") && !isInit) {
+				logins[0] = "login";
+				isInit = true;
+			}
+			if (url.contains("home")) {
+				if ("login".equals(logins[0]) && isInit) {
+					webView.clearHistory(); // 清除
+					logins = new String[2];
+				}
+			}
+			view.loadUrl(url);
+
+			return true;
+		}
+
 	}
 
-	private void init(WebView webView) {
+	private void init() {
 		// 声明WebSettings子类
 		WebSettings webSettings = webView.getSettings();
 
@@ -334,6 +488,7 @@ public class MainActivity extends Activity {
 
 		String cacheDirPath = getFilesDir().getAbsolutePath() + "/cache";
 		webSettings.setAppCachePath(cacheDirPath); // 设置 Application Caches 缓存目录
+		webView.setWebViewClient(new MyWebViewClient());
 
 	}
 
@@ -376,35 +531,41 @@ public class MainActivity extends Activity {
 		}
 		super.onDestroy();
 	}
-	
-	
-	
+
 	@JavascriptInterface
 	public void checkVesion() {
 		NetTool netTool = new NetTool();
-		Map<String,Object> jsonMap = netTool.getVesionInfoFromServer();
-		if(jsonMap!=null){
-			String stateStr =jsonMap.get("state")!=null ? (String) jsonMap.get("state"):"";
-			String updateStr =jsonMap.get("update")!=null ? (String) jsonMap.get("update"):"";
-			String download_url =jsonMap.get("download_url")!=null ? (String) jsonMap.get("download_url"):"";
-			if(stateStr.equals("ok")&&updateStr.equals("YES")&&!download_url.equals("")){
-				String versionServer =jsonMap.get("version")!=null ? (String) jsonMap.get("version"):"";
-				if(isNeedUpdate(versionServer)){
-				String update_log =jsonMap.get("update_log")!=null ? (String) jsonMap.get("update_log"):"";
-				showUpdateDialog(context, update_log, download_url);
-				}else{
-					Toast.makeText(context, "已是最新版本，无需更新", Toast.LENGTH_LONG).show();
+		Map<String, Object> jsonMap = netTool.getVesionInfoFromServer();
+		if (jsonMap != null) {
+			String stateStr = jsonMap.get("state") != null ? (String) jsonMap
+					.get("state") : "";
+			String updateStr = jsonMap.get("online_update") != null ? (String) jsonMap
+					.get("online_update") : "";
+			String download_url = jsonMap.get("download_url") != null ? (String) jsonMap
+					.get("download_url") : "";
+			if (stateStr.equals("ok") && updateStr.equals("YES")
+					&& !download_url.equals("")) {
+				String versionServer = jsonMap.get("version") != null ? (String) jsonMap
+						.get("version") : "";
+				if (isNeedUpdate(versionServer)) {
+					String update_log = jsonMap.get("update_log") != null ? (String) jsonMap
+							.get("update_log") : "";
+					showUpdateDialog(context, update_log, download_url);
+				} else {
+					Toast.makeText(context, "已是最新版本，无需更新", Toast.LENGTH_LONG)
+							.show();
 				}
-			}else{
-				if(stateStr.equals("ok")){
-					String msg =jsonMap.get("msg")!=null ? (String) jsonMap.get("msg"):"";
+			} else {
+				if (stateStr.equals("ok")) {
+					String msg = jsonMap.get("msg") != null ? (String) jsonMap
+							.get("msg") : "";
 					Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-				}else{
-				Toast.makeText(context, "服务异常", Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(context, "服务异常", Toast.LENGTH_LONG).show();
 				}
-				
+
 			}
-		}else{
+		} else {
 			Toast.makeText(context, "已是最新版本，无需更新", Toast.LENGTH_LONG).show();
 		}
 	}
@@ -418,7 +579,7 @@ public class MainActivity extends Activity {
 			PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
 			versionName = pi.versionName;
 			versionCode = pi.versionCode;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -429,127 +590,287 @@ public class MainActivity extends Activity {
 
 		return versionName;
 	}
-	
-	//弹出升级框
-	private void showUpdateDialog(Context context,String tipMsg,final String url) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.setTitle("更新版本");
-        builder.setMessage(tipMsg);
-        builder.setCancelable(false);
 
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+	// 弹出升级框
+	private void showUpdateDialog(Context context, String tipMsg,
+			final String url) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		apkPath = url;
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		builder.setTitle("更新版本");
+		builder.setMessage(tipMsg);
+		builder.setCancelable(false);
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (Environment.getExternalStorageState().equals(
-                        Environment.MEDIA_MOUNTED)) {
-                    downFile(url);
-                } else {
-                    Toast.makeText(MainActivity.this, "SD卡不可用，请插入SD卡",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (Environment.getExternalStorageState().equals(
+						Environment.MEDIA_MOUNTED)) {
+					downFile(apkPath);
+				} else {
+					Toast.makeText(MainActivity.this, "SD卡不可用，请插入SD卡",
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
-        });
-        builder.create().show();
-    }
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
 
-    private boolean isNeedUpdate(String version) {
-    	String oldVersion = getVersion();
-    	if(oldVersion.contains(".")&&version.contains(".")){
-    		oldVersion = oldVersion.replaceAll(".", "");
-    		version = version.replaceAll(".", "");
-    		long oldVersionLong = Long.parseLong(oldVersion);
-    		long versionLong = Long.parseLong(version);
-    		if(versionLong>oldVersionLong){
-    			return true;
-    		}else{
-    			return false;
-    		}
-    	}else{
-    		return false;
-    	}
-       
-    }
+		});
+		builder.create().show();
+	}
 
-    // 获取当前版本的版本号
-    private String getVersion() {
-        try {
-            PackageManager packageManager = getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(
-                    getPackageName(), 0);
+	private boolean isNeedUpdate(String version) {
+		String oldVersion = getVersion();
+		if (oldVersion.contains(".") && version.contains(".")) {
+			oldVersion = oldVersion.replaceAll("\\.", "");
+			version = version.replaceAll("\\.", "");
+			long oldVersionLong = Long.parseLong(oldVersion);
+			long versionLong = Long.parseLong(version);
+			if (versionLong > oldVersionLong) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 
-            Log.d("TAK","packageInfo.versionName"+packageInfo.versionName);
-            return packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return "";
+	}
 
-        }
-    }
-    ProgressDialog pBar;
-    void downFile(final String url) {
-        Log.d("TSK","url"+url);
-        pBar = new ProgressDialog(MainActivity.this);    //进度条，在下载的时候实时更新进度，提高用户友好度
-        pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        pBar.setTitle("正在下载");
-        pBar.setMessage("请稍候...");
-        pBar.setProgress(0);
-        pBar.show();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+	// 获取当前版本的版本号
+	private String getVersion() {
+		try {
+			PackageManager packageManager = getPackageManager();
+			PackageInfo packageInfo = packageManager.getPackageInfo(
+					getPackageName(), 0);
 
-                String videoUrl = url;
-                String saveDir =Environment.getExternalStorageDirectory()+"/abc";
-                NetUtil.getInstance().download(videoUrl, saveDir, new NetUtil.OnDownloadListener() {
-                    @Override
-                    public void onDownloadSuccess(String path) {
-                        down();
-                    }
+			Log.d("TAK", "packageInfo.versionName" + packageInfo.versionName);
+			return packageInfo.versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+			return "";
 
-                    @Override
-                    public void onDownloading(int progress) {
-                        //pBar.setMax((int) total);
-                        pBar.setProgress(progress);
-                    }
+		}
+	}
 
-                    @Override
-                    public void onDownloadFailed() {
+	void downFile(final String url) {
+		Log.d("TSK", "url" + apkPath);
+		pBar = new ProgressDialog(MainActivity.this); // 进度条，在下载的时候实时更新进度，提高用户友好度
+		pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		pBar.setTitle("正在下载");
+		pBar.setMessage("请稍候...");
+		pBar.setProgress(0);
+		pBar.show();
+		final String videoUrl = apkPath;
+		saveDir = Environment.getExternalStorageDirectory() + "/abc";
+		new Thread(new Runnable() {
 
-                    }
-                });
-            }
-        }).start();
-    }
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				download(videoUrl);
+			}
+		}).start();
 
+	}
 
+	void down() {
+		myHandler.post(new Runnable() {
+			public void run() {
+				pBar.cancel();
+				update();
+			}
+		});
+	}
 
-    void down() {
-        myHandler.post(new Runnable() {
-            public void run() {
-                pBar.cancel();
-                update();
-            }
-        });
-    }
+	void update() {
+		/*
+		 * Intent intent = new Intent(Intent.ACTION_VIEW);
+		 * intent.setDataAndType(Uri.fromFile(new File(downLoadPath)),
+		 * "application/vnd.android.package-archive"); startActivity(intent);
+		 */
 
-    void update() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(Environment
-                        .getExternalStorageDirectory()+"/abc", "zhangshangxiu.apk")),
-                "application/vnd.android.package-archive");
-        startActivity(intent);
-    }
+		String fileName = saveDir + "/zhangshangxiu.apk";
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setDataAndType(Uri.fromFile(new File(fileName)),
+				"application/vnd.android.package-archive");
+		context.startActivity(intent);
+	}
 
-    
-    
-    
+	public void downloadFile1(final String url) {
+		try {
+			// 下载路径，如果路径无效了，可换成你的下载路径
+
+			String path = Environment.getExternalStorageDirectory()
+					.getAbsolutePath();
+
+			final long startTime = System.currentTimeMillis();
+			Log.i("DOWNLOAD", "startTime=" + startTime);
+			// 下载函数
+			String filename = url.substring(url.lastIndexOf("/") + 1);
+			// 获取文件名
+			URL myURL = new URL(url);
+			URLConnection conn = myURL.openConnection();
+			conn.connect();
+			InputStream is = conn.getInputStream();
+			int fileSize = conn.getContentLength();// 根据响应获取文件大小
+			if (fileSize <= 0)
+				throw new RuntimeException("无法获知文件大小 ");
+			if (is == null)
+				throw new RuntimeException("stream is null");
+			File file1 = new File(path);
+			if (!file1.exists()) {
+				file1.mkdirs();
+			}
+			// 把数据存入路径+文件名
+			FileOutputStream fos = new FileOutputStream(path + "/" + filename);
+			byte buf[] = new byte[1024];
+
+			/*
+			 * do{ //循环读取 int numread = is.read(buf); if (numread == -1) {
+			 * break; } fos.write(buf, 0, numread); downLoadFileSize += numread;
+			 * //更新进度条 } while (true);
+			 */
+
+			long sum = 0;
+
+			long total = 0;
+			int current = 0;
+			boolean isUploading = false;
+			int len = 0;
+			while ((len = is.read(buf)) != -1) {
+				fos.write(buf, 0, len);
+				sum += len;
+				int progress = (int) (sum * 1.0f / total * 100);
+				Message msg = new Message();
+				// 下载中
+				progressInt = progress;
+				myHandler.sendEmptyMessage(5);
+
+			}
+
+			Log.i("DOWNLOAD", "download success");
+			Log.i("DOWNLOAD", "totalTime="
+					+ (System.currentTimeMillis() - startTime));
+
+			is.close();
+		} catch (Exception ex) {
+			Log.e("DOWNLOAD", "error: " + ex.getMessage(), ex);
+			myHandler.sendEmptyMessage(6);
+		}
+	}
+
+	public void download(final String url) {
+		File file = new File(SDPath + "zhangshangxiu.apk");
+		if (file.exists()) {
+			file.delete();
+		}
+
+		try {
+			OkHttpClient client = new OkHttpClient();
+			Request request = new Request.Builder().url(url).build();
+			client.newCall(request).enqueue(new Callback() {
+
+				@Override
+				public void onResponse(Call arg0, Response response)
+						throws IOException {
+					long total = 0;
+					int current = 0;
+					boolean isUploading = false;
+					int len = 0;
+					InputStream is = null;
+					byte[] buf = new byte[2048];
+					FileOutputStream fos = null;
+
+					File fileDir = new File(saveDir);
+
+					try {
+						if (!fileDir.exists() || !fileDir.isDirectory()) {
+							fileDir.mkdirs();
+						}
+						is = response.body().byteStream();
+						total = response.body().contentLength();
+
+						File file = new File(saveDir, "zhangshangxiu.apk");
+						fos = new FileOutputStream(file);
+						long sum = 0;
+						while ((len = is.read(buf)) != -1) {
+							fos.write(buf, 0, len);
+							sum += len;
+							int progress = (int) (sum * 1.0f / total * 100);
+							Message msg = new Message();
+							// 下载中
+							progressInt = progress;
+							myHandler.sendEmptyMessage(5);
+
+						}
+						fos.flush();
+						Message msg = new Message();
+
+						fos.flush();
+						// 下载完成
+						myHandler.sendEmptyMessage(4);
+					} catch (Exception e) {
+						e.printStackTrace();
+						myHandler.sendEmptyMessage(6);
+					}
+				}
+
+				@Override
+				public void onFailure(Call arg0, IOException arg1) {
+					myHandler.sendEmptyMessage(6);
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+			myHandler.sendEmptyMessage(6);
+		}
+
+		/*
+		 * 
+		 * 
+		 * Request request=new Request.Builder().url(url).build(); OkHttpClient
+		 * okHttpClient = new OkHttpClient();
+		 * okHttpClient.newCall(request).enqueue(new Callback() {
+		 * 
+		 * @Override public void onFailure(Call call, IOException e) {
+		 * myHandler.sendEmptyMessage(6); }
+		 * 
+		 * @Override public void onResponse(Call call, Response response) throws
+		 * IOException { InputStream is=null; byte[] buf=new byte[2048]; int
+		 * len=0; FileOutputStream fos=null; //储存下载文件的目录 String
+		 * savePath=isExistDir(saveDir); try{ is=response.body().byteStream();
+		 * long total=response.body().contentLength(); File file=new
+		 * File(savePath,getNameFromUrl(url)); fos=new FileOutputStream(file);
+		 * long sum=0; while((len = is.read(buf))!=-1){ fos.write(buf,0,len);
+		 * sum+=len; int progress=(int)(sum*1.0f/total*100); //下载中 progressInt =
+		 * progress; myHandler.sendEmptyMessage(5);
+		 * 
+		 * } fos.flush(); //下载完成 downLoadPath = file.getAbsolutePath();
+		 * myHandler.sendEmptyMessage(4); }catch (Exception e){
+		 * myHandler.sendEmptyMessage(6); }finally{ try{ if(is!=null)
+		 * is.close(); }catch (IOException e){ myHandler.sendEmptyMessage(6); }
+		 * try { if(fos!=null){ fos.close(); } }catch (IOException e){
+		 * myHandler.sendEmptyMessage(6); } } } });
+		 */
+	}
+
+	private String isExistDir(String saveDir) throws IOException {
+		File downloadFile = new File(saveDir);
+		if (!downloadFile.mkdirs()) {
+			downloadFile.createNewFile();
+		}
+		String savePath = downloadFile.getAbsolutePath();
+		return savePath;
+	}
+
+	private String getNameFromUrl(String url) {
+		return url.substring(url.lastIndexOf("/") + 1);
+	}
+
 }

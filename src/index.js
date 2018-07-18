@@ -15,4 +15,6 @@ app.controller('IndexCtrl', ['$http','$scope','$rootScope',function($http,$scope
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
         $scope.busy = false;
     })
+
+    /*"start": "json-mock-kuitos -s / --proxy-host 121.43.148.193 --proxy-port 5555"*/
 }]);

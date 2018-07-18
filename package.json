@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "json-mock-kuitos -s / --proxy-host 121.43.148.193 --proxy-port 5555"
+    "start": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js"
   },
   "dependencies": {
     "antd": "^3.5.2",
@@ -8,5 +8,23 @@
     "json-server": "^0.12.2",
     "mock": "^0.1.1",
     "server": "^1.0.18"
-  }
+  },
+  "name": "com.zhangshangxiu",
+  "description": "```bash\r # 安装一个单独运行前端项目的服务器（放到后端代码里面后可以忽视）\r sudo npm install -g live-server",
+  "version": "1.1.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wutongyuqq/zhangshangxiu.git"
+  },
+  "keywords": [
+    "123456"
+  ],
+  "author": "lipeng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wutongyuqq/zhangshangxiu/issues"
+  },
+  "homepage": "https://github.com/wutongyuqq/zhangshangxiu#readme"
 }

@@ -1,5 +1,5 @@
 app.controller('IndexCtrl', ['$http','$scope','ionicToast',function($http, $scope,ionicToast) {
-
+	$scope.ipAddress = "http://121.43.148.193:5555";
 
 }]);
 

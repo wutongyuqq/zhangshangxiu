@@ -18,15 +18,16 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
      */
     $scope.checkDate = function () {
         user = $scope.user;
-        var params = {
-            db: "sjsoft_SQL",
-            function: "sp_fun_check_service_validity",
-            data_source: user.factoryName,
+
+        var params =  {
+            db:"sjsoft_SQL",
+            function:"sp_fun_check_service_validity",
+            data_source:user.factoryName,
             operater_code: user.userName
         };
         $http({
             method: 'post',
-            url: '/restful/pro',
+            url:   'http://www.whsjsoft.com:5555/restful/pro',
             dataType: "json",
             data: angular.toJson(params),
         }).success(function (data, status, headers, config) {
@@ -35,6 +36,8 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
             var endDateStr = data.service_end_date;
 
             if (state == 'true') {
+                var ipAddress = data.server_ip_port;
+                locals.set("ipAddress",ipAddress);
                 var endDate = new Date(endDateStr.replace(/\-/g, "\/"));
                 var nowDate = new Date();
                 var appDataInfo = new Object();
@@ -48,12 +51,9 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
                 ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 2000);
             }
 
-
         }).error(function (data, status, headers, config) {
             console.log(data);
         });
-
-
     }
 
 

@@ -10,7 +10,7 @@ app.controller('WorkMoreCtrl', ['$http','$scope','$state','locals',"ionicToast",
 
 
         var params = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_user_logout",
             operater_code:user.userName,
             operater_ip:returnCitySN.cip

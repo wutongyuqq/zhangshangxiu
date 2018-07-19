@@ -4,7 +4,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
 
     $scope.carInfo = carInfo;
     var params = {
-        db: "mycon1",
+        db: locals.get("Data_Source_name"),
         function: "sp_fun_down_poundage"
     };
     var jsToBean = new Object();
@@ -68,7 +68,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
         }
 
         var params2 = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_get_vipcard_money",
             vipcard_no: $scope.vipcard_no+""
         }
@@ -307,7 +307,7 @@ app.controller('WinBidCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToast
         }
        var shouyinCar = locals.getObject("shouyinCar");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_receivables_data",
             company_code: user.company_code,
             customer_id: shouyinCar.customer_id,
@@ -521,7 +521,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
     $scope.syType == 0;
     $scope.getBaseData = function () {
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_list_main",
             jsd_id: jsd_id
         };
@@ -563,7 +563,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
     var jsdInfo = new Object();
     $scope.getPjListData = function () {
         var params2 = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_jsdmx_pjclmx",
             jsd_id: jsd_id
         };
@@ -604,7 +604,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
     $scope.getPjListData();
     $scope.getProjListData = function () {
         var params2 = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_jsdmx_xlxm",
             jsd_id: jsd_id
         };
@@ -651,7 +651,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
 
     $scope.getCompanyData = function () {
         var params2 = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_get_company_info",
             company_code: user.company_code
         };
@@ -688,7 +688,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
         var jsd_id = locals.get("jsd_id");
         $scope.jsd_id = jsd_id;
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_list_main",
             jsd_id: jsd_id
         };
@@ -779,7 +779,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
     $scope.judgeIsSendData = function () {
         var jsd_id = locals.get("jsd_id");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_repair_main_money",
             jsd_id: jsd_id,
             zje: Number($scope.totalXlf == null ? '0' : $scope.totalXlf) + Number($scope.totalMoney == null ? '0' : $scope.totalMoney) + '',
@@ -809,7 +809,7 @@ app.controller('WinTotalCtrl', ['$http', '$scope', '$state', 'locals', 'ionicToa
     $scope.uploadMoney = function () {
         var jsd_id = locals.get("jsd_id");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_get_settle_accounts_info",
             jsd_id: jsd_id
         }

@@ -2,7 +2,7 @@ app.controller('CompanyTopCtrl', ['$http','$scope','locals','ionicToast','$state
     var user = locals.getObject("user");
 
     var params ={
-        db:"mycon1",
+        db:locals.get("Data_Source_name"),
         function:"sp_fun_get_general_situation",
         company_code:user.company_code
     };

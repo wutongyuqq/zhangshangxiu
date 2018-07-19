@@ -25,7 +25,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
     var jc_date = "";
     $scope.jsd_id = jsd_id;
     var params = {
-        db:"mycon1",
+        db:locals.get("Data_Source_name"),
         function:"sp_fun_down_repair_list_main",
         jsd_id:jsd_id
     };
@@ -91,7 +91,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         modalInstance.result.then(function (delData) {
             var jsd_id=locals.get("jsd_id");
             var params2 = {
-                db:"mycon1",
+                db:locals.get("Data_Source_name"),
                 function:"sp_fun_delete_repair_list_main",
                 jsd_id:jsd_id
             }
@@ -171,7 +171,7 @@ app.controller('tenderIndex', ['$http', '$scope', '$state' , "locals", "ionicToa
         var jsd_id = locals.get("jsd_id");
         $scope.jsd_id = jsd_id;
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_repair_list_main_other",
             column_name: columnName,
             data: valueData,

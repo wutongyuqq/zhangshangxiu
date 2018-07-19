@@ -19,28 +19,25 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
     $scope.checkDate = function () {
         user = $scope.user;
 
-        var params =  {
-            db:"sjsoft_SQL",
-            function:"sp_fun_check_service_validity",
-            data_source:user.factoryName,
+        var params = {
+            db: "sjsoft_SQL",
+            function: "sp_fun_check_service_validity",
+            data_source: user.factoryName,
             operater_code: user.userName
         };
-        $http({
-            method: 'post',
-            url:   'http://www.whsjsoft.com:5555/restful/pro',
-            dataType: "json",
-            data: angular.toJson(params),
-        }).success(function (data, status, headers, config) {
+        var url = "http://www.whsjsoft.com:5555/restful/pro";
+        var paramJson = angular.toJson(params);
+        getDataFromAjax(url,paramJson,function(data){
             console.log(data);
             var state = data.state;
             var endDateStr = data.service_end_date;
+            locals.set("Data_Source_name",data.Data_Source_name);
+            locals.set("server_ip_port",data.server_ip_port);
 
             if (state == 'true') {
-                var ipAddress = data.server_ip_port;
-                locals.set("ipAddress",ipAddress);
                 var endDate = new Date(endDateStr.replace(/\-/g, "\/"));
                 var nowDate = new Date();
-                var appDataInfo = new Object();
+                // var appDataInfo = new Object();
                 //window.printdata.saveDataForLogin(user.factoryName,data.machine_code,data.machine_key);
                 if (endDate < nowDate) {
                     ionicToast.show("服务有效期限已经过了，请联系首佳软件进行续费。 过期时间：" + (endDate.length > 10 ? endDate.substr(0, 10) : endDate), 'middle',false, 2000);
@@ -51,15 +48,45 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
                 ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 2000);
             }
 
+        });
+
+/*
+        $http({
+            method: 'post',
+            url: '/restful/pro',
+            dataType: "json",
+            data: angular.toJson(params)
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            var state = data.state;
+            var endDateStr = data.service_end_date;
+
+            if (state == 'true') {
+                var endDate = new Date(endDateStr.replace(/\-/g, "\/"));
+                var nowDate = new Date();
+               // var appDataInfo = new Object();
+                //window.printdata.saveDataForLogin(user.factoryName,data.machine_code,data.machine_key);
+                if (endDate < nowDate) {
+                    ionicToast.show("服务有效期限已经过了，请联系首佳软件进行续费。 过期时间：" + (endDate.length > 10 ? endDate.substr(0, 10) : endDate), 'middle',false, 2000);
+                } else {
+                    $scope.checkOtherService();
+                }
+            } else {
+                ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 2000);
+            }
+
+
         }).error(function (data, status, headers, config) {
             console.log(data);
-        });
+        });*/
+
+
     }
 
 
     $scope.checkOtherService = function () {
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_check_user_state",
             operater_code: user.userName,
             operater_ip: returnCitySN.cip
@@ -84,7 +111,7 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
 
     $scope.login = function () {
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_check_user_state_login",
             operater_code: user.userName,
             operater_ip: returnCitySN.cip,
@@ -121,6 +148,8 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
     }
 
 }]);
+
+
 
 
 

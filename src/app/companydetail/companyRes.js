@@ -13,7 +13,7 @@ app.controller('CompanyResCtrl', ['$http', '$scope', '$state', 'ionicToast', 'lo
            return;
        }
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_state",
             company_code: user.company_code,
             states: chooseName,

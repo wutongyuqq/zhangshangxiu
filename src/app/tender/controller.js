@@ -90,7 +90,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', '$state' , "locals", "ion
     $scope.getFirstPageData = function () {
 
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_maintenance_category"
         }
 
@@ -164,7 +164,7 @@ app.controller('tenderDetailCtrl', ['$http', '$scope', '$state' , "locals", "ion
 
         var params = {
 
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_maintenance_project_detail",
             jsd_id: jsd_id,
             xlxm: chooseItem.mc,
@@ -212,7 +212,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         var jsd_id = locals.get("jsd_id");
         $scope.jsd_id = jsd_id;
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_repair_list_main_other",
             column_name: columnName,
             data: valueData,
@@ -283,7 +283,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         var jsd_id = locals.get("jsd_id");
         $scope.jsd_id = jsd_id;
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_list_main",
             jsd_id: jsd_id
         };
@@ -436,7 +436,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         var carInfo2 = $scope.carInfo;
 
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_fault_info",
             customer_id: customer_id,
             car_fault: $scope.guzhangDes?$scope.guzhangDes:"",
@@ -491,7 +491,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         var carInfo = locals.getObject("carInfo");
 
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_jsdmx_xlxm",
             jsd_id: jsdId
         }
@@ -567,7 +567,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
         modalInstance.result.then(function (delData) {
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_delete_maintenance_project_detail",
                 jsd_id: jsdId,
                 xh: delData.xh
@@ -603,7 +603,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.numPj = 0;
     $scope.getPjData = function () {
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_jsdmx_pjclmx",
             jsd_id: jsdId
         }
@@ -657,7 +657,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
         modalInstance.result.then(function (delData) {
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_delete_parts_project_detail",
                 jsd_id: jsdId,
                 xh: delData.xh
@@ -705,7 +705,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             var jsd_id = locals.get("jsd_id");
             var params = {
 
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_upload_maintenance_project_detail",
                 jsd_id: jsd_id,
                 zk: item.xlf - resData.xlf,
@@ -736,7 +736,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
             if (resData.isNewPrice) {
                 var params = {
-                    db: "mycon1",
+                    db: locals.get("Data_Source_name"),
                     function: "sp_fun_upload_maintenance_project_library",
                     xlxm: resData.xlxm,
                     wxgz: resData.wxgz,
@@ -769,7 +769,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
             } else {
                 var params = {
-                    db: "mycon1",
+                    db: locals.get("Data_Source_name"),
                     function: "sp_fun_upload_maintenance_project_library",
                     xlxm: resData.xlxm,
                     wxgz: resData.wxgz,
@@ -812,7 +812,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         var jsd_id = locals.get("jsd_id");
         var params =
         {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_parts_project_detail",
             jsd_id: jsd_id,
             pjbm: item.pjbm,
@@ -879,7 +879,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         } else if (djzt == "全部完工") {
 
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_update_repair_list_state",
                 jsd_id: jsdId,
                 states: "审核未结算",
@@ -908,7 +908,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
         } else if (djzt == "取消完工") {
 
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_update_repair_list_state",
                 jsd_id: jsdId,
                 states: "修理中",
@@ -959,7 +959,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
             var jsd_id = locals.get("jsd_id");
             var params = {
 
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_upload_maintenance_project_detail",
                 jsd_id: jsd_id,
                 xlxm: tempData.mc,
@@ -1010,7 +1010,7 @@ app.controller('WinbdingCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
 
             var jsd_id = locals.get("jsd_id");
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_update_repair_main_money",
                 jsd_id: jsd_id,
                 zje: Number($scope.pjTotal) + Number($scope.xlfTotal) + '',
@@ -1134,7 +1134,7 @@ app.controller('modalEditCtrl', function ($scope, $state, $modalInstance, locals
 
 
 
-//{"db":"mycon1","function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""} 
+//{"db":locals.get("Data_Source_name"),"function":"sp_fun_down_stock","comp_code":"A","pjbm":"","cd":"","ck":""}
 app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$state', 'locals', '$anchorScroll', "$location", function ($http, $scope, utils, $stateParams, $state, locals, $anchorScroll, $location) {
     var selt = this;
     var carInfo = locals.getObject("carInfo");
@@ -1146,7 +1146,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
     }
     $scope.showSelectMore = 0;
     var params = {
-        db: "mycon1",
+        db: locals.get("Data_Source_name"),
         function: "sp_fun_down_stock",
         comp_code: user.company_code,
         pjbm: "",
@@ -1251,7 +1251,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
         var jsd_id = locals.get("jsd_id");
         var params =
         {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_parts_project_detail",
             jsd_id: jsd_id,
             pjbm: item.pjbm,
@@ -1319,7 +1319,7 @@ app.controller('TenderSayCtrl', ['$http', '$scope', 'utils', '$stateParams', '$s
         var jsd_id = locals.get("jsd_id");
         var params =
         {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_parts_project_detail",
             jsd_id: jsd_id,
             pjbm: item.pjbm,
@@ -1405,7 +1405,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
     //获取派工列表
     $scope.getPgListData = function () {
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_jsdmx_xlxm_assign",
             jsd_id: jsdId
         }
@@ -1450,7 +1450,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
 
 
         var params2 = {
-        db:"mycon1",
+        db:locals.get("Data_Source_name"),
             function:"sp_fun_update_maintenance_project_pgje",
             jsd_id:jsd_id,
             xh:item.xh,
@@ -1521,7 +1521,7 @@ app.controller('TendListCtrl', ['$http', '$scope', '$state', "ionicToast", "loca
     $scope.toPGDataToServer = function (jsd_id, choosePersonStr, xh) {
 
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_jsdmx_xlxm_assign",
             jsd_id: jsd_id,
             xh: xh,
@@ -1690,7 +1690,7 @@ app.controller('TendListDetailCtrl', ['$http', '$scope', '$state', "locals", "io
         var carInfo = locals.getObject("carInfo");
         var params =
         {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_history",
             customer_id: carInfo.customer_id,
             dates: startData,

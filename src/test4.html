@@ -27,7 +27,7 @@ function postData(){
     $.ajax({
         url:"http://121.43.148.193:5555/restful/pro",
         type:"post",
-        data:'{"db":"mycon1","function":"sp_fun_down_maintenance_project","previous_xh":'+postFlag+'}',
+        data:'{"db":locals.get("Data_Source_name"),"function":"sp_fun_down_maintenance_project","previous_xh":'+postFlag+'}',
         dataType:"json",
         success:function(data){
             console.log(data);

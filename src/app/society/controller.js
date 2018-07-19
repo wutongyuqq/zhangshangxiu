@@ -3,7 +3,7 @@ app.controller('carInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         var carInfo = locals.getObject("carInfo");
         $scope.carInfo = carInfo;
         var params = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_down_car_info",
             customer_id: carInfo.customer_id
     };
@@ -39,7 +39,7 @@ app.controller('czInfoCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
         var carInfo = locals.getObject("carInfo");
         $scope.carInfo=carInfo;
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_car_owner",
             customer_id: carInfo.customer_id
         };

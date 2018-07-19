@@ -77,3 +77,18 @@ app.filter('unique', function () {
     };
 });
 
+
+function getDataFromAjax(url,paramJson,callback) {
+    $.ajax({
+        type:"post",
+        url:url,
+        data:paramJson,
+        success:function(data){
+            console.log(data);
+            if(callback){
+                callback(JSON.parse(data));
+            }
+        }
+    });
+}
+

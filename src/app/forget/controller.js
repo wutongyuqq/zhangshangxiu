@@ -31,7 +31,7 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
             return;
         }
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_project_state",
             company_code: user.company_code,
             states: queryStatuStr,
@@ -94,7 +94,7 @@ app.controller('ForgetCtrl', ['$http', '$scope', '$state', "locals", "ionicToast
     $scope.getFirstPageData = function () {
 
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_maintenance_category"
         }
 
@@ -271,7 +271,7 @@ app.controller('LinggongCtrl', ['$http', '$scope', '$state', "locals", "ionicToa
     $scope.getLinggongData = function () {
         var user = locals.getObject("user");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_project_schedule",
             jsd_id: jsd_id
         }
@@ -308,7 +308,7 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
     $scope.getLinggongData = function () {
         var user = locals.getObject("user");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_project_schedule",
             jsd_id: jsd_id
         }
@@ -357,7 +357,7 @@ app.controller('TiaozhengCtrl', ['$http', '$scope', '$state', "locals", "ionicTo
         }
         xhStr=xhStr.substring(0,xhStr.length-1);
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_jsdmx_xlxm_xlg",
             jsd_id: jsd_id,
             xh_list:xhStr,
@@ -446,7 +446,7 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     $scope.getLinggongData = function () {
         var user = locals.getObject("user");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_project_schedule",
             jsd_id: jsd_id
         }
@@ -477,7 +477,7 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     $scope.fanGong = function () {
 
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_repair_list_state",
             jsd_id: jsd_id,
             states: "",
@@ -555,7 +555,7 @@ app.controller('JianyanCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
         var jsd_id = locals.get("jsd_id");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_repair_list_state",
             jsd_id: jsd_id,
             states: "",
@@ -600,7 +600,7 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     $scope.getLinggongData = function () {
         var user = locals.getObject("user");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_project_schedule",
             jsd_id: jsd_id
         }
@@ -632,7 +632,7 @@ app.controller('WanGongCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
 
         var jsd_id = locals.get("jsd_id");
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_repair_list_state",
             jsd_id: jsd_id,
             states: "修理中",
@@ -722,7 +722,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         selectAll = false;
         $scope.selectAll=selectAll;
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repair_project_schedule",
             jsd_id: jsd_id
         }
@@ -752,7 +752,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     $scope.getLinggongData();
     function getRepairData() {
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_repairman",
             company_code: user.company_code
         }
@@ -812,7 +812,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             }
             xhStr=xhStr.substring(0,xhStr.length-1);
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_update_jsdmx_xlxm_xlg_add",
                 jsd_id: jsd_id,
                 xh_list:xhStr,
@@ -860,7 +860,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
         xhStr=xhStr.substring(0,xhStr.length-1);
         var params = {
 
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_jsdmx_xlxm_xlg",
             jsd_id: jsd_id,
             xh_list:xhStr,
@@ -924,7 +924,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
             }
             xhStr=xhStr.substring(0,xhStr.length-1);
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_update_jsdmx_xlxm_xlg",
                 jsd_id: jsd_id,
                 xh_list:xhStr,
@@ -1002,7 +1002,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     $scope.siGongWanBi=function(){
             var jsd_id = locals.get("jsd_id");
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_update_repair_list_state",
                 jsd_id: jsd_id,
                 states: "已完工",
@@ -1094,7 +1094,7 @@ app.controller('HuanRenCtrl', ['$http', '$scope', '$state', "locals", "ionicToas
     //加人
     $scope.addMan = function (xhStr,xlgStr) {
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_jsdmx_xlxm_xlg_add",
             jsd_id: jsd_id,
             xh_list:xhStr,

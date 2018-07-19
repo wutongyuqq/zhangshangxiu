@@ -7,7 +7,7 @@ app.controller('guzhangCtrl', ['$http', '$scope', '$state' , "locals", "ionicToa
 
     $scope.getGuzhangHistory=function(){
         var params2 = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_get_fault_info",
             customer_id:carInfo.customer_id,
             days:"1901-01-01 0:00:00"
@@ -86,7 +86,7 @@ app.controller('guzhangCtrl', ['$http', '$scope', '$state' , "locals", "ionicToa
 
 
             var params = {
-                db: "mycon1",
+                db: locals.get("Data_Source_name"),
                 function: "sp_fun_update_fault_info",
                 customer_id: carInfo.customer_id,
                 car_fault: gzms,

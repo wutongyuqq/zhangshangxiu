@@ -95,7 +95,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             return;
         }
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_plate_number",
             company_code: user.company_code,
             previous_xh: previous_xh
@@ -153,7 +153,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         if((newCarArray==null||newCarArray.length==null||newCarArray.length==0)&&searchName.length==6){
             var serchNameT = $scope.proName + searchName;
             var params = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
                 function:"sp_fun_down_cp_one",
                 company_code:user.company_code,
                 cp:serchNameT
@@ -215,7 +215,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         var jsd_id = locals.get("jsd_id");
         $scope.jsd_id = jsd_id;
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_upload_repair_list_main_other",
             column_name: columnName,
             data: valueData,
@@ -248,7 +248,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     $scope.showGuzhangT = function (gzDesc) {//故障上传
 
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_update_fault_info",
             customer_id: gz_customer_id,
             car_fault: gzDesc?gzDesc:"",
@@ -311,7 +311,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         if(isNewCar){//如果是新车，就调用5-3 新车上传信息。
             upLoadInfo.company_code = user.company_code;
             var params = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
                 function:"sp_fun_upload_customer_info",
                 company_code:user.company_code,
                 plate_number:upLoadInfo.cardName?upLoadInfo.cardName:"",
@@ -350,7 +350,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
         }else{  //2，如果不是新车，就更新车辆信息
             var params = {
-                db:"mycon1",
+                db:locals.get("Data_Source_name"),
                 function:"sp_fun_update_customer_info",
                 cz:upLoadInfo.cz,
                 mobile:upLoadInfo.mobile+'',
@@ -393,7 +393,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     var repairPersonList = locals.getObject("repairPersonList");
     if(repairPersonList==null||repairPersonList.length==null||repairPersonList.length==0||repairPersonList=="undefined"){
         var params={
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_down_repairman",
             company_code:user.company_code
         }
@@ -417,7 +417,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     //3  5-9：检查是否有未完工的单据
     $scope.uploadCarToServer=function(upLoadInfo){
         var params = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_check_repair_list_cp",
             customer_id:upLoadInfo.customer_id
         }
@@ -450,7 +450,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
         var dateTime=$scope.getDateTime();
         gz_jc_date = dateTime;
         var params = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_upload_repair_list_main",
             company_code:user.company_code,
             plate_number:upLoadInfo.cardName?upLoadInfo.cardName:"",
@@ -529,7 +529,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
 
     $scope.getAutorData=function(){
         var params = {
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_get_oprater_right",
             operater_code:userName
         };
@@ -566,7 +566,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     $scope.getFirstPageData=function(){
 
         var params={
-            db:"mycon1",
+            db:locals.get("Data_Source_name"),
             function:"sp_fun_down_maintenance_category"
         }
 
@@ -603,7 +603,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
             return;
         }
         var params = {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_maintenance_project",
             previous_xh: postFlag
         };

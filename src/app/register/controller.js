@@ -22,7 +22,7 @@ app.controller('RegisterCtrl', ['$http','$scope','ionicToast','locals','$state',
             $scope.carListData=hasCarListData;
         }else{
         var params= {
-            db: "mycon1",
+            db: locals.get("Data_Source_name"),
             function: "sp_fun_down_plate_number_other",
             company_code: user.company_code,
             parameter: searchName

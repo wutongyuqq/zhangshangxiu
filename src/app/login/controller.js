@@ -129,6 +129,8 @@ app.controller('LoginCtrl', ['$http','$scope', '$state','locals',"ionicToast", f
             locals.setObject("user",user);
             if(state=='true'){
                 $state.go("home");
+            }else{
+                ionicToast.show(data.msg ? data.msg : "服务异常", 'middle',false, 2000);
             }
         });
     }

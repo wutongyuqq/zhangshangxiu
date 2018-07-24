@@ -2,7 +2,7 @@ app.controller('HomeCtrl', ['$http', '$scope', "locals","$modal","$state","ionic
     var selt = this;
     var postNum=0;
     var user = locals.getObject("user");
-    if(user==null||user.userName==null){
+    if(user==null||user.userName==null|| locals.get("Data_Source_name")==null||locals.get("Data_Source_name")==""){
         $state.go("Login");
         return;
     }
